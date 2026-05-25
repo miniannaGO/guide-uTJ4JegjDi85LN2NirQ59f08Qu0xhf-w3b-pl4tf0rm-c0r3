@@ -1,0 +1,816 @@
+.concept-card {
+  --card-color: var(--guide-accent-blue);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--card-color) 38%, transparent);
+  background:
+    radial-gradient(
+      ellipse at 96% 0%,
+      color-mix(in srgb, var(--card-color) 15%, transparent) 0%,
+      color-mix(in srgb, var(--card-color) 7%, transparent) 42%,
+      transparent 78%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--card-color) 9%, transparent) 0%,
+      color-mix(in srgb, var(--card-color) 4%, transparent) 46%,
+      transparent 82%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(45, 42, 46, 0.985) 0%,
+      rgba(39, 36, 40, 0.98) 58%,
+      rgba(34, 31, 34, 0.98) 100%
+    );
+  box-shadow:
+    inset 0.12rem 0 0 color-mix(in srgb, var(--card-color) 46%, transparent),
+    inset 0.42rem 0 1.2rem color-mix(in srgb, var(--card-color) 9%, transparent),
+    0 0 1.1rem color-mix(in srgb, var(--card-color) 5%, transparent);
+}
+
+.concept-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--card-color) 24%, transparent) 18%,
+    color-mix(in srgb, var(--card-color) 12%, transparent) 58%,
+    transparent 94%
+  );
+  content: "";
+  opacity: 0.82;
+  pointer-events: none;
+}
+
+.guide-card-link[href^="index.html"] .concept-card {
+  --card-color: var(--guide-accent-blue);
+}
+
+.guide-card-link[href^="getting-started.html"] .concept-card {
+  --card-color: var(--guide-tab-1);
+}
+
+.guide-card-link[href^="fundamentals.html"] .concept-card {
+  --card-color: var(--guide-tab-2);
+}
+
+.guide-card-link[href^="app-gateway.html"] .concept-card {
+  --card-color: var(--guide-tab-3);
+}
+
+.guide-card-link[href^="app-surface.html"] .concept-card {
+  --card-color: var(--guide-tab-4);
+}
+
+.guide-card-link[href^="bridge.html"] .concept-card {
+  --card-color: var(--guide-tab-5);
+}
+
+.guide-card-link[href^="tools.html"] .concept-card {
+  --card-color: var(--guide-tab-6);
+}
+
+.guide-card-link[href^="recipes.html"] .concept-card {
+  --card-color: var(--guide-tab-7);
+}
+
+.guide-card-link[href^="diagrams.html"] .concept-card {
+  --card-color: var(--guide-tab-8);
+}
+
+.guide-card-link[href^="reference.html"] .concept-card {
+  --card-color: var(--guide-tab-9);
+}
+
+.guide-card-link[href^="troubleshooting.html"] .concept-card {
+  --card-color: var(--guide-tab-10);
+}
+
+.guide-card-link[href^="bondades.html"] .concept-card {
+  --card-color: var(--guide-accent-orange);
+}
+
+.concept-card .badge {
+  --concept-badge-group: var(--card-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  max-width: 100%;
+  padding: 0.32rem 0.48rem;
+  color: color-mix(in srgb, var(--concept-badge-group) 70%, #fcfcfa) !important;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--concept-badge-group) 34%,
+      rgba(255, 255, 255, 0.08)
+    );
+  border-radius: 0.36rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--concept-badge-group) 12%, transparent),
+    rgba(25, 24, 26, 0.48)
+  ) !important;
+  box-shadow: none;
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.concept-card .badge::before {
+  width: 0.58rem;
+  height: 2px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  opacity: 0.78;
+}
+
+.concept-card .badge.text-bg-primary {
+  --concept-badge-group: var(--guide-accent-strong);
+  border-radius: 0.26rem;
+}
+
+.concept-card .badge.text-bg-success {
+  --concept-badge-group: var(--guide-accent-green);
+  border-radius: 999px;
+}
+
+.concept-card .badge.text-bg-info {
+  --concept-badge-group: var(--guide-accent-blue);
+  border-radius: 0.34rem 0.72rem 0.72rem 0.34rem;
+}
+
+.concept-card .badge.text-bg-secondary {
+  --concept-badge-group: var(--guide-muted);
+  color: color-mix(in srgb, var(--guide-muted) 72%, #fcfcfa) !important;
+  border-style: dashed;
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+.guide-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.guide-card-link .card {
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease;
+}
+
+.guide-card-link:hover .card,
+.guide-card-link:focus-visible .card {
+  border-color: color-mix(in srgb, var(--card-color) 68%, transparent);
+  box-shadow:
+    0 1rem 2rem rgba(0, 0, 0, 0.24),
+    inset 0.12rem 0 0 color-mix(in srgb, var(--card-color) 58%, transparent),
+    inset 0.42rem 0 1.2rem
+      color-mix(in srgb, var(--card-color) 13%, transparent),
+    0 0 1.5rem color-mix(in srgb, var(--card-color) 16%, transparent);
+  transform: translateY(-2px);
+}
+
+.guide-page--fundamentals #mental-model .card:not(.concept-card),
+.guide-page--troubleshooting .troubleshooting-group .card:not(.concept-card) {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid
+    color-mix(in srgb, var(--support-card-color) 32%, var(--guide-border-soft)) !important;
+  background:
+    radial-gradient(
+      ellipse at 96% 0%,
+      color-mix(in srgb, var(--support-card-color) 12%, transparent) 0%,
+      color-mix(in srgb, var(--support-card-color) 6%, transparent) 44%,
+      transparent 80%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--support-card-color) 8%, transparent) 0%,
+      color-mix(in srgb, var(--support-card-color) 4%, transparent) 48%,
+      transparent 84%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(45, 42, 46, 0.985) 0%,
+      rgba(39, 36, 40, 0.98) 58%,
+      rgba(34, 31, 34, 0.98) 100%
+    ) !important;
+  box-shadow:
+    inset 0.1rem 0 0
+      color-mix(in srgb, var(--support-card-color) 34%, transparent),
+    inset 0.36rem 0 1rem
+      color-mix(in srgb, var(--support-card-color) 7%, transparent),
+    0 0.85rem 1.55rem rgba(0, 0, 0, 0.18),
+    0 0 1rem color-mix(in srgb, var(--support-card-color) 5%, transparent) !important;
+}
+
+.guide-page--fundamentals #mental-model .card:not(.concept-card)::before,
+.guide-page--troubleshooting
+  .troubleshooting-group
+  .card:not(.concept-card)::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--support-card-color) 18%, transparent) 22%,
+    color-mix(in srgb, var(--support-card-color) 8%, transparent) 64%,
+    transparent 95%
+  );
+  content: "";
+  opacity: 0.68;
+  pointer-events: none;
+}
+
+.guide-page--fundamentals #mental-model .row > .col-lg-4:nth-child(1) .card {
+  --support-card-color: var(--guide-accent-strong);
+}
+
+.guide-page--fundamentals #mental-model .row > .col-lg-4:nth-child(2) .card {
+  --support-card-color: var(--guide-accent-green);
+}
+
+.guide-page--fundamentals #mental-model .row > .col-lg-4:nth-child(3) .card {
+  --support-card-color: var(--guide-accent-blue);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--method {
+  --support-card-color: var(--page-color);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--entry {
+  --support-card-color: var(--guide-accent-orange);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--application {
+  --support-card-color: var(--guide-accent-strong);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--outbound {
+  --support-card-color: var(--guide-accent-purple);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--surface {
+  --support-card-color: var(--guide-accent-blue);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--session-assets {
+  --support-card-color: var(--guide-accent-green);
+}
+
+.guide-page--troubleshooting .troubleshooting-group--observability {
+  --support-card-color: var(--guide-danger);
+}
+
+.guide-page--fundamentals #mental-model .card-body > h3,
+.guide-page--troubleshooting .troubleshooting-group > h2,
+.guide-page--troubleshooting .troubleshooting-group .card-body > h2 {
+  color: color-mix(in srgb, var(--support-card-color) 52%, var(--guide-text));
+}
+
+.guide-page--troubleshooting .troubleshooting-group > p {
+  color: var(--guide-muted);
+}
+
+.guide-checklist {
+  display: grid;
+  gap: 0.58rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card-body > .guide-checklist:first-child {
+  margin-top: 0;
+}
+
+.guide-checklist li {
+  position: relative;
+  min-width: 0;
+  padding: 0.66rem 0.82rem 0.66rem 2.45rem;
+  border: 1px solid rgba(120, 220, 232, 0.14);
+  background: rgba(25, 24, 26, 0.6);
+  color: var(--guide-text);
+  overflow-wrap: anywhere;
+}
+
+.guide-checklist li + li {
+  margin-top: 0;
+}
+
+.guide-checklist li::before {
+  content: "";
+  position: absolute;
+  top: 1.25rem;
+  left: 0.9rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--guide-accent-green);
+  box-shadow: 0 0 0 4px rgba(169, 220, 118, 0.12);
+}
+
+ol.guide-checklist {
+  counter-reset: guide-checklist;
+}
+
+ol.guide-checklist > li {
+  counter-increment: guide-checklist;
+}
+
+ol.guide-checklist > li::before {
+  content: counter(guide-checklist, decimal-leading-zero);
+  top: 0.75rem;
+  left: 0.62rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.38rem;
+  height: 1.38rem;
+  color: #19181a;
+  background: var(--guide-accent-purple);
+  box-shadow: 0 0 0 4px rgba(120, 220, 232, 0.12);
+  font-family: var(--bs-font-monospace);
+  font-size: 0.68rem;
+  font-weight: 400;
+}
+
+.guide-callout {
+  border-left: 4px solid var(--guide-accent);
+  background:
+    linear-gradient(90deg, rgba(255, 97, 136, 0.1), rgba(120, 220, 232, 0.05)),
+    rgba(25, 24, 26, 0.56);
+  color: var(--guide-text);
+}
+
+.guide-crosslink {
+  margin-top: 0.85rem;
+  margin-bottom: 0;
+  padding: 0.72rem 0.86rem;
+  color: rgba(252, 252, 250, 0.72);
+  border-left: 3px solid color-mix(in srgb, var(--page-color) 48%, transparent);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color) 9%, transparent),
+      transparent 70%
+    ),
+    rgba(255, 255, 255, 0.018);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.guide-crosslink em {
+  font-style: normal;
+}
+
+.guide-crosslink a {
+  color: color-mix(in srgb, var(--page-color) 62%, #fcfcfa);
+  font-weight: 760;
+}
+
+.guide-crosslink a:hover,
+.guide-crosslink a:focus-visible {
+  color: #fff;
+}
+
+.guide-page--getting-started {
+  --page-color: var(--guide-tab-1);
+  --page-color-companion: var(--guide-tab-1);
+}
+
+.guide-page--fundamentals {
+  --page-color: var(--guide-tab-2);
+  --page-color-companion: var(--guide-tab-2);
+}
+
+.guide-page--app-gateway {
+  --page-color: var(--guide-tab-3);
+  --page-color-companion: var(--guide-tab-3);
+}
+
+.guide-page--app-surface {
+  --page-color: var(--guide-tab-4);
+  --page-color-companion: var(--guide-tab-4);
+}
+
+.guide-page--bridge {
+  --page-color: var(--guide-tab-5);
+  --page-color-companion: var(--guide-tab-5);
+}
+
+.guide-page--tools {
+  --page-color: var(--guide-tab-6);
+  --page-color-companion: var(--guide-tab-6);
+}
+
+.guide-page--recipes {
+  --page-color: var(--guide-tab-7);
+  --page-color-companion: var(--guide-tab-7);
+}
+
+.guide-page--diagrams {
+  --page-color: var(--guide-tab-8);
+  --page-color-companion: var(--guide-tab-8);
+}
+
+.guide-page--reference {
+  --page-color: var(--guide-tab-8);
+  --page-color-companion: var(--guide-tab-8);
+}
+
+.guide-page--troubleshooting {
+  --page-color: var(--guide-tab-8);
+  --page-color-companion: var(--guide-tab-8);
+}
+
+:not(pre) > code {
+  color: color-mix(in srgb, var(--guide-accent-strong) 86%, #fcfcfa);
+  background: rgba(255, 216, 102, 0.075);
+  border: 0;
+  border-radius: 0.28rem;
+  box-shadow: inset 0 -1px 0 rgba(255, 216, 102, 0.24);
+  font-family: var(--bs-font-monospace);
+  font-size: 0.9em;
+  font-weight: 400;
+  padding: 0.15rem 0.75rem;
+  white-space: normal;
+}
+
+.guide-term {
+  color: color-mix(in srgb, var(--page-color) 36%, var(--guide-text));
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--page-color) 1%, transparent),
+      color-mix(in srgb, var(--page-color) 5%, transparent)
+    ),
+    linear-gradient(
+      180deg,
+      transparent 62%,
+      color-mix(in srgb, var(--page-color) 10%, transparent) 62%
+    );
+  border: 1px solid color-mix(in srgb, var(--page-color) 18%, transparent);
+  border-radius: 0.24rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  padding: 0.01rem 0.18rem 0.03rem;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+.guide-page--fundamentals main .card:not(.concept-card) .badge {
+  --fundamentals-badge-color: var(--page-color);
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.28rem 0.46rem 0.28rem 0.52rem;
+  color: color-mix(
+    in srgb,
+    var(--fundamentals-badge-color) 72%,
+    #fcfcfa
+  ) !important;
+  border: 0;
+  border-left: 3px solid
+    color-mix(in srgb, var(--fundamentals-badge-color) 78%, transparent);
+  border-radius: 0.16rem 0.42rem 0.42rem 0.16rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--fundamentals-badge-color) 14%, transparent),
+    rgba(25, 24, 26, 0.34)
+  ) !important;
+  box-shadow: none;
+  font-size: 0.72rem;
+  font-weight: 850;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.guide-page--fundamentals main .card:not(.concept-card) .badge.text-bg-primary {
+  --fundamentals-badge-color: var(--guide-accent-strong);
+}
+
+.guide-page--fundamentals main .card:not(.concept-card) .badge.text-bg-success {
+  --fundamentals-badge-color: var(--guide-accent-green);
+}
+
+.guide-page--fundamentals main .card:not(.concept-card) .badge.text-bg-info {
+  --fundamentals-badge-color: var(--guide-accent-blue);
+}
+
+.code-card {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  margin-block: 1.25rem;
+  border: 1px solid rgba(120, 220, 232, 0.22);
+  border-radius: 0.75rem;
+  background: #19181a;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.25);
+}
+
+.guide-section .row .code-card {
+  margin-block: 0;
+}
+
+.code-card + .code-card {
+  margin-top: 1.5rem;
+}
+
+.code-card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0.85rem;
+  color: #d9fbff;
+  background:
+    linear-gradient(90deg, rgba(120, 220, 232, 0.13), rgba(255, 97, 136, 0.1)),
+    #221f22;
+  border-bottom: 1px solid rgba(120, 220, 232, 0.2);
+}
+
+.code-card__bar span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.code-card pre,
+.code-card pre[class*="language-"] {
+  max-width: 100%;
+  max-height: 34rem;
+  overflow: auto;
+  margin: 0 !important;
+  padding: 1rem 1.125rem !important;
+  border-radius: 0 !important;
+  background: #19181a !important;
+  white-space: pre !important;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.code-card code,
+.code-card code[class*="language-"] {
+  display: block;
+  color: #fcfcfa;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  tab-size: 2;
+  white-space: inherit !important;
+  text-shadow: none;
+}
+
+.code-card pre::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.code-card pre::-webkit-scrollbar-track {
+  background: #19181a;
+}
+
+.code-card pre::-webkit-scrollbar-thumb {
+  background: #5b595c;
+  border: 2px solid #19181a;
+  border-radius: 999px;
+}
+
+.code-card pre::-webkit-scrollbar-thumb:hover {
+  background: #727072;
+}
+
+.step-number {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.flow-rail {
+  --rail-color: var(--guide-accent-blue);
+  --rail-soft: rgba(120, 220, 232, 0.2);
+  --rail-glow: rgba(120, 220, 232, 0.24);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  isolation: isolate;
+}
+
+.flow-rail li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.7rem minmax(0, 1fr);
+  gap: 0.42rem;
+  align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 2.05rem;
+  padding: 0.38rem 0.52rem;
+  border: 1px solid var(--rail-soft);
+  border-radius: 0.8rem;
+  background:
+    linear-gradient(180deg, rgba(64, 62, 65, 0.38), rgba(25, 24, 26, 0.86)),
+    #221f22;
+  color: var(--guide-text);
+  font-family: inherit;
+  font-size: 0.73rem;
+  font-weight: 400;
+  line-height: 1.18;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 3px 0 0 var(--rail-color),
+    0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+.flow-rail li::before {
+  content: "";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.45rem;
+  border: 1px solid color-mix(in srgb, var(--rail-color) 52%, transparent);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 0.4rem 50%,
+      #19181a 0 0.12rem,
+      transparent 0.13rem
+    ),
+    linear-gradient(90deg, #19181a, #19181a) 0.56rem 50% / 0.45rem 0.1rem
+      no-repeat,
+    radial-gradient(
+      circle at 1.14rem 50%,
+      #19181a 0 0.12rem,
+      transparent 0.13rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--rail-color) 68%, #fcfcfa),
+      var(--rail-color)
+    );
+  box-shadow:
+    0 0 0 2px rgba(25, 24, 26, 0.96),
+    0 0 0 3px var(--rail-glow);
+}
+
+.flow-rail li > a {
+  color: inherit;
+  text-decoration: none;
+  padding-left: 0.5em;
+}
+
+.flow-rail li > a:hover,
+.flow-rail li > a:focus-visible {
+  color: var(--rail-color);
+}
+
+.flow-rail li > a:focus-visible {
+  outline: 2px solid var(--rail-color);
+  outline-offset: 0.18rem;
+  border-radius: 0.35rem;
+}
+
+.flow-rail--green {
+  --rail-color: var(--guide-accent-green);
+  --rail-soft: rgba(169, 220, 118, 0.2);
+  --rail-glow: rgba(169, 220, 118, 0.24);
+}
+
+.flow-rail--yellow {
+  --rail-color: var(--guide-accent-strong);
+  --rail-soft: rgba(255, 216, 102, 0.22);
+  --rail-glow: rgba(255, 216, 102, 0.24);
+}
+
+body[class*="guide-page--"] .flow-rail:not(.flow-rail--spectrum) {
+  --rail-color: var(--page-color);
+  --rail-soft: color-mix(in srgb, var(--page-color) 30%, transparent);
+  --rail-glow: color-mix(in srgb, var(--page-color) 24%, transparent);
+}
+
+.flow-rail--blue {
+  --rail-color: var(--guide-accent-blue);
+  --rail-soft: rgba(120, 220, 232, 0.2);
+  --rail-glow: rgba(120, 220, 232, 0.24);
+}
+
+.flow-rail--purple {
+  --rail-color: var(--guide-accent-purple);
+  --rail-soft: rgba(171, 157, 242, 0.22);
+  --rail-glow: rgba(171, 157, 242, 0.24);
+}
+
+.flow-rail--orange {
+  --rail-color: var(--guide-accent-orange);
+  --rail-soft: rgba(252, 152, 103, 0.22);
+  --rail-glow: rgba(252, 152, 103, 0.24);
+}
+
+body[class*="guide-page--"] .flow-rail:not(.flow-rail--spectrum) li {
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 8%, transparent),
+      rgba(25, 24, 26, 0.86) 54%
+    ),
+    #221f22;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 3px 0 0 var(--page-color),
+    0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 0 0.62rem color-mix(in srgb, var(--page-color) 5%, transparent);
+}
+
+.flow-rail--spectrum li {
+  --rail-soft: color-mix(in srgb, var(--rail-color) 32%, transparent);
+  --rail-glow: color-mix(in srgb, var(--rail-color) 24%, transparent);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--rail-color) 16%, transparent),
+      rgba(25, 24, 26, 0.82) 52%
+    ),
+    #221f22;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 3px 0 0 var(--rail-color),
+    0 0.45rem 0.9rem rgba(0, 0, 0, 0.16),
+    0 0 0.7rem color-mix(in srgb, var(--rail-color) 6%, transparent);
+}
+
+.flow-rail--spectrum li:nth-child(1) {
+  --rail-color: var(--guide-tab-1);
+}
+
+.flow-rail--spectrum li:nth-child(2) {
+  --rail-color: var(--guide-tab-2);
+}
+
+.flow-rail--spectrum li:nth-child(3) {
+  --rail-color: var(--guide-tab-3);
+}
+
+.flow-rail--spectrum li:nth-child(4) {
+  --rail-color: var(--guide-tab-4);
+}
+
+.flow-rail--spectrum li:nth-child(5) {
+  --rail-color: var(--guide-tab-5);
+}
+
+.flow-rail--spectrum li:nth-child(6) {
+  --rail-color: var(--guide-tab-6);
+}
+
+.flow-rail--spectrum li:nth-child(7) {
+  --rail-color: var(--guide-tab-7);
+}
+
+.flow-rail--spectrum li:nth-child(8) {
+  --rail-color: var(--guide-tab-8);
+}
+
+.flow-rail--spectrum li:nth-child(9) {
+  --rail-color: var(--guide-tab-9);
+}
+
+.guide-quick-item .flow-rail {
+  grid-template-columns: 1fr;
+  gap: 0.42rem;
+}
+
+.guide-quick-item .flow-rail li {
+  grid-template-columns: 1.55rem minmax(0, 1fr);
+  min-height: 2rem;
+  padding: 0.36rem 0.48rem;
+  font-family: inherit;
+}
+
+.guide-quick-item .flow-rail li::before {
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 999px;
+}

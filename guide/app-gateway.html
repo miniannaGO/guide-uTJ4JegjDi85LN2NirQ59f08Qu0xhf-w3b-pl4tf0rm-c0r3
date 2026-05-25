@@ -1,0 +1,3746 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>App Gateway | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--app-gateway"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              App Gateway
+            </li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">App Gateway</h1>
+        <p class="lead mb-0">
+          Gateway de aplicación también conocido como BFF/SSR (Backend for
+          Frontend/Server-Side Rendering) o backend liviano. Centraliza la
+          entrada HTTP, ejecuta casos de uso, integra APIs HTTP externas y
+          entrega respuestas HTML, JSON y assets desde una capa PHP orientada a
+          actuar como fachada de aplicación.
+        </p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#overview">Overview</a>
+                  <a class="nav-link" href="#gateway-first-read"
+                    >Lectura guiada</a
+                  >
+                  <a class="nav-link" href="#core-extension"
+                    >Core / Extension</a
+                  >
+                  <a class="nav-link" href="#gateway-capabilities"
+                    >Capacidades</a
+                  >
+                  <a class="nav-link" href="#extension-filesystem"
+                    >Filesystem Extension</a
+                  >
+                  <a class="nav-link" href="#routing">Routing</a>
+                  <a class="nav-link" href="#routing-api"
+                    >Interfaz del router</a
+                  >
+                  <a class="nav-link" href="#controllers">Controllers</a>
+                  <a class="nav-link" href="#usecases">Use cases</a>
+                  <a class="nav-link" href="#services">Services y connectors</a>
+                  <a class="nav-link" href="#external-clients"
+                    >API HTTP clients externos</a
+                  >
+                  <a class="nav-link" href="#middlewares">Middlewares</a>
+                  <a class="nav-link" href="#bootstrap-di">Bootstrap y DI</a>
+                  <a class="nav-link" href="#production-cache"
+                    >Caché producción</a
+                  >
+                  <a class="nav-link" href="#security-session"
+                    >Seguridad y sesión</a
+                  >
+                  <a class="nav-link" href="#views">Views, JSON y assets</a>
+                  <a class="nav-link" href="#errors">Errores</a>
+                  <a class="nav-link" href="#observability">Observabilidad</a>
+                  <a class="nav-link" href="#http-lifecycle">Ciclo HTTP</a>
+                  <a class="nav-link" href="#complete-flow">Flujo completo</a>
+                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section id="overview" class="guide-section">
+            <h2>Overview</h2>
+            <p>
+              `app-gateway` separa la infraestructura reutilizable de la lógica
+              propia del proyecto mediante dos zonas internas: `Core` y
+              `Extension`. `Core` contiene los mecanismos estables del Gateway.
+              `Extension` contiene la aplicación concreta: pantallas, endpoints,
+              reglas, casos de uso e integraciones. La intención es evitar que
+              cada proyecto reescriba infraestructura transversal y, al mismo
+              tiempo, impedir que las features se acoplen a detalles internos
+              del `Core`.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Para ubicar esta división dentro del mapa general, se recomienda
+                revisar
+                <a href="fundamentals.html#context">Contextos y límites</a>
+                y <a href="bridge.html#ownership">Ownership rápido</a>.
+              </em>
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Los nombres de ejemplo son placeholders. Las rutas, controllers,
+                use cases, services, connectors y views deben ajustarse a la
+                intención real de la solución sin copiar negocio de otra
+                Extension.
+              </em>
+            </p>
+          </section>
+
+          <section id="gateway-first-read" class="guide-section">
+            <h2>Lectura guiada de Gateway</h2>
+            <p>
+              Para una primera lectura, no conviene iniciar por DI, cache u
+              outbound. La idea base es esta: Gateway recibe una intención por
+              HTTP, la traduce a aplicación, ejecuta un use case y devuelve una
+              salida controlada. Todo lo demás existe para que ese flujo sea
+              consistente.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Resumen</th>
+                    <th>Detalle que leerás después</th>
+                    <th>Sección</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Core es el motor interno.</td>
+                    <td>
+                      Registra DI, routing, HTTP, views, outbound, errores,
+                      telemetry y helpers. Extension no debe duplicarlo.
+                    </td>
+                    <td><a href="#core-extension">Core / Extension</a></td>
+                  </tr>
+                  <tr>
+                    <td>Extension expresa capacidades concretas.</td>
+                    <td>
+                      Routes, controllers, use cases, services, ports,
+                      connectors, views y providers propios.
+                    </td>
+                    <td><a href="#gateway-capabilities">Capacidades</a></td>
+                  </tr>
+                  <tr>
+                    <td>Routing abre la entrada HTTP.</td>
+                    <td>
+                      La ruta define verbo, path, middlewares y handler antes de
+                      que el controller prepare input.
+                    </td>
+                    <td><a href="#routing">Routing</a></td>
+                  </tr>
+                  <tr>
+                    <td>Controller adapta HTTP.</td>
+                    <td>
+                      Lee request, arma input, valida problemas de presentación
+                      y elige HTML, JSON o fragment.
+                    </td>
+                    <td><a href="#controllers">Controllers</a></td>
+                  </tr>
+                  <tr>
+                    <td>Use case decide aplicación.</td>
+                    <td>
+                      Cierra éxito, parcialidad o fallo sin conocer HTML,
+                      headers ni detalles de proveedor externo.
+                    </td>
+                    <td><a href="#usecases">Use cases</a></td>
+                  </tr>
+                  <tr>
+                    <td>Connector traduce dependencias externas.</td>
+                    <td>
+                      Convierte HTTP externo, transport failure o shape inválido
+                      en <code>ConnectorResult</code>.
+                    </td>
+                    <td><a href="#external-clients">Outbound</a></td>
+                  </tr>
+                  <tr>
+                    <td>Response estabiliza la salida.</td>
+                    <td>
+                      HTML, fragment, JSON envelope, redirect, status, headers y
+                      contexto observable.
+                    </td>
+                    <td><a href="#views">Views, JSON y assets</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Orden sugerido dentro de esta página:
+                <a href="#extension-filesystem">filesystem</a>,
+                <a href="#routing">routing</a>,
+                <a href="#routing-api">router</a>,
+                <a href="#controllers">controllers</a>,
+                <a href="#usecases">use cases</a>,
+                <a href="#services">services/connectors</a>,
+                <a href="#external-clients">service clients</a>,
+                <a href="#middlewares">middlewares</a>,
+                <a href="#bootstrap-di">Bootstrap/DI</a>,
+                <a href="#security-session">seguridad</a>,
+                <a href="#views">views/responses</a> y
+                <a href="#errors">errores</a>. El ciclo HTTP y el flujo completo
+                quedan como lectura de cierre para unir todas las piezas.
+              </em>
+            </p>
+          </section>
+
+          <section id="core-extension" class="guide-section">
+            <h2>Core / Extension</h2>
+
+            <p>
+              <code>app-gateway</code> se organiza en dos capas internas:
+              <strong>Core</strong> concentra las capacidades estables del
+              Gateway: routing, HTTP, results, errores, views, outbound, DI y
+              lifecycle. <strong>Extension</strong> construye la aplicación
+              sobre esas bases mediante pantallas, endpoints, controllers, use
+              cases, services, connectors e integraciones externas.
+            </p>
+
+            <p>
+              Esta separación sigue una lógica similar a Framework/App: Core
+              provee contratos, convenciones y mecanismos reutilizables;
+              Extension declara la solución concreta sin reescribir
+              infraestructura transversal ni depender de piezas internas del
+              motor.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Ámbito</th>
+                    <th>Qué contiene</th>
+                    <th>Uso desde Extension</th>
+                    <th>Qué evitar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>Core</code></td>
+                    <td>
+                      Bootstrap, contenedor, routing, middleware pipeline,
+                      controller base, responses, resultados, errores, outbound
+                      y views.
+                    </td>
+                    <td>
+                      Funcionalidad pública: <code>Router</code>,
+                      <code>AppController</code>, <code>UseCaseResult</code>,
+                      <code>ConnectorResult</code>, helpers de view y clients
+                      outbound.
+                    </td>
+                    <td>
+                      Importar clases <code>Internal</code> desde
+                      <code>Extension</code> o duplicar un mecanismo
+                      transversal.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Extension</code></td>
+                    <td>
+                      Rutas, controllers, use cases, services, ports,
+                      connectors, DTOs, session adapters, runtime concreto y
+                      vistas SSR.
+                    </td>
+                    <td>
+                      Modelado de una capacidad concreta respetando fronteras:
+                      controller adapta HTTP, use case decide intención y
+                      connector traduce integración externa.
+                    </td>
+                    <td>
+                      Crear un mini-framework paralelo, meter UI en connectors o
+                      poner reglas de negocio en adapters técnicos.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h3 class="h5">Al agregar una feature</h3>
+                    <ol class="guide-checklist">
+                      <li>Declara la URL en routing.</li>
+                      <li>Crear el controller que adapta el request.</li>
+                      <li>Crear el input/command si hay datos de entrada.</li>
+                      <li>Crear el use case que decide el resultado.</li>
+                      <li>Agregar service solo si compone varias piezas.</li>
+                      <li>
+                        Agregar port/connector si hay integración externa.
+                      </li>
+                      <li>
+                        Devuelve HTML, fragment, JSON o redirect controlado.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h3 class="h5">Regla simple para identificar ubicación</h3>
+                    <ul class="guide-checklist">
+                      <li>
+                        Si es regla transversal reutilizable, probablemente es
+                        <code>Core</code>.
+                      </li>
+                      <li>
+                        Si habla del negocio o de una pantalla concreta, vive en
+                        <code>Extension</code>.
+                      </li>
+                      <li>
+                        Si transforma una API HTTP externa, es connector o
+                        client outbound.
+                      </li>
+                      <li>
+                        Si solo pinta HTML, pertenece a views y responses.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="gateway-capabilities" class="guide-section">
+            <h2>Matriz de capacidades Gateway</h2>
+            <p>
+              Gateway es la frontera de aplicación hacia el navegador. La
+              pregunta operativa es “¿qué capacidad debe entregarse y qué
+              contrato debe recibir Surface?”. Esta matriz resume los escenarios
+              transferibles a cualquier dominio.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Core aporta la infraestructura, Extension expresa la intención,
+                Surface consume HTML/JSON ya normalizado.
+              </em>
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Capacidad</th>
+                    <th>Qué aporta Core</th>
+                    <th>Qué implementa Extension</th>
+                    <th>Qué ve Surface</th>
+                    <th>Éxito, parcialidad o fallo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Página SSR sin JavaScript propio</td>
+                    <td>
+                      Routing, controller base, <code>ViewResponse</code>,
+                      layout y helpers de view.
+                    </td>
+                    <td>
+                      Ruta, controller con <code>renderAccessView(...)</code> o
+                      <code>renderControlView(...)</code>, y view PHP.
+                    </td>
+                    <td>HTML navegable aunque Surface no monte nada.</td>
+                    <td>
+                      Si falla render/layout, el error handler presenta HTML o
+                      JSON según <code>Accept</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Página SSR activada por Surface</td>
+                    <td>
+                      Misma base SSR, assets Vite y contrato
+                      <code>data-surface-page</code>.
+                    </td>
+                    <td>
+                      View con root declarativo y datos iniciales seguros.
+                    </td>
+                    <td>
+                      Runtime busca <code>UiIntegration.id</code>, carga
+                      <code>page.load</code> y monta el binding.
+                    </td>
+                    <td>
+                      Sin JS sigue existiendo HTML. Si el id no coincide,
+                      Surface no debe montar otra integración por accidente.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Fragment HTML remoto</td>
+                    <td>
+                      <code>FragmentResponse</code>, layout de fragment y
+                      partial controlado de errores.
+                    </td>
+                    <td>
+                      Ruta, controller con <code>renderFragmentView(...)</code>
+                      y fragment PHP.
+                    </td>
+                    <td>
+                      <code>serverClient.html(...)</code> recibe HTML embebible,
+                      valida redirects/layouts/pages inesperadas y
+                      <code>contentMount</code> activa fragments internos.
+                    </td>
+                    <td>
+                      Surface rechaza JSON accidental, HTML vacío, redirect,
+                      layout completo, page inesperada o
+                      <code>Content-Type</code> incompatible.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Endpoint JSON para consulta o comando</td>
+                    <td>
+                      <code>ApiResponse</code>, <code>JsonEnvelopeCodec</code>
+                      y resolución de status por error kind/origin.
+                    </td>
+                    <td>
+                      Controller con <code>respondJson(fn() =&gt; ...)</code> y
+                      use case que devuelve datos o <code>UseCaseResult</code>.
+                    </td>
+                    <td>
+                      <code>serverClient.json(...)</code> si necesita envelope,
+                      <code>serverClient.data(...)</code> si necesita data, y
+                      firmas locales en <code>contracts.ts</code> cuando Surface
+                      consume payload o response tipada.
+                    </td>
+                    <td>
+                      <code>success=true</code> limpio, parcial con
+                      <code>errors[]</code>, o <code>success=false</code>
+                      bloqueante.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Integración externa obligatoria</td>
+                    <td>
+                      <code>ConnectorResult</code>,
+                      <code>takeOrAbort(...)</code> y clients outbound.
+                    </td>
+                    <td>
+                      Port, connector, request DTO, client HTTP y use case.
+                    </td>
+                    <td>
+                      Solo ve el resultado de Gateway; nunca llama upstream.
+                    </td>
+                    <td>
+                      Si la dependencia falla, el use case termina como fallo y
+                      el status refleja validación, upstream o transporte.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Integración externa opcional</td>
+                    <td>
+                      <code>runConnectorFlow(...)</code>,
+                      <code>$flow-&gt;optional(...)</code> y cierre parcial.
+                    </td>
+                    <td>
+                      Service que compone datos requeridos y opcionales sin
+                      ocultar degradación.
+                    </td>
+                    <td>
+                      Data usable con advertencia desde el partial reporter.
+                    </td>
+                    <td>
+                      La data principal puede ser éxito aunque
+                      <code>errors[]</code> conserve fallos secundarios.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Assets de Surface en vistas Gateway</td>
+                    <td>
+                      <code>ViteAssets</code>, manifest, styles, script y
+                      modulepreload.
+                    </td>
+                    <td>
+                      Layouts o views llaman <code>vite_styles()</code> y
+                      <code>vite_script()</code>.
+                    </td>
+                    <td>JS/CSS del entry principal servido desde web root.</td>
+                    <td>
+                      En dev puede haber fallback; en producción falta de
+                      manifest o entry debe fallar claro.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Seguridad, sesión y observabilidad</td>
+                    <td>
+                      Lifecycle, middleware pipeline, headers, telemetry y mapeo
+                      central de errores.
+                    </td>
+                    <td>
+                      Middlewares concretos, validación CSRF/tab y responses
+                      observables.
+                    </td>
+                    <td>
+                      Headers <code>X-TAB-SESSION</code>,
+                      <code>X-REMAINING</code> y <code>X-Correlation-Id</code>.
+                    </td>
+                    <td>
+                      Fallos de presentación se cortan antes del use case; los
+                      logs quedan correlacionados por request.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              Los feature deben clasificarse como salida HTML, salida JSON,
+              integración externa, lifecycle, seguridad, assets o UI progresiva.
+              La mayor parte del proyecto pertenece a una de esas familias.
+            </div>
+          </section>
+
+          <section id="extension-filesystem" class="guide-section">
+            <h2>Filesystem de Extension</h2>
+            <p>
+              `app-gateway/app/Extension` se organiza por capa y
+              responsabilidad. El nombre de la carpeta interna puede representar
+              una feature o capacidad, pero la convención no depende de un
+              dominio específico.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Mapa</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-extension-tree"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-extension-tree" class="language-text">app-gateway/app/Extension/
+  Application/
+    Exception/
+    Port/
+    ReadModel/
+      &lt;Feature&gt;/
+    Service/
+    Session/
+    UseCase/
+      &lt;Feature&gt;/
+        Commands/
+      AppUseCase.php
+  Bootstrap/
+    Container/
+      Outbound/
+      Support/
+  Contract/
+    Outbound/
+      &lt;ExternalService&gt;/
+        &lt;Area&gt;/
+  Domain/
+    Model/
+      &lt;Feature&gt;/
+  Exception/
+  Infrastructure/
+    Audit/
+    Http/
+    Outbound/
+      Client/
+        &lt;ExternalService&gt;/
+          Request/
+            &lt;Area&gt;/
+          &lt;ExternalService&gt;ServiceClient.php
+      Connector/
+    Runtime/
+    Session/
+  Presentation/
+    Http/
+      Controller/
+      Exception/
+      Header/
+      Middleware/
+      Response/
+      Routing/
+        Authenticated/
+      Security/
+      Session/
+      TabSessionRequestResolver.php
+      TabSessionRequestResolverInterface.php
+  Support/</code></pre>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Tipo de archivo</th>
+                    <th>Ubicación</th>
+                    <th>Responsabilidad única</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Excepción de aplicación o transversal</td>
+                    <td>
+                      <code>Application/Exception</code> o
+                      <code>Exception</code>
+                    </td>
+                    <td>
+                      Errores del flujo de aplicación o errores manejados
+                      compartidos por la Extension.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Port</td>
+                    <td><code>Application/Port/*.php</code></td>
+                    <td>
+                      Definir qué necesita la aplicación sin conocer
+                      infraestructura. Si es integración outbound, usa el sufijo
+                      <code>ConnectorInterface</code>.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Read model / output</td>
+                    <td>
+                      <code>Application/ReadModel/&lt;Feature&gt;/*.php</code>
+                    </td>
+                    <td>
+                      Salida tipada para casos de uso, vistas o respuestas.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Service de aplicación</td>
+                    <td>
+                      <code>Application/Service/*.php</code>
+                    </td>
+                    <td>
+                      Componer varias fuentes, fallback, parcialidad o
+                      transformación con significado.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Use case</td>
+                    <td>
+                      <code>Application/UseCase/&lt;Feature&gt;/*.php</code>
+                    </td>
+                    <td>
+                      Ejecutar una intención de aplicación y devolver
+                      <code>UseCaseResult</code> o data que el controller
+                      adapta.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Command/Input de use case</td>
+                    <td>
+                      <code
+                        >Application/UseCase/&lt;Feature&gt;/Commands/*.php</code
+                      >
+                    </td>
+                    <td>
+                      Agrupar input de aplicación ya interpretado desde HTTP u
+                      otra entrada.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>DI y wiring</td>
+                    <td><code>Bootstrap/Container/*.php</code></td>
+                    <td>
+                      Registrar providers, aliases de connectors y servicios
+                      concretos.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>DTO externo</td>
+                    <td>
+                      <code
+                        >Contract/Outbound/&lt;ExternalService&gt;/*.php</code
+                      >
+                    </td>
+                    <td>
+                      Forma de respuesta o contrato recibido desde un proveedor
+                      externo.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Modelo de dominio local</td>
+                    <td><code>Domain/Model/&lt;Feature&gt;/*.php</code></td>
+                    <td>
+                      Conceptos propios de la aplicación; no DTOs externos ni
+                      payloads HTTP.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Adapters técnicos internos</td>
+                    <td>
+                      <code>Infrastructure/Audit</code>, <code>Http</code>,
+                      <code>Runtime</code> o <code>Session</code>.
+                    </td>
+                    <td>
+                      Integrar PHP session, runtime config, HTTP concreto o
+                      auditoría.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Connector</td>
+                    <td>
+                      <code
+                        >Infrastructure/Outbound/Connector/*Connector.php</code
+                      >
+                    </td>
+                    <td>
+                      Traducir client/resultados externos a
+                      <code>ConnectorResult</code>.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Client externo</td>
+                    <td>
+                      <code
+                        >Infrastructure/Outbound/Client/&lt;ExternalService&gt;/*ServiceClient.php</code
+                      >
+                    </td>
+                    <td>
+                      Enviar requests outbound e hidratar resultados técnicos.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Request outbound</td>
+                    <td>
+                      <code
+                        >Infrastructure/Outbound/Client/&lt;ExternalService&gt;/Request/*.php</code
+                      >
+                    </td>
+                    <td>
+                      Endpoint, método, path, payload y response class para una
+                      llamada externa.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Controller</td>
+                    <td>
+                      <code>Presentation/Http/Controller/*Controller.php</code>
+                    </td>
+                    <td>
+                      Leer request, crear input, llamar use cases y elegir HTML,
+                      JSON, fragment o redirect.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Excepción de presentación</td>
+                    <td><code>Presentation/Http/Exception/*.php</code></td>
+                    <td>
+                      Cortes propios de controller/request, como entrada HTTP
+                      inválida o tab requerida.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Middleware, headers y sesión HTTP</td>
+                    <td>
+                      <code>Presentation/Http/Header</code>,
+                      <code>Middleware</code>, <code>Security</code> y
+                      <code>Session</code>.
+                    </td>
+                    <td>
+                      Reglas de entrada/salida HTTP, CSRF, tab session, flash y
+                      headers.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Response HTTP</td>
+                    <td><code>Presentation/Http/Response/*.php</code></td>
+                    <td>
+                      Adaptar salidas de aplicación a una respuesta concreta.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Rutas HTTP</td>
+                    <td><code>Presentation/Http/Routing/*.php</code></td>
+                    <td>
+                      Declarar URL, verbo, controller/action, grupos y
+                      middleware.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Helpers puntuales</td>
+                    <td><code>Support/*.php</code></td>
+                    <td>
+                      Utilidades técnicas pequeñas. No debe crecer como
+                      framework paralelo.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              Si una clase solo transporta datos de proveedor externo, es
+              <code>Contract/Outbound</code>. Si expresa una salida de la
+              aplicación, es <code>Application/ReadModel</code>. Si representa
+              un concepto propio estable, es <code>Domain/Model</code>. Para
+              crear esqueletos consistentes sin escribir rutas, controllers o
+              use cases a mano, revisa
+              <a href="tools.html#extension-scaffolder"
+                >Tools: artefactos de Extension</a
+              >.
+            </div>
+          </section>
+
+          <section id="routing" class="guide-section">
+            <h2>Routing</h2>
+            <p>
+              Las rutas se registran desde `ExtensionRouteRegister`. No escondas
+              rutas dentro de controllers.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Si la ruta devuelve un fragment o coordina sesión, amplía en
+                <a href="bridge.html#html">Contratos HTML</a> y
+                <a href="bridge.html#session">Headers de sesión</a>.
+              </em>
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Declarar ruta</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-routing"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-routing" class="language-php">$router->get('/items', [ItemController::class, 'index']);
+$router->post('/items/search', [ItemController::class, 'search']);
+$router->get('/items/summary', [ItemFragmentController::class, 'summary']);</code></pre>
+            </div>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Paso a paso ...</span>
+                <h3>Ubicación de la URL</h3>
+                <p>
+                  El archivo se elige según el tipo de entrada. Después se
+                  escribe la ruta y se apunta al controller que será creado o
+                  modificado.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Página pública</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Presentation/Http/Routing/PublicRoutes.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          <pre><code class="language-php">$router->get('/items', [ItemController::class, 'index']);</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Una URL sin sesión requerida.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: crear `ItemController::index`.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Página autenticada o JSON
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Presentation/Http/Routing/AuthenticatedRoutes.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Ruta directa o carga de un subarchivo como
+                          `ItemRoutes.php`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          La URL vive dentro del grupo autenticado.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: crear el action JSON o SSR en el
+                      controller.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Fragment HTML</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Presentation/Http/Routing/Authenticated/FragmentRoutes.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          <pre><code class="language-php">$router->get('/items/summary', [ItemFragmentController::class, 'summary']);</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Surface podrá pedir HTML con `serverClient.html(...)`;
+                          si el fragment es montable, deberá declarar `expect`.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: crear `summary.fragment.php`.
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+            <ul class="guide-checklist">
+              <li>Usar grupos para prefijos como `/items` o `/admin`.</li>
+              <li>
+                Aplica middleware en routing, no en el cuerpo del controller.
+              </li>
+              <li>
+                Validar que el action del controller exista y tenga contrato
+                claro.
+              </li>
+              <li>
+                Separa rutas de página, fragment y JSON si el mismo caso de uso
+                puede entregar más de una salida.
+              </li>
+            </ul>
+          </section>
+
+          <section id="routing-api" class="guide-section">
+            <h2>Interfaz del router</h2>
+            <p>
+              El router no solo soporta las rutas que hoy ves en `Extension`.
+              Tiene una interfaz del router completa para verbos HTTP, grupos,
+              carga de definiciones, middleware y parámetros tipados. Debe
+              usarse cuando la URL necesite expresar intención con claridad.
+            </p>
+
+            <div class="row g-3">
+              <div class="col-xl-12">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Verbos, grupos y loaders</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-router-api"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-router-api" class="language-php">&lt;?php
+
+use App\Core\Http\Routing\Router;
+use App\Extension\Presentation\Http\Controller\ItemController;
+use App\Extension\Presentation\Http\Middleware\RequireAuthentication;
+
+return static function (Router $router): void {
+  $router->get('/items', [ItemController::class, 'index']);
+  $router->post('/items', [ItemController::class, 'store']);
+  $router->put('/items/{id:number}', [ItemController::class, 'replace']);
+  $router->patch('/items/{id:number}', [ItemController::class, 'update']);
+  $router->delete('/items/{id:number}', [ItemController::class, 'delete']);
+
+  $router->group('/admin', __DIR__ . '/AdminRoutes.php', [
+    RequireAuthentication::class,
+  ]);
+
+  $router->load([
+    __DIR__ . '/FragmentRoutes.php',
+    static fn(Router $router) => $router->get('/health', [ItemController::class, 'health']),
+  ]);
+};</code></pre>
+                </div>
+              </div>
+              <div class="col-xl-12">
+                <div class="table-responsive h-100">
+                  <table class="table table-striped table-guide mb-0">
+                    <thead>
+                      <tr>
+                        <th>Funciones</th>
+                        <th>Sirve para</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>get</code>, <code>post</code></td>
+                        <td>
+                          Lectura, formularios, acciones JSON o fragments.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>put</code>, <code>patch</code></td>
+                        <td>Reemplazar o modificar recursos existentes.</td>
+                      </tr>
+                      <tr>
+                        <td><code>delete</code></td>
+                        <td>
+                          Eliminar o cerrar recursos con intención explícita.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>group($prefix, ...)</code></td>
+                        <td>
+                          Compartir prefijo y middleware, por ejemplo
+                          <code>/auth</code> o <code>/admin</code>.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>load(...)</code></td>
+                        <td>
+                          Cargar una definición callable, un archivo PHP o un
+                          array de definiciones.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="h5 mt-4">Parámetros de ruta</h3>
+            <p>
+              La sintaxis es <code>{nombre}</code> o <code>{nombre:tipo}</code>.
+              Si no indicas tipo, el router usa <code>segment</code>.
+              Internamente compila la URL a un regex con nombres de grupo, por
+              eso después puede inyectar parámetros al action del controller.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Patrón</th>
+                    <th>Ejemplo</th>
+                    <th>Hace match con</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>segment</code></td>
+                    <td><code>[^/]+</code></td>
+                    <td><code>/files/{slug}</code></td>
+                    <td><code>/files/reporte-2026</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>alpha</code></td>
+                    <td><code>[a-zA-Z]+</code></td>
+                    <td><code>/locale/{lang:alpha}</code></td>
+                    <td><code>/locale/es</code>, <code>/locale/EN</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>number</code></td>
+                    <td><code>\d+</code></td>
+                    <td><code>/items/{id:number}</code></td>
+                    <td><code>/items/42</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Binding por nombre o #[FromRoute]</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-route-params"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-route-params" class="language-php">use App\Core\Http\Routing\Attribute\FromRoute;
+use App\Core\Http\Response\HttpResponseInterface;
+//Rutas
+$router->get('/items/{id:number}', [ItemController::class, 'show']);
+$router->get('/items/{itemId:number}/details/{detailId:number}', [ItemController::class, 'item']);
+//Controllers
+public function show(string $id): HttpResponseInterface
+{
+  return $this->respondJson(fn() => $this->showItem->execute((int) $id));
+}
+
+public function item(
+  #[FromRoute('itemId')] string $itemId,
+  #[FromRoute('detailId')] string $detailId,
+): HttpResponseInterface {
+  return $this->respondJson(fn() => $this->showItem->execute((int) $itemId, (int) $detailId));
+}</code></pre>
+            </div>
+
+            <ul class="guide-checklist">
+              <li>
+                El action debe retornar <code>HttpResponseInterface</code>. El
+                validador falla temprano si no lo hace.
+              </li>
+              <li>
+                Todos los parámetros de ruta deben mapearse por nombre o con
+                <code>#[FromRoute(...)]</code>.
+              </li>
+              <li>
+                Los parámetros llegan como string desde el regex. Convierte a
+                <code>int</code> o valida dentro del controller/use case.
+              </li>
+              <li>
+                La firma de duplicado ignora el nombre y conserva el tipo:
+                <code>/users/{id:number}</code> y
+                <code>/users/{userId:number}</code> son la misma firma.
+              </li>
+              <li>
+                En producción, el cache de rutas debe existir. Si falta, el
+                gateway falla claro para evitar servir rutas incompletas.
+              </li>
+            </ul>
+          </section>
+
+          <section id="controllers" class="guide-section">
+            <h2>Controllers</h2>
+            <p>
+              El controller adapta HTTP hacia caso de uso o view. Puede fallar
+              por request imposible: CSRF, tab requerida, parámetro mal formado
+              o presentación.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Para ver cómo Surface consume esas respuestas, revisa
+                <a href="app-surface.html#consume-gateway"
+                  >Consumir endpoints del gateway</a
+                >
+                y <a href="bridge.html#json">JSON envelope</a>.
+              </em>
+            </p>
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h3 class="h5">Interfaz visible</h3>
+                    <ul class="mb-0">
+                      <li><code>respondJson(...)</code></li>
+                      <li><code>renderAccessView(...)</code></li>
+                      <li><code>renderControlView(...)</code></li>
+                      <li><code>renderFragmentView(...)</code></li>
+                      <li><code>abortController(...)</code></li>
+                      <li><code>flashMessage(...)</code></li>
+                      <li><code>pullFlashMessages(...)</code></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Controller SSR</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-controller"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-controller" class="language-php">public function index(): HttpResponseInterface
+{
+  return $this->renderControlView('items/index.page');
+}</code></pre>
+                </div>
+              </div>
+            </div>
+            <div class="code-card mt-3">
+              <div class="code-card__bar">
+                <span>JSON y fragment</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-controller-json"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-controller-json" class="language-php">public function search(): HttpResponseInterface
+{
+  $input = new SearchItemsInput(
+    query: (string) $this->request->getJson('query', ''),
+    status: (string) $this->request->getJson('status', ''),
+  );
+
+  return $this->respondJson(fn() => $this->searchItems->execute($input));
+}
+
+public function summary(): HttpResponseInterface
+{
+  $itemId = (int) $this->request->getQuery('itemId', 0);
+
+  return $this->renderFragmentView(
+    'items/summary.fragment',
+    fn() => ['itemId' => $itemId]
+  );
+}</code></pre>
+            </div>
+            <div class="code-card mt-3">
+              <div class="code-card__bar">
+                <span>Mensaje flash tras redirect</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-controller-flash"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-controller-flash" class="language-php">public function store(): HttpResponseInterface
+{
+  $input = new SaveItemInput(
+    name: (string) $this->request->getPost('name', '')
+  );
+
+  $result = $this->saveItem->execute($input);
+
+  if ($result->success) {
+    $this->flashMessage('success', 'Elemento guardado correctamente');
+    return $this->redirectTo('/items');
+  }
+
+  return $this->renderControlView('items/form.page', fn() => $result);
+}
+
+public function index(): HttpResponseInterface
+{
+  return $this->renderControlView(
+    'items/index.page',
+    fn() => ['flashMessages' => $this->pullFlashMessages()]
+  );
+}</code></pre>
+            </div>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Paso a paso ...</span>
+                <h3>Orden para la salida HTTP</h3>
+                <p>
+                  Primero se crea el controller. Después se crea la vista o
+                  fragment que ese controller devolverá.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Controller de página o JSON
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Presentation/Http/Controller/ItemController.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Métodos como `index()` para página y `search()` para
+                          JSON.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          La ruta ya tiene un action que sabe qué responder.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: crear el use case cuando el action
+                      necesite datos.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Vista SSR completa</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@views/items/index.page.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          HTML base de la pantalla y
+                          `data-surface-page="demo-items"` si tendrá JS.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El navegador recibe una página usable sin esperar a
+                          Surface.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: registrar la integración en Surface.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Controller y vista de fragment
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Presentation/Http/Controller/ItemFragmentController.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Métodos pequeños como `summary()` que llamen
+                          `renderFragmentView(...)`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Surface puede reemplazar una zona de la página con
+                          HTML nuevo.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: crear `@views/items/summary.fragment.php`.
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="usecases" class="guide-section">
+            <h2>Use cases</h2>
+            <p>
+              El use case decide intención de aplicación. Ahí vive la validación
+              de input de aplicación, estado y significado final del flujo.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                La relación entre use cases, errores y responses se resume en
+                <a href="fundamentals.html#ownership">Ownership de contratos</a>
+                y se diagnostica desde
+                <a href="troubleshooting.html">Ayuda</a>.
+              </em>
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Carriles de use case</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-usecase"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-usecase" class="language-php">// Simple: una dependencia obligatoria directa.
+return $this->run(function () use ($input) {
+  return $this->takeOrAbort($this->connector->simpleAction($input));
+});
+
+// Robusto: composición, fallback, opcionales o parcialidad.
+return $this->runConnectorFlow(
+  fn(ConnectorFlowInterface $flow) => $this->service->loadItemSummary($itemId, $flow)
+);</code></pre>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              `takeOrAbort(...)` no debe mezclarse con `$flow->required(...)` o
+              `$flow->optional(...)`. Cuando se abre un flow, todo connector de
+              ese bloque pasa por el flow.
+            </div>
+            <ul class="guide-checklist">
+              <li>`run(...)` envuelve una decisión de aplicación simple.</li>
+              <li>
+                `takeOrAbort(...)` se usa solo cuando una integración
+                obligatoria directa basta para resolver el caso.
+              </li>
+              <li>
+                `takeOrAbort(...)` debe recibir un resultado ya normalizado por
+                un port/connector; no es una vía para llamar un client outbound
+                directo desde el use case.
+              </li>
+              <li>
+                `runConnectorFlow(...)` se usa cuando hay datos requeridos,
+                opcionales, fallback o respuesta parcial.
+              </li>
+            </ul>
+            <h3 class="h5 mt-4">Cómo elegir la salida del use case</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Situación</th>
+                    <th>Funcionalidad recomendada</th>
+                    <th>Resultado que llegará al controller</th>
+                    <th>Regla de uso</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Validación de intención local</td>
+                    <td><code>abortUseCase(...)</code> o fallo explícito.</td>
+                    <td>
+                      <code>UseCaseResult</code> fallido con mensaje de
+                      aplicación.
+                    </td>
+                    <td>
+                      No deben lanzarse errores de HTTP aquí; el controller ya
+                      adaptó el request.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Datos calculados sin dependencia externa</td>
+                    <td><code>run(fn() =&gt; $data)</code>.</td>
+                    <td><code>UseCaseResult::success($data)</code>.</td>
+                    <td>
+                      Devuelve un read model o DTO de aplicación, no arrays
+                      improvisados si el shape es compartido.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Una dependencia externa obligatoria directa</td>
+                    <td><code>takeOrAbort($connector-&gt;call(...))</code>.</td>
+                    <td>
+                      Éxito con data, o fallo bloqueante con error del
+                      connector.
+                    </td>
+                    <td>
+                      No debe crearse un service si solo delega al connector.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Varias dependencias o fallback</td>
+                    <td><code>runConnectorFlow(...)</code>.</td>
+                    <td>
+                      Éxito completo, parcialidad o fallo según
+                      <code>required</code>/<code>optional</code>.
+                    </td>
+                    <td>
+                      Todo connector dentro del bloque debe pasar por el
+                      <code>ConnectorFlowInterface</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Transformar data manteniendo errores previos</td>
+                    <td>
+                      <code>$result-&gt;mapData(fn($data) =&gt; ...)</code>.
+                    </td>
+                    <td>
+                      Mismo estado de éxito/parcialidad/fallo con data mapeada
+                      solo si existía data usable.
+                    </td>
+                    <td>
+                      Debe usarse para adaptar output final sin reconstruir
+                      errores.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Intención</span>
+                <h3>Convierte el request en una decisión de aplicación</h3>
+                <p>
+                  Si el controller ya recibió HTTP, el use case debe recibir un
+                  input limpio y devolver un resultado con significado.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Input del caso</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Application/UseCase/Items/Commands/SearchItemsInput.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Propiedades simples: `query`, `status`, `page`,
+                          `limit`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El use case no depende de `HttpRequest`.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: pasarlo desde el controller.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Use case</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Application/UseCase/Items/SearchItems.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Método `execute(...)`, validación de intención y
+                          `run(...)` o `runConnectorFlow(...)`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El flujo devuelve éxito, parcialidad o fallo
+                          normalizado.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: evaluar si se requiere service.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Salida para UI o JSON</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Application/ReadModel/Items/ItemSummaryOutput.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Campos que sí puede ver la pantalla: `id`,
+                          `displayName`, `total`, `state`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El controller expone un contrato estable hacia
+                          Surface.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="services" class="guide-section">
+            <h2>Services y connectors</h2>
+            <p>
+              Un service existe si agrega valor: compone varias llamadas,
+              transforma datos o distingue dependencias obligatorias y
+              opcionales. Un connector habla con un sistema externo y devuelve
+              `ConnectorResult`.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Si el service coordina APIs HTTP externas, continúa en
+                <a href="#external-clients">API HTTP clients externos</a>; si
+                solo se requieren pasos de implementación, se debe consultar
+                <a href="recipes.html#outbound">Consumir un servicio externo</a
+                >.
+              </em>
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Responsabilidad</th>
+                    <th>No debe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Service</td>
+                    <td>Coordinar integraciones con sentido de aplicación.</td>
+                    <td>Crear responses o lanzar errores de aplicación.</td>
+                  </tr>
+                  <tr>
+                    <td>Connector</td>
+                    <td>
+                      Construir requests externos, mapear fallas a
+                      `ConnectorResult`.
+                    </td>
+                    <td>Conocer UI, HTML, JSON final o `UseCaseResult`.</td>
+                  </tr>
+                  <tr>
+                    <td>Outbound client</td>
+                    <td>Transporte técnico HTTP y mapeo base.</td>
+                    <td>Decidir intención de aplicación.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Dependencias</span>
+                <h3>Cuando una API HTTP externa entra al caso de uso</h3>
+                <p>
+                  Port para la aplicación, connector para infraestructura y
+                  service solo si hay composición real.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Port de aplicación</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Application/Port/ExternalItemConnectorInterface.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Métodos que la app necesita: `getRecordByItem(...)`,
+                          `listDetailsByItem(...)`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Application no conoce la clase concreta del proveedor.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego implementa el connector.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Connector concreto</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Infrastructure/Outbound/Connector/ExternalItemConnector.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Llamadas al client y conversión a `ConnectorResult`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Los errores externos ya están traducidos al lenguaje
+                          de integración.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego úsalo desde un service o use case.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Service opcional</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Application/Service/ItemService.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Composición con:
+                          <pre><code class="language-php">$flow->required(...)
+$flow->optional(...)</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El use case recibe una salida ya compuesta.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="external-clients" class="guide-section">
+            <h2>API HTTP clients externos</h2>
+            <p>
+              Esta sección explica la construcción completa de un cliente para
+              una API HTTP externa. `recipes.html` queda como checklist
+              práctico; aquí se muestra qué archivo crear, qué responsabilidad
+              tiene y cómo se conecta con el flujo del gateway.
+            </p>
+
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Checklist visual</span>
+                <h3>Archivos involucrados en una API HTTP externa</h3>
+                <p>
+                  La lista se lee de arriba hacia abajo. Cada paso desbloquea el
+                  siguiente.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Configura el cliente</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >app-gateway/services.json</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Bloque `external_api` con `uri`, `bearer`, timeouts y
+                          TLS.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El servicio existe para `ServiceDefinitionFactory`.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego crea el provider outbound.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Registra DI del client</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Bootstrap/Container/Outbound/ExternalApiProvider.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          `app.external_api.definition` y
+                          `ExternalApiServiceClient` con `$service`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El contenedor puede construir el client.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">Luego modela DTO y request.</div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Describe la llamada externa
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivos</span>
+                        <code class="guided-file"
+                          >@extension/Contract/Outbound/ExternalApi/ExternalRecordResponse.php</code
+                        >
+                        <code class="guided-file"
+                          >@extension/Infrastructure/Outbound/Client/ExternalApi/Request/GetExternalRecordRequest.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          DTO de respuesta y request con `#[Endpoint(...)]`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El client sabe qué pedir y cómo hidratar la respuesta.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego crea `ExternalApiServiceClient`.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Baja la integración a la app
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivos</span>
+                        <code class="guided-file"
+                          >@extension/Infrastructure/Outbound/Client/ExternalApi/ExternalApiServiceClient.php</code
+                        >
+                        <code class="guided-file"
+                          >@extension/Infrastructure/Outbound/Connector/ExternalItemConnector.php</code
+                        >
+                        <code class="guided-file"
+                          >@extension/Application/Port/ExternalItemConnectorInterface.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Client técnico, connector que devuelve
+                          `ConnectorResult` y port público.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El use case puede consumir la API HTTP externa sin
+                          saber transporte.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <h3 class="h5">1. Configura el servicio</h3>
+            <p>
+              `services.json` declara el cliente base. Las variables `.env`
+              `API_&lt;SERVICIO&gt;_*` pueden sobrescribirlo sin cambiar código.
+            </p>
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>services.json</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-external-config"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-external-config" class="language-json">{
+  "clients": {
+    "external_api": {
+      "uri": "https://api.example.test",
+      "bearer": "",
+      "timeoutSeconds": 20,
+      "connectTimeoutSeconds": 5,
+      "verifyTls": true
+    }
+  }
+}</code></pre>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="table-responsive h-100">
+                  <table class="table table-striped table-guide mb-0">
+                    <thead>
+                      <tr>
+                        <th>Variable</th>
+                        <th>Uso</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>API_EXTERNAL_API_URI</code></td>
+                        <td>Base URL del servicio externo.</td>
+                      </tr>
+                      <tr>
+                        <td><code>API_EXTERNAL_API_BEARER</code></td>
+                        <td>Token por defecto si el request usa bearer.</td>
+                      </tr>
+                      <tr>
+                        <td><code>API_EXTERNAL_API_TIMEOUT_SECONDS</code></td>
+                        <td>Tiempo máximo de respuesta.</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code>API_EXTERNAL_API_CONNECT_TIMEOUT_SECONDS</code>
+                        </td>
+                        <td>Tiempo máximo para abrir conexión.</td>
+                      </tr>
+                      <tr>
+                        <td><code>API_EXTERNAL_API_VERIFY_TLS</code></td>
+                        <td>Activa o desactiva verificación TLS.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="h5 mt-4">2. Registra el cliente en DI</h3>
+            <p>
+              Cada servicio externo necesita una definición propia para que
+              `JsonServiceClient` reciba base URI, bearer, timeouts y TLS desde
+              el mismo mecanismo de configuración.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Provider outbound</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-external-provider"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-external-provider" class="language-php">use App\Core\Outbound\Config\ServiceDefinition;
+use App\Core\Outbound\Config\ServiceDefinitionFactory;
+use App\Extension\Infrastructure\Outbound\Client\ExternalApi\ExternalApiServiceClient;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+
+$services->set('app.external_api.definition', ServiceDefinition::class)
+  ->factory([service(ServiceDefinitionFactory::class), 'make'])
+  ->args(['external_api']);
+
+$services->set(ExternalApiServiceClient::class)
+  ->arg('$service', service('app.external_api.definition'));</code></pre>
+            </div>
+
+            <h3 class="h5 mt-4">3. Modela request y respuesta externa</h3>
+            <p>
+              El request declara el endpoint mediante `#[Endpoint]`. En `GET`,
+              las propiedades públicas se envían como query string. En `POST`,
+              `PUT` o `DELETE`, se envían como JSON. Cuando se requiera una
+              forma especial, corresponde implementar
+              `CustomPayloadRequestInterface`.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>EndpointRequest + DTO</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-external-request"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-external-request" class="language-php">use App\Core\Http\HttpMethod;
+use App\Core\Outbound\Endpoint\Attribute\Endpoint;
+use App\Core\Outbound\Endpoint\EndpointRequest;
+
+final class ExternalRecordResponse
+{
+  public function __construct(
+    public int $id,
+    public int $itemId,
+    public float $total,
+    public string $status,
+  ) {
+  }
+}
+
+/** @implements EndpointRequest&lt;ExternalRecordResponse&gt; */
+#[Endpoint(
+  method: HttpMethod::GET,
+  path: 'api/records/by-item',
+  responseClass: ExternalRecordResponse::class,
+)]
+final class GetExternalRecordRequest implements EndpointRequest
+{
+  public function __construct(public int $itemId)
+  {
+  }
+}</code></pre>
+            </div>
+
+            <h3 class="h5 mt-4">
+              4. Crear el client y bajar el resultado al connector
+            </h3>
+            <p>
+              `JsonServiceClient` resuelve transporte, decodificación JSON,
+              errores HTTP e hidratación de DTOs. El connector traduce ese
+              resultado al contrato de aplicación mediante `ConnectorResult`.
+            </p>
+            <div class="row g-3">
+              <div class="col-lg-12">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Service client</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-external-client"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-external-client" class="language-php">use App\Core\Outbound\Transport\JsonServiceClient;
+use App\Core\Outbound\Transport\OutboundRequest;
+
+final class ExternalApiServiceClient extends JsonServiceClient
+{
+  protected function prepareRequest(OutboundRequest $request): OutboundRequest
+  {
+    return $request->withBearer();
+  }
+
+  protected function serviceName(): string
+  {
+    return 'external_api';
+  }
+}</code></pre>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Connector</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-external-connector"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-external-connector" class="language-php">use App\Core\Port\Result\ConnectorResult;
+use App\Extension\Infrastructure\Outbound\Client\ExternalApi\ExternalApiServiceClient;
+use App\Extension\Infrastructure\Outbound\Client\ExternalApi\Request\GetExternalRecordRequest;
+
+final class ExternalItemConnector implements ExternalItemConnectorInterface
+{
+  public function __construct(private readonly ExternalApiServiceClient $externalApi)
+  {
+  }
+
+  public function getRecordByItem(int $itemId): ConnectorResult
+  {
+    $result = $this->externalApi->send(new GetExternalRecordRequest($itemId));
+
+    if (!$result->success)
+      return $result->toConnectorResult('No se pudo consultar el registro externo');
+
+    $record = $result->data();
+
+    return ConnectorResult::success(
+      new ExternalRecordOutput($record->id, $record->total, $record->status)
+    );
+  }
+}</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="h5 mt-4">
+              5. Consumo del connector desde service o use case
+            </h3>
+            <p>
+              Si hay una llamada obligatoria directa, el use case puede usar
+              `takeOrAbort(...)`. Si hay varias llamadas, fallback o datos
+              opcionales, debe abrirse `runConnectorFlow(...)` para que el
+              service declare qué es requerido y qué puede degradar.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Flujo robusto</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-external-flow"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-external-flow" class="language-php">public function loadItemSummary(int $itemId, ConnectorFlowInterface $flow): ?ItemSummaryOutput
+{
+  $record = $flow->required($this->externalItems->getRecordByItem($itemId));
+  $details = $flow->optional($this->externalItems->listDetailsByItem($itemId), []);
+
+  if ($record === null)
+    return null;
+
+  return new ItemSummaryOutput($itemId, $record, $details);
+}
+
+public function execute(int $itemId): UseCaseResult
+{
+  return $this->runConnectorFlow(
+    fn(ConnectorFlowInterface $flow) => $this->items->loadItemSummary($itemId, $flow)
+  );
+}</code></pre>
+            </div>
+
+            <ul class="guide-checklist">
+              <li>
+                `JsonServiceClient` no debe llamarse desde controllers, use
+                cases ni desde `app-surface`.
+              </li>
+              <li>
+                Si encuentras una llamada directa desde un use case, trátala
+                como deuda puntual que debe moverse detrás de un port/connector
+                antes de usarla como referencia.
+              </li>
+              <li>
+                `EndpointListRequest` corresponde cuando la API HTTP externa
+                devuelve una lista de DTOs.
+              </li>
+              <li>
+                El connector transforma DTOs externos a read models o outputs de
+                aplicación.
+              </li>
+              <li>
+                Propaga fallos externos con `toConnectorResult(...)` o
+                `asFailure(...)`; no reconstruyas errores si ya existen.
+              </li>
+              <li>
+                Cuando se agregue un servicio nuevo, se debe registrar su
+                provider outbound y confirmar que el port/connector siga la
+                convención de aliases.
+              </li>
+            </ul>
+
+            <h3 class="h5 mt-4">Funciones avanzadas del outbound</h3>
+            <p>
+              El client outbound no solo hace <code>GET</code> y
+              <code>POST</code>. También concentra decisiones de contrato para
+              que cada connector no invente su propio cliente HTTP.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Para qué sirve</th>
+                    <th>Regla práctica</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>EndpointRequest</code></td>
+                    <td>Request que espera un DTO único.</td>
+                    <td>
+                      Debe usarse cuando el payload externo representa un
+                      objeto.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>EndpointListRequest</code></td>
+                    <td>Request que espera una lista de DTOs.</td>
+                    <td>
+                      Debe usarse cuando la raíz de respuesta externa es una
+                      lista.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>CustomPayloadRequestInterface</code></td>
+                    <td>
+                      Permite construir un payload que no proviene directamente
+                      de propiedades públicas.
+                    </td>
+                    <td>
+                      Debe usarse para formas no estándar, multipart o contratos
+                      heredados.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ContentType</code></td>
+                    <td>Controla JSON o multipart.</td>
+                    <td>
+                      No deben armarse headers de contenido dentro del
+                      connector.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>useBearer</code></td>
+                    <td>
+                      Activa <code>Authorization: Bearer</code> desde config.
+                    </td>
+                    <td>No escribas tokens en requests ni en Surface.</td>
+                  </tr>
+                  <tr>
+                    <td><code>timeout / connectTimeout / verifyTls</code></td>
+                    <td>
+                      Permiten ajustar resiliencia por servicio o endpoint.
+                    </td>
+                    <td>
+                      Configura por <code>services.json</code> o variables
+                      <code>API_*</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>JsonServiceResponseMapper</code></td>
+                    <td>
+                      Hidrata DTO único o lista y falla si la forma no coincide.
+                    </td>
+                    <td>
+                      No aceptes shapes externos incorrectos como éxito
+                      silencioso.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="middlewares" class="guide-section">
+            <h2>Middlewares</h2>
+            <p>
+              Middleware revisa condiciones transversales del request:
+              autenticación, tab session, refresh de sesión o filtros previos.
+              Debe cortar o dejar pasar.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Contrato mental</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-middleware"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-middleware" class="language-php">public function intercept(HttpRequest $request, MiddlewareChainInterface $chain): HttpResponseInterface
+{
+  // Validar regla transversal del request.
+  return $chain->proceed();
+}</code></pre>
+            </div>
+            <ul class="guide-checklist">
+              <li>
+                Usar middleware para reglas previas al controller:
+                autenticación, tab session, refresh de sesión o headers
+                requeridos.
+              </li>
+              <li>
+                Si la regla depende de intención de negocio, pertenece al use
+                case, no al middleware.
+              </li>
+              <li>
+                Si corta el flujo, debe emitir una respuesta clara y no dejar al
+                controller inferir qué ocurrió.
+              </li>
+            </ul>
+          </section>
+
+          <section id="bootstrap-di" class="guide-section">
+            <h2>Bootstrap y DI</h2>
+            <p>
+              Antes de que exista un controller, Gateway tiene que levantar el
+              entorno, crear el contenedor y registrar las piezas de
+              <code>Core</code> y <code>Extension</code>. Piensa en esta parte
+              como el encendido del framework interno.
+            </p>
+            <p>
+              Una feature normalmente no toca esta zona. La consulta al agregar
+              una pieza nueva es: "¿la clase ya entra por autowiring, provider o
+              convención, o realmente requiere registro explícito?".
+            </p>
+
+            <h3 class="h5 mt-4">Quién registra qué</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Responsabilidad</th>
+                    <th>Cuándo importa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>RootProvider.php</code></td>
+                    <td>
+                      Importa providers transversales: application, routing,
+                      filesystem, outbound, observability, errores, controllers
+                      y middleware base.
+                    </td>
+                    <td>
+                      Solo cuando cambias una capacidad compartida de
+                      <code>Core</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>AppProvider.php</code></td>
+                    <td>
+                      Importa providers de la app: controllers, use cases,
+                      middleware, runtime, sesión, responses, outbound y
+                      connectors.
+                    </td>
+                    <td>
+                      Al agregar una familia nueva de servicios en
+                      <code>Extension</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ConnectorProvider.php</code></td>
+                    <td>
+                      Usa <code>ConnectorAliasRegistrar</code> para unir ports
+                      <code>*ConnectorInterface</code> con implementaciones
+                      <code>*Connector</code>.
+                    </td>
+                    <td>
+                      Cuando un connector no se resuelve por convención o hay
+                      más de una implementación candidata.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cache del contenedor</td>
+                    <td>
+                      En producción se espera usar el contenedor compilado; en
+                      desarrollo se prioriza ergonomía.
+                    </td>
+                    <td>
+                      Si algo funciona en local pero falla en producción, revisa
+                      cache, providers y variables de entorno.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout p-3 rounded">
+              <strong>Regla operativa:</strong> no debe registrarse manualmente
+              una clase que ya puede resolverse por autowiring o por convención.
+              El registro manual debe explicar una frontera real: runtime
+              concreto, adapter externo, alias de interfaz o servicio
+              transversal.
+            </div>
+          </section>
+
+          <section id="production-cache" class="guide-section">
+            <h2>Caché de producción</h2>
+            <p>
+              En producción, Gateway no recompila el contenedor ni vuelve a
+              registrar rutas como fallback durante una request. El despliegue
+              debe preparar los artefactos antes de atender tráfico, porque el
+              runtime productivo espera leer archivos ya generados desde
+              <code>var/cache/releases/&lt;VERSION_DEPLOY&gt;</code>.
+            </p>
+            <p>
+              Esta decisión hace que un error de deploy falle temprano y de
+              forma explícita: si falta el contenedor compilado, aparece
+              <code>PRODUCTION_CONTAINER_CACHE_MISSING</code>; si falta el cache
+              de rutas, aparece <code>PRODUCTION_ROUTE_CACHE_MISSING</code>. No
+              son errores para maquillar con fallback silencioso, sino señales
+              de que el release no fue preparado.
+            </p>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Preparar Gateway para producción</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gw-production-cache"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gw-production-cache" class="language-bash"># En la raíz del workspace: .env debe tener IS_PRODUCTION=true y VERSION_DEPLOY&gt;0
+cd app-gateway
+composer run build:prod</code></pre>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Paso</th>
+                    <th>Qué prepara</th>
+                    <th>Por qué importa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>IS_PRODUCTION=true</code></td>
+                    <td>Activa las reglas endurecidas del runtime.</td>
+                    <td>
+                      Sin este valor, <code>build:prod</code> y
+                      <code>routes:warm</code> se rechazan para no generar un
+                      artefacto productivo con entorno incorrecto.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>VERSION_DEPLOY&gt;0</code></td>
+                    <td>
+                      Define el namespace
+                      <code>var/cache/releases/&lt;VERSION_DEPLOY&gt;</code>.
+                    </td>
+                    <td>
+                      Permite preparar un release sin pisar otro namespace de
+                      caché y evita depender de archivos genéricos de
+                      desarrollo.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>cache:clear</code> interno</td>
+                    <td>
+                      Elimina el cache activo, el contenedor compilado y
+                      <code>routes.php</code> del namespace actual.
+                    </td>
+                    <td>
+                      Evita que una versión vieja del contenedor o de las rutas
+                      sobreviva al deploy.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ContainerFactory::compileCache(...)</code></td>
+                    <td>
+                      Compila providers de <code>Core</code> y
+                      <code>Extension</code> en
+                      <code>CompiledGatewayContainer.php</code>.
+                    </td>
+                    <td>
+                      Congela wiring, aliases, services, controllers y clients
+                      para que la request productiva solo cargue el contenedor.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>RouteCacheWarmer</code></td>
+                    <td>
+                      Registra las rutas en un router y escribe
+                      <code>routes.php</code>.
+                    </td>
+                    <td>
+                      Producción exige ese archivo. Si falta, el dispatcher no
+                      recorre registrars como fallback.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>var/log</code></td>
+                    <td>Crea la raíz de logs si todavía no existe.</td>
+                    <td>
+                      La observabilidad queda lista para escribir fallos de
+                      bootstrap, requests y llamadas upstream por semana.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout p-3 rounded mt-3">
+              <strong>Orden recomendado de deploy:</strong> compila assets de
+              Surface con <code>npm run build</code>, valida que exista el
+              manifest en
+              <code
+                >app-gateway/{PUBLIC_PATH}/ui-assets/.vite/manifest.json</code
+              >
+              y luego ejecuta <code>composer run build:prod</code> en Gateway.
+              Surface produce archivos estáticos; Gateway produce contenedor y
+              rutas. Ambos artefactos son necesarios antes de exponer el
+              release. La parte de assets se explica en
+              <a href="app-surface.html#vite">Surface: Vite y estilos</a>.
+            </div>
+          </section>
+
+          <section id="security-session" class="guide-section">
+            <h2>Seguridad, CSRF y sesión</h2>
+
+            <p>
+              El Gateway aplica protecciones complementarias:
+              <strong>CSRF</strong> evita envíos falsificados en formularios,
+              mientras que <strong>tab session</strong>
+              identifica la pestaña autenticada que origina las requests hacia
+              el Gateway.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Contrato</th>
+                    <th>Dónde nace</th>
+                    <th>Dónde se valida</th>
+                    <th>Qué problema resuelve</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>_csrf</code></td>
+                    <td>
+                      <code>CsrfTokenManager::field()</code> en vista SSR.
+                    </td>
+                    <td>
+                      Controller que procesa el formulario protegido antes del
+                      use case.
+                    </td>
+                    <td>
+                      Evita aceptar un formulario de inicio de sesión
+                      falsificado.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>_tab</code></td>
+                    <td>
+                      <code>ensureTabSession()</code> lo escribe en inputs si
+                      existen.
+                    </td>
+                    <td>Inicio de sesión y comandos de sesión.</td>
+                    <td>
+                      Une el inicio de sesión con la pestaña que inició la
+                      navegación.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>X-TAB-SESSION</code></td>
+                    <td>
+                      <code>serverClient</code> lo agrega desde hooks de sesión.
+                    </td>
+                    <td>
+                      <code>TabSessionRequestResolver</code> y middleware.
+                    </td>
+                    <td>Identifica requests posteriores de esa pestaña.</td>
+                  </tr>
+                  <tr>
+                    <td><code>X-REMAINING</code></td>
+                    <td><code>RemainingSessionHeaderEmitter</code>.</td>
+                    <td><code>SessionCountdown</code> en Surface.</td>
+                    <td>
+                      Sincroniza expiración sin duplicar cálculo en Surface.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Flujo de tab session</h3>
+            <ol class="guide-checklist">
+              <li>
+                Surface crea o recupera un id de pestaña desde
+                <code>sessionStorage</code>.
+              </li>
+              <li>
+                En login, la vista puede enviar <code>_tab</code> junto con el
+                formulario.
+              </li>
+              <li>
+                Gateway crea contexto de sesión por pestaña en
+                <code>TabSessionStore</code>.
+              </li>
+              <li>
+                En requests autenticados, <code>serverClient</code> envía
+                <code>X-TAB-SESSION</code>.
+              </li>
+              <li>
+                Middleware como <code>RequireAuthentication</code> o
+                <code>RefreshAuthTabSession</code> valida o refresca la pestaña.
+                El refresh respeta <code>SESSION_REFRESH_WINDOW</code> y
+                <code>SESSION_REFRESH_COOLDOWN</code>.
+              </li>
+              <li>
+                Gateway responde <code>X-REMAINING</code> y Surface actualiza el
+                contador.
+              </li>
+            </ol>
+
+            <h3 class="h5 mt-4">Cuándo se refresca realmente</h3>
+            <p>
+              <code>RefreshAuthTabSession</code> intenta mantener viva la tab
+              activa, pero <code>PhpTabSessionStore::refreshTab(...)</code> no
+              escribe en sesión cada vez. La decisión final vive en
+              <code>TabSessionExpiryService::shouldRefresh(...)</code>, que se
+              puede leer como una regla de dos preguntas.
+            </p>
+            <ol class="guide-checklist">
+              <li>
+                ¿Ya falta poco para vencer? Eso lo marca
+                <code>SESSION_REFRESH_WINDOW</code>.
+              </li>
+              <li>
+                ¿Ya pasó suficiente tiempo desde el último refresh real? Eso lo
+                marca <code>SESSION_REFRESH_COOLDOWN</code>.
+              </li>
+            </ol>
+            <p>
+              Con <code>SESSION_TIME=10</code>,
+              <code>SESSION_REFRESH_WINDOW=30</code> y
+              <code>SESSION_REFRESH_COOLDOWN=60</code>, el flujo se entiende
+              mejor con horas concretas:
+            </p>
+            <ol class="guide-checklist">
+              <li>
+                <strong>12:00:00:</strong> login. La tab vence a las
+                <strong>12:10:00</strong> y <code>refreshedAtUnix</code> queda
+                en 12:00:00.
+              </li>
+              <li>
+                <strong>12:08:00:</strong> entra una request. Faltan 2 minutos
+                para vencer, así que no está dentro de la ventana final de 30
+                segundos. No se refresca.
+              </li>
+              <li>
+                <strong>12:09:35:</strong> faltan 25 segundos para vencer y el
+                último refresh real fue a las 12:00:00. Ya pasó el cooldown, por
+                eso Gateway actualiza <code>refreshedAtUnix</code> y mueve
+                <code>expiresAtUnix</code> a <strong>12:19:35</strong>.
+              </li>
+              <li>
+                <strong>12:09:36:</strong> entra otra request o un doble click
+                en "mantener sesión". Solo pasó 1 segundo desde el refresh
+                anterior. La request puede responder bien, pero Gateway no
+                escribe una nueva expiración.
+              </li>
+              <li>
+                <strong>12:10:35:</strong> pasaron exactamente 60 segundos desde
+                el último refresh. Todavía no alcanza, porque el código exige
+                que haya pasado más de 60.
+              </li>
+            </ol>
+            <p>
+              En resumen: el cooldown no bloquea la request; solo evita que cada
+              request protegida alargue la vida de la tab y escriba el archivo
+              de sesión PHP.
+            </p>
+
+            <h3 class="h5 mt-4">Dónde viven las tabs en sesión PHP</h3>
+            <p>
+              La cookie PHP identifica al navegador frente al servidor, pero el
+              Gateway separa el trabajo por pestaña dentro de la misma sesión.
+              <code>PhpTabSessionStore</code> guarda cada pestaña bajo
+              <code>tabs.{tabId}</code>. El punto en la clave es notación del
+              driver: termina como arrays anidados dentro de
+              <code>$_SESSION</code>.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Ruta lógica</th>
+                    <th>Contenido</th>
+                    <th>Responsable</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>tabs.{tabId}.metadata</code></td>
+                    <td>
+                      <code>startedAt</code>, <code>refreshedAt</code>,
+                      <code>expiresAt</code> y sus timestamps Unix.
+                    </td>
+                    <td><code>TabSessionExpiryService</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>tabs.{tabId}.accountInfo</code></td>
+                    <td>
+                      Usuario autenticado, administrador, perfil y permisos
+                      serializados para esa pestaña.
+                    </td>
+                    <td><code>PhpTabSessionStore</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>_flash.{tabId}</code></td>
+                    <td>
+                      Mensajes temporales aislados para una pestaña concreta.
+                    </td>
+                    <td>
+                      <code>TabFlashMessages</code> y helpers de
+                      <code>AppController</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>_maintenance.tabsCleanupLastRunUnix</code></td>
+                    <td>
+                      Timestamp Unix del último barrido de tabs expiradas en esa
+                      sesión PHP.
+                    </td>
+                    <td><code>TabSessionGarbageCollector</code>.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Cómo conviven varias pestañas</h3>
+            <p>
+              Varias pestañas del mismo navegador comparten la misma cookie de
+              sesión PHP, pero no comparten necesariamente el mismo
+              <code>tabId</code>. Por eso el Gateway no guarda un único usuario
+              plano en sesión para todo el navegador; guarda un mapa
+              <code>tabs</code> indexado por id de pestaña. Una pestaña puede
+              expirar, cerrarse o refrescarse sin borrar directamente el estado
+              de otra.
+            </p>
+            <p>
+              <code>SESSION_TIME</code> define la vida total emitida al crear o
+              refrescar una tab. El refresh no ocurre en cada request: solo
+              cuando la pestaña está dentro de
+              <code>SESSION_REFRESH_WINDOW</code> y ya pasó
+              <code>SESSION_REFRESH_COOLDOWN</code> desde el último refresh. Esa
+              combinación reduce escrituras sobre el archivo de sesión y evita
+              que cada request protegida alargue la vida de la tab sin control.
+            </p>
+
+            <div class="guide-callout p-3 rounded">
+              <strong>Dónde cortar:</strong> si falta CSRF, tab session o una
+              sesión activa, el controller o middleware puede cortar antes del
+              use case. El use case no debería saber cómo se llama el header ni
+              cómo se guarda el id de pestaña.
+            </div>
+            <div class="guide-callout p-3 rounded">
+              <strong>Mantenimiento de sesión:</strong>
+              <code>TabSessionGarbageCollector</code> usa
+              <code>SESSION_CLEANUP_INTERVAL</code> y
+              <code>SESSION_CLEANUP_LAST_RUN_KEY</code> para evitar limpiar tabs
+              expiradas en cada request.
+            </div>
+            <div class="guide-callout p-3 rounded">
+              <strong>Mensajes flash:</strong>
+              <code>flashMessage(...)</code> escribe bajo
+              <code>_flash.{tabId}</code> antes de un redirect, y
+              <code>pullFlashMessages(...)</code> lee y elimina esos mensajes al
+              renderizar la siguiente vista.
+            </div>
+          </section>
+
+          <section id="views" class="guide-section">
+            <h2>Views, JSON y assets</h2>
+            <p>
+              Gateway renderiza HTML o envelope JSON. Surface consume ese
+              contrato después.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Este punto es el puente central: amplíalo en
+                <a href="bridge.html#html">Contratos HTML</a>,
+                <a href="bridge.html#json">JSON envelope</a> y
+                <a href="app-surface.html#runtime"
+                  >Runtime de pages y fragments</a
+                >.
+              </em>
+            </p>
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>HTML con surface</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-view"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-view" class="language-markup">&lt;div class="row" data-surface-page="demo-items"&gt;
+  &lt;div id="item-summary-container"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Assets Vite</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gw-assets"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gw-assets" class="language-php">&lt;?= vite_styles() ?&gt;
+&lt;?= vite_script() ?&gt;</code></pre>
+                </div>
+              </div>
+            </div>
+            <h3 class="h5 mt-4">Qué puede devolver Gateway</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Salida</th>
+                    <th>Método habitual</th>
+                    <th>Cuándo usarla</th>
+                    <th>Quién la consume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Página completa</td>
+                    <td>
+                      <code>renderAccessView(...)</code> o
+                      <code>renderControlView(...)</code>
+                    </td>
+                    <td>Una pantalla navegable con layout completo.</td>
+                    <td>
+                      El navegador, y luego Surface si hay
+                      <code>data-surface-page</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Fragment HTML</td>
+                    <td><code>renderFragmentView(...)</code></td>
+                    <td>
+                      Una parte de pantalla que Surface puede pedir e insertar.
+                    </td>
+                    <td>
+                      <code>serverClient.html(...)</code>, validación
+                      <code>expect</code> cuando es montable y
+                      <code>FragmentRuntime</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>JSON envelope</td>
+                    <td><code>respondJson(...)</code></td>
+                    <td>
+                      Datos para una acción UI, validación, búsqueda o comando.
+                    </td>
+                    <td>
+                      <code>serverClient.json(...)</code> o
+                      <code>serverClient.data(...)</code> desde un
+                      <code>api.ts</code> tipado con <code>contracts.ts</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Redirect</td>
+                    <td><code>RedirectResponse</code></td>
+                    <td>Navegación clásica después de una acción completa.</td>
+                    <td>El navegador.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Helpers disponibles en views</h3>
+            <p>
+              Las plantillas PHP no deberían calcular rutas públicas ni escapar
+              strings manualmente. Los helpers mantienen la salida consistente y
+              el mismo comportamiento entre producción y desarrollo.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Helper</th>
+                    <th>Qué hace</th>
+                    <th>Ejemplo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>view('ruta')</code></td>
+                    <td>Resuelve un archivo bajo <code>@views</code>.</td>
+                    <td><code>view('feature/index.page')</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>url('path')</code></td>
+                    <td>
+                      Construye URL pública respetando base URI y public path.
+                    </td>
+                    <td><code>url('auth/logout')</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>e($value)</code></td>
+                    <td>Escapa valores para HTML, atributos, JS, URL o raw.</td>
+                    <td><code>&lt;?= e($name) ?&gt;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>vite_styles()</code></td>
+                    <td>
+                      Emite CSS del entry Vite desde manifest o fallback dev.
+                    </td>
+                    <td><code>&lt;?= vite_styles() ?&gt;</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>vite_script()</code></td>
+                    <td>Emite preload de imports y script module principal.</td>
+                    <td><code>&lt;?= vite_script('main.ts') ?&gt;</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <ul class="guide-checklist">
+              <li>
+                En producción, el manifest de Vite es obligatorio. Si falta, el
+                gateway debe fallar claro.
+              </li>
+              <li>
+                En desarrollo puede existir fallback a <code>app.js</code> y
+                <code>app.css</code> con versión de asset.
+              </li>
+              <li>
+                Si una vista necesita JavaScript, declara el contrato HTML con
+                <code>data-surface-page</code> o
+                <code>data-surface-fragment</code>; no debe pegarse lógica JS
+                inline.
+              </li>
+              <li>
+                El texto visible debe escaparse con <code>e(...)</code>.
+                <code>e($value, 'js')</code> solo corresponde para valores
+                dentro de JS.
+              </li>
+            </ul>
+          </section>
+
+          <section id="errors" class="guide-section">
+            <h2>Errores y resultados</h2>
+
+            <p>
+              Cada capa clasifica los errores según su responsabilidad. Esto
+              evita que un connector decida sobre la UI, que un service dependa
+              de HTTP o que Surface oculte fallos que el Gateway ya interpretó.
+            </p>
+
+            <h3 class="h5 mt-4">Taxonomía de error</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Qué representa</th>
+                    <th>Ejemplos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>ErrorKind</code></td>
+                    <td>Tipo de fallo que define el status HTTP esperado.</td>
+                    <td>
+                      <code>VALIDATION</code>, <code>FORBIDDEN</code>,
+                      <code>CONFLICT</code>,
+                      <code>DEPENDENCY_UNAVAILABLE</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ErrorOrigin</code></td>
+                    <td>
+                      Origen del fallo, útil para diagnóstico y status de
+                      dependencias.
+                    </td>
+                    <td>
+                      <code>FRAMEWORK</code>, <code>APPLICATION</code>,
+                      <code>UPSTREAM</code>, <code>TRANSPORT</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ErrorKindHttpStatusResolver</code></td>
+                    <td>Traduce kind/origin a HTTP.</td>
+                    <td>
+                      Validación a <code>422</code>, auth a <code>401</code>,
+                      dependencia upstream a <code>502</code> o transporte a
+                      <code>503</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ErrorPresenter</code></td>
+                    <td>
+                      Presenta errores no manejados como HTML o JSON según el
+                      request.
+                    </td>
+                    <td>
+                      Error temprano de bootstrap, excepción no capturada o
+                      fallo framework.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Dónde nace cada error</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Capa</th>
+                    <th>Puede fallar por</th>
+                    <th>No debe fallar por</th>
+                    <th>Salida esperada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Controller</td>
+                    <td>
+                      Request imposible, CSRF, tab session ausente, parámetro
+                      HTTP mal formado.
+                    </td>
+                    <td>
+                      Estado de una API externa o reglas internas del caso.
+                    </td>
+                    <td>
+                      <code>abortController(...)</code> o response segura.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Use case</td>
+                    <td>
+                      Intención inválida, transición no permitida o input de
+                      aplicación inconsistente.
+                    </td>
+                    <td>
+                      Detalles de headers, query string, HTML o transporte.
+                    </td>
+                    <td>
+                      <code>UseCaseResult</code> de éxito, parcial o fallo.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ConnectorFlowInterface</code></td>
+                    <td>Dependencia requerida fallida u opcional degradada.</td>
+                    <td>Crear errores nuevos sin venir de un connector.</td>
+                    <td>
+                      Fallo bloqueante con <code>required</code> o parcialidad
+                      con <code>optional</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Service</td>
+                    <td>
+                      Debe componer datos y decidir qué llamada es requerida u
+                      opcional usando el flow recibido.
+                    </td>
+                    <td>
+                      Lanzar errores de aplicación, crear responses o conocer
+                      Surface.
+                    </td>
+                    <td>Read model, output o <code>null</code> controlado.</td>
+                  </tr>
+                  <tr>
+                    <td>Connector</td>
+                    <td>
+                      Contrato externo inválido, upstream fallido o transporte
+                      no disponible.
+                    </td>
+                    <td>Elegir HTML, JSON final o comportamiento visual.</td>
+                    <td><code>ConnectorResult::success/fail</code>.</td>
+                  </tr>
+                  <tr>
+                    <td>Response</td>
+                    <td>
+                      Serialización JSON, render de view, manifest de assets o
+                      emisión final.
+                    </td>
+                    <td>Reinterpretar reglas de aplicación ya decididas.</td>
+                    <td>HTTP status, headers, body y contexto observable.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Semántica del envelope</h3>
+            <ul class="guide-checklist">
+              <li>`success=true` sin errores: éxito completo.</li>
+              <li>
+                `success=true` con errores: respuesta parcial o degradada.
+              </li>
+              <li>`success=false`: fallo bloqueante.</li>
+              <li>
+                Los fallos secundarios no deben convertirse en éxito limpio si
+                el usuario debe ver degradación.
+              </li>
+              <li>
+                <code>errorMeta</code> solo debe exponerse cuando el runtime lo
+                permite. En producción, el usuario recibe mensajes seguros, no
+                detalles técnicos.
+              </li>
+              <li>
+                Una excepción inesperada no debe salir cruda: el handler central
+                la mapea, la registra y presenta una salida consistente.
+              </li>
+            </ul>
+          </section>
+
+          <section id="observability" class="guide-section">
+            <h2>Observabilidad</h2>
+            <p>
+              Observabilidad no cambia el resultado funcional de una pantalla,
+              pero permite responder preguntas como: qué request falló, qué
+              upstream tardó más, si el error fue de transporte o de aplicación,
+              y qué correlation id une los logs.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Qué captura</th>
+                    <th>Por qué importa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>RequestTelemetryContext</code></td>
+                    <td>
+                      Request actual, correlation id, response y llamadas
+                      upstream.
+                    </td>
+                    <td>
+                      Da contexto compartido a pipeline, outbound y errores.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>CorrelationIdHeaderEmitter</code></td>
+                    <td>Emite <code>X-Correlation-Id</code>.</td>
+                    <td>
+                      Permite rastrear una request entre cliente, gateway y
+                      logs.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>TracingHttpClient</code></td>
+                    <td>
+                      Registra llamadas externas, duración, status y errores
+                      operativos.
+                    </td>
+                    <td>Ayuda a distinguir fallo propio de fallo upstream.</td>
+                  </tr>
+                  <tr>
+                    <td><code>ObservableResponseInterface</code></td>
+                    <td>Contexto de salida para JSON, view o redirect.</td>
+                    <td>
+                      Los logs pueden decir qué tipo de respuesta se emitió.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>ObservabilityConfig</code></td>
+                    <td>
+                      Centraliza el default de <code>LOG_UPSTREAM_SPANS</code>.
+                    </td>
+                    <td>
+                      Mantiene logging y telemetría fuera del runtime de vistas
+                      y sesión.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>LogWriterFactory</code></td>
+                    <td>
+                      Selecciona <code>stdout</code> para CLI y JSONL semanal
+                      directo para requests web.
+                    </td>
+                    <td>
+                      Permite capturar procesos CLI con collector sin dejar
+                      vacía la bitácora web en producción.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>LogChannel</code></td>
+                    <td>
+                      Normaliza canales: access, metrics, error, upstream y
+                      bootstrap.
+                    </td>
+                    <td>
+                      Desacopla el evento de observabilidad del destino físico
+                      final.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>LogSanitizer</code></td>
+                    <td>
+                      Filtra query, post, JSON, headers y opciones sensibles.
+                    </td>
+                    <td>Evita que secretos y tokens terminen en logs.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              La observabilidad de Gateway usa JSON Lines. En requests web, Core
+              escribe directo en
+              <code
+                >app-gateway/var/log/develop/&lt;semana&gt;/stdout.jsonl</code
+              >
+              o
+              <code
+                >app-gateway/var/log/production/&lt;semana&gt;/stdout.jsonl</code
+              >. En CLI, los eventos salen por <code>stdout</code> y pueden
+              persistirse con <code>tools/log-collector</code>. El visor de logs
+              usa esas rutas fijas por entorno y las crea si no existen. El
+              viewer solo lista carpetas semanales <code>YYYY-WNN</code>, así la
+              carpeta <code>develop</code> o <code>production</code> no se
+              mezcla con las semanas. Así el request PHP no bloquea archivos
+              locales con <code>LOCK_EX</code>.
+            </p>
+            <p>
+              Cuando se reporta un error, la traza se reduce a los campos
+              <code>file</code>, <code>line</code>, <code>function</code> y
+              <code>class</code> por frame. No se serializan argumentos ni
+              objetos internos del stack.
+            </p>
+            <p>
+              <code>TracingHttpClient</code> siempre agrega los spans al
+              contexto de la request para que access/metrics conozcan cantidad,
+              errores y upstream más lento. El evento detallado por cada llamada
+              outbound se controla con <code>LOG_UPSTREAM_SPANS</code>, también
+              con valor por defecto <code>auto</code>; por defecto solo queda
+              activo en desarrollo.
+            </p>
+
+            <ul class="guide-checklist">
+              <li>
+                Cuando se agregue una response nueva, debe evaluarse si
+                corresponde implementar
+                <code>ObservableResponseInterface</code>.
+              </li>
+              <li>
+                Cuando se agregue un client HTTP transversal, debe conservarse
+                el rastro de upstream calls y la sanitización.
+              </li>
+              <li>
+                La observabilidad no debe decidir negocio. Sirve para observar
+                el sistema, no para cambiar el flujo de aplicación.
+              </li>
+            </ul>
+          </section>
+
+          <section id="http-lifecycle" class="guide-section">
+            <h2>Ciclo HTTP interno</h2>
+            <p>
+              El ciclo HTTP es el camino que sigue cada request después del
+              bootstrap. Esta parte explica por qué un error puede convertirse
+              en JSON o HTML, por qué se emiten headers compartidos y por qué el
+              controller recibe un <code>HttpRequest</code> ya normalizado.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Paso</th>
+                    <th>Qué hace</th>
+                    <th>Qué NO debe hacer una feature</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>HttpRequestFactory</code></td>
+                    <td>
+                      Normaliza método, path, query, post, JSON, files y headers
+                      desde la request actual.
+                    </td>
+                    <td>
+                      Leer <code>$_GET</code>, <code>$_POST</code> o headers
+                      globales de forma manual.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>RequestLifecycle::begin()</code></td>
+                    <td>
+                      Inicia telemetría y registra el manejador de errores según
+                      si el request espera JSON.
+                    </td>
+                    <td>Crear otro error handler local para un controller.</td>
+                  </tr>
+                  <tr>
+                    <td><code>RequestBootstrapPipeline</code></td>
+                    <td>
+                      Ejecuta bootstrappers por request, como sesión PHP y
+                      limpieza/initialización de tab session.
+                    </td>
+                    <td>
+                      Inicializar sesión desde una vista o integración UI.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>RouteDispatcher</code></td>
+                    <td>
+                      Carga o construye rutas, ejecuta middleware y llama el
+                      controller por el invoker.
+                    </td>
+                    <td>Esconder rutas dentro de controllers.</td>
+                  </tr>
+                  <tr>
+                    <td><code>ResponseEmitter</code></td>
+                    <td>
+                      Emite headers compartidos y luego delega la salida en la
+                      response concreta.
+                    </td>
+                    <td>
+                      Hacer <code>echo</code> directo desde un use case o
+                      connector.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Route cache</h3>
+            <p>
+              El router puede exportar sus rutas a cache. En desarrollo carga
+              las definiciones directamente para mantener feedback rápido. En
+              producción, Gateway intenta leer el cache de rutas; si no existe,
+              la request falla con <code>PRODUCTION_ROUTE_CACHE_MISSING</code>.
+              Esa falla obliga a ejecutar <code>build:prod</code> antes de
+              atender tráfico.
+            </p>
+            <ul class="guide-checklist">
+              <li>
+                Cambiar un archivo de rutas debe invalidar o preparar nuevamente
+                la cache de rutas antes de desplegar.
+              </li>
+              <li>
+                El cache guarda definiciones ya compiladas; no debe usarse para
+                saltarse validaciones de handler o middleware.
+              </li>
+              <li>
+                Si dos rutas tienen la misma firma, el router debe fallar claro
+                como ruta duplicada.
+              </li>
+            </ul>
+          </section>
+
+          <section id="complete-flow" class="guide-section">
+            <h2>Flujo completo de Gateway</h2>
+            <p>
+              Gateway recibe una entrada HTTP, decide la intención de aplicación
+              y devuelve una salida controlada: HTML, JSON, fragment o redirect.
+              El camino cambia según el tipo de caso, pero las fronteras se
+              mantienen.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                El contrato que sale de este flujo se consume desde
+                <a href="app-surface.html#consume-gateway">Surface</a> y se
+                explica como frontera compartida en
+                <a href="bridge.html#json">JSON envelope</a> y
+                <a href="bridge.html#html">Contratos HTML</a>.
+              </em>
+            </p>
+
+            <div
+              class="file-flow file-flow--blue"
+              aria-label="Mapa archivo por archivo de Gateway"
+            >
+              <article class="file-flow__item">
+                <span class="file-flow__marker">01</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Entrada HTTP</p>
+                    <h3>Ruta</h3>
+                    <code class="file-flow__path"
+                      >@extension/Presentation/Http/Routing/ExtensionRouteRegister.php</code
+                    >
+                  </header>
+                  <p>
+                    Aquí vive la URL, el verbo HTTP y el action del controller.
+                    No decide negocio ni arma respuestas.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-php">$router->post('/items/search', [ItemController::class, 'search']);</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong>
+                    <code>ItemController::search(...)</code>.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">02</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Presentación</p>
+                    <h3>Controller</h3>
+                    <code class="file-flow__path"
+                      >@extension/Presentation/Http/Controller/ItemController.php</code
+                    >
+                  </header>
+                  <p>
+                    Aquí se lee el request, se construye el input y se elige la
+                    respuesta. Puede cortar por errores de presentación, pero no
+                    debe hablar con proveedores externos.
+                  </p>
+                  <ul class="guide-checklist">
+                    <li>
+                      <code>$this->request</code> es el
+                      <code>HttpRequest</code> que Core inyecta antes de invocar
+                      el action. Se usan <code>getQuery(...)</code>,
+                      <code>getPost(...)</code>, <code>getJson(...)</code> y
+                      <code>getHeader(...)</code> para leer la entrada HTTP.
+                    </li>
+                    <li>
+                      <code>respondJson(fn() =&gt; ...)</code> ejecuta una
+                      intención y la convierte al envelope JSON del bridge. Si
+                      el callable devuelve datos sin normalizar, se normalizan
+                      como éxito; si devuelve <code>UseCaseResult</code>, se
+                      respeta su éxito, parcialidad o fallo.
+                    </li>
+                    <li>
+                      <code>$this-&gt;searchItems</code> representa un use case:
+                      una clase de <code>Application/UseCase</code> inyectada
+                      por DI que expresa la intención de aplicación. El nombre
+                      debe reemplazarse por la intención real de la feature.
+                    </li>
+                  </ul>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-php">$input = (string) $this->request->getPost('someInput', '');
+return $this->respondJson(fn() => $this->searchItems->execute($input));</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> el use case que expresa la
+                    intención de aplicación.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">03</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Aplicación</p>
+                    <h3>Use case</h3>
+                    <code class="file-flow__path"
+                      >@extension/Application/UseCase/Items/SearchItems.php</code
+                    >
+                  </header>
+                  <p>
+                    Aquí vive la intención: validar reglas de aplicación,
+                    decidir si basta una dependencia directa o si hace falta
+                    composición, y devolver un <code>UseCaseResult</code>.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-php">return $this->runConnectorFlow(
+  fn(ConnectorFlowInterface $flow) => $this->service->search($input, $flow)
+);</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> un service cuando hay
+                    composición, o a un port directo cuando el caso es simple.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">04</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Composición opcional</p>
+                    <h3>Service</h3>
+                    <code class="file-flow__path"
+                      >@extension/Application/Service/Items/ItemSearchService.php</code
+                    >
+                  </header>
+                  <p>
+                    Solo existe si agrega valor: varias fuentes, fallback,
+                    parcialidad o transformación. Si únicamente delega al
+                    connector, este archivo sobra.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-php">$items = $flow->required($this->items->search($input));
+$stats = $flow->optional($this->items->stats($input), null);</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> un output/read model usable por
+                    el use case.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">05</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Integración</p>
+                    <h3>Port y connector</h3>
+                    <code class="file-flow__path"
+                      >@extension/Application/Port/*</code
+                    >
+                    <code class="file-flow__path"
+                      >@extension/Infrastructure/Outbound/Connector/*</code
+                    >
+                  </header>
+                  <p>
+                    El port nombra lo que la aplicación necesita. El connector
+                    adapta clientes externos, payloads y fallos técnicos a
+                    <code>ConnectorResult</code>.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-php">return $this->client
+  ->searchItems($input)
+  ->toConnectorResult();</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> el use case o service, nunca a
+                    la vista directamente.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">06</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Salida</p>
+                    <h3>Response o view</h3>
+                    <code class="file-flow__path">@views/items/*</code>
+                    <code class="file-flow__path"
+                      >@extension/Presentation/Http/Response/*</code
+                    >
+                  </header>
+                  <p>
+                    Aquí se adapta el resultado a HTML, JSON, fragment o
+                    redirect. La view pinta datos ya decididos; no vuelve a
+                    resolver negocio.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-php">return $this->renderFragmentView(
+  'items/summary.fragment',
+  $result->data()
+);</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> browser o Surface, según el tipo
+                    de respuesta.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Necesidad</th>
+                    <th>Pieza a crear o reutilizar</th>
+                    <th>Evita ponerlo en</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Mostrar una página completa</td>
+                    <td>Controller + view SSR.</td>
+                    <td>Use case si solo se arma una pantalla estática.</td>
+                  </tr>
+                  <tr>
+                    <td>Actualizar una parte de la pantalla</td>
+                    <td>Ruta de fragment + controller + fragment PHP.</td>
+                    <td>Surface generando HTML de negocio.</td>
+                  </tr>
+                  <tr>
+                    <td>Ejecutar una intención de aplicación</td>
+                    <td>
+                      Controller + use case + <code>respondJson(...)</code>.
+                    </td>
+                    <td>Controller con reglas profundas.</td>
+                  </tr>
+                  <tr>
+                    <td>Una llamada obligatoria directa</td>
+                    <td>
+                      Use case + port/connector con
+                      <code>takeOrAbort(...)</code>.
+                    </td>
+                    <td>Service que solo hace passthrough.</td>
+                  </tr>
+                  <tr>
+                    <td>Varias fuentes, fallback o parcialidad</td>
+                    <td>
+                      Use case + service + <code>$flow->required(...)</code> /
+                      <code>$flow->optional(...)</code>.
+                    </td>
+                    <td>Connector decidiendo significado de aplicación.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              <p class="mb-2">
+                El use case puede consumir un connector directo por su port
+                cuando el carril es simple. No debería hablar con HTTP externo
+                sin normalizar ni conocer URLs, bearer, TLS o payloads de
+                proveedor; eso pertenece a outbound client y connector.
+              </p>
+            </div>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido de la guía</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="fundamentals.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Bases</h3>
+                      <p class="mb-0">
+                        Revisa el modelo mental común antes de seguir con las
+                        capas concretas.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a class="guide-card-link" href="app-surface.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Continuar con: Surface</h3>
+                      <p class="mb-0">
+                        Runtime UI que monta pages y fragments sobre el HTML SSR
+                        del gateway.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

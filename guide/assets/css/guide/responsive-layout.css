@@ -1,0 +1,711 @@
+@media (max-width: 1199.98px) {
+  .guide-sidebar {
+    position: sticky !important;
+    top: 5rem;
+    z-index: 1010;
+    margin-bottom: 1rem;
+  }
+
+  .guide-sidebar .card {
+    max-height: calc(100vh - 5.5rem);
+    overflow: auto;
+  }
+
+  .navbar .navbar-collapse {
+    padding-top: 0.82rem;
+  }
+
+  .navbar .navbar-nav {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0;
+  }
+
+  .navbar .nav-item {
+    width: 100%;
+  }
+
+  .navbar .nav-link {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.82rem 1.35rem 0.82rem 0.1rem;
+    border-radius: 0;
+    margin-block: 0;
+    font-size: 0.92rem;
+    line-height: 1.2;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+
+  .navbar .nav-link::after {
+    display: none;
+  }
+
+  .navbar .nav-link::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0.18rem;
+    left: auto;
+    width: 0.48rem;
+    height: 0.48rem;
+    flex: none;
+    border-radius: 999px;
+    background: var(--nav-color);
+    box-shadow: 0 0 0.85rem
+      color-mix(in srgb, var(--nav-color) 42%, transparent);
+    opacity: 0;
+    transform: translateY(-50%) scale(0.7);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .navbar .nav-link:hover,
+  .navbar .nav-link:focus-visible {
+    box-shadow: none;
+  }
+
+  .navbar .nav-link:hover::before,
+  .navbar .nav-link:focus-visible::before {
+    opacity: 0.72;
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  .navbar .nav-link.active {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--nav-color) 12%, transparent),
+      transparent 72%
+    );
+    box-shadow: none;
+  }
+
+  .navbar .nav-link.active::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    right: 2em;
+  }
+
+  .diagram-list {
+    max-height: none;
+  }
+
+  .guide-sidebar--diagrams .diagram-browser {
+    max-height: none;
+    overflow: hidden;
+  }
+
+  .flow-rail {
+    grid-template-columns: 1fr;
+    gap: 0.42rem;
+  }
+
+  .flow-rail li {
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    min-height: 2rem;
+    padding: 0.36rem 0.48rem;
+  }
+
+  .flow-rail li::before {
+    width: 1.6rem;
+    height: 1.45rem;
+    border-radius: 999px;
+  }
+
+  .ownership-board {
+    grid-template-columns: 1fr;
+  }
+
+  .ownership-bridge {
+    place-content: start;
+    text-align: left;
+  }
+
+  .navbar .nav-item:nth-child(1) .nav-link,
+  .navbar .nav-item:nth-child(2) .nav-link,
+  .navbar .nav-item:nth-child(3) .nav-link,
+  .navbar .nav-item:nth-child(4) .nav-link,
+  .navbar .nav-item:nth-child(5) .nav-link,
+  .navbar .nav-item:nth-child(6) .nav-link,
+  .navbar .nav-item:nth-child(7) .nav-link,
+  .navbar .nav-item:nth-child(8) .nav-link,
+  .navbar .nav-item:nth-child(9) .nav-link,
+  .navbar .nav-item:nth-child(10) .nav-link {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}
+
+@media (max-width: 991.98px) {
+  html {
+    scroll-padding-top: 10.25rem;
+  }
+
+  .diagram-list {
+    position: relative;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .guide-sidebar--diagrams .diagram-list.guide-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    justify-content: stretch;
+    overflow: visible;
+    padding-right: 0;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+
+  .diagram-list__tabs {
+    display: flex;
+  }
+
+  .guide-sidebar--diagrams .diagram-list__tabs {
+    width: 100%;
+    max-width: 100%;
+    padding-right: 2.2rem;
+    scroll-snap-type: x proximity;
+  }
+
+  .guide-sidebar--diagrams .diagram-list__tab {
+    scroll-snap-align: start;
+  }
+
+  .guide-sidebar--diagrams .diagram-list.has-group-tabs .diagram-list__group {
+    display: none;
+  }
+
+  .diagram-list.has-group-tabs .diagram-list__group.is-open {
+    position: absolute;
+    top: calc(100% + 0.42rem);
+    right: 0;
+    left: 0;
+    z-index: 20;
+    display: grid;
+    gap: 0.42rem;
+    max-height: min(65vh, 24rem);
+    overflow: auto;
+    padding: 0.72rem;
+    border-color: color-mix(
+      in srgb,
+      var(--diagram-menu-color) 36%,
+      transparent
+    );
+    border-radius: 0.92rem;
+    background:
+      linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--diagram-menu-color) 22%, transparent),
+          transparent 55%
+        )
+        top / 100% 3px no-repeat,
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--diagram-menu-color) 11%, transparent),
+        color-mix(in srgb, var(--diagram-menu-companion) 6%, transparent)
+      ),
+      linear-gradient(180deg, rgba(45, 42, 46, 0.98), rgba(25, 24, 26, 0.96)),
+      #221f22;
+    box-shadow:
+      0 1rem 2.2rem rgba(0, 0, 0, 0.42),
+      0 0 0 1px color-mix(in srgb, var(--diagram-menu-color) 9%, transparent),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .diagram-list.has-group-tabs .diagram-list__group.is-open::before {
+    content: "";
+    position: absolute;
+    top: -0.36rem;
+    left: 1.35rem;
+    width: 0.72rem;
+    height: 0.72rem;
+    border-top: 1px solid
+      color-mix(in srgb, var(--diagram-menu-color) 36%, transparent);
+    border-left: 1px solid
+      color-mix(in srgb, var(--diagram-menu-color) 36%, transparent);
+    background: rgba(45, 42, 46, 0.98);
+    transform: rotate(45deg);
+  }
+
+  .diagram-list.has-group-tabs .diagram-list__group.is-open::after {
+    content: none;
+  }
+
+  .diagram-list.has-group-tabs .list-group-item {
+    width: 100%;
+    max-width: none;
+    padding: 0.62rem 0.78rem;
+    border-radius: 0.68rem;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
+
+  .guide-sidebar--diagrams
+    .diagram-list.has-group-tabs
+    .diagram-list__group.is-open
+    .nav-link {
+    width: 100%;
+    max-width: none;
+    padding: 0.62rem 0.78rem;
+    border-radius: 0.68rem;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
+
+  .guide-sidebar--diagrams .diagram-browser,
+  .guide-sidebar--diagrams .card-body {
+    overflow: visible;
+  }
+
+  .guide-sidebar--diagrams .card-body::after {
+    content: none;
+  }
+
+  .guide-shell .row > aside {
+    position: sticky;
+    top: 4.75rem;
+    z-index: 1010;
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .guide-sidebar {
+    position: static !important;
+    top: auto;
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .guide-sidebar--diagrams {
+    z-index: 1035;
+  }
+
+  .guide-sidebar .card {
+    width: 100%;
+    max-height: none;
+    overflow: hidden;
+  }
+
+  .guide-sidebar > .card {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.055),
+        rgba(120, 220, 232, 0.035)
+      ),
+      linear-gradient(180deg, rgba(45, 42, 46, 0.99), rgba(25, 24, 26, 0.97)) !important;
+    box-shadow:
+      0 0.9rem 1.8rem rgba(0, 0, 0, 0.34),
+      0 0 0 1px rgba(255, 255, 255, 0.045),
+      inset 0 1px 0 rgba(255, 255, 255, 0.075) !important;
+  }
+
+  body[class*="guide-page--"] .guide-sidebar > .card {
+    border-color: color-mix(
+      in srgb,
+      var(--page-color) 30%,
+      rgba(255, 255, 255, 0.08)
+    ) !important;
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--page-color) 10%, transparent),
+        color-mix(in srgb, var(--page-color-companion) 5%, transparent)
+      ),
+      linear-gradient(180deg, rgba(45, 42, 46, 0.99), rgba(25, 24, 26, 0.97)) !important;
+    box-shadow:
+      0 0.9rem 1.8rem rgba(0, 0, 0, 0.34),
+      0 0 0 1px color-mix(in srgb, var(--page-color) 8%, transparent),
+      inset 0 1px 0 rgba(255, 255, 255, 0.075) !important;
+  }
+
+  .guide-sidebar > .card::before {
+    right: 0.72rem;
+    left: 0.72rem;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(120, 220, 232, 0.5),
+      rgba(171, 157, 242, 0.28)
+    );
+  }
+
+  body[class*="guide-page--"] .guide-sidebar > .card::before {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color) 10%, transparent),
+      color-mix(in srgb, var(--page-color) 84%, transparent),
+      color-mix(in srgb, var(--page-color-companion) 40%, transparent)
+    );
+  }
+
+  .guide-sidebar--diagrams .diagram-browser {
+    overflow: visible;
+  }
+
+  .guide-sidebar .card-body {
+    position: relative;
+    padding: 0.64rem 0.74rem;
+  }
+
+  .guide-sidebar .card-body::after {
+    content: "";
+    position: absolute;
+    right: 0.74rem;
+    bottom: 0.64rem;
+    width: 2.8rem;
+    height: 2.1rem;
+    background: linear-gradient(90deg, transparent, rgba(34, 31, 34, 0.96));
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .guide-sidebar.is-overflowing .card-body::after {
+    opacity: 1;
+  }
+
+  .guide-sidebar .card-body > h2 {
+    margin-bottom: 0.48rem;
+    color: var(--guide-accent-blue) !important;
+    font-size: 0.7rem;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  body[class*="guide-page--"] .guide-sidebar .card-body > h2 {
+    color: color-mix(in srgb, var(--page-color) 86%, #fcfcfa) !important;
+  }
+
+  .guide-nav {
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    gap: 0.42rem;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    padding-right: 0;
+    padding-bottom: 0.02rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .guide-nav.is-overflowing {
+    justify-content: flex-start;
+    padding-right: 2.2rem;
+  }
+
+  .guide-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .guide-section {
+    scroll-margin-top: 10.25rem;
+  }
+
+  .guide-nav .nav-link {
+    flex: 0 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-left: 0;
+    border-radius: 999px;
+    padding: 0.46rem 0.78rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.07),
+        rgba(255, 255, 255, 0.055)
+      ),
+      rgba(64, 62, 65, 0.74);
+    color: rgba(252, 252, 250, 0.84);
+    font-size: 0.8rem;
+    font-weight: 760;
+    line-height: 1.12;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+
+  .guide-nav .nav-link:hover {
+    color: rgba(252, 252, 250, 0.84);
+    border-left-color: transparent;
+    border-color: rgba(255, 255, 255, 0.065);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.07),
+        rgba(255, 255, 255, 0.055)
+      ),
+      rgba(64, 62, 65, 0.74);
+    box-shadow: none;
+  }
+
+  .guide-nav .nav-link.active {
+    border-left-color: transparent;
+    border-color: rgba(120, 220, 232, 0.34);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(120, 220, 232, 0.22),
+        rgba(120, 220, 232, 0.08)
+      ),
+      rgba(64, 62, 65, 0.86);
+    box-shadow:
+      inset 0 -2px 0 rgba(120, 220, 232, 0.62),
+      0 0 14px rgba(120, 220, 232, 0.1);
+  }
+
+  body[class*="guide-page--"] .guide-nav .nav-link.active {
+    color: #fff;
+    border-left-color: transparent;
+    border-color: color-mix(
+      in srgb,
+      var(--page-color) 42%,
+      rgba(255, 255, 255, 0.08)
+    );
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--page-color) 24%, transparent),
+        color-mix(in srgb, var(--page-color) 10%, transparent)
+      ),
+      rgba(64, 62, 65, 0.86);
+    box-shadow:
+      inset 0 -2px 0 color-mix(in srgb, var(--page-color) 66%, transparent),
+      0 0 14px color-mix(in srgb, var(--page-color) 12%, transparent);
+  }
+}
+
+@media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {
+  .guide-nav .nav-link:hover {
+    border-left-color: transparent;
+    border-color: rgba(120, 220, 232, 0.34);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(120, 220, 232, 0.22),
+        rgba(120, 220, 232, 0.08)
+      ),
+      rgba(64, 62, 65, 0.86);
+    box-shadow:
+      inset 0 -2px 0 rgba(120, 220, 232, 0.62),
+      0 0 14px rgba(120, 220, 232, 0.1);
+  }
+
+  body[class*="guide-page--"] .guide-nav .nav-link:hover {
+    border-left-color: transparent;
+    border-color: color-mix(
+      in srgb,
+      var(--page-color) 42%,
+      rgba(255, 255, 255, 0.08)
+    );
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--page-color) 24%, transparent),
+        color-mix(in srgb, var(--page-color) 10%, transparent)
+      ),
+      rgba(64, 62, 65, 0.86);
+    box-shadow:
+      inset 0 -2px 0 color-mix(in srgb, var(--page-color) 66%, transparent),
+      0 0 14px color-mix(in srgb, var(--page-color) 12%, transparent);
+  }
+}
+
+@media (max-width: 575.98px) {
+  html {
+    scroll-padding-top: 9.5rem;
+  }
+
+  .guide-shell .row > aside {
+    top: 4.45rem;
+  }
+
+  .guide-sidebar .card-body {
+    padding: 0.56rem 0.62rem;
+  }
+
+  .guide-sidebar .card-body > h2 {
+    margin-bottom: 0.38rem;
+    font-size: 0.66rem;
+  }
+
+  .guide-nav {
+    gap: 0.36rem;
+  }
+
+  .guide-nav .nav-link {
+    padding: 0.42rem 0.68rem;
+    font-size: 0.76rem;
+  }
+
+  .guide-section {
+    scroll-margin-top: 9.5rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .navbar .container-fluid,
+  .guide-shell,
+  main.container-fluid,
+  footer .container-fluid {
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  main.container-fluid,
+  .guide-shell {
+    border-inline: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(25, 24, 26, 0.38);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .process-map {
+    gap: 0.76rem;
+  }
+
+  .process-map::before {
+    left: 1.18rem;
+  }
+
+  .process-stage {
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 0.72rem;
+  }
+
+  .process-stage__marker {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .process-stage__body {
+    padding: 0.86rem;
+  }
+
+  .process-chips {
+    grid-template-columns: 1fr;
+    gap: 0.42rem;
+  }
+
+  .process-chips li {
+    border-radius: 0.24rem;
+  }
+
+  .file-flow__item {
+    grid-template-columns: 1fr;
+    gap: 0.68rem;
+    padding: 0.78rem;
+  }
+
+  .file-flow__marker {
+    width: 2.15rem;
+    height: 2.15rem;
+  }
+
+  .file-flow__snippet {
+    font-size: 0.78rem;
+  }
+
+  .flow-rail li {
+    grid-template-columns: 1.55rem minmax(0, 1fr);
+    min-height: 1.95rem;
+    padding: 0.34rem 0.45rem;
+  }
+
+  .flow-rail li::before {
+    width: 1.55rem;
+    height: 1.42rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 1199.98px) {
+  .flow-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mermaid-zoom {
+  margin: 1.5rem 0;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 1rem;
+  background: #0b1020;
+  overflow: hidden;
+}
+
+.mermaid-zoom__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.mermaid-zoom__toolbar button {
+  min-width: 2.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.6rem;
+  background: #111827;
+  color: #e5e7eb;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.mermaid-zoom__toolbar button:hover {
+  background: #1f2937;
+  border-color: #38bdf8;
+}
+
+.mermaid-zoom__viewport {
+  max-height: 75vh;
+  overflow: auto;
+  padding: 1rem;
+  cursor: grab;
+  transition: height 0.15s ease;
+}
+
+.mermaid-zoom__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.mermaid-zoom__stage {
+  position: relative;
+}
+
+.mermaid-zoom__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+
+.mermaid-zoom .mermaid {
+  display: inline-block;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+.mermaid-zoom svg {
+  display: block;
+  max-width: none !important;
+}

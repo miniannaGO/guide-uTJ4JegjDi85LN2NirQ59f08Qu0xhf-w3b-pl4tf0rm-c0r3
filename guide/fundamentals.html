@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bases | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--fundamentals"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bases</li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">Bases</h1>
+        <p class="lead mb-0">
+          El mapa mental para leer el proyecto sin convertir cada cambio en una
+          expedición completa.
+        </p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#vocabulary">Vocabulario mínimo</a>
+                  <a class="nav-link" href="#mental-model">Modelo mental</a>
+                  <a class="nav-link" href="#context">Contextos</a>
+                  <a class="nav-link" href="#flow">Flujo completo</a>
+                  <a class="nav-link" href="#ownership">Ownership</a>
+                  <a class="nav-link" href="#reading">Cómo leer cambios</a>
+                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section id="vocabulary" class="guide-section">
+            <h2>Vocabulario mínimo</h2>
+            <p>
+              Antes de leer Gateway, Surface o Bridge, conviene fijar estos
+              términos. La guía los repite con frecuencia porque son los
+              contratos conceptuales de la solución. Cuando un término aparezca
+              más adelante, esta tabla funciona como referencia base.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Término</th>
+                    <th>Qué significa aquí</th>
+                    <th>Dónde se profundiza</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>Gateway</code></td>
+                    <td>
+                      Backend PHP que recibe HTTP, ejecuta intención de
+                      aplicación y entrega HTML, JSON, redirects, headers o
+                      errores.
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#gateway-first-read">Gateway</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Surface</code></td>
+                    <td>
+                      Frontend TypeScript que activa comportamiento sobre HTML
+                      SSR. No es SPA y no decide negocio.
+                    </td>
+                    <td>
+                      <a href="app-surface.html#surface-first-read">Surface</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Bridge</code></td>
+                    <td>
+                      Conjunto de contratos entre Gateway y Surface: HTML,
+                      <code>data-surface-*</code>, envelope JSON, headers,
+                      sesión y assets.
+                    </td>
+                    <td><a href="bridge.html#bridge-first-read">Bridge</a></td>
+                  </tr>
+                  <tr>
+                    <td><code>Core</code></td>
+                    <td>
+                      Mini-framework interno de Gateway: routing, HTTP, views,
+                      resultados, errores, outbound, DI y lifecycle.
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#core-extension"
+                        >Core / Extension</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Extension</code></td>
+                    <td>
+                      Aplicación concreta que consume Core: routes, controllers,
+                      use cases, services, ports, connectors y views.
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#gateway-capabilities"
+                        >Capacidades Gateway</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Use case</code></td>
+                    <td>
+                      Intención de aplicación. Decide si algo termina en éxito,
+                      parcialidad o fallo, sin conocer HTML ni transporte
+                      externo.
+                    </td>
+                    <td><a href="app-gateway.html#usecases">Use cases</a></td>
+                  </tr>
+                  <tr>
+                    <td><code>Service</code></td>
+                    <td>
+                      Composición opcional dentro de Extension. Solo existe si
+                      coordina varias fuentes, fallback o transformación real.
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#services"
+                        >Services y connectors</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Connector</code></td>
+                    <td>
+                      Adaptador hacia una dependencia externa. Devuelve
+                      <code>ConnectorResult</code>, no HTML ni JSON final.
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#external-clients">Outbound</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Envelope JSON</code></td>
+                    <td>
+                      Forma estándar de las respuestas JSON:
+                      <code>success</code>, <code>data</code>,
+                      <code>message</code>, <code>errors</code> y
+                      <code>errorMeta</code>.
+                    </td>
+                    <td><a href="bridge.html#json">JSON envelope</a></td>
+                  </tr>
+                  <tr>
+                    <td><code>Page</code></td>
+                    <td>
+                      View SSR navegable. Si trae
+                      <code>data-surface-page</code>, Surface puede activar un
+                      binding.
+                    </td>
+                    <td><a href="bridge.html#html">Contratos HTML</a></td>
+                  </tr>
+                  <tr>
+                    <td><code>Fragment</code></td>
+                    <td>
+                      HTML parcial que Gateway renderiza y Surface puede pedir,
+                      insertar y montar.
+                    </td>
+                    <td>
+                      <a href="app-surface.html#content-mount">Content mount</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>Binding</code></td>
+                    <td>
+                      Clase o función de Surface que escucha eventos, llama
+                      Gateway, inicializa adapters y registra cleanup.
+                    </td>
+                    <td><a href="app-surface.html#bindings">Bindings</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Ruta recomendada después de esta tabla:
+                <a href="#mental-model">Modelo mental</a>,
+                <a href="app-gateway.html#gateway-first-read">Gateway</a>,
+                <a href="app-surface.html#surface-first-read">Surface</a> y
+                <a href="bridge.html#bridge-first-read">Bridge</a>.
+              </em>
+            </p>
+          </section>
+
+          <section id="mental-model" class="guide-section">
+            <h2>Modelo mental</h2>
+            <p>
+              El proyecto tiene un Gateway framework-like controlado y un
+              Surface (Frontend) progresivo. La regla más importante es no
+              mezclar responsabilidades.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Para revisar esas responsabilidades con más detalle, la lectura
+                continúa en
+                <a href="app-gateway.html#overview">App Gateway</a>,
+                <a href="app-surface.html#overview">App Surface</a> y
+                <a href="bridge.html#ownership">Ownership rápido</a>.
+              </em>
+            </p>
+            <div class="row g-3">
+              <div class="col-lg-4">
+                <div class="card h-100 border-primary-subtle">
+                  <div class="card-body">
+                    <span class="badge text-bg-primary mb-2">Core</span>
+                    <h3 class="h5">Motor compartido</h3>
+                    <p class="mb-0">
+                      Bootstrap, DI, HTTP, routing, middleware, responses, view,
+                      errores, outbound y use case composition.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card h-100 border-success-subtle">
+                  <div class="card-body">
+                    <span class="badge text-bg-success mb-2">Extension</span>
+                    <h3 class="h5">Aplicación concreta</h3>
+                    <p class="mb-0">
+                      Features reales: controllers, use cases, services,
+                      connectors, views, sesión y routing de la app.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card h-100 border-info-subtle">
+                  <div class="card-body">
+                    <span class="badge text-bg-info mb-2">Surface</span>
+                    <h3 class="h5">Mejora progresiva</h3>
+                    <p class="mb-0">
+                      Activa comportamiento UI sobre HTML SSR. No es SPA, no
+                      decide negocio, no duplica permisos.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="context" class="guide-section">
+            <h2>Contextos y límites</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Área</th>
+                    <th>Puede hacer</th>
+                    <th>No debería hacer</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>app-gateway/Core</code></td>
+                    <td>Definir mecanismos transversales reutilizables.</td>
+                    <td>Contener lógica concreta de una feature.</td>
+                  </tr>
+                  <tr>
+                    <td><code>app-gateway/Extension</code></td>
+                    <td>
+                      Declarar rutas, controllers, use cases, services,
+                      connectors y views.
+                    </td>
+                    <td>
+                      Crear otro mini-framework paralelo o usar clases
+                      `Internal` de Core.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>app-surface/platform</code></td>
+                    <td>
+                      Arrancar layouts, montar runtime, HTTP y errores UI.
+                    </td>
+                    <td>Resolver reglas de negocio o de permisos.</td>
+                  </tr>
+                  <tr>
+                    <td><code>app-surface/workspace</code></td>
+                    <td>Definir integraciones UI concretas.</td>
+                    <td>Convertirse en dominio Surface soberano.</td>
+                  </tr>
+                  <tr>
+                    <td><code>app-surface/toolkit</code></td>
+                    <td>Ofrecer adapters y helpers técnicos opt-in.</td>
+                    <td>Cargar vendors globales sin necesidad.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Para llevar estos límites al flujo real, se recomienda revisar
+                <a href="bridge.html#ssr">SSR + Progressive Enhancement</a> y
+                <a href="app-surface.html#runtime"
+                  >Runtime de pages y fragments</a
+                >.
+              </em>
+            </p>
+          </section>
+
+          <section id="flow" class="guide-section">
+            <h2>Flujo completo</h2>
+            <p>
+              El flujo debe leerse como una cadena de responsabilidades: Gateway
+              recibe, decide y responde; Surface solo activa lo que el HTML
+              declara.
+            </p>
+            <div
+              class="process-map"
+              aria-label="Flujo completo de request a UI activa"
+            >
+              <article class="process-stage process-stage--pink">
+                <div class="process-stage__marker">01</div>
+                <div class="process-stage__body">
+                  <h3>Entrada HTTP</h3>
+                  <p>
+                    El gateway recibe el request y prepara el runtime inicial.
+                  </p>
+                  <ul class="process-chips">
+                    <li>Cliente</li>
+                    <li>public/index.php</li>
+                    <li>BootstrapRunner</li>
+                    <li>ContainerFactory</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="process-stage process-stage--cyan">
+                <div class="process-stage__marker">02</div>
+                <div class="process-stage__body">
+                  <h3>Kernel y routing</h3>
+                  <p>
+                    El kernel arma el ciclo HTTP y encuentra el action correcto.
+                  </p>
+                  <ul class="process-chips">
+                    <li>Kernel</li>
+                    <li>RequestLifecycle</li>
+                    <li>RequestBootstrapPipeline</li>
+                    <li>RouteDispatcher</li>
+                    <li>MiddlewarePipeline</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="process-stage process-stage--yellow">
+                <div class="process-stage__marker">03</div>
+                <div class="process-stage__body">
+                  <h3>Aplicación</h3>
+                  <p>
+                    La intención se resuelve en `Extension`, usando Core como
+                    contrato.
+                  </p>
+                  <ul class="process-chips">
+                    <li>Controller</li>
+                    <li>UseCase</li>
+                    <li>Service si compone</li>
+                    <li>Connector si integra</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="process-stage process-stage--green">
+                <div class="process-stage__marker">04</div>
+                <div class="process-stage__body">
+                  <h3>Salida</h3>
+                  <p>
+                    Gateway emite un contrato consumible: HTML SSR o envelope
+                    JSON.
+                  </p>
+                  <ul class="process-chips">
+                    <li>Response HTML o JSON</li>
+                    <li>ResponseEmitter</li>
+                    <li>Browser</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="process-stage process-stage--purple">
+                <div class="process-stage__marker">05</div>
+                <div class="process-stage__body">
+                  <h3>Surface</h3>
+                  <p>Monta comportamiento sobre el HTML recibido.</p>
+                  <ul class="process-chips">
+                    <li>app-surface/main.ts</li>
+                    <li>startApplication</li>
+                    <li>mountPages</li>
+                    <li>FragmentRuntime</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                El mismo recorrido se desarma por contrato en
+                <a href="bridge.html#html">Contratos HTML</a>,
+                <a href="bridge.html#json">JSON envelope</a> y
+                <a href="app-surface.html#consume-gateway"
+                  >Consumir endpoints del gateway</a
+                >.
+              </em>
+            </p>
+          </section>
+
+          <section id="ownership" class="guide-section">
+            <h2>Ownership de contratos</h2>
+            <div class="ownership-board">
+              <section class="ownership-pane ownership-pane--gateway">
+                <span class="ownership-pane__label">Gateway</span>
+                <h3>Decide contrato y estado</h3>
+                <ul>
+                  <li>Estado de aplicación y permisos.</li>
+                  <li>HTML SSR, JSON, redirect y errores.</li>
+                  <li>Layouts, fragments y `data-surface-*`.</li>
+                  <li>Headers de sesión y assets Vite.</li>
+                </ul>
+              </section>
+
+              <div class="ownership-bridge">
+                <span>Contrato compartido</span>
+                <strong
+                  >HTML SSR + envelope JSON + headers + manifest Vite</strong
+                >
+              </div>
+
+              <section class="ownership-pane ownership-pane--surface">
+                <span class="ownership-pane__label">Surface</span>
+                <h3>Activa interacción y feedback</h3>
+                <ul>
+                  <li>Listeners, adapters y feedback UI.</li>
+                  <li>Pages y fragments declarados por HTML.</li>
+                  <li>HTTP hacia gateway con `serverClient`.</li>
+                  <li>Firmas TS locales en `contracts.ts` por integración.</li>
+                  <li>Montaje/desmontaje limpio del DOM.</li>
+                </ul>
+              </section>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Cada contrato se desarrolla con ejemplos en
+                <a href="bridge.html#html">Contratos HTML</a>,
+                <a href="bridge.html#json">JSON envelope</a> y
+                <a href="bridge.html#assets">Assets Vite</a>.
+              </em>
+            </p>
+          </section>
+
+          <section id="reading" class="guide-section">
+            <h2>Cómo leer cambios</h2>
+            <p>
+              La lectura debe concentrarse en los archivos correctos. Esta regla
+              ayuda a delimitar el análisis antes de modificar código:
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Cuando este mapa deba convertirse en pasos concretos, las
+                <a href="recipes.html">Guías prácticas</a> y los
+                <a href="diagrams.html">diagramas</a> sirven como validación
+                cruzada.
+              </em>
+            </p>
+            <div class="guide-quick-grid">
+              <section class="guide-quick-item">
+                <h3>Cambio SSR</h3>
+                <ol class="flow-rail flow-rail--green">
+                  <li>routing</li>
+                  <li>controller</li>
+                  <li>response/view</li>
+                  <li>plantilla PHP</li>
+                  <li>integración UI si aplica</li>
+                </ol>
+              </section>
+              <section class="guide-quick-item">
+                <h3>Cambio JSON</h3>
+                <ol class="flow-rail flow-rail--blue">
+                  <li>routing</li>
+                  <li>controller</li>
+                  <li>use case</li>
+                  <li>response JSON</li>
+                  <li>consumidor surface</li>
+                </ol>
+              </section>
+              <section class="guide-quick-item">
+                <h3>Cambio runtime UI</h3>
+                <ol class="flow-rail flow-rail--purple">
+                  <li>platform/runtime</li>
+                  <li>platform/startup</li>
+                  <li>registry</li>
+                  <li>integración concreta</li>
+                </ol>
+              </section>
+              <section class="guide-quick-item">
+                <h3>Cambio assets</h3>
+                <ol class="flow-rail flow-rail--orange">
+                  <li>app-surface/vite.config.ts</li>
+                  <li>main.ts/styles</li>
+                  <li>gateway ViteAssets/parciales</li>
+                </ol>
+              </section>
+            </div>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido de la guía</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="getting-started.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Empezar</h3>
+                      <p class="mb-0">
+                        Retoma instalación, `.env`, assets y validación inicial
+                        antes de bajar al código.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a class="guide-card-link" href="app-gateway.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Continuar con: Gateway</h3>
+                      <p class="mb-0">
+                        Baja el modelo mental al Gateway: routing, controllers,
+                        use cases, connectors, responses y assets.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

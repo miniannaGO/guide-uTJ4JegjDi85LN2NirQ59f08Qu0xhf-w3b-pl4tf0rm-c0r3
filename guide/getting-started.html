@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Empezar | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--getting-started"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Empezar</li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">Empezar</h1>
+        <p class="lead mb-0">
+          Instala el proyecto, configura `.env`, compila assets y valida que el
+          gateway y surface estén conversando.
+        </p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#requirements">Requisitos</a>
+                  <a class="nav-link" href="#install">Instalación</a>
+                  <a class="nav-link" href="#env">Archivo .env</a>
+                  <a class="nav-link" href="#run">Ejecución local</a>
+                  <a class="nav-link" href="#validate">Validación</a>
+                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section id="requirements" class="guide-section">
+            <h2>Requisitos</h2>
+            <p>
+              Esta guía asume un entorno local de desarrollo. El proyecto actual
+              usa PHP para `app-gateway` y Typescript/Vite para `app-surface`.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Para entender el rol de cada contexto antes de instalar,
+                consulta <a href="fundamentals.html#context">Contextos</a>,
+                <a href="app-gateway.html#overview">App Gateway</a> y
+                <a href="app-surface.html#overview">App Surface</a>.
+              </em>
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h3 class="h5">PHP</h3>
+                    <p class="mb-0">PHP 8.2 o superior.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h3 class="h5">Composer</h3>
+                    <p class="mb-0">
+                      Instala dependencias de `app-gateway` y genera autoload.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h3 class="h5">npm</h3>
+                    <p class="mb-0">
+                      Instala dependencias y ejecuta Vite/TypeScript en
+                      `app-surface`.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="install" class="guide-section">
+            <h2>Instalación</h2>
+            <p>
+              El repo remoto final todavía puede cambiar. Por ahora deja
+              (URL_DEL_REPOSITORIO) como placeholder en la documentación interna
+              de onboarding.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Clonar proyecto</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gs-clone"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gs-clone" class="language-bash">git clone &lt;URL_DEL_REPOSITORIO&gt; web-platform-core
+cd web-platform-core</code></pre>
+            </div>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Instalar Gateway y Surface</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gs-install"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gs-install" class="language-bash">cd app-gateway
+composer install
+
+cd app-surface
+npm install</code></pre>
+            </div>
+
+            <div class="guide-callout p-3 rounded">
+              <strong>Regla práctica:</strong> si falla Composer, revisa versión
+              de PHP/extensiones. Si falla npm, revisa Node/npm y elimina
+              instalaciones incompletas antes de reintentar.
+            </div>
+          </section>
+
+          <section id="env" class="guide-section">
+            <h2>Archivo .env</h2>
+            <p>
+              El `.env` vive en la raíz de la solución. Se crea desde
+              `.env.template`. Controla modo runtime, rutas base, sesión, assets
+              y overrides outbound.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Si una variable afecta assets, outbound o sesión, amplía el
+                contexto en <a href="app-surface.html#vite">Vite y assets</a>,
+                <a href="app-gateway.html#external-clients"
+                  >API HTTP clients externos</a
+                >
+                y <a href="bridge.html#session">headers de sesión</a>.
+              </em>
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Crear .env</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="gs-env-copy"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="gs-env-copy" class="language-bash">copy .env.template .env</code></pre>
+            </div>
+
+            <div class="table-responsive env-table-wrap mt-3">
+              <table
+                class="table table-striped table-guide env-table align-middle"
+              >
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Qué controla</th>
+                    <th>Cómo decidir el valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="env-table__group">
+                    <td colspan="3">Runtime general</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>IS_PRODUCTION</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>false</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Modo general del runtime.</td>
+                    <td>
+                      Valor recomendado localmente: `false`. En `true` reutiliza
+                      cache DI, exige release válido y oculta detalle técnico.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>DEEP_DEPLOYED</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>false</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Detalle técnico de errores hacia cliente.</td>
+                    <td>
+                      Solo aplica con `IS_PRODUCTION=false`. Puede configurarse
+                      en `true` para depuración local.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>VERSION_DEPLOY</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill env-pill--required"
+                            >Obligatoria en producción</span
+                          >
+                          <span class="env-default"
+                            >Default: <code>0</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Versión de release para assets y cache endurecido.</td>
+                    <td>
+                      Debe usarse un entero tipo `20260101`. En producción debe
+                      ser mayor que `0`.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SPEED_UP_BUILD</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>false</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Optimización del build Surface.</td>
+                    <td>
+                      Solo la lee Vite. En `true` desactiva minify/treeshake
+                      para iterar más rápido; no llega al runtime PHP ni a
+                      <code>__APP_ENV__</code>.
+                    </td>
+                  </tr>
+                  <tr class="env-table__group">
+                    <td colspan="3">Rutas públicas y assets</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>BASE_URI</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill env-pill--required"
+                            >Obligatoria para surface</span
+                          >
+                          <span class="env-default"
+                            >Default: <code>""</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Directorio base de la solución.</td>
+                    <td>
+                      Sin slash inicial ni final cuando se use subcarpeta.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>APP_BASE_PATH</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>app-gateway</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Segmento del gateway.</td>
+                    <td>Normalmente `app-gateway`.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>PUBLIC_PATH</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>public</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Carpeta pública de assets.</td>
+                    <td>Normalmente `public`.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>APP_TIMEZONE</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>America/Lima</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Zona horaria del bootstrap web y CLI.</td>
+                    <td>
+                      Por defecto `America/Lima`; cambia solo si el despliegue
+                      lo requiere.
+                    </td>
+                  </tr>
+                  <tr class="env-table__group">
+                    <td colspan="3">UI / BFF</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>MENU_LAYOUT</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>wide</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Preferencia de layout disponible para runtime/UI.</td>
+                    <td>
+                      `wide` para ancho completo o `box` para contenedor más
+                      acotado.
+                    </td>
+                  </tr>
+                  <tr class="env-table__group">
+                    <td colspan="3">Sesión</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_PATH</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>sys_get_temp_dir()</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Ruta física donde PHP guarda sesiones.</td>
+                    <td>
+                      Para usar el temporal de PHP, la variable debe eliminarse
+                      en vez de dejarse vacía.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_TIME</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>10</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Minutos de sesión.</td>
+                    <td>
+                      Debe usarse un entero positivo. Gateway lo usa para
+                      calcular <code>expiresAtUnix</code> al crear o refrescar
+                      una tab. Surface no calcula este vencimiento: lo recibe en
+                      <code>X-REMAINING</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_REFRESH_WINDOW</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>30</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Ventana de refresh de sesión, en segundos.</td>
+                    <td>
+                      Gateway solo extiende la tab session cuando faltan esos
+                      segundos o menos para expirar. Conviene que el aviso de
+                      Surface ocurra dentro de esta ventana.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_REFRESH_COOLDOWN</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>60</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Enfriamiento entre refreshes, en segundos.</td>
+                    <td>
+                      Gateway lo evalúa después de comprobar que la tab está
+                      dentro de <code>SESSION_REFRESH_WINDOW</code>. Por
+                      ejemplo, si renovó a las 12:09:35 y entra otra request a
+                      las 12:09:36, no vuelve a escribir
+                      <code>expiresAtUnix</code>. Con <code>60</code>, debe
+                      haber pasado más de un minuto; exactamente 60 segundos
+                      todavía no alcanza.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_CLEANUP_INTERVAL</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>600</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Intervalo de limpieza de tabs expiradas.</td>
+                    <td>
+                      El bootstrap no recorre tabs expiradas en cada request.
+                      Cada sesión PHP ejecuta el barrido como máximo una vez por
+                      intervalo.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_CLEANUP_LAST_RUN_KEY</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default:
+                            <code
+                              >_maintenance.tabsCleanupLastRunUnix</code
+                            ></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Clave interna para recordar la última limpieza.</td>
+                    <td>
+                      Normalmente no se cambia salvo migración o aislamiento de
+                      marca dentro de <code>$_SESSION</code>. Con el driver
+                      actual, la clave se guarda como
+                      <code
+                        >$_SESSION['_maintenance']['tabsCleanupLastRunUnix']</code
+                      >.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>SESSION_EXPIRY_ALERT</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>SESSION_REFRESH_WINDOW</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      Momento del warning de expiración que Surface convierte en
+                      modal.
+                    </td>
+                    <td>
+                      Vite lo expone en <code>__APP_ENV__</code>; debe ser menor
+                      o igual que <code>SESSION_REFRESH_WINDOW</code>. Si no se
+                      define, Surface usa la ventana de refresh como fallback.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <div class="guide-callout p-3 rounded mb-0">
+                        <strong>Tabs en sesión:</strong> el navegador puede
+                        compartir la cookie PHP entre varias pestañas, pero
+                        Surface envía un <code>X-TAB-SESSION</code> distinto por
+                        pestaña. Gateway guarda esas entradas en
+                        <code>$_SESSION['tabs']</code> y las limpia según
+                        <code>SESSION_CLEANUP_INTERVAL</code>. Así una pestaña
+                        puede renovar, expirar o cerrar su contexto sin borrar
+                        directamente el de otra. El refresh efectivo solo ocurre
+                        cuando faltan los segundos de
+                        <code>SESSION_REFRESH_WINDOW</code> o menos y, además,
+                        ya pasó <code>SESSION_REFRESH_COOLDOWN</code> desde el
+                        último refresh real de esa misma tab. Como guía rápida:
+                        login a las 12:00:00 con <code>SESSION_TIME=10</code>
+                        vence a las 12:10:00; una request a las 12:09:35 puede
+                        extender hasta las 12:19:35, pero otra a las 12:09:36 no
+                        vuelve a extender.
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="env-table__group">
+                    <td colspan="3">Logs</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <div class="guide-callout p-3 rounded mb-0">
+                        <strong>Salida de logs:</strong> Gateway usa JSON Lines.
+                        En requests web, Core escribe directo en
+                        <code
+                          >app-gateway/var/log/develop/&lt;semana&gt;/stdout.jsonl</code
+                        >
+                        o en
+                        <code
+                          >app-gateway/var/log/production/&lt;semana&gt;/stdout.jsonl</code
+                        >. En CLI, los eventos salen por <code>stdout</code> y
+                        pueden guardarse con <code>tools/log-collector</code>.
+                        El visor lee la ruta fija del entorno.
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>LOG_UPSTREAM_SPANS</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>auto</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Detalle por llamada outbound.</td>
+                    <td>
+                      <code>auto</code> mantiene detalle en desarrollo y evita
+                      un evento por upstream en producción. El resumen queda en
+                      access/metrics.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>LOG_COLLECTOR_FLUSH_EVERY</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>100</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Líneas acumuladas antes de hacer flush.</td>
+                    <td>
+                      No afecta a cada request web; solo regula el collector
+                      externo cuando se capturan procesos CLI que escriben en
+                      <code>stdout</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>LOG_RETENTION_WEEKS</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>12</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Semanas completas de logs que se conservan.</td>
+                    <td>
+                      Debe ser mayor que <code>0</code>; por defecto conserva la
+                      semana actual y las anteriores configuradas. También
+                      aplica a <code>app-gateway/var/log/develop</code> y
+                      <code>app-gateway/var/log/production</code>.
+                    </td>
+                  </tr>
+                  <tr class="env-table__group">
+                    <td colspan="3">APIs outbound de HTTP client externo</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>API_&lt;prefix&gt;_URI</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill env-pill--conditional"
+                            >Condicional</span
+                          >
+                          <span class="env-default"
+                            >Default: <code>services.json</code> / vacío</span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>URL base de un servicio outbound.</td>
+                    <td>
+                      Prioriza este valor sobre `services.json`. Es obligatoria
+                      solo cuando el servicio requerido no trae `uri` válida en
+                      `services.json`; para `external_api`, el prefijo es
+                      `API_EXTERNAL_API_`.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>API_&lt;prefix&gt;_BEARER</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>services.json</code> /
+                            <code>""</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Token bearer para un servicio outbound.</td>
+                    <td>
+                      Debe configurarse solo cuando el servicio requiere
+                      autenticación por bearer.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>API_&lt;prefix&gt;_TIMEOUT_SECONDS</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>services.json</code> /
+                            <code>30.0</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Timeout total de una llamada outbound.</td>
+                    <td>Debe ser numérico y mayor que `0`.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>API_&lt;prefix&gt;_CONNECT_TIMEOUT_SECONDS</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>services.json</code> /
+                            <code>10.0</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Timeout de conexión hacia el servicio.</td>
+                    <td>Debe ser numérico y mayor que `0`.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="env-var">
+                        <code>API_&lt;prefix&gt;_VERIFY_TLS</code>
+                        <div class="env-var__meta">
+                          <span class="env-pill">Opcional</span>
+                          <span class="env-default"
+                            >Default: <code>services.json</code> /
+                            <code>false</code></span
+                          >
+                        </div>
+                      </div>
+                    </td>
+                    <td>Validación TLS del cliente outbound.</td>
+                    <td>
+                      Debe ser `true` o `false`; en producción normalmente
+                      conviene dejarlo en `true` si el servicio tiene TLS
+                      válido.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="run" class="guide-section">
+            <h2>Ejecución local</h2>
+            <p>
+              Hay dos piezas: compilar assets de surface y servir gateway. En
+              desarrollo usa `lite:build` para mantener Vite recompilando los
+              assets publicados.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                El detalle del build vive en
+                <a href="app-surface.html#vite">Vite, styles y assets</a>, y la
+                forma en que gateway los resuelve está en
+                <a href="bridge.html#assets">Assets Vite</a>.
+              </em>
+            </p>
+            <div class="row g-3">
+              <div class="col-xl-12">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Watch surface</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="gs-build"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="gs-build" class="language-bash">cd app-surface
+npm run lite:build</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="validate" class="guide-section">
+            <h2>Validación inicial</h2>
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <ul class="guide-checklist mb-0">
+                  <li>Los assets Vite cargan desde `ui-assets`.</li>
+                  <li>
+                    El HTML del layout tiene `body#main-body-access` o
+                    `body#main-body-control`.
+                  </li>
+                  <li>
+                    Una página con `data-surface-page` muestra listeners
+                    activos.
+                  </li>
+                  <li>
+                    Los endpoints JSON devuelven envelope con `success`
+                    booleano.
+                  </li>
+                  <li>
+                    Los fragments devuelven HTML real, no JSON disfrazado.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Cuando una validación falle, la revisión continúa en
+                <a href="troubleshooting.html">Ayuda</a> o en los contratos de
+                <a href="bridge.html#json">JSON envelope</a> y
+                <a href="bridge.html#html">Contratos HTML</a>.
+              </em>
+            </p>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido de la guía</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="index.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Inicio</h3>
+                      <p class="mb-0">
+                        Regresa al mapa general de la guía y al orden completo
+                        del recorrido.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a class="guide-card-link" href="fundamentals.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Continuar con: Bases</h3>
+                      <p class="mb-0">
+                        Modelo mental previo a cualquier cambio de código.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Referencia | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--reference"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Referencia
+            </li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">Referencia rápida</h1>
+        <p class="lead mb-0">
+          Variables, scripts, rutas, headers, contratos y documentación
+          relacionada.
+        </p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#how-to-use">Cómo usarla</a>
+                  <a class="nav-link" href="#quick-access">Scripts y lectura</a>
+                  <a class="nav-link" href="#folder-paths">Rutas</a>
+                  <a class="nav-link" href="#quick-contracts">Contratos</a>
+                  <a class="nav-link" href="#http-headers">Headers HTTP</a>
+                  <a class="nav-link" href="#errors-status">Errores</a>
+                  <a class="nav-link" href="#surface-toolkit">Toolkit</a>
+                  <a class="nav-link" href="#outbound-connectors">Outbound</a>
+                  <a class="nav-link" href="#diagnostic-signals">Diagnóstico</a>
+                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section class="guide-section">
+            <div id="how-to-use" class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h2 class="h4">Cómo usar la referencia</h2>
+                <p>
+                  Esta página no reemplaza las explicaciones largas. Sirve para
+                  ubicar de forma rápida un contrato, header, carpeta, script o
+                  indicador de diagnóstico y luego volver a la página donde se
+                  explica el flujo completo.
+                </p>
+                <div class="row g-3">
+                  <div class="col-md-6 col-xl-3">
+                    <a
+                      class="guide-card-link"
+                      href="fundamentals.html#vocabulary"
+                    >
+                      <div class="card h-100 concept-card">
+                        <div class="card-body">
+                          <h3 class="h5">Términos</h3>
+                          <p class="mb-0">
+                            Vocabulario mínimo antes del detalle.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <a class="guide-card-link" href="tools.html">
+                      <div class="card h-100 concept-card">
+                        <div class="card-body">
+                          <h3 class="h5">Tools</h3>
+                          <p class="mb-0">
+                            Comandos `make:*`, `http:contract`,
+                            `surface:contract` y configuración Robo.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <a class="guide-card-link" href="bridge.html#contract-map">
+                      <div class="card h-100 concept-card">
+                        <div class="card-body">
+                          <h3 class="h5">Contratos</h3>
+                          <p class="mb-0">
+                            HTML, JSON, headers, sesión, flash y assets.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <a class="guide-card-link" href="app-gateway.html#errors">
+                      <div class="card h-100 concept-card">
+                        <div class="card-body">
+                          <h3 class="h5">Errores</h3>
+                          <p class="mb-0">Kinds, origins, status y envelope.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-6 col-xl-3">
+                    <a class="guide-card-link" href="#diagnostic-signals">
+                      <div class="card h-100 concept-card">
+                        <div class="card-body">
+                          <h3 class="h5">Diagnóstico</h3>
+                          <p class="mb-0">
+                            Indicadores para ubicar dónde falló el flujo.
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="quick-access" class="row g-3">
+              <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                    <h2 class="h4">Scripts</h2>
+                    <p class="guide-crosslink">
+                      <em>
+                        Los scripts de instalación se explican en
+                        <a href="getting-started.html#install">Instalación</a> y
+                        el build de Surface en
+                        <a href="app-surface.html#vite">Vite, styles y assets</a
+                        >.
+                      </em>
+                    </p>
+                    <div class="guide-quick-grid">
+                      <section class="guide-quick-item">
+                        <h3>app-gateway</h3>
+                        <ul>
+                          <li><code>composer install</code></li>
+                          <li><code>composer build:prod</code></li>
+                          <li><code>composer cache:clear</code></li>
+                          <li><code>composer logs:prune</code></li>
+                        </ul>
+                      </section>
+                      <section class="guide-quick-item">
+                        <h3>app-surface</h3>
+                        <ul>
+                          <li><code>npm install</code></li>
+                          <li><code>npm run lite:build</code></li>
+                        </ul>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                    <h2 class="h4">Lectura viva</h2>
+                    <ul class="mb-0">
+                      <li><a href="../tutorials/README.md">Tutoriales</a></li>
+                      <li><a href="diagrams.html">Visor de diagramas</a></li>
+                      <li>
+                        <a href="../diagrams/README.md"
+                          >Markdown de diagramas</a
+                        >
+                      </li>
+                      <li><a href="../../PROJECT_MAP.md">PROJECT_MAP.md</a></li>
+                      <li><a href="../../AGENTS.md">AGENTS.md</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="folder-paths" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Rutas de carpetas</h2>
+                <p class="guide-crosslink">
+                  <em>
+                    Si una ruta apunta a una capa concreta, la lectura debe
+                    continuar en
+                    <a href="app-gateway.html#overview">Gateway</a>,
+                    <a href="app-surface.html#overview">Surface</a> o
+                    <a href="fundamentals.html#context">Contextos y límites</a>.
+                  </em>
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>Ruta</th>
+                        <th>Rol</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>app-gateway/app/Core</code></td>
+                        <td>Mini-framework interno.</td>
+                      </tr>
+                      <tr>
+                        <td><code>app-gateway/app/Extension</code></td>
+                        <td>Aplicación concreta.</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code
+                            >app-gateway/app/Extension/Application/Session</code
+                          >
+                        </td>
+                        <td>Reglas compartidas de sesión/tab session.</td>
+                      </tr>
+                      <tr>
+                        <td><code>app-gateway/resources/views</code></td>
+                        <td>Layouts, pages, fragments y parciales SSR.</td>
+                      </tr>
+                      <tr>
+                        <td><code>app-surface/platform</code></td>
+                        <td>Startup, runtime, HTTP, sesión y errores UI.</td>
+                      </tr>
+                      <tr>
+                        <td><code>app-surface/workspace</code></td>
+                        <td>Integraciones UI y estilos de aplicación.</td>
+                      </tr>
+                      <tr>
+                        <td><code>app-surface/toolkit</code></td>
+                        <td>Adapters y helpers técnicos opt-in.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="quick-contracts" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Contratos rápidos</h2>
+                <p class="guide-crosslink">
+                  <em>
+                    Los contratos de esta tabla se desarrollan en
+                    <a href="bridge.html#html">Contratos HTML</a>,
+                    <a href="bridge.html#json">JSON envelope</a> y
+                    <a href="bridge.html#session">Headers de sesión</a>.
+                  </em>
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>Contrato</th>
+                        <th>Significado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>success=true</code> sin errores</td>
+                        <td>Éxito completo.</td>
+                      </tr>
+                      <tr>
+                        <td><code>success=true</code> con errores</td>
+                        <td>Respuesta parcial o degradada.</td>
+                      </tr>
+                      <tr>
+                        <td><code>success=false</code></td>
+                        <td>Fallo bloqueante.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-surface-page</code></td>
+                        <td>Root de page UI.</td>
+                      </tr>
+                      <tr>
+                        <td><code>data-surface-fragment</code></td>
+                        <td>Root de fragment UI.</td>
+                      </tr>
+                      <tr>
+                        <td><code>contracts.ts</code> de una integración</td>
+                        <td>
+                          Firma TypeScript de payloads y <code>data</code> JSON
+                          que Surface ve desde una ruta Gateway.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>composer robo -- surface:contract</code></td>
+                        <td>
+                          Genera bloques TypeScript en
+                          <code
+                            >workspace/integrations/&lt;feature&gt;/contracts.ts</code
+                          >
+                          desde Swagger/OpenAPI.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code>tools/HttpContractGenerator/Gateway</code>
+                        </td>
+                        <td>
+                          Implementación del generador Gateway/PHP para
+                          contratos outbound.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code>tools/HttpContractGenerator/Surface</code>
+                        </td>
+                        <td>
+                          Implementación del generador Surface dentro del
+                          generador común de contratos HTTP. Emite clases
+                          TypeScript para
+                          <code>contracts.ts</code>.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>tools/HttpContractGenerator/Shared</code></td>
+                        <td>
+                          Lectura OpenAPI, utilidades de rutas, consola,
+                          reportes y nombres comunes compartidos por Gateway y
+                          Surface.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code>data-surface-page-status</code> /
+                          <code>data-surface-fragment-status</code>
+                        </td>
+                        <td>
+                          Estado de montaje que Surface escribe para
+                          diagnosticar loading, mounted o error.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>errors[]</code> en envelope JSON</td>
+                        <td>
+                          Lista de errores visibles. Si
+                          <code>success=true</code>, indica respuesta parcial.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>errorMeta</code></td>
+                        <td>
+                          Metadata técnica solo cuando el runtime permite
+                          exponer detalles de debug.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>X-TAB-SESSION</code></td>
+                        <td>Identificador de pestaña enviado por surface.</td>
+                      </tr>
+                      <tr>
+                        <td><code>X-REMAINING</code></td>
+                        <td>Tiempo restante de sesión emitido por gateway.</td>
+                      </tr>
+                      <tr>
+                        <td><code>_flash.{tabId}</code></td>
+                        <td>
+                          Mensajes temporales de Gateway para el siguiente HTML
+                          SSR.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="http-headers" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Headers HTTP</h2>
+                <p class="guide-crosslink">
+                  <em>
+                    El detalle operativo vive en
+                    <a href="bridge.html#session">Headers de sesión</a> y
+                    <a href="bridge.html#security">CSRF y tab session</a>.
+                  </em>
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>Header</th>
+                        <th>Dirección</th>
+                        <th>Uso</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>X-TAB-SESSION</code></td>
+                        <td>Surface → Gateway</td>
+                        <td>
+                          Identifica la pestaña activa para rutas autenticadas.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>X-REMAINING</code></td>
+                        <td>Gateway → Surface</td>
+                        <td>Sincroniza el contador de expiración de sesión.</td>
+                      </tr>
+                      <tr>
+                        <td><code>X-Correlation-Id</code></td>
+                        <td>Gateway → navegador/logs</td>
+                        <td>
+                          Permite rastrear una request entre UI, Gateway y
+                          upstreams.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>Accept</code></td>
+                        <td>Navegador/Surface → Gateway</td>
+                        <td>
+                          Indica si se espera JSON, HTML completo o fragment
+                          HTML.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>Content-Type</code></td>
+                        <td>Ambos lados</td>
+                        <td>
+                          Debe coincidir con JSON, form-data o HTML esperado.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="errors-status" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Errores y status</h2>
+                <p class="guide-crosslink">
+                  <em>
+                    Para semántica completa, se debe consultar
+                    <a href="app-gateway.html#errors">Errores y resultados</a> y
+                    <a href="bridge.html#error-contracts"
+                      >Contratos de error HTTP</a
+                    >.
+                  </em>
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>ErrorKind</th>
+                        <th>Status típico</th>
+                        <th>Lectura rápida</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>BAD_REQUEST</code></td>
+                        <td><code>400</code></td>
+                        <td>Request mal formado o imposible.</td>
+                      </tr>
+                      <tr>
+                        <td><code>VALIDATION</code></td>
+                        <td><code>422</code></td>
+                        <td>Input inválido para la intención de aplicación.</td>
+                      </tr>
+                      <tr>
+                        <td><code>AUTHENTICATION_REQUIRED</code></td>
+                        <td><code>401</code></td>
+                        <td>Falta sesión válida.</td>
+                      </tr>
+                      <tr>
+                        <td><code>FORBIDDEN</code></td>
+                        <td><code>403</code></td>
+                        <td>
+                          Sesión existe, pero la acción no está permitida.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>NOT_FOUND</code></td>
+                        <td><code>404</code></td>
+                        <td>Recurso o ruta no encontrada.</td>
+                      </tr>
+                      <tr>
+                        <td><code>CONFLICT</code></td>
+                        <td><code>409</code></td>
+                        <td>Choque con el estado actual de la aplicación.</td>
+                      </tr>
+                      <tr>
+                        <td><code>DEPENDENCY_UNAVAILABLE</code></td>
+                        <td><code>502</code> o <code>503</code></td>
+                        <td>Falla upstream o de transporte externo.</td>
+                      </tr>
+                      <tr>
+                        <td><code>UNEXPECTED</code></td>
+                        <td><code>500</code></td>
+                        <td>
+                          Error no esperado; debe registrarse y presentarse
+                          seguro.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="surface-toolkit" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Surface toolkit y fachadas</h2>
+                <p class="guide-crosslink">
+                  <em>
+                    El catálogo con reglas de limpieza está en
+                    <a href="app-surface.html#toolkit"
+                      >Toolkit, adapters y feedback</a
+                    >.
+                  </em>
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>Helper</th>
+                        <th>Uso</th>
+                        <th>Regla corta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>toolkit/dom</code></td>
+                        <td>DOM, eventos, contenido y helpers de nodos.</td>
+                        <td>Debe usarse desde bindings o helpers UI.</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code
+                            >workspace/integrations/&lt;feature&gt;/contracts.ts</code
+                          >
+                        </td>
+                        <td>
+                          Tipos de request/response visibles para Surface.
+                        </td>
+                        <td>
+                          Lo importan <code>api.ts</code> y
+                          <code>actions.ts</code>; <code>page.ts</code> solo si
+                          necesita leer o anotar data.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <code
+                            >workspace/integrations/&lt;feature&gt;/actions.ts</code
+                          >
+                        </td>
+                        <td>
+                          Arma requests tipados desde valores semánticos y
+                          coordina feedback UI.
+                        </td>
+                        <td>
+                          Recibe valores de <code>page.ts</code>; no debe
+                          convertirse en service de dominio.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>select2Adapter</code></td>
+                        <td>Selects enriquecidos.</td>
+                        <td>Destruir al desmontar.</td>
+                      </tr>
+                      <tr>
+                        <td><code>dataTableAdapter</code></td>
+                        <td>
+                          Tablas con estado externo; la app consume la fachada
+                          de
+                          <code>platform/infrastructure/adapters/datatable</code
+                          >.
+                        </td>
+                        <td>No debe reemplazarse HTML sin destroy.</td>
+                      </tr>
+                      <tr>
+                        <td><code>dateRangePickerAdapter</code></td>
+                        <td>Rangos de fecha.</td>
+                        <td>Limpiar el picker en <code>unmount</code>.</td>
+                      </tr>
+                      <tr>
+                        <td><code>simpleModal</code></td>
+                        <td>
+                          Modales con HTML recibido; el remoto se resuelve desde
+                          la fachada de
+                          <code>platform/infrastructure/feedback</code>.
+                        </td>
+                        <td>
+                          Debe usarse <code>withContentMount</code> si trae
+                          fragments.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>toastAdapter</code></td>
+                        <td>
+                          Toasts con HTML o fragment SSR desde la fachada de
+                          feedback.
+                        </td>
+                        <td>El contenido se desmonta al ocultarse.</td>
+                      </tr>
+                      <tr>
+                        <td><code>swalAdapter</code></td>
+                        <td>Alertas, confirmaciones y formularios simples.</td>
+                        <td>No debe incluir negocio dentro del diálogo.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="outbound-connectors" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Outbound y connectors</h2>
+                <p class="guide-crosslink">
+                  <em>
+                    El flujo completo está en
+                    <a href="app-gateway.html#external-clients"
+                      >API HTTP clients externos</a
+                    >.
+                  </em>
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>Pieza</th>
+                        <th>Uso</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>EndpointRequest</code></td>
+                        <td>Request hacia endpoint externo con DTO único.</td>
+                      </tr>
+                      <tr>
+                        <td><code>EndpointListRequest</code></td>
+                        <td>
+                          Request hacia endpoint externo que devuelve lista.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>CustomPayloadRequestInterface</code></td>
+                        <td>
+                          Payload especial cuando propiedades públicas no
+                          bastan.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>ConnectorResult</code></td>
+                        <td>
+                          Resultado normalizado de integración para use cases.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>ConnectorAliasRegistrar</code></td>
+                        <td>
+                          Alias por convención entre ports y connectors de
+                          `Infrastructure/Outbound/Connector`.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>ServiceDefinitionFactory</code></td>
+                        <td>
+                          Lee <code>services.json</code> y variables
+                          <code>API_*</code> para definir base URI, bearer,
+                          timeout y TLS.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>JsonServiceResponseMapper</code></td>
+                        <td>
+                          Valida si la respuesta externa es objeto o lista y
+                          falla si el shape no coincide.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>ResponseHydrator</code></td>
+                        <td>
+                          Hidrata DTOs por constructor, tipos escalares, enums,
+                          fechas y objetos anidados.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="diagnostic-signals" class="card border-0 shadow-sm mt-3">
+              <div class="card-body">
+                <h2 class="h4">Señales de diagnóstico</h2>
+                <p>
+                  Estas señales no son negocio: son indicadores del runtime para
+                  ubicar dónde falló un flujo sin inferencias manuales.
+                </p>
+                <div class="table-responsive">
+                  <table class="table table-striped table-guide">
+                    <thead>
+                      <tr>
+                        <th>Señal</th>
+                        <th>Dónde mirar</th>
+                        <th>Qué confirma</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>X-Correlation-Id</code></td>
+                        <td>Response del navegador y logs Gateway.</td>
+                        <td>Une request, response y llamadas upstream.</td>
+                      </tr>
+                      <tr>
+                        <td><code>ResponseLogContext</code></td>
+                        <td>Responses observables de Gateway.</td>
+                        <td>
+                          Resume éxito, mensaje, cantidad de errores y origen.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>RouteCache</code></td>
+                        <td>Producción o build de Gateway.</td>
+                        <td>
+                          Indica si la tabla de rutas quedó desactualizada.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><code>data-surface-*-status</code></td>
+                        <td>DOM renderizado en el navegador.</td>
+                        <td>
+                          Confirma si page o fragment cargó, montó o falló.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Manifest Vite</td>
+                        <td>
+                          <code>public/ui-assets/.vite/manifest.json</code>.
+                        </td>
+                        <td>Confirma qué entry, CSS e imports se sirven.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido de la guía</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="diagrams.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Diagramas</h3>
+                      <p class="mb-0">
+                        Revisa los mapas visuales antes de contrastar contratos,
+                        rutas, scripts y convenciones.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a class="guide-card-link" href="troubleshooting.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Continuar con: Ayuda</h3>
+                      <p class="mb-0">
+                        Lleva los contratos de referencia a diagnóstico: assets,
+                        sesión, JSON, montaje UI, DI y outbound.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

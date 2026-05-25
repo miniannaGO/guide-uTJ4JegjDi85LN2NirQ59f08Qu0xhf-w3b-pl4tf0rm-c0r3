@@ -1,0 +1,1605 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tools | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <meta
+      name="description"
+      content="Guía de generadores de la solución: artefactos de Extension, contratos HTTP externos y comandos Robo de Web Platform Core."
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--tools"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="tools.html" aria-current="page"
+                >Tools</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tools</li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">Tools: generadores de la solución</h1>
+        <p class="lead mb-0">
+          Referencia operativa para acelerar trabajo repetible: un generador
+          prepara artefactos base de Extension y otro convierte especificaciones
+          de APIs externas en contratos HTTP consumibles por Gateway. Surface
+          tiene un comando separado para generar firmas TypeScript visibles al
+          navegador. La guía muestra qué crean, cuándo usarlos y dónde termina
+          la automatización.
+        </p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#overview">Overview</a>
+                  <a class="nav-link" href="#tool-map">Mapa de tools</a>
+                  <a class="nav-link" href="#configuration">Configuración</a>
+                  <a
+                    class="nav-link guide-nav-link--section"
+                    href="#extension-scaffolder"
+                    >Artefactos</a
+                  >
+                  <a class="nav-link" href="#make-route-controller"
+                    >Ruta + controller</a
+                  >
+                  <a class="nav-link" href="#make-route-use-case"
+                    >Ruta + use case</a
+                  >
+                  <a class="nav-link" href="#make-use-case">Use case</a>
+                  <a class="nav-link" href="#make-service">Service</a>
+                  <a class="nav-link" href="#make-connector">Connector</a>
+                  <a class="nav-link" href="#make-service-client"
+                    >Service client</a
+                  >
+                  <a class="nav-link" href="#make-middleware">Middleware</a>
+                  <a
+                    class="nav-link guide-nav-link--section"
+                    href="#http-contract-generator"
+                    >Contratos HTTP</a
+                  >
+                  <a
+                    class="nav-link guide-nav-link--section"
+                    href="#surface-contract-generator"
+                    >Contratos Surface</a
+                  >
+                  <a class="nav-link" href="#workflows">Flujos recomendados</a>
+                  <a class="nav-link" href="#boundaries">Límites</a>
+                  <a class="nav-link" href="#diagnostics">Diagnóstico</a>
+                  <a class="nav-link" href="#next">Recorrido</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section id="overview" class="guide-section">
+            <h2>Overview</h2>
+            <p>
+              Los tools del workspace existen para acelerar trabajo repetible,
+              pero no para decidir arquitectura por el dev. El generador de
+              artefactos de la solución crea archivos base de `Extension`
+              siguiendo rutas, namespaces y defaults definidos en
+              `robo-configurations.json`. El generador de contratos HTTP
+              externos convierte una descripción Swagger/OpenAPI en PHP que
+              Gateway puede usar para llamar APIs externas de forma consistente.
+              El generador Surface crea firmas TypeScript para el contrato
+              Gateway visible desde `app-surface`.
+            </p>
+            <p>
+              Ambos generadores de firmas conviven en
+              <code>tools/HttpContractGenerator</code>. La salida Gateway/PHP
+              vive en <code>tools/HttpContractGenerator/Gateway</code>, la
+              salida Surface/TypeScript vive en
+              <code>tools/HttpContractGenerator/Surface</code> y las piezas
+              comunes viven en <code>tools/HttpContractGenerator/Shared</code>.
+              Comparten lectura OpenAPI, reportes de escritura, utilidades de
+              rutas y normalización de nombres, pero mantienen renderers y
+              writers separados.
+            </p>
+            <p>
+              La idea práctica es simple: el comando crea lo que tiene una
+              convención fuerte; el dev conecta lo que tiene intención de
+              negocio. Por eso el scaffolder no tiene comandos gigantes para
+              route + controller + use case + service + connector. Ese flujo se
+              arma por pasos y con decisión explícita en cada frontera.
+            </p>
+
+            <div class="guide-callout p-3 rounded">
+              <strong>Regla central:</strong>
+              `robo-configurations.json` es la configuración de los tools. Si
+              una ruta, namespace, route file o destino outbound cambia, primero
+              se actualiza esa configuración y después se ejecuta el comando.
+            </div>
+
+            <p class="mt-3">
+              La guía conceptual de Gateway explica por qué existen controllers,
+              use cases, services, connectors y clients externos. Esta página
+              explica cuándo conviene pedirle al scaffolder que escriba la base
+              mecánica y cuándo debes detenerte a decidir diseño. Como regla
+              práctica: usa un comando cuando el nombre, la carpeta y el wiring
+              son convencionales; escribe o ajusta a mano cuando la decisión
+              expresa comportamiento de aplicación.
+            </p>
+            <p>
+              Surface usa los tools de forma distinta: no genera pantallas
+              completas, sino contratos TypeScript visibles para una integración
+              concreta. Por eso <code>surface:contract</code> se relaciona con
+              <a href="app-surface.html#consume-gateway"
+                >consumir endpoints Gateway</a
+              >, no con crear una integración UI de cero.
+            </p>
+          </section>
+
+          <section id="tool-map" class="guide-section">
+            <h2>Mapa de tools</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Capacidad</th>
+                    <th>Comando Robo</th>
+                    <th>Responsabilidad</th>
+                    <th>No decide</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Generador de artefactos de la solución</td>
+                    <td><code>composer robo -- make:...</code></td>
+                    <td>
+                      Crea controllers, routes, use cases, services, ports,
+                      connectors, service clients, providers outbound y
+                      middleware según el comando elegido.
+                    </td>
+                    <td>
+                      No decide si un service aporta valor, no inyecta clients
+                      dentro de connectors y no toca Surface.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Generador de contratos HTTP externos</td>
+                    <td><code>composer robo http:contract ...</code></td>
+                    <td>
+                      Genera un archivo de request y un archivo de response por
+                      endpoint detectado en Swagger/OpenAPI.
+                    </td>
+                    <td>
+                      No crea el service client, no implementa connector y no
+                      registra servicios en `services.json`.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Generador de contratos Surface</td>
+                    <td><code>composer robo -- surface:contract ...</code></td>
+                    <td>
+                      Genera clases TypeScript dentro de
+                      <code
+                        >workspace/integrations/&lt;feature&gt;/contracts.ts</code
+                      >
+                      para payloads y <code>data</code> visibles desde Gateway.
+                    </td>
+                    <td>
+                      No crea <code>api.ts</code>, no crea
+                      <code>actions.ts</code>
+                      y no reemplaza el contrato PHP outbound.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Listar comandos disponibles</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-list"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-list" class="language-bash">cd app-gateway
+composer robo list</code></pre>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Antes de ejecutar</th>
+                    <th>Pregunta correcta</th>
+                    <th>Dónde profundizar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ruta o endpoint</td>
+                    <td>
+                      ¿Ya existe el path en algún route file? ¿La salida será
+                      JSON, página, fragment o redirect?
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#routing">Routing</a> y
+                      <a href="app-gateway.html#controllers">controllers</a>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Use case</td>
+                    <td>
+                      ¿La intención ya tiene nombre propio? ¿Existe otro use
+                      case con el mismo nombre corto en otra carpeta?
+                    </td>
+                    <td><a href="app-gateway.html#usecases">Use cases</a>.</td>
+                  </tr>
+                  <tr>
+                    <td>Service</td>
+                    <td>
+                      ¿Coordina varias fuentes, fallback o parcialidad, o solo
+                      delegaría una llamada?
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#services"
+                        >Services y connectors</a
+                      >.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Contrato HTTP externo</td>
+                    <td>
+                      ¿El Swagger/OpenAPI describe el request y la response
+                      reales del proveedor?
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#external-clients"
+                        >API HTTP clients externos</a
+                      >.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Contrato Surface</td>
+                    <td>
+                      ¿El navegador necesita tipos para el contrato Gateway
+                      visible, no para el DTO interno del proveedor?
+                    </td>
+                    <td>
+                      <a href="app-surface.html#consume-gateway"
+                        >Consumo Gateway en Surface</a
+                      >.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout p-3 rounded mt-3">
+              Cuando ejecutes comandos desde Composer, usa el separador
+              <code>--</code> antes del comando Robo si vas a pasar opciones:
+              <code>composer robo -- make:use-case Demo --action=index</code>.
+              Sin ese separador, Composer puede omitir opciones como
+              <code>--config</code>, <code>--use-case-folder</code> antes de que
+              lleguen a Robo.
+            </div>
+          </section>
+
+          <section id="configuration" class="guide-section">
+            <h2>Configuración en robo-configurations.json</h2>
+            <p>
+              Los tools leen `robo-configurations.json` desde la raíz del
+              workspace. También aceptan `--config=&lt;ruta&gt;` cuando quieres
+              probar una configuración alternativa, pero la convención viva del
+              proyecto debe mantenerse en el archivo raíz.
+            </p>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Configuración genérica resumida</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-config"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-config" class="language-json">{
+  "extensionScaffolder": {
+    "paths": {
+      "appProvider": "app-gateway/app/Extension/Bootstrap/Container/AppProvider.php",
+      "connector": "app-gateway/app/Extension/Infrastructure/Outbound/Connector",
+      "controller": "app-gateway/app/Extension/Presentation/Http/Controller",
+      "middleware": "app-gateway/app/Extension/Presentation/Http/Middleware",
+      "outboundProvider": "app-gateway/app/Extension/Bootstrap/Container/Outbound",
+      "port": "app-gateway/app/Extension/Application/Port",
+      "service": "app-gateway/app/Extension/Application/Service",
+      "serviceClient": "app-gateway/app/Extension/Infrastructure/Outbound/Client",
+      "useCase": "app-gateway/app/Extension/Application/UseCase"
+    },
+    "routeFiles": {
+      "auth": "app-gateway/app/Extension/Presentation/Http/Routing/AuthenticatedRoutes.php",
+      "auth-fragments": "app-gateway/app/Extension/Presentation/Http/Routing/Authenticated/FragmentRoutes.php",
+      "auth-session": "app-gateway/app/Extension/Presentation/Http/Routing/Authenticated/SessionRoutes.php",
+      "public": "app-gateway/app/Extension/Presentation/Http/Routing/PublicRoutes.php"
+    },
+    "defaults": {
+      "action": "index",
+      "outboundService": "ExternalApi",
+      "routeFile": "public"
+    }
+  },
+  "httpContractGenerator": {
+    "pathRequest": "app-gateway/app/Extension/Infrastructure/Outbound/Client/ExternalApi/Request",
+    "namespaceRequest": "App\\Extension\\Infrastructure\\Outbound\\Client\\ExternalApi\\Request",
+    "pathResponse": "app-gateway/app/Extension/Contract/Outbound/ExternalApi",
+    "namespaceResponse": "App\\Extension\\Contract\\Outbound\\ExternalApi"
+  },
+  "surfaceContractGenerator": {
+    "contractsFileName": "contracts.ts",
+    "integrationsBasePath": "app-surface/workspace/integrations"
+  }
+}</code></pre>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Sección</th>
+                    <th>Qué controla</th>
+                    <th>Detalle importante</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>extensionScaffolder.paths</code></td>
+                    <td>Destino físico de cada componente generado.</td>
+                    <td>
+                      Las rutas se resuelven dentro del workspace. Si una ruta
+                      sale del workspace, el resolver la rechaza.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>extensionScaffolder.namespaces</code></td>
+                    <td>Namespace PHP para templates generados.</td>
+                    <td>
+                      Debe quedar alineado con PSR-4 de `app-gateway` y con la
+                      carpeta de destino.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>extensionScaffolder.routeFiles</code></td>
+                    <td>Claves usadas por <code>--route-file</code>.</td>
+                    <td>
+                      Permite elegir si una ruta va a públicas, autenticadas,
+                      fragments o sesión.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>extensionScaffolder.defaults</code></td>
+                    <td>Action, route file y service outbound por defecto.</td>
+                    <td>
+                      `outboundService` se usa cuando `make:service-client` no
+                      recibe nombre.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>httpContractGenerator</code></td>
+                    <td>Destino de requests y responses generadas.</td>
+                    <td>
+                      El ejemplo apunta a `ExternalApi`; si el client externo
+                      cambia, actualiza path y namespace antes de generar.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>surfaceContractGenerator</code></td>
+                    <td>Destino de firmas TypeScript para Surface.</td>
+                    <td>
+                      <code>integrationsBasePath</code> apunta a las
+                      integraciones UI y <code>contractsFileName</code> define
+                      el archivo que recibirá los bloques generados.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="extension-scaffolder" class="guide-section">
+            <h2>Generador de artefactos de la solución</h2>
+            <p>
+              Este generador prepara archivos iniciales para los artefactos más
+              habituales de una solución en `Extension`: rutas, controllers,
+              casos de uso, services, connectors, service clients, providers
+              outbound y middleware. Acelera la parte repetible, pero no decide
+              si un artefacto debe existir ni qué responsabilidad debe tener.
+            </p>
+            <p>
+              La ejecución sale de `app-gateway/RoboFile.php` y usa la
+              configuración del workspace para elegir rutas, namespaces y
+              defaults. Internamente resuelve qué artefacto crear, renderiza
+              PHP, escribe archivos y aplica ediciones pequeñas en rutas,
+              classes y `AppProvider.php`.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Comando</th>
+                    <th>Crea</th>
+                    <th>Integración opcional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td><code>make:route-controller</code></td>
+                    <td>Ruta + controller.</td>
+                    <td>Ninguna</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td><code>make:route-use-case</code></td>
+                    <td>Ruta + controller + use case.</td>
+                    <td>Carpeta del use case.</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td><code>make:use-case</code></td>
+                    <td>Use case.</td>
+                    <td>
+                      Controller existente, carpeta del use case. y action.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td><code>make:service</code></td>
+                    <td>Service.</td>
+                    <td>Use case existente.</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td><code>make:connector</code></td>
+                    <td>Port + connector.</td>
+                    <td>Ninguna</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td><code>make:service-client</code></td>
+                    <td>ServiceClient + provider + import en AppProvider.</td>
+                    <td>Ninguna</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td><code>make:middleware</code></td>
+                    <td>Middleware HTTP.</td>
+                    <td>Ninguna</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout p-3 rounded">
+              El orden recomendado es crear solo el artefacto necesario y
+              conectar manualmente lo que expresa intención de aplicación.
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Protección</th>
+                    <th>Qué evita</th>
+                    <th>Cómo actuar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ruta existente por path</td>
+                    <td>Duplicar una URL aunque el verbo HTTP sea distinto.</td>
+                    <td>Cambia el path.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Controller inexistente en <code>make:use-case</code>
+                    </td>
+                    <td>
+                      Crear un use case que pretendía integrarse a un controller
+                      que no existe.
+                    </td>
+                    <td>
+                      Crea primero la ruta/controller o ejecuta
+                      <code>make:use-case</code> sin controller.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Duplicado de action</td>
+                    <td>
+                      Sobrescribir métodos existentes como <code>index</code>.
+                    </td>
+                    <td>
+                      El scaffolder usa <code>index1</code>,
+                      <code>index2</code> y así sucesivamente cuando debe crear
+                      una action nueva.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="make-route-controller" class="guide-section">
+            <h2>Punto HTTP mínimo</h2>
+            <p>
+              `make:route-controller` crea una entrada HTTP sin asumir todavía
+              una intención de aplicación compleja: registra la ruta, crea el
+              controller y apunta a una action. Úsalo cuando primero necesitas
+              abrir la superficie HTTP y luego decidir si la lógica merece un
+              use case.
+            </p>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Ruta + controller</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-route-controller"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-route-controller" class="language-bash">composer robo -- make:route-controller get /demo Demo</code></pre>
+            </div>
+
+            <div class="guide-callout p-3 rounded mt-3">
+              Antes de escribir el controller, el comando normaliza
+              <code>&lt;path&gt;</code> y lo busca en todos los archivos
+              configurados en <code>extensionScaffolder.routeFiles</code>. La
+              búsqueda ignora el verbo HTTP: si existe <code>GET /demo</code>,
+              ejecutar luego <code>POST /demo</code> se considera duplicado. En
+              ese caso no se crea controller, no se agrega ruta y
+              <code>--force</code> tampoco pisa esa protección.
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Argumento</th>
+                    <th>Significado</th>
+                    <th>Ejemplo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>&lt;method&gt;</code></td>
+                    <td>Verbo HTTP aceptado por el router.</td>
+                    <td><code>get</code>, <code>post</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;path&gt;</code></td>
+                    <td>Ruta que se registra. Se normaliza con `/` inicial.</td>
+                    <td><code>/demo</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;controllerName&gt;</code></td>
+                    <td>Nombre base del controller.</td>
+                    <td>
+                      <code>Demo</code> genera <code>DemoController</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>--action</code></td>
+                    <td>
+                      Método del controller. Si se omite, usa
+                      `extensionScaffolder.defaults.action`.
+                    </td>
+                    <td><code>--action=show</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--route-file</code></td>
+                    <td>Clave de `extensionScaffolder.routeFiles`.</td>
+                    <td><code>public</code>, <code>auth</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>--middlewares</code></td>
+                    <td>Lista separada por comas para la ruta generada.</td>
+                    <td><code>RequireAuthentication</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="make-route-use-case" class="guide-section">
+            <h2>Endpoint con intención</h2>
+            <p>
+              `make:route-use-case` crea el recorrido base de una acción de
+              aplicación: ruta, controller y use case. Es el flujo cómodo para
+              endpoints JSON donde la intención ya está clara, pero todavía no
+              hace falta componer services, connectors o dependencias externas.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Ruta + controller + use case</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-route-use-case"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-route-use-case" class="language-bash">composer robo -- make:route-use-case post /auth/demo Demo CreateDemo --use-case-folder=Demo --action=create</code></pre>
+            </div>
+            <ul class="guide-checklist mt-3">
+              <li>
+                El controller generado responde con `respondJson(...)` y llama a
+                `execute()` del use case.
+              </li>
+              <li>
+                El use case generado extiende `AppUseCase` y usa `run(...)`.
+              </li>
+              <li>
+                Si el endpoint luego requiere composición externa, crea service,
+                connector y service client con comandos separados.
+              </li>
+            </ul>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Validación</th>
+                    <th>Resultado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>La ruta ya existe, incluso con otro method.</td>
+                    <td>
+                      El comando termina sin crear controller, use case ni ruta.
+                      La ruta se compara ya normalizada y contra todos los route
+                      files configurados.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ya existe un use case con el mismo nombre.</td>
+                    <td>
+                      El comando termina sin tocar nada aunque el archivo esté
+                      en otra carpeta bajo <code>Application/UseCase</code>. La
+                      regla protege el nombre corto de clase para evitar dos
+                      archivos visualmente iguales en namespaces distintos.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>El controller no existe.</td>
+                    <td>
+                      Crea el controller completo, crea el use case y registra
+                      la ruta hacia la action resuelta.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>El controller ya existe.</td>
+                    <td>
+                      No reemplaza el archivo: inyecta el use case, agrega una
+                      action JSON nueva y registra la ruta hacia esa action.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>La action solicitada ya existe.</td>
+                    <td>
+                      Usa el primer nombre libre con sufijo numérico:
+                      <code>index</code>, <code>index1</code>,
+                      <code>index2</code>, etc.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>--use-case-folder</code></td>
+                    <td>
+                      Nombra la carpeta bajo <code>Application/UseCase</code>.
+                      Si la carpeta ya existe, se reutiliza; si falta, se crea
+                      solo para alojar el use case.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="make-use-case" class="guide-section">
+            <h2>Intención de aplicación</h2>
+            <p>
+              `make:use-case` crea una intención ejecutable sin depender de una
+              ruta específica. Sirve para aislar una decisión de aplicación,
+              validar input y devolver un resultado normalizado. Si pasas un
+              controller como segundo argumento, el comando lo inyecta ahí; si
+              además pasas `--action`, agrega una action JSON que lo llama.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Use case</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-use-case"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-use-case" class="language-bash">composer robo -- make:use-case ListItems --use-case-folder=Demo
+
+composer robo -- make:use-case ListItems ExternalItem --use-case-folder=Demo --action=list</code></pre>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Forma</th>
+                    <th>Resultado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code>make:use-case &lt;useCaseName&gt;</code>
+                    </td>
+                    <td>Solo crea el use case.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >make:use-case &lt;useCaseName&gt;
+                        [controllerName]</code
+                      >
+                    </td>
+                    <td>
+                      Crea el use case e inyecta la dependencia en el
+                      controller.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >make:use-case &lt;useCaseName&gt; [controllerName]
+                        --action=list</code
+                      >
+                    </td>
+                    <td>
+                      Además agrega una action JSON que llama al use case.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded mt-3">
+              <code>make:use-case</code> nunca crea controllers ni rutas. Si
+              pasas <code>[controllerName]</code>, ese controller debe existir
+              antes de ejecutar el comando; si no existe, el scaffolder no crea
+              el use case para evitar una integración incompleta. Si el use case
+              destino ya existe en cualquier carpeta bajo
+              <code>Application/UseCase</code>, también se detiene sin modificar
+              el controller. Cuando se agrega una action y el nombre ya está
+              ocupado, se usa la misma secuencia incremental:
+              <code>index</code>, <code>index1</code>, <code>index2</code>.
+              <code>--use-case-folder</code> es la opción descriptiva para
+              indicar la carpeta bajo <code>Application/UseCase</code>;
+              <code>--feature</code> solo queda como alias heredado.
+            </div>
+          </section>
+
+          <section id="make-service" class="guide-section">
+            <h2>Composición de aplicación</h2>
+            <p>
+              `make:service` crea un artefacto para coordinar trabajo que el use
+              case no debería cargar directamente: transformación, varias
+              fuentes, fallback o parcialidad. Si pasas el use case como segundo
+              argumento, lo inyecta en ese use case. La regla de arquitectura
+              sigue aplicando: no crees un service si solo va a delegar una
+              única llamada sin agregar significado.
+            </p>
+            <p>
+              El use case destino se busca recursivamente bajo
+              <code>Application/UseCase</code>. Ya no se pasa carpeta para
+              <code>make:service</code>: si existe un único archivo con ese
+              nombre, se edita; si hay varios, el comando aborta porque el
+              filesystem ya está ambiguo y sería peligroso elegir por ti.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Service</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-service"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-service" class="language-bash">composer robo -- make:service ExternalItem
+
+composer robo -- make:service ExternalItem ListItems</code></pre>
+            </div>
+            <p class="guide-crosslink mt-3">
+              <em>
+                La decisión de usar service se explica en
+                <a href="app-gateway.html#services">Services y connectors</a>.
+                Úsalo para composición, transformación, varias fuentes, fallback
+                o parcialidad; no para delegación vacía.
+              </em>
+            </p>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Situación</th>
+                    <th>Comportamiento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Solo pasas <code>&lt;serviceName&gt;</code>.</td>
+                    <td>Crea el service y no modifica ningún use case.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Pasas <code>[useCaseName]</code> o
+                      <code>--use-case</code>.
+                    </td>
+                    <td>
+                      Crea el service si falta y lo vincula al constructor del
+                      use case existente.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>El service ya existe.</td>
+                    <td>
+                      No lo reemplaza sin <code>--force</code>, pero igual
+                      intenta vincularlo al use case indicado.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>El use case indicado no existe.</td>
+                    <td>
+                      Conserva el service creado y muestra un aviso; no inventa
+                      un use case.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Hay varios use cases con el mismo nombre.</td>
+                    <td>
+                      No crea ni modifica nada. Corrige el duplicado antes de
+                      vincular el service para evitar elegir un archivo
+                      equivocado.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="make-connector" class="guide-section">
+            <h2>Salida hacia una dependencia externa</h2>
+            <p>
+              `make:connector` crea el contrato que consume la aplicación y el
+              adapter outbound que lo implementa. Es la frontera para traducir
+              payloads, errores técnicos y respuestas externas a
+              `ConnectorResult`. El connector generado no recibe un
+              `ServiceClient` por constructor: puede usar uno, varios o ningún
+              client HTTP, y esa decisión pertenece a quien implementa el
+              adapter.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Port + connector</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-connector"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-connector" class="language-bash">composer robo -- make:connector ExternalItem</code></pre>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Artefacto</th>
+                    <th>Ubicación</th>
+                    <th>Responsabilidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Port</td>
+                    <td>
+                      <code
+                        >Application/Port/&lt;Name&gt;ConnectorInterface.php</code
+                      >
+                    </td>
+                    <td>Contrato que consume la aplicación.</td>
+                  </tr>
+                  <tr>
+                    <td>Connector</td>
+                    <td>
+                      <code
+                        >Infrastructure/Outbound/Connector/&lt;Name&gt;Connector.php</code
+                      >
+                    </td>
+                    <td>
+                      Adapter outbound concreto que devuelve `ConnectorResult`.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              La carpeta del connector ya no depende del nombre del service
+              client externo. Los clients viven bajo
+              `Infrastructure/Outbound/Client/&lt;Service&gt;/...`; los
+              connectors viven bajo `Infrastructure/Outbound/Connector/...`.
+            </div>
+          </section>
+
+          <section id="make-service-client" class="guide-section">
+            <h2>Cliente HTTP externo</h2>
+            <p>
+              `make:service-client` prepara el transporte técnico para hablar
+              con una API externa: crea el client HTTP concreto, su provider
+              outbound y el import de ese provider en
+              `Extension/Bootstrap/Container/AppProvider.php`. Este comando sí
+              toca DI porque el service client necesita recibir un
+              `ServiceDefinition` desde el contenedor.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Service client + provider + AppProvider</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-service-client"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-service-client" class="language-bash">composer robo -- make:service-client ExternalApi</code></pre>
+            </div>
+            <ul class="guide-checklist mt-3">
+              <li>
+                Genera
+                <code
+                  >Infrastructure/Outbound/Client/ExternalApi/ExternalApiServiceClient.php</code
+                >.
+              </li>
+              <li>
+                Genera
+                <code>Bootstrap/Container/Outbound/ExternalApiProvider.php</code
+                >.
+              </li>
+              <li>
+                Importa el provider outbound desde
+                <code>Bootstrap/Container/AppProvider.php</code>.
+              </li>
+              <li>
+                No crea requests ni responses de endpoints. Para eso usa
+                <code>http:contract</code>.
+              </li>
+            </ul>
+          </section>
+
+          <section id="make-middleware" class="guide-section">
+            <h2>Regla transversal de request</h2>
+            <p>
+              `make:middleware` crea un artefacto para evaluar o enriquecer el
+              request antes de que llegue al controller. Es útil para reglas
+              transversales de presentación HTTP, no para lógica de negocio. El
+              comando no lo conecta a rutas existentes; después debes aplicarlo
+              en routing o usar `--middlewares` cuando generes una ruta nueva.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Middleware</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-middleware"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-middleware" class="language-bash">composer robo -- make:middleware RequireDemoContext</code></pre>
+            </div>
+          </section>
+
+          <section id="http-contract-generator" class="guide-section">
+            <h2>Generador de contratos HTTP externos</h2>
+            <p>
+              Este generador toma la especificación publicada por una API
+              externa y la convierte en código PHP que Gateway puede usar para
+              describir cómo llamar esa API y cómo leer su respuesta. Sirve para
+              que el outbound trabaje con contratos explícitos en lugar de
+              payloads sueltos o mapeos improvisados.
+            </p>
+            <p>
+              El comando recibe una request signature, una response signature y
+              un archivo Swagger/OpenAPI JSON. Con eso busca la operación que
+              conecta ambas formas y escribe una request outbound con
+              `#[Endpoint]` y una response DTO con sus dependencias internas.
+            </p>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Generar contrato HTTP</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-http-contract"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-http-contract" class="language-bash">composer robo http:contract CreateItemRequest CreateItemResponse ../tools/HttpContractGenerator/Specs/external-api.json</code></pre>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Argumento</th>
+                    <th>Detalle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>&lt;RequestSignature&gt;</code></td>
+                    <td>
+                      Schema de request que debe aparecer en `requestBody` o
+                      coincidir con query parameters cuando la operación no
+                      tiene request body.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;ResponseSignature&gt;</code></td>
+                    <td>
+                      Schema de response esperado en una respuesta HTTP 2xx. Si
+                      la response es array, la request implementa
+                      `EndpointListRequest`.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;swaggerPath&gt;</code></td>
+                    <td>
+                      Archivo JSON de Swagger/OpenAPI. Se resuelve desde la raíz
+                      del workspace o desde el current working directory.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>--force</code></td>
+                    <td>
+                      Sobrescribe archivos existentes. Sin `--force`, el writer
+                      omite archivos ya creados.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                    <h3 class="h5">Cómo detecta el endpoint</h3>
+                    <ul class="guide-checklist">
+                      <li>Recorre `paths` y métodos HTTP válidos.</li>
+                      <li>
+                        Busca la request en `$ref` dentro del `requestBody`.
+                      </li>
+                      <li>
+                        Si no hay request body, compara query parameters con las
+                        propiedades del schema de request.
+                      </li>
+                      <li>
+                        Busca la response en schemas de respuestas HTTP 2xx,
+                        incluyendo arrays y refs internos.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body">
+                    <h3 class="h5">Qué genera</h3>
+                    <ul class="guide-checklist">
+                      <li>
+                        Request con `#[Endpoint(method, path, responseClass)]`.
+                      </li>
+                      <li>
+                        `EndpointRequest` o `EndpointListRequest` según la
+                        response.
+                      </li>
+                      <li>
+                        DTOs internos marcados como `@internal` y prefijados con
+                        el contrato principal.
+                      </li>
+                      <li>
+                        `CustomPayloadRequestInterface` cuando hay fechas que
+                        deben normalizarse.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="guide-callout p-3 rounded mt-3">
+              Fechas OpenAPI `date` y `date-time` se generan como
+              `DateTimeImmutable` con default `1900-01-01 00:00:00+00:00`. Para
+              payloads, `date` se serializa como `Y-m-d` y `date-time` usa
+              `DateTimeInterface::ATOM`.
+            </div>
+          </section>
+
+          <section id="surface-contract-generator" class="guide-section">
+            <h2>Generador de contratos Surface</h2>
+            <p>
+              <code>surface:contract</code> usa el mismo Swagger/OpenAPI como
+              fuente, pero escribe TypeScript local para Surface. El contrato se
+              trata como shape visible de una ruta Gateway, aunque coincida con
+              un DTO externo por passthrough.
+            </p>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Generar contrato Surface</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="tools-surface-contract"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="tools-surface-contract" class="language-bash">composer robo -- surface:contract items CreateItemRequest CreateItemResponse ../tools/HttpContractGenerator/Specs/external-api.json</code></pre>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Argumento</th>
+                    <th>Detalle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>&lt;feature&gt;</code></td>
+                    <td>
+                      Carpeta bajo
+                      <code>app-surface/workspace/integrations</code>. El
+                      comando crea la carpeta si no existe y escribe en su
+                      <code>contracts.ts</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;RequestSignature&gt;</code></td>
+                    <td>
+                      Schema que representa <code>params</code> o
+                      <code>body</code> enviados por Surface.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;ResponseSignature&gt;</code></td>
+                    <td>
+                      Schema que representa <code>data</code> JSON visible desde
+                      Gateway. Si la operación devuelve array, el contrato se
+                      tipa localmente sin crear un alias final
+                      <code>&lt;ResponseSignature&gt;Data</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>--force</code></td>
+                    <td>
+                      Reemplaza el bloque generado para esa pareja request /
+                      response. Sin <code>--force</code>, no pisa un bloque ya
+                      generado.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout p-3 rounded mt-3">
+              Este comando no genera llamadas HTTP. Después de crear las firmas,
+              <code>api.ts</code> las importa para tipar
+              <code>serverClient</code> y <code>actions.ts</code> arma el
+              request desde valores de UI. Surface genera
+              <code>export class</code> con defaults y constructor
+              <code>Partial&lt;T&gt;</code>; no genera interfaces, comentarios
+              de bloque, <code>toJSON()</code> ni normalizadores de fecha. Los
+              campos OpenAPI <code>date</code> y <code>date-time</code> quedan
+              como <code>string | Date | null</code>; si una integración
+              necesita serialización especial, debe resolverla en su acción o
+              request builder.
+            </div>
+          </section>
+
+          <section id="workflows" class="guide-section">
+            <h2>Flujos recomendados</h2>
+            <p>
+              Los comandos están pensados para componerse. Esta secuencia evita
+              que un scaffolder invente dependencias antes de que exista una
+              intención clara.
+            </p>
+
+            <div class="accordion" id="tools-workflows">
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#workflow-simple-json"
+                    aria-expanded="true"
+                    aria-controls="workflow-simple-json"
+                  >
+                    Endpoint JSON simple
+                  </button>
+                </h3>
+                <div
+                  id="workflow-simple-json"
+                  class="accordion-collapse collapse show"
+                  data-bs-parent="#tools-workflows"
+                >
+                  <div class="accordion-body">
+                    <ol class="guide-checklist">
+                      <li>
+                        Ejecuta <code>make:route-use-case</code> para crear
+                        route, controller y use case.
+                      </li>
+                      <li>
+                        Implementa input, validación y `execute()` dentro del
+                        use case.
+                      </li>
+                      <li>
+                        Si Surface consume JSON, valida el envelope en
+                        <a href="bridge.html#json">Bridge JSON</a>.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#workflow-existing-controller"
+                    aria-expanded="false"
+                    aria-controls="workflow-existing-controller"
+                  >
+                    Controller existente que gana un use case
+                  </button>
+                </h3>
+                <div
+                  id="workflow-existing-controller"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#tools-workflows"
+                >
+                  <div class="accordion-body">
+                    <ol class="guide-checklist">
+                      <li>
+                        Ejecuta
+                        <code
+                          >make:use-case &lt;UseCase&gt;
+                          &lt;Controller&gt;</code
+                        >.
+                      </li>
+                      <li>
+                        Si necesitas una action nueva, agrega
+                        <code>--action=&lt;method&gt;</code>.
+                      </li>
+                      <li>
+                        Si la ruta ya existía, confirma que apunte a la action
+                        correcta.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#workflow-outbound"
+                    aria-expanded="false"
+                    aria-controls="workflow-outbound"
+                  >
+                    Integración outbound completa
+                  </button>
+                </h3>
+                <div
+                  id="workflow-outbound"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#tools-workflows"
+                >
+                  <div class="accordion-body">
+                    <div class="code-card">
+                      <div class="code-card__bar">
+                        <span>Secuencia sugerida</span>
+                        <button
+                          class="btn btn-sm btn-outline-light"
+                          type="button"
+                          data-copy-code="tools-workflow-robust"
+                        >
+                          Copiar
+                        </button>
+                      </div>
+                      <pre><code id="tools-workflow-robust" class="language-bash">composer robo -- make:service-client ExternalApi
+composer robo http:contract GetExternalItemRequest GetExternalItemResponse ../tools/HttpContractGenerator/Specs/external-api.json
+composer robo -- surface:contract demo-items GetExternalItemRequest GetExternalItemResponse ../tools/HttpContractGenerator/Specs/external-api.json
+composer robo -- make:connector ExternalItem
+composer robo -- make:service ExternalItem GetExternalItem</code></pre>
+                    </div>
+                    <ol class="guide-checklist mt-3">
+                      <li>
+                        Valida `services.json` y variables
+                        `API_&lt;SERVICIO&gt;_*`.
+                      </li>
+                      <li>
+                        Implementa el connector a mano usando el service client
+                        que corresponda.
+                      </li>
+                      <li>
+                        Decide en el use case si usa `takeOrAbort(...)` o
+                        `runConnectorFlow(...)`.
+                      </li>
+                      <li>
+                        Si Surface consume la ruta Gateway, usa
+                        <code>surface:contract</code> para generar la firma TS y
+                        luego completa <code>api.ts</code> /
+                        <code>actions.ts</code>.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="boundaries" class="guide-section">
+            <h2>Límites</h2>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Límite</th>
+                    <th>Motivo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>El scaffolder no crea Surface.</td>
+                    <td>
+                      Surface se activa por `data-surface-*` y registry UI. La
+                      página o fragment debe decidir explícitamente su bridge.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>El connector no nace con service client.</td>
+                    <td>
+                      Un connector puede usar varios clients, uno solo o una
+                      fuente no HTTP. El constructor debe expresar una decisión
+                      real.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>El service no nace con connector.</td>
+                    <td>
+                      Un service puede ser composición de aplicación o puede no
+                      necesitar integración externa.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>`http:contract` no toca DI.</td>
+                    <td>
+                      Generar DTOs y requests no significa que exista un client
+                      configurado ni un adapter listo.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>`surface:contract` no crea integración UI.</td>
+                    <td>
+                      Solo escribe firmas TS en <code>contracts.ts</code>. El
+                      binding, <code>api.ts</code> y <code>actions.ts</code>
+                      siguen siendo decisiones de la integración.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="diagnostics" class="guide-section">
+            <h2>Diagnóstico</h2>
+            <div class="guide-quick-grid">
+              <section class="guide-quick-item">
+                <h3>Comando no aparece</h3>
+                <ul>
+                  <li>Ejecuta <code>composer robo list</code>.</li>
+                  <li>
+                    Confirma que el método exista en
+                    <code>app-gateway/RoboFile.php</code>.
+                  </li>
+                  <li>
+                    Recuerda que los comandos viejos compuestos ya no son API.
+                  </li>
+                </ul>
+              </section>
+              <section class="guide-quick-item">
+                <h3>Configuración no carga</h3>
+                <ul>
+                  <li>
+                    Verifica que `robo-configurations.json` esté en la raíz del
+                    workspace.
+                  </li>
+                  <li>
+                    Revisa que existan `extensionScaffolder`,
+                    `httpContractGenerator` o `surfaceContractGenerator` según
+                    el comando.
+                  </li>
+                  <li>Usa <code>--config=...</code> solo para pruebas.</li>
+                </ul>
+              </section>
+              <section class="guide-quick-item">
+                <h3>Archivo omitido</h3>
+                <ul>
+                  <li>El writer no sobrescribe por defecto.</li>
+                  <li>Usa <code>--force</code> si quieres regenerar.</li>
+                  <li>Antes de forzar, revisa cambios manuales existentes.</li>
+                </ul>
+              </section>
+              <section class="guide-quick-item">
+                <h3>Endpoint no detectado</h3>
+                <ul>
+                  <li>
+                    Confirma el nombre exacto de request y response en schemas.
+                  </li>
+                  <li>Revisa que la response esté en un status HTTP 2xx.</li>
+                  <li>Valida que el Swagger/OpenAPI sea JSON válido.</li>
+                </ul>
+              </section>
+            </div>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="bridge.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Bridge</h3>
+                      <p class="mb-0">
+                        Revisa cómo los artefactos generados terminan exponiendo
+                        HTML, JSON, headers, sesión y assets hacia Surface.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a class="guide-card-link" href="recipes.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Continuar con: Guías prácticas</h3>
+                      <p class="mb-0">
+                        Lleva los comandos a escenarios concretos: páginas,
+                        endpoints JSON, fragments e integraciones outbound.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ayuda | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--troubleshooting"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ayuda</li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">Ayuda</h1>
+        <p class="lead mb-0">Problemas frecuentes y dónde mirar primero.</p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">Diagnóstico</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#diagnostic-method">Método</a>
+                  <a class="nav-link" href="#troubleshoot-entry"
+                    >Entrada HTTP</a
+                  >
+                  <a class="nav-link" href="#troubleshoot-application"
+                    >Aplicación</a
+                  >
+                  <a class="nav-link" href="#troubleshoot-outbound">Outbound</a>
+                  <a class="nav-link" href="#troubleshoot-surface">Surface</a>
+                  <a class="nav-link" href="#troubleshoot-session-assets"
+                    >Sesión y assets</a
+                  >
+                  <a class="nav-link" href="#troubleshoot-observability"
+                    >Observabilidad</a
+                  >
+                  <a class="nav-link" href="#next">Recorrido</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section
+            id="diagnostic-method"
+            class="guide-section troubleshooting-group troubleshooting-group--method"
+          >
+            <p class="guide-crosslink">
+              <em>
+                Para diagnosticar sin perder el mapa, cruza esta página con
+                <a href="reference.html">Referencia</a>,
+                <a href="bridge.html#json">JSON envelope</a>,
+                <a href="bridge.html#assets">Assets Vite</a> y
+                <a href="app-surface.html#runtime"
+                  >Runtime de pages y fragments</a
+                >.
+              </em>
+            </p>
+            <div class="card border-0 shadow-sm mb-3">
+              <div class="card-body">
+                <h2 class="h4">Método de diagnóstico</h2>
+                <p>
+                  Cuando algo falla, no debe modificarse código sin diagnóstico.
+                  Primero se debe ubicar qué contrato falló: ruta, HTML, JSON,
+                  sesión, assets, DI, outbound o montaje de Surface.
+                </p>
+                <ol class="guide-checklist">
+                  <li>
+                    Identificar la salida esperada: página, fragment, JSON,
+                    redirect o asset.
+                  </li>
+                  <li>
+                    Revisar status HTTP y <code>Content-Type</code>. Si se
+                    esperaba HTML y llegó JSON, se trata de un error de
+                    contrato.
+                  </li>
+                  <li>
+                    Si es JSON, validar <code>success</code>, <code>data</code>,
+                    <code>message</code> y <code>errors[]</code>.
+                  </li>
+                  <li>
+                    Si es Surface, revisar
+                    <code>data-surface-page-status</code> o
+                    <code>data-surface-fragment-status</code>.
+                  </li>
+                  <li>
+                    Si hay sesión, confirmar <code>X-TAB-SESSION</code> en
+                    request y <code>X-REMAINING</code> en response.
+                  </li>
+                  <li>
+                    Si hay proveedor externo, seguir el rastro desde use case
+                    hacia service, connector, client y
+                    <code>ConnectorResult</code>.
+                  </li>
+                  <li>
+                    Usar <code>X-Correlation-Id</code> para unir navegador, logs
+                    de Gateway y llamadas upstream.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="troubleshoot-entry"
+            class="guide-section troubleshooting-group troubleshooting-group--entry"
+          >
+            <h2>Entrada HTTP, controller y respuesta</h2>
+            <p>
+              Empieza por la ruta, el controller y el contrato de salida: si
+              esto falla, Surface o el use case reciben una respuesta
+              equivocada.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Ruta nueva no responde</h2>
+                    <p>
+                      Validar que el archivo de routing se cargue, que no exista
+                      una firma duplicada y que la cache de rutas/contenedor no
+                      esté desactualizada en producción.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#routing">Routing</a>,
+                      <a href="app-gateway.html#routing-api"
+                        >interfaz del router</a
+                      >,
+                      <a href="app-gateway.html#production-cache"
+                        >caché de producción</a
+                      >
+                      y
+                      <a href="tools.html#make-route-controller"
+                        >make:route-controller</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">CSRF inválido</h2>
+                    <p>
+                      Debe revisarse que la vista SSR renderice `_csrf`, que el
+                      formulario lo envíe y que el controller valide antes del
+                      use case. No lo debe confundirse con `X-TAB-SESSION`.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#security-session"
+                        >seguridad y sesión</a
+                      >,
+                      <a href="app-gateway.html#controllers">controllers</a>
+                      y <a href="app-surface.html#http">HTTP de Surface</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">HTML esperado pero llega JSON o layout</h2>
+                    <p>
+                      `serverClient.html(...)` lo tratará como contrato roto si
+                      llega JSON, redirect, layout completo, page de Surface o
+                      un fragment distinto al esperado. Deben revisarse
+                      controller, `renderFragmentView(...)` y la opción
+                      `expect`.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#views">views y fragments</a>,
+                      <a href="app-surface.html#http">serverClient.html</a>,
+                      <a href="app-surface.html#content-mount">content mount</a>
+                      y <a href="bridge.html#html">contratos HTML</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">JSON inválido</h2>
+                    <p>
+                      El body debe tener `success` booleano. Deben revisarse
+                      `respondJson(...)`, `ApiResponse` y use case.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="bridge.html#json">JSON envelope</a>,
+                      <a href="app-gateway.html#controllers">respondJson</a>,
+                      <a href="app-gateway.html#usecases">use cases</a>
+                      y
+                      <a href="app-surface.html#consume-gateway"
+                        >consumo desde Surface</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">HTML vacío, layout o Content-Type raro</h2>
+                    <p>
+                      `serverClient.html(...)` exige HTML embebible. Debe
+                      revisarse que Gateway no devuelva JSON, body vacío,
+                      redirect, layout completo, page inesperada ni
+                      `Content-Type` incompatible desde el controller o el error
+                      presenter.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#views">views, JSON y assets</a>,
+                      <a href="app-gateway.html#errors">errores Gateway</a>
+                      y
+                      <a href="app-surface.html#http"
+                        >validación HTML en Surface</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="troubleshoot-application"
+            class="guide-section troubleshooting-group troubleshooting-group--application"
+          >
+            <h2>Use case, service y resultado</h2>
+            <p>
+              Después de confirmar la entrada HTTP, revisa si la intención de
+              aplicación conserva errores, parcialidad y significado de
+              aplicación.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Parcialidad no se muestra</h2>
+                    <p>
+                      El envelope debe ser `success=true` con `errors.length >
+                      0`. Debe revisarse `setPartialReporter(...)` en startup y
+                      que el use case no convierta una degradación en éxito
+                      limpio.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="bridge.html#json">parcialidad JSON</a>,
+                      <a href="app-gateway.html#usecases">use cases</a>,
+                      <a href="app-gateway.html#services"
+                        >services y connectors</a
+                      >
+                      y <a href="app-surface.html#http">partial reporter</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="troubleshoot-outbound"
+            class="guide-section troubleshooting-group troubleshooting-group--outbound"
+          >
+            <h2>Connector, service client y contratos externos</h2>
+            <p>
+              Cuando la feature depende de un proveedor externo, sigue el rastro
+              desde provider y alias hasta connector, client y DTO hidratado.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">DI no encuentra clase</h2>
+                    <p>
+                      Deben revisarse namespace PSR-4, provider correspondiente,
+                      tags/aliases y cache del contenedor.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#bootstrap-di">Bootstrap y DI</a
+                      >,
+                      <a href="app-gateway.html#production-cache"
+                        >caché de producción</a
+                      >
+                      y
+                      <a href="tools.html#make-service-client"
+                        >make:service-client</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Alias de connector falla</h2>
+                    <p>
+                      `ConnectorAliasRegistrar` espera un port
+                      `*ConnectorInterface` y una implementación única
+                      `*Connector` bajo `Infrastructure/Outbound/Connector`. Si
+                      hay cero o varias coincidencias, registra el alias
+                      explícitamente o corrige el nombre.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#services"
+                        >services y connectors</a
+                      >,
+                      <a href="app-gateway.html#external-clients"
+                        >clients externos</a
+                      >
+                      y <a href="tools.html#make-connector">make:connector</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">DTO externo no hidrata</h2>
+                    <p>
+                      Debe revisarse si el request implementa `EndpointRequest`
+                      o `EndpointListRequest` según la forma real. Si la API
+                      HTTP Externa devuelve objeto cuando se esperaba lista,
+                      `JsonServiceResponseMapper` debe fallar claro.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#external-clients"
+                        >API HTTP clients externos</a
+                      >,
+                      <a href="tools.html#http-contract-generator"
+                        >http:contract</a
+                      >
+                      y
+                      <a href="app-gateway.html#services"
+                        >flujo ConnectorResult</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="troubleshoot-surface"
+            class="guide-section troubleshooting-group troubleshooting-group--surface"
+          >
+            <h2>Surface: page, fragment y adapters</h2>
+            <p>
+              Si Gateway ya respondió bien, valida el id declarativo, el
+              registro de la integración, el montaje de fragments y la limpieza
+              de adapters.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">No monta una page</h2>
+                    <p>
+                      Validar `data-surface-page`, `integration.id`, layout
+                      correcto y registro en `uiIntegrationRegistry`.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#runtime">runtime de montaje</a>,
+                      <a href="app-surface.html#workspace"
+                        >workspace integrations</a
+                      >
+                      y
+                      <a href="app-surface.html#startup">startup y layouts</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Page registrada con otro id</h2>
+                    <p>
+                      El valor de `data-surface-page` debe coincidir con
+                      `UiIntegration.id`. Si no coincide, el runtime avisa y no
+                      debe montar un módulo no correspondiente por accidente.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#runtime-api"
+                        >interfaz de runtime</a
+                      >,
+                      <a href="app-surface.html#workspace"
+                        >registro de integraciones</a
+                      >
+                      y
+                      <a href="app-gateway.html#views"
+                        >atributos SSR en Gateway</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">No monta un fragment</h2>
+                    <p>
+                      El fragment debe estar en `fragments` de la integración
+                      propietaria. Si está en modal/toast, debe usarse
+                      `withContentMount`.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#runtime">runtime</a>,
+                      <a href="app-surface.html#content-mount">content mount</a>
+                      y <a href="app-gateway.html#views">fragments SSR</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Fragment en modal no monta</h2>
+                    <p>
+                      El modal o toast debe usar `withContentMount(...)`.
+                      Confirmar que el HTML tenga `data-surface-fragment` y que
+                      el fragment esté registrado en la integración propietaria.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#content-mount"
+                        >montaje de HTML remoto</a
+                      >,
+                      <a href="app-surface.html#toolkit">toolkit de feedback</a>
+                      y
+                      <a href="app-surface.html#consume-gateway"
+                        >consumo Gateway</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Adapter duplicado</h2>
+                    <p>
+                      Debe revisarse que `unmount()` destruya
+                      Select2/DataTables/DateRangePicker antes de reemplazar
+                      HTML.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#bindings">bindings</a>,
+                      <a href="app-surface.html#toolkit">adapters de toolkit</a>
+                      y
+                      <a href="app-surface.html#content-mount"
+                        >ciclo de reemplazo</a
+                      >.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="troubleshoot-session-assets"
+            class="guide-section troubleshooting-group troubleshooting-group--session-assets"
+          >
+            <h2>Sesión, runtime y assets</h2>
+            <p>
+              Estos fallos viven entre la sesión por pestaña, los headers
+              compartidos y el build que deja disponible el código de Surface.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Sesión por pestaña falla</h2>
+                    <p>
+                      Validar `ensureTabSession()`, header `X-TAB-SESSION` y
+                      estado de sesión PHP.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#security-session"
+                        >sesión Gateway</a
+                      >,
+                      <a href="app-surface.html#session-runtime"
+                        >sesión Surface</a
+                      >
+                      y <a href="app-surface.html#http">headers HTTP</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Mantener sesión no suma tiempo</h2>
+                    <p>
+                      Revisar <code>X-REMAINING</code> y los timestamps de
+                      <code>tabs.{tabId}.metadata</code>. Gateway solo refresca
+                      si la tab está dentro de
+                      <code>SESSION_REFRESH_WINDOW</code> y ya pasó
+                      <code>SESSION_REFRESH_COOLDOWN</code> desde
+                      <code>refreshedAtUnix</code>. Si renovó a las 12:09:35 y
+                      se vuelve a pedir a las 12:09:36, es normal que no sume
+                      más tiempo.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#security-session"
+                        >renovación en Gateway</a
+                      >,
+                      <a href="app-surface.html#session-runtime"
+                        >contador en Surface</a
+                      >
+                      y
+                      <a href="app-surface.html#http">hooks de sesión HTTP</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">No carga manifest Vite</h2>
+                    <p>
+                      En local debe ejecutarse `npm run lite:build` en
+                      `app-surface` y validarse `PUBLIC_PATH`. En producción
+                      debe usarse `npm run build`; el manifest es obligatorio.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#vite">Vite y estilos</a>,
+                      <a href="app-gateway.html#views"
+                        >helpers de assets Gateway</a
+                      >
+                      y <a href="bridge.html#assets">contrato de assets</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Falta una entrada del manifest</h2>
+                    <p>
+                      Si el manifest existe pero no contiene el entry esperado,
+                      deben revisarse `vite.config.ts`, el nombre de entrada y
+                      el build de Surface. En producción no debe haber fallback
+                      silencioso.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-surface.html#vite">configuración Vite</a>,
+                      <a href="app-gateway.html#production-cache"
+                        >orden de deploy</a
+                      >
+                      y <a href="bridge.html#assets">manifest Vite</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id="troubleshoot-observability"
+            class="guide-section troubleshooting-group troubleshooting-group--observability"
+          >
+            <h2>Observabilidad y rastreo</h2>
+            <p>
+              Cuando el síntoma cruza varias capas, usa correlation id para unir
+              navegador, Gateway y llamadas upstream.
+            </p>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">No puedo rastrear un fallo</h2>
+                    <p>
+                      Debe copiarse `X-Correlation-Id` desde la respuesta del
+                      navegador y usarse para ubicar logs de Gateway, response
+                      context y llamadas upstream relacionadas.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#observability"
+                        >observabilidad Gateway</a
+                      >,
+                      <a href="app-gateway.html#errors">errores</a>
+                      y <a href="reference.html">referencia rápida</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido de la guía</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="reference.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Referencia</h3>
+                      <p class="mb-0">
+                        Contrasta el diagnóstico con rutas, scripts, contratos,
+                        headers y convenciones rápidas del proyecto.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

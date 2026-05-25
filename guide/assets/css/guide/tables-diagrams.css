@@ -1,0 +1,779 @@
+.table-guide th {
+  white-space: nowrap;
+}
+
+.table-guide {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--guide-text);
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.035);
+  --bs-table-striped-color: var(--guide-text);
+  --bs-table-border-color: var(--guide-border-soft);
+  color: var(--guide-text);
+}
+
+.table-guide thead th {
+  color: var(--guide-accent-strong);
+  background: rgba(255, 216, 102, 0.08);
+}
+
+.env-table-wrap {
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 0.82rem;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--page-color) 5%, transparent),
+      rgba(25, 24, 26, 0.18)
+    ),
+    rgba(34, 31, 34, 0.36);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 0.8rem 1.8rem rgba(0, 0, 0, 0.12);
+}
+
+.env-table {
+  table-layout: fixed;
+  min-width: 900px;
+  margin-bottom: 0;
+}
+
+.env-table th:nth-child(1) {
+  width: 15.5rem;
+}
+
+.env-table th:nth-child(2) {
+  width: 21%;
+}
+
+.env-table th:nth-child(3) {
+  width: auto;
+}
+
+.env-table td {
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.env-table thead th {
+  color: color-mix(in srgb, var(--page-color) 42%, #fcfcfa);
+  border-bottom-color: color-mix(in srgb, var(--page-color) 22%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--page-color) 9%, transparent),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.env-table code {
+  overflow-wrap: anywhere;
+}
+
+.env-table__group td {
+  padding: 0.84rem 1rem 0.58rem;
+  color: color-mix(in srgb, var(--page-color) 30%, #fcfcfa);
+  border-top: 1px solid color-mix(in srgb, var(--page-color) 20%, transparent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color) 14%, rgba(255, 255, 255, 0.025)),
+      rgba(255, 255, 255, 0.014) 48%,
+      transparent
+    ),
+    rgba(8, 8, 9, 0.26) !important;
+  box-shadow:
+    inset 4px 0 0 color-mix(in srgb, var(--page-color) 52%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.guide-page--getting-started .env-table__group td {
+  position: relative;
+  padding: 0.94rem 1.12rem 0.68rem 2.52rem;
+  color: color-mix(in srgb, var(--page-color) 24%, #fffdf6);
+  font-size: 0.86rem;
+}
+
+.guide-page--getting-started .env-table__group td::before {
+  position: absolute;
+  top: 50%;
+  left: 1.12rem;
+  width: 0.62rem;
+  height: 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--page-color) 58%, #ffffff);
+  border-radius: 999px;
+  background: color-mix(
+    in srgb,
+    var(--page-color) 26%,
+    rgba(255, 255, 255, 0.05)
+  );
+  box-shadow:
+    0 0 0 0.24rem color-mix(in srgb, var(--page-color) 10%, transparent),
+    0 0.18rem 0.48rem rgba(0, 0, 0, 0.16);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.env-table__group:first-child td {
+  border-top: 0;
+}
+
+.env-var {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.env-var > code {
+  width: fit-content;
+  max-width: 100%;
+  font-size: 0.88rem;
+}
+
+.env-var__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+  align-items: flex-start;
+}
+
+.env-pill,
+.env-default {
+  display: inline-flex;
+  position: relative;
+  max-width: 100%;
+  align-items: center;
+  min-height: 1.36rem;
+  font-size: 0.72rem;
+  font-weight: 760;
+  line-height: 1.18;
+}
+
+.env-pill {
+  --env-pill-color: color-mix(
+    in srgb,
+    var(--guide-muted) 72%,
+    var(--page-color)
+  );
+  gap: 0.3rem;
+  padding: 0.08rem 0.12rem;
+  color: color-mix(in srgb, var(--guide-muted) 82%, #fcfcfa);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.env-pill::before {
+  content: "";
+  width: 0.52rem;
+  height: 2px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--env-pill-color) 68%, #fcfcfa);
+  opacity: 0.72;
+}
+
+.env-pill--required {
+  --env-pill-color: var(--page-color);
+}
+
+.env-pill--conditional {
+  --env-pill-color: var(--page-color-companion);
+}
+
+.env-pill--required,
+.env-pill--conditional {
+  padding: 0.22rem 0.44rem;
+  color: color-mix(in srgb, var(--env-pill-color) 72%, #fcfcfa);
+  border: 1px solid
+    color-mix(in srgb, var(--env-pill-color) 32%, rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
+  background: color-mix(
+    in srgb,
+    var(--env-pill-color) 10%,
+    rgba(255, 255, 255, 0.035)
+  );
+}
+
+.env-pill--required::before,
+.env-pill--conditional::before {
+  width: 0.42rem;
+  height: 0.42rem;
+  background: color-mix(in srgb, var(--env-pill-color) 76%, #fcfcfa);
+  opacity: 0.9;
+}
+
+.env-default {
+  color: rgba(252, 252, 250, 0.68);
+  padding: 0.2rem 0.42rem;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 0.24rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.018)
+  );
+}
+
+.env-default code {
+  margin-left: 0.18rem;
+  padding: 0;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.72rem;
+}
+
+.env-table-wrap::-webkit-scrollbar {
+  height: 0.72rem;
+}
+
+.env-table-wrap::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.env-table-wrap::-webkit-scrollbar-thumb {
+  border: 3px solid rgba(34, 31, 34, 0.92);
+  border-radius: 999px;
+  background: color-mix(
+    in srgb,
+    var(--page-color) 42%,
+    rgba(255, 255, 255, 0.14)
+  );
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .env-table {
+    min-width: 820px;
+  }
+
+  .env-table th:nth-child(1) {
+    width: 14rem;
+  }
+
+  .env-table th:nth-child(2) {
+    width: 20%;
+  }
+}
+
+.markdown-viewer {
+  max-width: 980px;
+}
+
+.markdown-viewer h1,
+.markdown-viewer h2,
+.markdown-viewer h3 {
+  margin-top: 1.75rem;
+}
+
+.markdown-viewer pre {
+  padding: 1rem;
+  overflow: auto;
+  border: 1px solid rgba(120, 220, 232, 0.18);
+  border-radius: 0.75rem;
+  background: #19181a;
+}
+
+.markdown-viewer pre code {
+  color: #fcfcfa;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.markdown-viewer table {
+  width: 100%;
+  margin-block: 1rem;
+  color: var(--guide-text);
+  border-color: var(--guide-border-soft);
+}
+
+.markdown-viewer th,
+.markdown-viewer td {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--guide-border-soft);
+}
+
+.markdown-viewer th {
+  color: var(--guide-accent-strong);
+  background: rgba(255, 216, 102, 0.08);
+}
+
+.markdown-viewer .mermaid {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  overflow: auto;
+  border: 1px solid rgba(120, 220, 232, 0.2);
+  border-radius: 0.75rem;
+  background: #19181a;
+}
+
+.guide-sidebar--diagrams {
+  --diagram-menu-color: var(--page-color);
+  --diagram-menu-companion: var(--page-color-companion);
+}
+
+.diagram-browser {
+  overflow: hidden;
+}
+
+.diagram-browser .card-body {
+  padding: 0.9rem;
+}
+
+.diagram-browser__title {
+  margin: 0 0 0.8rem;
+  color: color-mix(in srgb, var(--diagram-menu-color) 84%, #fcfcfa);
+  font-size: 0.84rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.diagram-list {
+  display: grid;
+  gap: 0.85rem;
+  max-height: calc(100vh - 9.5rem);
+  overflow: auto;
+  padding-right: 0.18rem;
+}
+
+.diagram-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.diagram-list::-webkit-scrollbar-track {
+  background: rgba(25, 24, 26, 0.6);
+}
+
+.diagram-list::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--diagram-menu-color) 42%, #5b595c);
+  border-radius: 999px;
+}
+
+.diagram-list__tabs {
+  display: none;
+  gap: 0.48rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.02rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.diagram-list__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.diagram-list__tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.25rem;
+  padding: 0.48rem 0.82rem;
+  color: rgba(252, 252, 250, 0.78);
+  border: 1px solid
+    color-mix(in srgb, var(--diagram-menu-color) 18%, rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--diagram-menu-color) 11%, transparent),
+      rgba(255, 255, 255, 0.045)
+    ),
+    rgba(45, 42, 46, 0.76);
+  font-size: 0.8rem;
+  font-weight: 860;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.diagram-list__tab::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 0.32rem solid currentColor;
+  border-right: 0.26rem solid transparent;
+  border-left: 0.26rem solid transparent;
+  opacity: 0.72;
+  transition: transform 0.14s ease;
+}
+
+.diagram-list__tab:hover,
+.diagram-list__tab:focus-visible,
+.diagram-list__tab[aria-expanded="true"] {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--diagram-menu-color) 32%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--diagram-menu-color) 16%, transparent),
+      color-mix(in srgb, var(--diagram-menu-companion) 8%, transparent)
+    ),
+    rgba(64, 62, 65, 0.82);
+}
+
+.diagram-list__tab[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+.diagram-list__tab.active {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--diagram-menu-color) 42%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--diagram-menu-color) 25%, transparent),
+      color-mix(in srgb, var(--diagram-menu-color) 10%, transparent)
+    ),
+    rgba(64, 62, 65, 0.88);
+  box-shadow:
+    inset 0 -2px 0
+      color-mix(in srgb, var(--diagram-menu-color) 76%, transparent),
+    0 0 16px color-mix(in srgb, var(--diagram-menu-color) 10%, transparent);
+}
+
+.diagram-list__group {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.68rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.82rem;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--diagram-menu-color) 6%, rgba(64, 62, 65, 0.3)),
+      rgba(25, 24, 26, 0.72)
+    ),
+    #221f22;
+}
+
+.diagram-list.has-group-tabs .diagram-list__group {
+  display: none;
+}
+
+.diagram-list.has-group-tabs .diagram-list__group.is-open {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.48rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.68rem 2.4rem 0.68rem 0.68rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.diagram-list.has-group-tabs .diagram-list__group.is-open::-webkit-scrollbar {
+  display: none;
+}
+
+.diagram-list.has-group-tabs .diagram-list__group.is-open::after {
+  content: "";
+  position: sticky;
+  right: -2.4rem;
+  flex: 0 0 2.4rem;
+  align-self: stretch;
+  margin: -0.68rem -2.4rem -0.68rem 0;
+  background: linear-gradient(90deg, transparent, rgba(34, 31, 34, 0.96));
+  pointer-events: none;
+}
+
+.diagram-list__group h3 {
+  margin: 0 0 0.08rem;
+  color: color-mix(in srgb, var(--diagram-menu-color) 78%, #fcfcfa);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.diagram-list.has-group-tabs .diagram-list__group h3 {
+  display: none;
+}
+
+.diagram-list .list-group-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0.55rem 0.68rem;
+  color: var(--guide-text);
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 0.58rem;
+  background:
+    linear-gradient(180deg, rgba(45, 42, 46, 0.72), rgba(25, 24, 26, 0.78)),
+    #221f22;
+  cursor: pointer;
+  font-size: 0.82rem;
+  line-height: 1.28;
+  text-align: left;
+  overflow-wrap: anywhere;
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease,
+    color 0.14s ease;
+}
+
+.diagram-list.has-group-tabs .list-group-item {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: min(22rem, 78vw);
+  padding: 0.52rem 0.82rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  line-height: 1.16;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diagram-list .list-group-item:hover,
+.diagram-list .list-group-item:focus-visible {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--diagram-menu-color) 28%, transparent);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--diagram-menu-color) 12%, transparent),
+      rgba(45, 42, 46, 0.78)
+    ),
+    #2d2a2e;
+}
+
+.diagram-list .list-group-item.active {
+  color: var(--guide-text);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--diagram-menu-color) 13%, transparent),
+      color-mix(in srgb, var(--diagram-menu-companion) 8%, transparent)
+    ),
+    linear-gradient(180deg, rgba(64, 62, 65, 0.86), rgba(34, 31, 34, 0.92)),
+    #2d2a2e;
+  border-color: color-mix(in srgb, var(--diagram-menu-color) 48%, transparent);
+  box-shadow:
+    inset 4px 0 0 var(--diagram-menu-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.diagram-list.has-group-tabs .list-group-item.active {
+  box-shadow:
+    inset 0 -2px 0
+      color-mix(in srgb, var(--diagram-menu-color) 76%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 0 14px color-mix(in srgb, var(--diagram-menu-color) 10%, transparent);
+}
+
+@media (min-width: 992px) {
+  .diagram-list.has-group-tabs .diagram-list__group,
+  .diagram-list.has-group-tabs .diagram-list__group.is-active,
+  .diagram-list.has-group-tabs .diagram-list__group.is-open {
+    position: static;
+    display: grid;
+    gap: 0.4rem;
+    overflow: visible;
+    padding: 0.68rem;
+  }
+
+  .diagram-list.has-group-tabs .diagram-list__group.is-open::after {
+    content: none;
+  }
+
+  .diagram-list.has-group-tabs .diagram-list__group h3 {
+    display: block;
+  }
+
+  .diagram-list.has-group-tabs .list-group-item {
+    display: block;
+    width: 100%;
+    max-width: none;
+    padding: 0.55rem 0.68rem;
+    border-radius: 0.58rem;
+    font-size: 0.82rem;
+    line-height: 1.28;
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
+
+  .diagram-list.has-group-tabs .list-group-item.active {
+    box-shadow:
+      inset 4px 0 0 var(--diagram-menu-color),
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      0 0 0 1px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.guide-sidebar--diagrams .diagram-list {
+  display: grid;
+  gap: 0.14rem;
+}
+
+.guide-sidebar--diagrams .diagram-list.has-group-tabs .diagram-list__group,
+.guide-sidebar--diagrams .diagram-list__group {
+  display: grid;
+  gap: 0.08rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0.18rem 0 0.26rem 0.42rem;
+  border: 0;
+  border-left: 1px solid
+    color-mix(in srgb, var(--page-color) 22%, rgba(255, 255, 255, 0.08));
+  border-radius: 0;
+  background: transparent;
+}
+
+.guide-sidebar--diagrams .diagram-list__group + .diagram-list__group {
+  margin-top: 0.42rem;
+}
+
+.guide-sidebar--diagrams .diagram-list__group h3 {
+  display: block;
+  margin: 0 0 0.1rem;
+  padding: 0.16rem 0.62rem;
+  color: color-mix(in srgb, var(--page-color) 70%, #fcfcfa);
+  font-size: 0.66rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.guide-sidebar--diagrams .diagram-list .nav-link {
+  width: 100%;
+  margin: 0;
+  padding: 0.34rem 0.72rem;
+  text-align: left;
+}
+
+.guide-sidebar--diagrams .diagram-list .nav-link.active {
+  color: #fff;
+  border-left-color: var(--page-color);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--page-color) 17%, transparent),
+    transparent 88%
+  );
+}
+
+@media (min-width: 1200px) {
+  .navbar.bg-white::after {
+    display: none;
+  }
+
+  .navbar .navbar-nav {
+    flex-wrap: nowrap;
+    gap: 0.12rem;
+    padding: 0.16rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .navbar .nav-link {
+    min-height: 2.46rem;
+    gap: 0;
+    padding: 0.56rem 0.54rem;
+    border: 1px solid transparent;
+    border-radius: 0.34rem;
+    color: color-mix(in srgb, var(--nav-color) 16%, rgba(252, 252, 250, 0.8));
+    font-size: 0.72rem;
+    text-shadow: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .navbar .nav-link::before,
+  .navbar .nav-link::after {
+    display: none;
+  }
+
+  .navbar .nav-link:hover,
+  .navbar .nav-link:focus-visible {
+    color: #fff;
+    border-color: color-mix(
+      in srgb,
+      var(--nav-color) 28%,
+      rgba(255, 255, 255, 0.08)
+    );
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--nav-color) 10%, transparent),
+        rgba(255, 255, 255, 0.035)
+      ),
+      rgba(255, 255, 255, 0.018);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0.5rem 1rem rgba(0, 0, 0, 0.14),
+      0 0 1rem color-mix(in srgb, var(--nav-color) 7%, transparent);
+    text-shadow: none;
+    transform: translateY(-1px);
+  }
+
+  .navbar .nav-link.active {
+    color: #fff;
+    border-color: color-mix(
+      in srgb,
+      var(--nav-color) 42%,
+      rgba(255, 255, 255, 0.1)
+    );
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--nav-color) 18%, transparent),
+        color-mix(in srgb, var(--nav-color) 6%, transparent)
+      ),
+      rgba(255, 255, 255, 0.04);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0.65rem 1.4rem color-mix(in srgb, var(--nav-color) 12%, transparent);
+    text-shadow: none;
+  }
+
+  .navbar .guide-nav-link--ecosystem {
+    margin-left: 0.18rem;
+    padding-right: 0.58rem;
+    padding-left: 0.7rem;
+    color: color-mix(in srgb, var(--nav-color) 76%, #fcfcfa);
+    border-color: transparent;
+    border-radius: 0.34rem;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--nav-color) 28%, transparent) 0 2px,
+      transparent 2px
+    );
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--nav-color) 46%,
+      transparent
+    );
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.34em;
+  }
+
+  .navbar .guide-nav-link--ecosystem::after {
+    display: inline-block;
+  }
+
+  .navbar .nav-link:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--nav-color) 46%, transparent);
+    outline-offset: 0.18rem;
+  }
+}

@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <meta
+      name="description"
+      content="Hub de documentación estática para instalar, entender y usar Web Platform Core."
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body class="guide-page--index">
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link guide-nav-link--ecosystem"
+                target="_blank"
+                rel="noopener"
+                href="bondades.html"
+                >Ecosistema</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-hero text-white py-5">
+      <div class="container py-4">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-8">
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              <span class="badge text-bg-light">Guía informativa</span>
+              <span class="badge text-bg-light">Onboarding</span>
+              <span class="badge text-bg-light">Gateway + Surface</span>
+            </div>
+            <h1 class="display-5 fw-bold mb-3">Web Platform Core</h1>
+            <p class="lead mb-4">
+              Una guía multipágina para instalar el proyecto, entender el
+              framework interno, crear features y mantener la frontera correcta
+              entre `app-gateway` y `app-surface`.
+            </p>
+            <div
+              class="d-flex flex-wrap align-items-center gap-3 guide-hero-actions"
+            >
+              <a
+                class="btn btn-lg guide-action-btn guide-action-btn--start"
+                href="getting-started.html"
+              >
+                Empezar
+              </a>
+
+              <a
+                class="btn btn-lg guide-action-btn guide-action-btn--guides"
+                href="recipes.html"
+              >
+                Ver guías paso a paso
+              </a>
+
+              <a
+                class="btn btn-lg guide-action-btn guide-action-btn--impact"
+                target="_blank"
+                rel="noopener"
+                href="bondades.html"
+              >
+                Ecosistema
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card bg-dark border-light-subtle text-white shadow">
+              <div class="card-body">
+                <h2 class="h5">Ruta recomendada</h2>
+                <ol class="flow-rail flow-rail--spectrum">
+                  <li>
+                    <a href="getting-started.html" rel="noopener">Empezar</a>
+                  </li>
+                  <li>
+                    <a href="fundamentals.html" rel="noopener">Bases</a>
+                  </li>
+                  <li>
+                    <a href="app-gateway.html" rel="noopener">App Gateway</a>
+                  </li>
+                  <li>
+                    <a href="app-surface.html" rel="noopener">App Surface</a>
+                  </li>
+                  <li>
+                    <a href="bridge.html" rel="noopener">Bridge</a>
+                  </li>
+                  <li>
+                    <a href="tools.html" rel="noopener">Tools</a>
+                  </li>
+                  <li>
+                    <a href="recipes.html" rel="noopener">Guías prácticas</a>
+                  </li>
+                  <li>
+                    <a href="diagrams.html" rel="noopener">Diagramas</a>
+                  </li>
+                  <li>
+                    <a href="reference.html" rel="noopener">Referencia</a>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container-fluid px-3 px-lg-4 py-4">
+      <section class="guide-section">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h4">Cómo leer esta guía</h2>
+            <p>
+              Esta guía está escrita en dos capas: primero una síntesis para
+              ubicar el tema dentro del recorrido; después el detalle amplio
+              para construir, diagnosticar y mantener una feature completa.
+              Cuando un término no resulte claro al inicio, la referencia
+              recomendada es el vocabulario y luego la ruta de lectura.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Capa</th>
+                    <th>Qué resuelve</th>
+                    <th>Lectura recomendada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Orientación</td>
+                    <td>
+                      Entender vocabulario, superficies y responsabilidades sin
+                      entrar todavía al código.
+                    </td>
+                    <td>
+                      <a href="fundamentals.html#vocabulary"
+                        >Vocabulario mínimo</a
+                      >
+                      y
+                      <a href="fundamentals.html#mental-model">modelo mental</a
+                      >.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Construcción</td>
+                    <td>
+                      Identificar qué archivo corresponde a página, fragment,
+                      JSON, outbound, sesión, assets o UI progresiva.
+                    </td>
+                    <td>
+                      <a href="app-gateway.html#gateway-first-read">Gateway</a>,
+                      <a href="app-surface.html#surface-first-read">Surface</a>
+                      y <a href="bridge.html#bridge-first-read">Bridge</a>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Profundidad</td>
+                    <td>
+                      Aprender contratos, lifecycle, errores, parcialidad,
+                      observabilidad, adapters, Vite y composición completa.
+                    </td>
+                    <td>
+                      Matrices de capacidades, secciones internas y
+                      <a href="diagrams.html#diagram-list">lista de diagramas</a
+                      >.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Aplicación</td>
+                    <td>
+                      Convertir lo aprendido en cambios concretos y validar que
+                      todo siga conectado.
+                    </td>
+                    <td>
+                      <a href="recipes.html#how-to-use">Guías paso a paso</a>,
+                      <a href="reference.html#how-to-use">referencia</a> y
+                      <a href="troubleshooting.html#diagnostic-method"
+                        >diagnóstico</a
+                      >.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Resumen no significa recorte: cada página empieza con el mapa
+                corto y después desarrolla el detalle. La fuente de verdad
+                técnica sigue siendo el código, la configuración y el filesystem
+                real.
+              </em>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <p class="guide-crosslink">
+          <em>
+            Para una lectura sin una tarea puntual, el recorrido recomendado
+            inicia en <a href="getting-started.html">Empezar</a> y continúa con
+            <a href="fundamentals.html">Bases</a>, donde se explica cómo se
+            conectan las páginas siguientes. Cuando necesites crear componentes
+            o contratos, salta a <a href="tools.html">Tools</a>.
+          </em>
+        </p>
+        <div class="row g-3">
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="getting-started.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-primary mb-2">Start</span>
+                  <h2 class="h5">Empezar</h2>
+                  <p class="mb-0">
+                    Requisitos, clonación, dependencias, `.env`, build y primera
+                    ejecución local.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="fundamentals.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-primary mb-2">Basics</span>
+                  <h2 class="h5">Bases</h2>
+                  <p class="mb-0">
+                    Modelo mental, ownership, flujo request-response y límites
+                    de arquitectura.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="app-gateway.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-primary mb-2">Gateway</span>
+                  <h2 class="h5">App Gateway</h2>
+                  <p class="mb-0">
+                    Routing, middleware, controllers, use cases, services,
+                    connectors, views y errores.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="app-surface.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-primary mb-2">Surface</span>
+                  <h2 class="h5">App Surface</h2>
+                  <p class="mb-0">
+                    Startup, runtime, pages, fragments, bindings, HTTP, sesión,
+                    toolkit y Vite.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="bridge.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-success mb-2">Bridge</span>
+                  <h2 class="h5">Gateway / Surface</h2>
+                  <p class="mb-0">
+                    HTML SSR, `data-surface-*`, envelope JSON, headers de sesión
+                    y manifest Vite.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="tools.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-success mb-2">Tools</span>
+                  <h2 class="h5">Scaffolding y contratos</h2>
+                  <p class="mb-0">
+                    `make:*`, `http:contract`, `surface:contract`,
+                    `robo-configurations.json` y flujos de generación.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="recipes.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-success mb-2">Guides</span>
+                  <h2 class="h5">Guías prácticas</h2>
+                  <p class="mb-0">
+                    Crear páginas, fragments, endpoints JSON, integraciones UI y
+                    llamadas outbound.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="reference.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-secondary mb-2">Ref</span>
+                  <h2 class="h5">Referencia</h2>
+                  <p class="mb-0">
+                    `.env`, scripts, rutas principales, headers, contratos y
+                    carpetas.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="diagrams.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-info mb-2">Maps</span>
+                  <h2 class="h5">Diagramas</h2>
+                  <p class="mb-0">
+                    Visor Markdown/Mermaid para recorrer los diagramas vivos de
+                    esta guía.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="bondades.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-info mb-2">Stack</span>
+                  <h2 class="h5">Ecosistema</h2>
+                  <p class="mb-0">
+                    Presentación sobre valor operativo, onboarding, stack
+                    técnico y reducción de complejidad inicial.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <a class="guide-card-link" href="troubleshooting.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <span class="badge text-bg-secondary mb-2">Help</span>
+                  <h2 class="h5">Ayuda</h2>
+                  <p class="mb-0">
+                    Errores frecuentes: manifest, montaje UI, sesión, JSON, DI y
+                    outbound.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h4">Matriz de capacidades</h2>
+            <p>
+              Esta tabla funciona como entrada por tarea. Los ejemplos usan
+              nombres neutrales y placeholders: deben reemplazarse por la
+              intención real del proyecto sin alterar los contratos entre Core,
+              Extension y Surface.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Quiero crear</th>
+                    <th>Gateway</th>
+                    <th>Surface</th>
+                    <th>Mapa útil</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Página SSR activable</td>
+                    <td>
+                      Route, controller, <code>renderControlView(...)</code> o
+                      <code>renderAccessView(...)</code>.
+                    </td>
+                    <td>
+                      <code>data-surface-page</code>, integración,
+                      <code>UiBinding</code> y registro.
+                    </td>
+                    <td>
+                      <a
+                        href="diagrams.html#diagram-bridge-ssr-progressive-enhancement"
+                        >Escenario página</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Fragment HTML remoto</td>
+                    <td>
+                      Route, controller, <code>renderFragmentView(...)</code> y
+                      partial de error controlado.
+                    </td>
+                    <td>
+                      <code>serverClient.html(...)</code>, validación
+                      <code>expect</code>, <code>contentMount</code>
+                      y fragment runtime.
+                    </td>
+                    <td>
+                      <a
+                        href="diagrams.html#diagram-bridge-fragments-dynamic-content"
+                        >Escenario fragment</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Endpoint JSON</td>
+                    <td>
+                      Controller + use case + <code>respondJson(...)</code> con
+                      <code>UseCaseResult</code>.
+                    </td>
+                    <td>
+                      <code>contracts.ts</code>, <code>api.ts</code>,
+                      <code>serverClient.data(...)</code>, errores UI y
+                      respuesta parcial.
+                    </td>
+                    <td>
+                      <a
+                        href="diagrams.html#diagram-bridge-json-session-assets-contracts"
+                        >Escenario JSON</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Integración externa</td>
+                    <td>
+                      Port, connector, service si agrega valor,
+                      <code>ConnectorResult</code> y outbound client.
+                    </td>
+                    <td>No llama servicios externos; consume Gateway.</td>
+                    <td>
+                      <a
+                        href="diagrams.html#diagram-gateway-outbound-services-connectors"
+                        >Escenario outbound</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Degradación o error visible</td>
+                    <td>
+                      <code>required(...)</code>, <code>optional(...)</code>,
+                      error kind/origin y envelope.
+                    </td>
+                    <td>
+                      Partial reporter, <code>SessionError</code>,
+                      <code>UserActionError</code> o <code>FatalError</code>.
+                    </td>
+                    <td>
+                      <a
+                        href="diagrams.html#diagram-gateway-usecases-results-errors"
+                        >Escenario errores</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>UI enriquecida opt-in</td>
+                    <td>Entrega HTML o JSON; no conoce adapters UI.</td>
+                    <td>
+                      Toolkit, adapters, feedback, cleanup y vendors lazy.
+                    </td>
+                    <td>
+                      <a
+                        href="diagrams.html#diagram-surface-workspace-toolkit-adapters"
+                        >Escenario UI</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h4">Rutas rápidas por tarea</h2>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-4">
+                <a class="guide-card-link" href="app-gateway.html#bootstrap-di">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Registrar servicios</h3>
+                      <p class="mb-0">
+                        Bootstrap, providers, DI y convenciones de connectors.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <a
+                  class="guide-card-link"
+                  href="app-surface.html#content-mount"
+                >
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">HTML remoto activo</h3>
+                      <p class="mb-0">
+                        Modales, toasts, fragments y limpieza con
+                        <code>contentMount</code>.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <a class="guide-card-link" href="bridge.html#error-contracts">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Errores HTTP</h3>
+                      <p class="mb-0">
+                        Envelope, status, errores UI y respuestas parciales.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <a class="guide-card-link" href="bridge.html#security">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">CSRF y sesión</h3>
+                      <p class="mb-0">
+                        Campos hidden, headers, tab session y expiración.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <a
+                  class="guide-card-link"
+                  href="app-gateway.html#observability"
+                >
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Trazar fallos</h3>
+                      <p class="mb-0">
+                        Logs, telemetría, upstreams y
+                        <code>X-Correlation-Id</code>.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h4">Qué cubre esta guía</h2>
+            <div class="row g-3">
+              <div class="col-lg-4">
+                <h3 class="h6 text-uppercase text-secondary">
+                  Tutoriales gateway
+                </h3>
+                <ul class="mb-0">
+                  <li>Overview, routing, middleware y controllers.</li>
+                  <li>Use cases, services, connectors y outbound.</li>
+                  <li>Bootstrap, DI, route cache, errores y observabilidad.</li>
+                </ul>
+              </div>
+              <div class="col-lg-4">
+                <h3 class="h6 text-uppercase text-secondary">
+                  Tutoriales surface
+                </h3>
+                <ul class="mb-0">
+                  <li>Startup, layouts y runtime de montaje.</li>
+                  <li>Pages, fragments, bindings, HTTP y sesión.</li>
+                  <li>Content mount, toolkit, adapters, Vite y styles.</li>
+                </ul>
+              </div>
+              <div class="col-lg-4">
+                <h3 class="h6 text-uppercase text-secondary">
+                  Puente operativo
+                </h3>
+                <ul class="mb-0">
+                  <li>SSR + Progressive Enhancement.</li>
+                  <li>Contratos `data-surface-*` y envelope JSON.</li>
+                  <li>
+                    CSRF, tab session, headers, errores HTTP y assets Vite.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="next" class="guide-section">
+        <h2>Recorrido de la guía</h2>
+        <div class="row g-3">
+          <div class="col-md-6 ms-md-auto">
+            <a class="guide-card-link" href="getting-started.html">
+              <div class="card h-100 concept-card">
+                <div class="card-body">
+                  <h3 class="h5">Continuar con: Empezar</h3>
+                  <p class="mb-0">
+                    Inicio recomendado: instalación, `.env`, build de assets y
+                    validación inicial del gateway con surface.
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-top bg-white py-4">
+      <div class="container-fluid px-3 px-lg-4">
+        <p class="mb-0 text-secondary">
+          Guía Web Platform Core. Página estática para onboarding y consulta
+          rápida.
+        </p>
+      </div>
+    </footer>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

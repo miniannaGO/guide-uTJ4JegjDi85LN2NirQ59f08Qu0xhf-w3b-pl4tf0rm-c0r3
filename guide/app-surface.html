@@ -1,0 +1,3241 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>App Surface | Web Platform Core Guía</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/guide.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="guide-page--app-surface"
+    data-bs-spy="scroll"
+    data-bs-target="#guide-nav"
+    data-bs-smooth-scroll="true"
+    tabindex="0"
+  >
+    <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
+      <div class="container-fluid px-3 px-lg-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img
+            class="navbar-brand__logo"
+            src="assets/img/web-platform-core.svg"
+            alt=""
+            aria-hidden="true"
+          />
+          <span class="navbar-brand__text">WPC</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#guide-navbar"
+          aria-controls="guide-navbar"
+          aria-expanded="false"
+          aria-label="Abrir navegación"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="guide-navbar" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" data-guide-nav>
+            <li class="nav-item">
+              <a class="nav-link" href="getting-started.html">Empezar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fundamentals.html">Bases</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-gateway.html">Gateway</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="app-surface.html">Surface</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bridge.html">Bridge</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tools.html">Tools</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recipes.html">Guías</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diagrams.html">Diagramas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reference.html">Referencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="troubleshooting.html">Ayuda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="guide-page-hero text-white py-5">
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-3">
+            <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              App Surface
+            </li>
+          </ol>
+        </nav>
+        <h1 class="display-6 fw-bold">App Surface</h1>
+        <p class="lead mb-0">
+          Frontend TypeScript progresivo sobre SSR: startup, layouts, runtime,
+          pages, fragments, bindings, HTTP, sesión, toolkit y Vite.
+        </p>
+      </div>
+    </header>
+
+    <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
+      <div class="row g-4">
+        <aside class="col-lg-3 col-xl-2 px-0">
+          <div class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
+                <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
+                  <a class="nav-link" href="#overview">Overview</a>
+                  <a class="nav-link" href="#surface-first-read"
+                    >Lectura guiada</a
+                  >
+                  <a class="nav-link" href="#surface-model">Modelo mental</a>
+                  <a class="nav-link" href="#surface-filesystem"
+                    >Filesystem Surface</a
+                  >
+                  <a class="nav-link" href="#surface-capabilities"
+                    >Capacidades</a
+                  >
+                  <a class="nav-link" href="#workspace">Workspace</a>
+                  <a class="nav-link" href="#startup">Startup y layouts</a>
+                  <a class="nav-link" href="#runtime">Runtime</a>
+                  <a class="nav-link" href="#runtime-api"
+                    >Interfaz de runtime</a
+                  >
+                  <a class="nav-link" href="#bindings">Bindings</a>
+                  <a class="nav-link" href="#http">HTTP y sesión</a>
+                  <a class="nav-link" href="#session-runtime">Sesión runtime</a>
+                  <a class="nav-link" href="#consume-gateway"
+                    >Consumir endpoints</a
+                  >
+                  <a class="nav-link" href="#content-mount">Content mount</a>
+                  <a class="nav-link" href="#toolkit">Toolkit</a>
+                  <a class="nav-link" href="#vite">Vite y estilos</a>
+                  <a class="nav-link" href="#complete-flow">Flujo completo</a>
+                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10">
+          <section id="overview" class="guide-section">
+            <h2>Overview</h2>
+            <p>
+              `app-surface` no es una SPA. Es una capa de Progressive
+              Enhancement que monta comportamiento UI sobre HTML emitido por
+              `app-gateway`.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Para ver el otro lado del contrato, revisa
+                <a href="app-gateway.html#views">Views, JSON y assets</a> y
+                <a href="bridge.html#ssr">SSR + Progressive Enhancement</a>.
+              </em>
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Los nombres de integraciones son ejemplos transferibles. Surface
+                debe activar HTML y consumir contratos del Gateway; no debe
+                absorber reglas de negocio de la Extension.
+              </em>
+            </p>
+          </section>
+
+          <section id="surface-first-read" class="guide-section">
+            <h2>Lectura guiada de Surface</h2>
+            <p>
+              Surface no crea pantallas desde cero. Parte del HTML que Gateway
+              ya renderizó. Cuando encuentra una marca declarativa, carga el
+              módulo correspondiente, monta comportamiento y limpia cuando ese
+              HTML desaparece.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Resumen</th>
+                    <th>Detalle que leerás después</th>
+                    <th>Sección</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Workspace define la integración.</td>
+                    <td>
+                      Declara el id, layout, loader de page, fragments y
+                      registro antes de que el runtime pueda montar algo.
+                    </td>
+                    <td><a href="#workspace">Workspace</a></td>
+                  </tr>
+                  <tr>
+                    <td>Startup prepara el terreno.</td>
+                    <td>
+                      Configura reporters de error/parcialidad, resuelve layout,
+                      sesión y assets CSS por layout.
+                    </td>
+                    <td><a href="#startup">Startup y layouts</a></td>
+                  </tr>
+                  <tr>
+                    <td>Runtime detecta HTML declarativo.</td>
+                    <td>
+                      Busca <code>data-surface-page</code> y
+                      <code>data-surface-fragment</code>, evita doble montaje y
+                      marca status.
+                    </td>
+                    <td><a href="#runtime">Runtime</a></td>
+                  </tr>
+                  <tr>
+                    <td>Integration conecta HTML con código.</td>
+                    <td>
+                      Declara id, layout, autoMount, loader de page y registry
+                      de fragments.
+                    </td>
+                    <td><a href="#runtime-api">Interfaz runtime</a></td>
+                  </tr>
+                  <tr>
+                    <td>Binding controla una pieza de UI.</td>
+                    <td>
+                      Escucha eventos, llama Gateway, monta adapters y registra
+                      cleanup.
+                    </td>
+                    <td><a href="#bindings">Bindings</a></td>
+                  </tr>
+                  <tr>
+                    <td>serverClient valida el bridge.</td>
+                    <td>
+                      JSON debe tener envelope; HTML debe ser embebible y no
+                      layout completo; sesión viaja en headers.
+                    </td>
+                    <td><a href="#http">HTTP, sesión y errores</a></td>
+                  </tr>
+                  <tr>
+                    <td>Toolkit es opt-in.</td>
+                    <td>
+                      Adapters y helpers se importan solo en la integración que
+                      los necesita.
+                    </td>
+                    <td><a href="#toolkit">Toolkit</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="guide-crosslink">
+              <em>
+                Orden sugerido dentro de esta página:
+                <a href="#workspace">workspace</a>,
+                <a href="#startup">startup</a>, <a href="#runtime">runtime</a>,
+                <a href="#runtime-api">interfaz</a>,
+                <a href="#bindings">bindings</a>,
+                <a href="#http">HTTP/sesión</a>,
+                <a href="#consume-gateway">consumo Gateway</a>,
+                <a href="#content-mount">content mount</a>,
+                <a href="#toolkit">toolkit</a>, <a href="#vite">Vite</a> y
+                <a href="#complete-flow">flujo completo</a>.
+              </em>
+            </p>
+          </section>
+
+          <section id="surface-model" class="guide-section">
+            <h2>Modelo mental</h2>
+            <p>
+              Surface no reemplaza al Gateway ni funciona como una SPA completa.
+              Actúa como una capa progresiva de UI: detecta HTML existente,
+              carga el módulo correspondiente y agrega comportamiento específico
+              a páginas o fragments.
+            </p>
+            <p>
+              La regla práctica es simple: si el comportamiento pertenece a una
+              página, fragment, helper técnico o Gateway, esa decisión define su
+              ubicación y responsabilidad dentro del proyecto.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Zona</th>
+                    <th>Responsabilidad</th>
+                    <th>Ejemplos</th>
+                    <th>No debería tener</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>platform/startup</code></td>
+                    <td>
+                      Arranque global, layout actual, errores UI globales y
+                      assets por layout.
+                    </td>
+                    <td>
+                      <code>startApplication()</code>,
+                      <code>resolveLayout()</code>, <code>mountLayout()</code>.
+                    </td>
+                    <td>Reglas de una pantalla concreta.</td>
+                  </tr>
+                  <tr>
+                    <td><code>platform/runtime</code></td>
+                    <td>Montaje/desmontaje de pages, fragments y bindings.</td>
+                    <td>
+                      <code>mountPages()</code>, <code>FragmentRuntime</code>,
+                      <code>UiBinding</code>.
+                    </td>
+                    <td>HTTP de una feature, permisos o negocio.</td>
+                  </tr>
+                  <tr>
+                    <td><code>platform/infrastructure</code></td>
+                    <td>HTTP, sesión, config y errores técnicos de UI.</td>
+                    <td>
+                      <code>serverClient</code>,
+                      <code>ensureTabSession()</code>, <code>AppConfig</code>.
+                    </td>
+                    <td>Adapters visuales o lógica de pantalla.</td>
+                  </tr>
+                  <tr>
+                    <td><code>toolkit</code></td>
+                    <td>
+                      Wrappers técnicos opt-in para DOM, feedback y librerías
+                      UI.
+                    </td>
+                    <td>
+                      Select2, DataTables, DateRangePicker, Bootstrap modal,
+                      Swal.
+                    </td>
+                    <td>Imports globales pesados o negocio de aplicación.</td>
+                  </tr>
+                  <tr>
+                    <td><code>workspace</code></td>
+                    <td>Integraciones UI concretas del producto.</td>
+                    <td>
+                      <code>feature/page.ts</code>, <code>actions.ts</code>,
+                      <code>api.ts</code>, <code>contracts.ts</code>,
+                      <code>fragments/*.ts</code>.
+                    </td>
+                    <td>Reescribir runtime, sesión global o contratos HTTP.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h3 class="h5">Regla de oro</h3>
+                    <ul class="guide-checklist">
+                      <li>
+                        Los datos deben solicitarse al gateway mediante
+                        <code>serverClient</code>.
+                      </li>
+                      <li>El HTML dinámico debe pedirse como fragment SSR.</li>
+                      <li>
+                        Los plugins visuales deben montarse desde el binding que
+                        los usa.
+                      </li>
+                      <li>
+                        Si algo debe limpiarse, registra su
+                        <code>unmount</code>.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h3 class="h5">Flujo para una pantalla nueva</h3>
+                    <ol class="guide-checklist">
+                      <li>
+                        Gateway renderiza una view con
+                        <code>data-surface-page</code>.
+                      </li>
+                      <li>Surface registra una integración con el mismo id.</li>
+                      <li>
+                        La integración carga su <code>page.ts</code> de forma
+                        lazy.
+                      </li>
+                      <li>
+                        El binding escucha eventos y pide datos/HTML al gateway.
+                      </li>
+                      <li>
+                        Los fragments insertados se montan automáticamente.
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="surface-filesystem" class="guide-section">
+            <h2>Filesystem de Surface</h2>
+            <p>
+              `app-surface` se organiza en tres zonas:
+              <code>platform</code> para runtime e infraestructura UI,
+              <code>toolkit</code> para helpers técnicos opt-in y
+              <code>workspace</code> para integraciones concretas del producto.
+              El entry único es <code>main.ts</code> y Vite publica el build
+              hacia Gateway.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Mapa agnóstico de Surface</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-surface-tree"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-surface-tree" class="language-text">app-surface/
+  index.html
+  main.ts
+  package.json
+  platform/
+    infrastructure/
+      adapters/
+      dom/
+      feedback/
+      http/
+      session/
+        expiry/
+        state/
+      shared/
+      app-config.ts
+      http.ts
+      ui-errors.ts
+    runtime/
+      binding/
+      mounting/
+      contracts.ts
+      error-reporting.ts
+      index.ts
+      services.ts
+      ui-errors.ts
+    startup/
+      control/
+      access-layout.ts
+      app.ts
+      layouts.ts
+    types/
+  toolkit/
+    adapters/
+      select2/
+    dom/
+    feedback/
+      modal/
+      swal/
+      toast/
+    shared/
+  vite.config.constants.ts
+  vite.config.ts
+  workspace/
+    application/
+    integrations/
+      &lt;feature&gt;/
+        fragments/
+      registry.ts
+    styles/
+      base/
+      layouts/
+      tokens/
+      vendors/</code></pre>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Zona</th>
+                    <th>Qué contiene</th>
+                    <th>Regla de frontera</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>platform/startup</code></td>
+                    <td>
+                      Encendido de la app, layouts y conexión entre runtime,
+                      infraestructura y adapters globales.
+                    </td>
+                    <td>
+                      Puede conectar piezas, pero no debe contener lógica de
+                      feature.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>platform/runtime</code></td>
+                    <td>
+                      Contratos de integración, montaje de pages/fragments,
+                      lifecycle y errores UI abstractos.
+                    </td>
+                    <td>
+                      No importa <code>platform/infrastructure</code>; expone
+                      contratos configurables.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>platform/infrastructure</code></td>
+                    <td>
+                      HTTP, sesión, feedback con HTML remoto, adapters con
+                      configuración de plataforma y consola de desarrollo.
+                    </td>
+                    <td>
+                      Conecta runtime con herramientas reales sin mover negocio
+                      al navegador.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>toolkit</code></td>
+                    <td>
+                      DOM, adapters visuales, modal, Swal, toast y utilidades
+                      puras.
+                    </td>
+                    <td>
+                      No importa <code>platform</code>; se consume desde
+                      integraciones o fachadas.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>workspace</code></td>
+                    <td>
+                      Integraciones UI del producto, actions, API local,
+                      bindings, fragments y estilos.
+                    </td>
+                    <td>
+                      Consume Gateway y toolkit; no crea reglas autoritativas de
+                      negocio.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="surface-capabilities" class="guide-section">
+            <h2>Matriz de capacidades Surface</h2>
+            <p>
+              Surface existe para activar HTML que Gateway ya entregó. No tiene
+              permisos propios, no conversa con proveedores externos y no decide
+              reglas de aplicación. Su poder está en montar comportamiento
+              puntual, validar contratos HTTP y limpiar todo lo que inicializa.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Capacidad</th>
+                    <th>Disparador</th>
+                    <th>Qué puede hacer</th>
+                    <th>Qué no debe hacer</th>
+                    <th>Fallo esperado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Montar page binding</td>
+                    <td><code>data-surface-page</code>.</td>
+                    <td>
+                      Resolver integración, lazy import, ejecutar
+                      <code>UiBinding</code> y marcar status.
+                    </td>
+                    <td>Crear HTML principal o validar negocio.</td>
+                    <td>
+                      Si no hay integración, avisa en dev console y no monta. Si
+                      el id no coincide, lanza error de contrato.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Montar fragment inicial o insertado</td>
+                    <td><code>data-surface-fragment</code>.</td>
+                    <td>
+                      Buscar loader en la integración actual, montar, observar
+                      altas/bajas y desmontar profundo primero.
+                    </td>
+                    <td>Montar fragments de otra integración por intuición.</td>
+                    <td>Si falta loader, no monta y deja señal diagnóstica.</td>
+                  </tr>
+                  <tr>
+                    <td>Insertar HTML remoto activo</td>
+                    <td>
+                      <code>serverClient.html(...)</code> +
+                      <code>contentMount</code>.
+                    </td>
+                    <td>
+                      Pedir fragment SSR, validar que sea HTML embebible,
+                      declarar <code>expect</code> si es montable, insertarlo y
+                      montar fragments internos.
+                    </td>
+                    <td>
+                      Aceptar JSON accidental, layouts completos o pages de
+                      Surface como si fueran fragments.
+                    </td>
+                    <td>
+                      <code>HttpContractError</code> ante HTML vacío,
+                      <code>Content-Type</code> incompatible, redirect, layout
+                      completo, page de Surface o fragment esperado ausente.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Consumir JSON de Gateway</td>
+                    <td><code>serverClient.json/data</code>.</td>
+                    <td>
+                      Parsear envelope, lanzar errores UI, reportar parcialidad
+                      y devolver data tipada al binding.
+                    </td>
+                    <td>
+                      Inventar otro formato de respuesta o ocultar errores.
+                    </td>
+                    <td>
+                      Error de contrato si falta <code>success</code>; error UI
+                      según status si Gateway devuelve fallo.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Coordinar sesión de pestaña</td>
+                    <td>Startup de layout y hooks HTTP.</td>
+                    <td>
+                      Generar tab id, enviarlo como
+                      <code>X-TAB-SESSION</code> y sincronizar
+                      <code>X-REMAINING</code>.
+                    </td>
+                    <td>Decidir autorización de negocio en frontend.</td>
+                    <td>
+                      <code>SessionError</code> para <code>401</code> o
+                      <code>403</code>; Gateway sigue siendo fuente de verdad.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Prevenir doble acción visible</td>
+                    <td><code>guardUiAction(...)</code>.</td>
+                    <td>
+                      Bloquear ejecuciones simultáneas y reportar errores de UI.
+                    </td>
+                    <td>Resolver idempotencia de aplicación.</td>
+                    <td>
+                      Si falla la acción, el error se muestra por el reporter
+                      global configurado en startup.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Usar adapters opt-in</td>
+                    <td>Binding concreto que importa toolkit.</td>
+                    <td>
+                      Inicializar Select2/DataTables/pickers/modales/toasts y
+                      registrar cleanup.
+                    </td>
+                    <td>
+                      Cargar vendors globales para pantallas que no los usan.
+                    </td>
+                    <td>
+                      Si no se destruye en <code>unmount</code>, aparecen dobles
+                      listeners, DOM stale o plugins duplicados.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Controlar assets frontend</td>
+                    <td>Vite build y layout resuelto.</td>
+                    <td>
+                      Producir bundles, CSS base y chunks lazy para Gateway.
+                    </td>
+                    <td>
+                      Armar URLs públicas de assets desde una integración.
+                    </td>
+                    <td>
+                      Build o manifest fallan del lado Gateway; Surface no debe
+                      maquillar assets faltantes.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              Si una necesidad parece pedir un “módulo” con permisos, políticas,
+              reglas de negocio, services propios o lifecycle amplio,
+              seguramente hay lógica de Gateway moviéndose hacia Surface. La
+              decisión debe volver al bridge: qué HTML o JSON debe exponer
+              Gateway.
+            </div>
+          </section>
+
+          <section id="workspace" class="guide-section">
+            <h2>Workspace integrations</h2>
+            <p>
+              `@workspace/integrations` contiene UI concreta del producto. Una
+              integración puede tener `actions.ts`, `api.ts`, `contracts.ts`,
+              `controls.ts`, `fragments/`, `integration.ts`, `page.ts` y
+              `request.ts`, pero no todos son obligatorios: se crean cuando la
+              feature realmente consume JSON, arma requests reutilizables o
+              monta fragments.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Esquema recomendado</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-workspace-tree"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-workspace-tree" class="language-text">app-surface/workspace/
+  application/
+    &lt;helper&gt;.ts
+  integrations/
+    &lt;feature&gt;/
+      actions.ts
+      api.ts
+      contracts.ts
+      controls.ts
+      fragments/
+        &lt;fragment&gt;.ts
+      integration.ts
+      page.ts
+      request.ts
+    registry.ts
+  styles/
+    base/
+    layouts/
+    tokens/
+    vendors/</code></pre>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Archivo o carpeta</th>
+                    <th>Responsabilidad única</th>
+                    <th>No debe contener</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>workspace/application</code></td>
+                    <td>
+                      Helpers de aplicación UI compartidos entre integraciones.
+                    </td>
+                    <td>Dominio backend, políticas o connectors.</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>integrations/&lt;feature&gt;/actions.ts</code>
+                    </td>
+                    <td>
+                      Acciones UI reutilizables. Reciben valores semánticos
+                      desde el binding, arman requests tipados y coordinan API +
+                      feedback.
+                    </td>
+                    <td>
+                      Registro de integración, queries DOM o adapters visuales
+                      pesados.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>integrations/&lt;feature&gt;/api.ts</code></td>
+                    <td>
+                      Funciones pequeñas que llaman Gateway con
+                      <code>serverClient</code> usando tipos de
+                      <code>contracts.ts</code>.
+                    </td>
+                    <td>Manipulación DOM, modales o composición visual.</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>integrations/&lt;feature&gt;/contracts.ts</code>
+                    </td>
+                    <td>
+                      Firmas TypeScript del contrato Gateway visible para
+                      Surface: payloads enviados y <code>data</code> JSON
+                      recibida.
+                    </td>
+                    <td>
+                      DTOs externos nombrados como proveedor, reglas de negocio
+                      o llamadas HTTP.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>integrations/&lt;feature&gt;/controls.ts</code>
+                    </td>
+                    <td>
+                      Montaje y desmontaje de adapters opt-in de esa feature.
+                    </td>
+                    <td>Requests HTTP o estado de aplicación transversal.</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>integrations/&lt;feature&gt;/fragments/*.ts</code>
+                    </td>
+                    <td>
+                      Binding de cada root con
+                      <code>data-surface-fragment</code>.
+                    </td>
+                    <td>
+                      Estado global de la página o coordinación de otros
+                      fragments.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>integrations/&lt;feature&gt;/integration.ts</code>
+                    </td>
+                    <td>
+                      Declara <code>id</code>, <code>layout</code>,
+                      <code>page.load</code> y loaders de fragments.
+                    </td>
+                    <td>Side effects, queries DOM o llamadas HTTP.</td>
+                  </tr>
+
+                  <tr>
+                    <td><code>integrations/&lt;feature&gt;/page.ts</code></td>
+                    <td>
+                      Binding principal para el root con
+                      <code>data-surface-page</code>.
+                    </td>
+                    <td>
+                      HTML de negocio, reglas que pertenecen a Gateway o
+                      payloads HTTP armados a mano si existe una acción.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>integrations/&lt;feature&gt;/request.ts</code>
+                    </td>
+                    <td>
+                      Builders o validaciones opcionales cuando el armado del
+                      request crece.
+                    </td>
+                    <td>
+                      Tipos base del contrato, reglas de negocio profundas o
+                      DTOs externos de PHP.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>integrations/registry.ts</code></td>
+                    <td>
+                      Lista las integraciones disponibles para el runtime.
+                    </td>
+                    <td>Lógica de montaje, HTTP o reglas de feature.</td>
+                  </tr>
+
+                  <tr>
+                    <td><code>workspace/styles</code></td>
+                    <td>CSS base, layouts, tokens y vendors.</td>
+                    <td>Estilos escondidos dentro de runtime o toolkit.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Carpeta de feature</span>
+                <h3>Qué archivo va dentro de `&lt;feature&gt;/`</h3>
+                <p>
+                  Cuando una integración crece, no debe concentrarse todo en
+                  `page.ts`. La distribución debe hacerse por responsabilidad.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Registro local</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/integration.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          `id`, `layout`, `page.load` y mapa de fragments.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          La feature se puede cargar de forma lazy.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">UI, HTTP y helpers</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivos</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/page.ts</code
+                        >
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/api.ts</code
+                        >
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/actions.ts</code
+                        >
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/contracts.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Binding principal, llamadas a gateway, acciones UI y
+                          firmas TypeScript visibles para Surface.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Cada archivo tiene una responsabilidad fácil de
+                          reconocer.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Controles y fragments</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivos</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/controls.ts</code
+                        >
+                        <code class="guided-file"
+                          >@workspace/integrations/&lt;feature&gt;/fragments/&lt;fragment&gt;.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Adapters con `destroy` y bindings para fragments SSR.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El montaje y desmontaje quedan bajo control.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="startup" class="guide-section">
+            <h2>Startup y layouts</h2>
+            <p>
+              El arranque configura errores UI, respuestas parciales, globales y
+              resuelve layout desde `body.id`.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>body.id</th>
+                    <th>Layout</th>
+                    <th>Qué monta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>main-body-access</code></td>
+                    <td>access</td>
+                    <td>`ensureTabSession()` y pages de acceso.</td>
+                  </tr>
+                  <tr>
+                    <td><code>main-body-control</code></td>
+                    <td>control</td>
+                    <td>Sesión, expiración, menú y pages autenticadas.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">
+              Qué ocurre en <code>startApplication()</code>
+            </h3>
+            <p>
+              Startup prepara reglas globales de UI. No monta una feature por su
+              cuenta; deja listo el terreno para que el runtime encuentre
+              páginas y fragments declarados por el HTML SSR.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Paso</th>
+                    <th>Responsabilidad</th>
+                    <th>Detalle importante</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>configureUiErrorReporter(...)</code></td>
+                    <td>Define cómo se muestran errores UI globales.</td>
+                    <td>Hoy usa feedback con Swal desde startup.</td>
+                  </tr>
+                  <tr>
+                    <td><code>setPartialReporter(...)</code></td>
+                    <td>Define cómo avisar respuestas parciales.</td>
+                    <td>
+                      Una parcialidad no bloquea data usable; se muestra como
+                      advertencia.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>resolveLayout()</code></td>
+                    <td>Lee <code>body.id</code> y decide access/control.</td>
+                    <td>Si el body no coincide, startup falla claro.</td>
+                  </tr>
+                  <tr>
+                    <td><code>loadLayoutAssets(...)</code></td>
+                    <td>Importa CSS del layout y muestra el documento.</td>
+                    <td>Evita cargar CSS de control en páginas de acceso.</td>
+                  </tr>
+                  <tr>
+                    <td><code>pageshow</code></td>
+                    <td>
+                      Restaura layout si el navegador vuelve desde BFCache.
+                    </td>
+                    <td>
+                      Rehidrata estado sin volver a montar todo duplicado.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Control layout</h3>
+            <ul class="guide-checklist">
+              <li>
+                <code>mountControlLayout()</code> delega la UX de sesión en
+                <code>bootControlSession()</code>, hidrata contexto, sincroniza
+                menú y monta pages registradas.
+              </li>
+              <li>
+                <code>MENU_LAYOUT</code> controla si el menú intenta modo
+                <code>box</code> o <code>wide</code>.
+              </li>
+              <li>
+                Si el navegador restaura una pestaña desde cache, se ejecuta
+                <code>restoreControlLayout()</code> para refrescar sesión y
+                menú.
+              </li>
+            </ul>
+          </section>
+
+          <section id="runtime" class="guide-section">
+            <h2>Runtime de pages y fragments</h2>
+            <p>
+              El runtime busca atributos declarados por el HTML SSR. No hay
+              routing cliente.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Los atributos que dispara este runtime están explicados en
+                <a href="bridge.html#html">Contratos HTML</a> y su creación paso
+                a paso en <a href="recipes.html#page">Crear una página SSR</a>.
+              </em>
+            </p>
+            <div class="row g-3">
+              <div class="col-lg-6">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>HTML SSR</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="sf-html"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="sf-html" class="language-markup">&lt;div data-surface-page="demo-items"&gt;
+  &lt;section data-surface-fragment="item-summary"&gt;&lt;/section&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="code-card h-100">
+                  <div class="code-card__bar">
+                    <span>Integración UI</span>
+                    <button
+                      class="btn btn-sm btn-outline-light"
+                      type="button"
+                      data-copy-code="sf-integration"
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <pre><code id="sf-integration" class="language-typescript">export const itemsIntegration = {
+  id: "demo-items",
+  layout: "control",
+  page: { load: () => import("@/workspace/integrations/items/page") },
+  fragments: {
+    "item-summary": {
+      load: () => import("@/workspace/integrations/items/fragments/summary"),
+    },
+  },
+} satisfies UiIntegration;</code></pre>
+                </div>
+              </div>
+            </div>
+            <ul class="guide-checklist">
+              <li>`data-surface-page` apunta al registry global.</li>
+              <li>
+                `data-surface-fragment` apunta al registry de fragments de su
+                integración propietaria.
+              </li>
+              <li>
+                `MutationObserver` monta fragments agregados y desmonta
+                fragments removidos.
+              </li>
+              <li>
+                Si un fragment necesita datos nuevos, pide HTML al gateway; no
+                reconstruyas la vista desde un JSON externo.
+              </li>
+            </ul>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Paso a paso ...</span>
+                <h3>Activa una página SSR con Surface</h3>
+                <p>
+                  Gateway declara el atributo. Surface registra el id y monta el
+                  binding.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Marca el HTML que viene del gateway
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@views/items/index.page.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          En el root de la pantalla:
+                          <pre><code class="language-html">&lt;div data-surface-page="demo-items"&gt;</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El runtime sabe que esa página necesita
+                          comportamiento.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego registra el mismo id en Surface.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Declara la integración</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/items/integration.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          `id`, `layout`, `page.load` y fragments como
+                          `item-summary`.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Surface sabe qué módulo cargar para esa página.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego agrega la integración al registry.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Conecta el registry</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/registry.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Importar `itemsIntegration` y agregarla al arreglo
+                          global.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          `mountPages(...)` puede encontrar la integración.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">Luego implementa `page.ts`.</div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="runtime-api" class="guide-section">
+            <h2>Interfaz runtime</h2>
+            <p>
+              El runtime es pequeño a propósito. No hay router cliente, store
+              global ni sistema de módulos soberanos. Hay integración UI,
+              módulos montables, contexto de montaje y limpieza.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Qué significa</th>
+                    <th>Detalle importante</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>UiIntegration.id</code></td>
+                    <td>
+                      Valor que debe coincidir con
+                      <code>data-surface-page</code>.
+                    </td>
+                    <td>
+                      Si no coincide con el registry, el runtime lanza error.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>layout</code></td>
+                    <td><code>access</code> o <code>control</code>.</td>
+                    <td>Por defecto es <code>control</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>autoMount</code></td>
+                    <td>Permite desactivar montaje automático.</td>
+                    <td>Por defecto es <code>true</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>page.load</code></td>
+                    <td>Import lazy del módulo principal de la página.</td>
+                    <td>
+                      Debe exportar <code>mount</code> o clase
+                      <code>UiBinding</code> default.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>fragments</code></td>
+                    <td>
+                      Mapa de loaders por <code>data-surface-fragment</code>.
+                    </td>
+                    <td>Solo aplica dentro de la integración propietaria.</td>
+                  </tr>
+                  <tr>
+                    <td><code>MountContext</code></td>
+                    <td>Contexto que recibe page o fragment al montar.</td>
+                    <td>
+                      Incluye <code>integrationId</code>, registry de fragments
+                      y <code>mountContent</code>.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Formas válidas de módulo montable</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-runtime-module"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-runtime-module" class="language-typescript">import { UiBinding } from "@/platform/runtime/binding";
+import type { MountContext, Unmount } from "@/platform/runtime/contracts";
+//Forma 1: función mount simple.
+export function mount(root: HTMLElement, context: MountContext): Unmount {
+  const button = root.querySelector("button");
+  const listener = () => console.log(context.integrationId);
+  button?.addEventListener("click", listener);
+
+  return () => button?.removeEventListener("click", listener);
+}
+//Forma 2: clase con lifecycle y helpers DOM.
+export default class ItemsPage extends UiBinding {
+  protected mount(): void {
+    this.onClick(this.require("#btn-search"), () => this.search());
+  }
+
+  private async search(): Promise&lt;void&gt; {
+    // Acción UI de la página.
+  }
+}</code></pre>
+            </div>
+
+            <ul class="guide-checklist">
+              <li>
+                El runtime marca nodos con
+                <code>data-surface-page-status</code> y
+                <code>data-surface-fragment-status</code> para evitar doble
+                montaje.
+              </li>
+              <li>
+                El desmontaje corre deepest-first: primero se limpian hijos,
+                luego padres.
+              </li>
+              <li>
+                <code>MutationObserver</code> observa fragments agregados o
+                removidos dentro de la page montada.
+              </li>
+              <li>
+                <code>context.mountContent(root)</code> sirve para montar
+                fragments dentro de HTML insertado manualmente por un binding.
+              </li>
+            </ul>
+          </section>
+
+          <section id="bindings" class="guide-section">
+            <h2>Bindings y lifecycle</h2>
+            <p>
+              Un módulo montable exporta `mount(root, context)` o una clase
+              `UiBinding` por default. `UiBinding` agrega lifecycle, helpers DOM
+              y limpieza ordenada.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Si el binding monta librerías visuales, amplía en
+                <a href="#toolkit">Toolkit, adapters y feedback</a> y en
+                <a href="recipes.html#adapter">Montar un adapter UI</a>.
+              </em>
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>UiBinding</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-binding"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-binding" class="language-typescript">export default class ExampleBinding extends UiBinding {
+  protected mount(): void {
+    const button = this.find&lt;HTMLButtonElement&gt;("#btn-example");
+    if (!button) return;
+
+    this.onClick(button, async () => {
+      // Acción UI protegida por guardUiAction.
+    });
+  }
+
+  protected unmount(): void {
+    // Destruye adapters o estado externo.
+  }
+}</code></pre>
+            </div>
+            <ul class="guide-checklist">
+              <li>
+                Ubicar aquí eventos DOM, adapters visuales y coordinación de
+                interacción.
+              </li>
+              <li>
+                Mantener las llamadas HTTP en `api.ts` para que el binding no
+                mezcle DOM con transporte.
+              </li>
+              <li>
+                Los adapters que crean estado externo deben registrar su
+                limpieza en `unmount`.
+              </li>
+            </ul>
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Dónde va cada cosa</span>
+                <h3>Separa DOM, llamadas HTTP y adapters</h3>
+                <p>
+                  Cuando no sea evidente dónde ubicar una línea, esta guía sirve
+                  como criterio de clasificación.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Eventos y estado visual</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/items/page.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          `UiBinding`, `onClick(...)`, lectura de inputs y
+                          actualización del DOM.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          La pantalla responde a acciones del usuario.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Siguiente paso: llamar una función de `api.ts` cuando se
+                      requieran datos.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Fragment insertado después
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/items/fragments/summary.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Binding pequeño para botones, inputs o adapters dentro
+                          del fragment.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El fragment funciona aunque haya llegado por fetch.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Adapters y acciones reutilizables
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivos</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/items/controls.ts</code
+                        >
+                        <code class="guided-file"
+                          >@workspace/integrations/items/actions.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Contenido</span>
+                        <div class="guided-put">
+                          Inicialización/destrucción de controles y helpers UI
+                          de la feature.
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          `page.ts` queda corto y legible.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="http" class="guide-section">
+            <h2>HTTP, sesión y errores UI</h2>
+            <p>
+              Toda llamada a endpoints del gateway debe pasar por
+              `serverClient`, que valida contrato JSON/HTML, sincroniza sesión y
+              normaliza errores UI.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                El contrato que valida `serverClient` está documentado en
+                <a href="bridge.html#json">JSON envelope</a>,
+                <a href="bridge.html#html">Contratos HTML</a> y
+                <a href="bridge.html#session">Headers de sesión</a>.
+              </em>
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Método</th>
+                    <th>Cuándo usarlo</th>
+                    <th>Qué exige</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>serverClient.json(...)</code></td>
+                    <td>Necesitas el envelope completo.</td>
+                    <td>`success` booleano.</td>
+                  </tr>
+                  <tr>
+                    <td><code>serverClient.data(...)</code></td>
+                    <td>Necesitas `data` obligatoria.</td>
+                    <td>`data` no nula.</td>
+                  </tr>
+                  <tr>
+                    <td><code>serverClient.html(...)</code></td>
+                    <td>Necesitas HTML SSR o fragment.</td>
+                    <td>
+                      HTML embebible, no JSON accidental ni layout completo.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              `X-TAB-SESSION` identifica la pestaña activa. `X-REMAINING`
+              sincroniza el contador de expiración.
+            </p>
+            <p>
+              Surface no inventa la sesión: solo transporta el id de pestaña y
+              consume el tiempo restante que calcula Gateway. El estado
+              autoritativo vive en sesión PHP; el estado de Surface es una copia
+              operativa para saber qué header enviar y cuándo mostrar el modal.
+            </p>
+            <h3 class="h5 mt-4">Opciones de request</h3>
+            <p>
+              `serverClient` construye la URL usando `AppConfig`. Por eso la
+              pantalla no debería concatenar `BASE_URI`, `PUBLIC_PATH` ni rutas
+              internas del gateway. Tú declaras intención: método, parámetros,
+              body y tipo de respuesta esperada.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Caso</th>
+                    <th>Forma</th>
+                    <th>Qué genera</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>GET con query string</td>
+                    <td>
+                      <code>{ method: "GET", params: { q: "abc" } }</code>
+                    </td>
+                    <td>Agrega <code>?q=abc</code> y filtra valores nulos.</td>
+                  </tr>
+                  <tr>
+                    <td>POST JSON</td>
+                    <td><code>{ method: "POST", body: payload }</code></td>
+                    <td>
+                      Serializa JSON y agrega
+                      <code>Content-Type: application/json</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>FormData</td>
+                    <td>
+                      <code
+                        >{ method: "POST", body: formData, bodyType: "form-data"
+                        }</code
+                      >
+                    </td>
+                    <td>
+                      Envía multipart sin setear
+                      <code>Content-Type</code> manual.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>HTML fragment</td>
+                    <td><code>serverClient.html(route, options)</code></td>
+                    <td>
+                      Envía Accept de HTML, exige HTML embebible y puede validar
+                      el fragment esperado con <code>expect</code>.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Cómo se convierten errores en UI</h3>
+            <ul class="guide-checklist">
+              <li>
+                Si no hay conexión con el servidor, se lanza
+                <code>FatalError</code>.
+              </li>
+              <li>
+                Si el contrato JSON o HTML no coincide, se lanza
+                <code>HttpContractError</code>.
+              </li>
+              <li>
+                HTTP <code>400</code>, <code>409</code> o <code>422</code> se
+                tratan como errores accionables por el usuario.
+              </li>
+              <li>
+                HTTP <code>401</code> o <code>403</code> se tratan como error de
+                sesión.
+              </li>
+              <li>
+                Una respuesta parcial es <code>success=true</code> con
+                <code>errors.length &gt; 0</code>; startup decide cómo mostrar
+                la advertencia.
+              </li>
+            </ul>
+            <h3 class="h5 mt-4">Resultado de cada tipo de respuesta</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Respuesta de Gateway</th>
+                    <th>Método Surface</th>
+                    <th>Qué ocurre en runtime</th>
+                    <th>Cómo debe reaccionar un binding</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>200</code> + envelope exitoso con data</td>
+                    <td><code>serverClient.data(...)</code></td>
+                    <td>Devuelve data tipada.</td>
+                    <td>Pinta estado nuevo y deja cleanup listo.</td>
+                  </tr>
+                  <tr>
+                    <td><code>200</code> + envelope parcial</td>
+                    <td><code>serverClient.json/data</code></td>
+                    <td>
+                      Reporta advertencia con <code>partialReporter</code>.
+                    </td>
+                    <td>
+                      La data puede usarse, pero la advertencia no debe
+                      eliminarse ni convertirse en éxito silencioso.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>4xx</code> con envelope esperado</td>
+                    <td><code>serverClient.json/data/html</code></td>
+                    <td>
+                      Se transforma en <code>UserActionError</code> o
+                      <code>SessionError</code>.
+                    </td>
+                    <td>
+                      Muestra feedback o deja que startup/session lo maneje.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>5xx</code> con envelope esperado</td>
+                    <td><code>serverClient.json/data/html</code></td>
+                    <td>Se transforma en <code>FatalError</code>.</td>
+                    <td>No reintentes sin una decisión explícita de UX.</td>
+                  </tr>
+                  <tr>
+                    <td>HTML embebible válido</td>
+                    <td><code>serverClient.html(...)</code></td>
+                    <td>
+                      Devuelve string HTML; si se declaró <code>expect</code>,
+                      exige el <code>data-surface-fragment</code> esperado.
+                    </td>
+                    <td>
+                      Inserta y llama <code>contentMount</code> si el HTML trae
+                      fragments activos.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      HTML vacío, JSON accidental, redirect, layout completo,
+                      page de Surface o content-type incompatible
+                    </td>
+                    <td><code>serverClient.html(...)</code></td>
+                    <td>Lanza <code>HttpContractError</code>.</td>
+                    <td>
+                      Corrige Gateway o la ruta llamada; no parches el HTML en
+                      frontend.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Sin conexión o fetch rechazado</td>
+                    <td>Cualquier método</td>
+                    <td>Lanza <code>FatalError</code> de conexión.</td>
+                    <td>
+                      Muestra estado de fallo y conserva la UI previa si aplica.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              <strong>Mensajes flash:</strong> no viajan por
+              <code>serverClient</code>, envelope ni headers. Gateway los
+              consume al renderizar HTML SSR o fragments; Surface solo monta el
+              HTML resultante si la vista declara <code>data-surface-*</code>.
+            </div>
+          </section>
+
+          <section id="session-runtime" class="guide-section">
+            <h2>Sesión runtime</h2>
+            <p>
+              La sesión de Surface no decide permisos ni negocio. Coordina el id
+              de pestaña, lee contexto de sesión desde Gateway, sincroniza el
+              tiempo restante y ejecuta acciones visibles como refrescar o
+              cerrar sesión.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Qué hace</th>
+                    <th>Quién depende de ella</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>ensureTabSession()</code></td>
+                    <td>
+                      Crea o reutiliza un id de 32 caracteres desde
+                      <code>sessionStorage</code>.
+                    </td>
+                    <td>Access layout, control layout y hooks HTTP.</td>
+                  </tr>
+                  <tr>
+                    <td><code>sessionContext</code></td>
+                    <td>
+                      Guarda contexto hidratado: tab, usuario y estado de
+                      sesión.
+                    </td>
+                    <td>
+                      Startup y llamadas HTTP que necesitan header de pestaña.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>configureHttpSession(...)</code></td>
+                    <td>
+                      Conecta <code>serverClient</code> con tab id y
+                      <code>X-REMAINING</code>.
+                    </td>
+                    <td><code>requestResource(...)</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>SessionCountdown</code></td>
+                    <td>
+                      Cuenta segundos restantes y dispara warning/expired. El
+                      umbral visible sale de
+                      <code>SESSION_EXPIRY_ALERT</code>.
+                    </td>
+                    <td>
+                      Eventos de expiración;
+                      <code>startup/control/session.ts</code>
+                      decide modal y logout.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>refreshSession()</code></td>
+                    <td>Pide al gateway extender la pestaña actual.</td>
+                    <td>Botón "mantener sesión".</td>
+                  </tr>
+                  <tr>
+                    <td><code>logout()</code></td>
+                    <td>Cierra sesión en Gateway y redirige al acceso.</td>
+                    <td>Logout manual o expiración.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Tabs en el navegador</h3>
+            <p>
+              <code>ensureTabSession()</code> guarda el id bajo la clave
+              <code>X-TAB-SESSION</code> en <code>sessionStorage</code>. Ese
+              almacenamiento pertenece a la pestaña actual del navegador, por
+              eso una navegación normal en una pestaña nueva obtiene su propio
+              id. La cookie PHP puede ser la misma para todo el navegador, pero
+              el header separa qué entrada de <code>tabs</code> debe usar
+              Gateway.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Dato local</th>
+                    <th>Dónde está</th>
+                    <th>Para qué sirve</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>X-TAB-SESSION</code></td>
+                    <td><code>sessionStorage</code>.</td>
+                    <td>
+                      Identifica la pestaña actual y se envía como header en
+                      requests a Gateway.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>sessionContext.idTab</code></td>
+                    <td>Memoria del runtime de Surface.</td>
+                    <td>
+                      Permite que <code>serverClient</code> agregue el header
+                      sin que cada feature lo haga manualmente.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>sessionContext</code></td>
+                    <td>Memoria hidratada desde Gateway.</td>
+                    <td>
+                      Expone datos de usuario útiles para UI, pero no reemplaza
+                      validación ni permisos del backend.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>SessionCountdown</code></td>
+                    <td>Runtime de sesión de Surface.</td>
+                    <td>
+                      Cuenta localmente desde <code>X-REMAINING</code> y emite
+                      warning al llegar a <code>SESSION_EXPIRY_ALERT</code>.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Qué pasa con <code>X-REMAINING</code></h3>
+            <ol class="guide-checklist">
+              <li>Gateway emite el header en la respuesta.</li>
+              <li><code>serverClient</code> lo lee después de cada fetch.</li>
+              <li>
+                <code>sessionCountdown.sync(...)</code> ajusta el contador
+                local.
+              </li>
+              <li>
+                Cuando faltan los segundos definidos por
+                <code>SESSION_EXPIRY_ALERT</code>, el contador emite warning.
+              </li>
+              <li>
+                <code>startup/control/session.ts</code> recibe warning/expired,
+                abre el modal o ejecuta logout y vuelve al acceso.
+              </li>
+            </ol>
+
+            <h3 class="h5 mt-4">Variables que afectan el runtime</h3>
+            <p>
+              <code>SESSION_EXPIRY_ALERT</code> es la única variable de este
+              grupo que Surface usa directamente. Las demás viven en Gateway,
+              pero condicionan si el botón "mantener sesión" puede extender o no
+              la tab actual.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Efecto visible en Surface</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>SESSION_TIME</code></td>
+                    <td>
+                      Define el máximo inicial que llegará en
+                      <code>X-REMAINING</code> después de login o refresh.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>SESSION_REFRESH_WINDOW</code></td>
+                    <td>
+                      El modal debe aparecer dentro de esta ventana para que
+                      "mantener sesión" pueda extender en Gateway.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>SESSION_REFRESH_COOLDOWN</code></td>
+                    <td>
+                      Evita refreshes seguidos para la misma tab. Si Gateway
+                      renovó a las 12:09:35 y el usuario vuelve a pulsar a las
+                      12:09:36, la request puede responder bien, pero la
+                      expiración no se mueve otra vez.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>SESSION_EXPIRY_ALERT</code></td>
+                    <td>
+                      Define cuándo Surface emite warning; si no existe, Vite
+                      usa <code>SESSION_REFRESH_WINDOW</code> como fallback.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Qué ve Surface cuando hay cooldown</h3>
+            <p>
+              Surface no decide si una sesión se puede renovar. Cuando el
+              usuario pulsa "mantener sesión",
+              <code>refreshSession()</code> llama a
+              <code>/auth/refresh-session</code>. Gateway valida la tab, aplica
+              <code>SESSION_REFRESH_WINDOW</code> y
+              <code>SESSION_REFRESH_COOLDOWN</code>, y responde con
+              <code>X-REMAINING</code>.
+            </p>
+            <p>
+              Ejemplo: si la tab vencía a las 12:10:00 y Gateway aceptó el
+              refresh a las 12:09:35, la nueva expiración queda cerca de
+              12:19:35. En ese caso <code>X-REMAINING</code> vuelve a un valor
+              cercano a <code>SESSION_TIME</code> en segundos. Si el usuario
+              pulsa otra vez a las 12:09:36, todavía no pasó el cooldown; la
+              respuesta puede ser correcta, pero <code>X-REMAINING</code>
+              conserva el vencimiento ya calculado. Por eso el contador de
+              Surface se sincroniza con el header y no asume que todo click suma
+              tiempo.
+            </p>
+
+            <div class="guide-callout p-3 rounded">
+              <strong>Regla de frontera:</strong> una integración de
+              <code>workspace</code> puede reaccionar a errores de sesión, pero
+              no debe implementar su propia sesión. Eso vive en
+              <code>platform/infrastructure/session</code> y startup.
+            </div>
+          </section>
+
+          <section id="consume-gateway" class="guide-section">
+            <h2>Consumir endpoints del gateway</h2>
+            <p>
+              Surface no consume APIs HTTP externas directamente. Si la UI
+              necesita datos externos o cualquier dependencia remota, el gateway
+              debe exponer un endpoint JSON o un fragment HTML y Surface lo
+              consume con `serverClient`.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Para diseñar el endpoint del lado Gateway, consulta
+                <a href="app-gateway.html#controllers">Controllers</a>,
+                <a href="app-gateway.html#usecases">Use cases</a> y
+                <a href="recipes.html#json">Crear un endpoint JSON</a>.
+              </em>
+            </p>
+
+            <div class="guide-callout p-3 rounded">
+              La API key, el bearer externo, la base URL del proveedor y la
+              traducción de errores viven en `app-gateway`. En `app-surface`
+              solo debería existir el contrato visible del gateway: ruta,
+              request local y tipo de respuesta esperado.
+            </div>
+
+            <div class="guided-recipe">
+              <div class="guided-recipe__head">
+                <span class="guided-recipe__eyebrow">Consumo paso a paso</span>
+                <h3>De una acción de UI a un endpoint del gateway</h3>
+                <p>
+                  Surface pide datos al gateway. El gateway decide si detrás hay
+                  base de datos, service o API HTTP externa.
+                </p>
+              </div>
+              <ol class="guided-steps">
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Primero confirma la ruta del gateway
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@extension/Presentation/Http/Controller/ItemController.php</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Un action que responda json o html:
+                          <pre><code class="language-php">respondJson(...)
+renderFragmentView(...)</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          Ya sabes qué URL va a llamar Surface.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego crea una función en `api.ts`.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">Envuelve la llamada HTTP</h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/items/api.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Funciones usando <code>serverClient</code>:
+                          <pre><code class="language-typescript">searchItems(...)
+fetchItemSummaryHtml(...)</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          La pantalla no arma fetch manual ni URLs de forma
+                          manual.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Luego llama esa función desde `page.ts`.
+                    </div>
+                  </div>
+                </li>
+                <li class="guided-step">
+                  <div class="guided-step__body">
+                    <h4 class="guided-step__title">
+                      Uso de la respuesta en la UI
+                    </h4>
+                    <div class="guided-field-grid">
+                      <div class="guided-field">
+                        <span>Archivo</span>
+                        <code class="guided-file"
+                          >@workspace/integrations/items/page.ts</code
+                        >
+                      </div>
+                      <div class="guided-field">
+                        <span>Coloca</span>
+                        <div class="guided-put">
+                          Evento de botón, lectura de inputs y actualización:
+                          <pre><code class="language-typescript">setHtml(...)</code></pre>
+                        </div>
+                      </div>
+                      <div class="guided-field">
+                        <span>Resultado</span>
+                        <div class="guided-result">
+                          El usuario ve datos o fragment HTML actualizado.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="guided-next">
+                      Si llega un fragment con JS, debe crearse su binding.
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <h3 class="h5 mt-4">1. Declarar `contracts.ts`</h3>
+            <p>
+              Las firmas TypeScript de entrada y salida viven junto a la
+              integración que las consume. Nombran el contrato de Gateway que ve
+              Surface, aunque el shape coincida con un DTO externo porque
+              Gateway hizo passthrough.
+            </p>
+            <p>
+              Si la firma viene de Swagger/OpenAPI, genérala con
+              <code
+                >composer robo -- surface:contract &lt;feature&gt;
+                &lt;RequestSignature&gt; &lt;ResponseSignature&gt;
+                &lt;swaggerPath&gt;</code
+              >. El comando agrega un bloque en <code>contracts.ts</code> según
+              <code>surfaceContractGenerator</code> de
+              <code>robo-configurations.json</code>; si la feature no existe,
+              crea su carpeta. Vive junto al generador PHP outbound en
+              <code>tools/HttpContractGenerator</code>: Gateway está en
+              <code>tools/HttpContractGenerator/Gateway</code>, Surface en
+              <code>tools/HttpContractGenerator/Surface</code> y lo compartido
+              en <code>tools/HttpContractGenerator/Shared</code>.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>@workspace/integrations/items/contracts.ts</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-consume-contracts"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-consume-contracts" class="language-typescript">export class ItemSearchRequest {
+  public query: string = "";
+  public status: string = "";
+
+  constructor(init: Partial&lt;ItemSearchRequest&gt; = {}) {
+    Object.assign(this, init);
+  }
+}
+
+export class ItemSummary {
+  public id: number = 0;
+  public displayName: string = "";
+  public total: number = 0;
+  public state: string = "";
+
+  constructor(init: Partial&lt;ItemSummary&gt; = {}) {
+    Object.assign(this, init);
+  }
+}</code></pre>
+            </div>
+
+            <h3 class="h5 mt-4">2. Crear un `api.ts` por integración</h3>
+            <p>
+              Centraliza las llamadas HTTP dentro de la carpeta de la
+              integración. `api.ts` conoce rutas Gateway, método HTTP y tipos
+              importados desde `contracts.ts`; no conoce DOM ni feedback visual.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>@workspace/integrations/items/api.ts</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-consume-api"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-consume-api" class="language-typescript">import type { ItemSearchRequest, ItemSummary } from "./contracts";
+
+import { serverClient } from "@/platform/infrastructure/http";
+
+export async function searchItems(request: ItemSearchRequest): Promise&lt;ItemSummary[]&gt; {
+  return await serverClient.data&lt;ItemSummary[], ItemSearchRequest&gt;("/items/search", {
+    method: "POST",
+    body: request,
+  });
+}
+
+export async function fetchItemSummaryHtml(itemId: number): Promise&lt;string&gt; {
+  return await serverClient.html("/items/summary", {
+    method: "GET",
+    params: { itemId },
+    expect: { kind: "fragment", fragmentId: "item-summary" },
+  });
+}</code></pre>
+            </div>
+
+            <h3 class="h5 mt-4">3. Coordinar desde `actions.ts`</h3>
+            <p>
+              Cuando una acción necesita armar un payload, `actions.ts` debería
+              conocer la firma y crear el request tipado desde valores
+              semánticos. `page.ts` lee el DOM y llama esa acción; solo importa
+              `contracts.ts` si necesita anotar o leer directamente la data.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>actions.ts armando request</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-consume-actions"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-consume-actions" class="language-typescript">import type { ItemSearchRequest } from "./contracts";
+
+import { fetchItemSummaryHtml, searchItems } from "./api";
+
+export async function runItemSearch(query: string): Promise&lt;{ total: number; firstHtml?: string }&gt; {
+  const request: ItemSearchRequest = { query };
+  const rows = await searchItems(request);
+  const firstHtml = rows[0] ? await fetchItemSummaryHtml(rows[0].id) : undefined;
+
+  return { total: rows.length, firstHtml };
+}</code></pre>
+            </div>
+
+            <div class="code-card mt-3">
+              <div class="code-card__bar">
+                <span>page.ts llamando actions.ts</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-consume-page"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-consume-page" class="language-typescript">import { UiBinding } from "@/platform/runtime/binding";
+import { runItemSearch } from "./actions";
+
+export default class ItemsPage extends UiBinding {
+  protected mount(): void {
+    const searchButton = this.require&lt;HTMLButtonElement&gt;("#btn-search-items");
+
+    this.onClick(searchButton, () => this.search());
+  }
+
+  private async search(): Promise&lt;void&gt; {
+    const query = this.require&lt;HTMLInputElement&gt;("#item-query").value.trim();
+    const result = await runItemSearch(query);
+
+    this.require("#item-count").textContent = String(result.total);
+
+    if (result.firstHtml)
+      this.setHtml("#item-summary-container", result.firstHtml);
+  }
+}</code></pre>
+            </div>
+
+            <h3 class="h5 mt-4">4. Elige el método correcto</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Necesidad UI</th>
+                    <th>Método</th>
+                    <th>Resultado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Datos tipados para pintar una tabla o contador.</td>
+                    <td><code>serverClient.data&lt;T&gt;(...)</code></td>
+                    <td>Devuelve `data` y falla si no existe.</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Envelope completo para leer `message`, `errors` o `code`.
+                    </td>
+                    <td><code>serverClient.json&lt;T&gt;(...)</code></td>
+                    <td>Devuelve `ApiResponse&lt;T&gt;`.</td>
+                  </tr>
+                  <tr>
+                    <td>Fragment SSR listo para insertar en el DOM.</td>
+                    <td><code>serverClient.html(...)</code></td>
+                    <td>
+                      Devuelve HTML embebible y rechaza JSON, redirects, layouts
+                      o pages.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Subida de archivos o formulario multipart.</td>
+                    <td><code>bodyType: "form-data"</code></td>
+                    <td>Envía `FormData` sin forzar `Content-Type` manual.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>FormData</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-consume-formdata"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-consume-formdata" class="language-typescript">const formData = new FormData(formElement);
+
+await serverClient.data&lt;UploadReceipt&gt;("/items/import", {
+  method: "POST",
+  body: formData,
+  bodyType: "form-data",
+});</code></pre>
+            </div>
+
+            <ul class="guide-checklist">
+              <li>
+                No deben construirse URLs con `BASE_URI` manualmente;
+                `serverClient` ya usa la configuración de la aplicación.
+              </li>
+              <li>
+                En `GET` se usa `params`; en `POST`, `PUT` y `DELETE`, se usa
+                `body`.
+              </li>
+              <li>
+                No deben enviarse tokens externos desde Surface. Debe existir un
+                endpoint del gateway que represente la intención de UI.
+              </li>
+              <li>
+                Cuando se requiera HTML, debe consumirse un fragment SSR con
+                `serverClient.html(...)`.
+              </li>
+              <li>
+                `contracts.ts` define las firmas visibles para Surface; `api.ts`
+                las usa para tipar la llamada; `actions.ts` crea el request
+                cuando la acción tiene intención propia.
+              </li>
+              <li>
+                `page.ts` debe mantenerse cerca del DOM: lee inputs, escucha
+                eventos y llama acciones. La composición de negocio sigue en
+                Gateway.
+              </li>
+            </ul>
+          </section>
+
+          <section id="content-mount" class="guide-section">
+            <h2>Content mount, modales y toasts</h2>
+            <p>
+              En algunos casos Surface inserta HTML fuera del root de la página:
+              por ejemplo dentro de un modal o toast. Ese HTML también puede
+              traer <code>data-surface-fragment</code>. Para conservar el
+              lifecycle, el runtime expone
+              <code>context.mountContent(root)</code>.
+            </p>
+            <p>
+              Regla base: si el HTML vino del gateway, sigue siendo SSR. Surface
+              lo inserta, solicita al runtime el montaje de sus fragments y
+              conserva una función de limpieza para desmontarlo cuando el modal
+              o toast desaparece.
+            </p>
+
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Modal con HTML remoto</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-content-mount"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-content-mount" class="language-typescript">import { simpleModal } from "@/platform/infrastructure/feedback";
+import { UiBinding } from "@/platform/runtime/binding";
+
+export default class ItemsPage extends UiBinding {
+  private readonly modal = simpleModal.withContentMount(this.contentMount);
+
+  protected mount(): void {
+    const button = this.find&lt;HTMLButtonElement&gt;("#btn-open-summary");
+    if (!button) return;
+
+    this.onClick(button, async () => {
+      await this.modal.showRemote("/items/summary", {
+        method: "GET",
+        params: { itemId: 3021 },
+        expect: { kind: "fragment", fragmentId: "item-summary" },
+      });
+    });
+  }
+}</code></pre>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Qué hace</th>
+                    <th>Regla</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>context.mountContent(root)</code></td>
+                    <td>
+                      Monta fragments encontrados dentro de HTML insertado.
+                    </td>
+                    <td>Guardar el unmount y ejecutarlo al retirar el HTML.</td>
+                  </tr>
+                  <tr>
+                    <td><code>simpleModal.withContentMount(...)</code></td>
+                    <td>
+                      Permite que modales de la fachada de feedback con HTML
+                      remoto activen fragments.
+                    </td>
+                    <td>
+                      No debe hacerse parsing manual de scripts dentro del
+                      modal.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>toastAdapter.withContentMount(...)</code></td>
+                    <td>Permite toasts con contenido SSR activo.</td>
+                    <td>El toast limpia el contenido al ocultarse.</td>
+                  </tr>
+                  <tr>
+                    <td>Fragment binding</td>
+                    <td>
+                      Se monta igual que si estuviera en la página principal.
+                    </td>
+                    <td>
+                      Debe estar registrado en la integración propietaria.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <ul class="guide-checklist">
+              <li>
+                Usar <code>contentMount</code> cuando se inserte HTML SSR fuera
+                del root normal de la página.
+              </li>
+              <li>
+                El modal no debe convertirse en router ni en mini aplicación.
+                Solo muestra HTML y delega fragments al runtime.
+              </li>
+              <li>
+                Si el contenido remoto no trae fragments, igual puede usarse; en
+                ese caso no habrá bindings que montar.
+              </li>
+            </ul>
+          </section>
+
+          <section id="toolkit" class="guide-section">
+            <h2>Toolkit, adapters y feedback</h2>
+            <p>
+              `toolkit` ofrece helpers técnicos opt-in: DOM, Bootstrap, Select2,
+              DataTables, DateRangePicker, Swal, modal y toast.
+            </p>
+            <p>
+              Si un helper necesita HTTP, errores UI, <code>AppConfig</code> o
+              <code>baseUrl</code>, se consume desde una fachada de
+              <code>platform/infrastructure</code>. <code>toolkit</code> no
+              importa <code>platform</code>.
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Filesystem de toolkit</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-toolkit-tree"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-toolkit-tree" class="language-text">app-surface/toolkit/
+  adapters/
+    bootstrap.ts
+    datatable.ts
+    daterangepicker.ts
+    dropdown.ts
+    legacy-globals.ts
+    select2/
+      adapter.ts
+      helpers.ts
+      types.ts
+    select2.ts
+  dom/
+    content.ts
+    events.ts
+    index.ts
+  feedback/
+    modal/
+      adapter.ts
+      contracts.ts
+      index.ts
+      view.ts
+    swal/
+      adapter.ts
+      contracts.ts
+      index.ts
+    toast/
+      adapter.ts
+      contracts.ts
+      index.ts
+      view.ts
+  shared/
+    color.ts
+    date.ts
+    dev-console.ts
+    utils.ts</code></pre>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Ubicación</th>
+                    <th>Cuándo agregar aquí</th>
+                    <th>Límite</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>toolkit/adapters/&lt;library&gt;.ts</code></td>
+                    <td>
+                      Wrapper opt-in para una librería visual o plugin externo.
+                    </td>
+                    <td>
+                      Debe validar globals requeridos y exponer cleanup cuando
+                      cree estado externo.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>toolkit/adapters/&lt;library&gt;/</code></td>
+                    <td>
+                      Usa subcarpeta cuando un adapter necesita separar
+                      implementación, helpers y tipos.
+                    </td>
+                    <td>
+                      No convertirlo en módulo de feature; sigue siendo adapter
+                      técnico reusable.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>toolkit/dom/content.ts</code></td>
+                    <td>
+                      Contratos mínimos para montar/desmontar HTML recibido por
+                      otra capa.
+                    </td>
+                    <td>
+                      No debe decidir de dónde viene el HTML ni cómo se reportan
+                      errores.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>toolkit/dom/events.ts</code></td>
+                    <td>
+                      Helpers de eventos genéricos, como proteger una acción
+                      contra doble ejecución.
+                    </td>
+                    <td>
+                      Si necesita <code>showUiError</code>, conéctalo desde
+                      <code>platform/infrastructure</code>.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>toolkit/dom/index.ts</code></td>
+                    <td>
+                      Helpers DOM pequeños, root-scoped y sin dependencia de una
+                      feature: buscar nodos, leer inputs, escribir HTML, dataset
+                      o visibilidad.
+                    </td>
+                    <td>
+                      No meter lógica de negocio, HTTP ni errores UI concretos.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>toolkit/feedback/&lt;kind&gt;/</code></td>
+                    <td>
+                      Componentes técnicos de feedback, como modal, toast o
+                      Swal, separados en adapter, contracts y view.
+                    </td>
+                    <td>
+                      No cargar HTML remoto por sí mismo ni conocer endpoints
+                      del gateway.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><code>toolkit/shared/*.ts</code></td>
+                    <td>
+                      Utilidades puras y livianas: fechas, color, conversión,
+                      arrays, strings, números o <code>FormData</code>.
+                    </td>
+                    <td>
+                      No importar DOM, <code>platform</code>,
+                      <code>serverClient</code> ni adapters visuales.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Carpeta</th>
+                    <th>Uso</th>
+                    <th>Regla de consumo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>toolkit/dom</code></td>
+                    <td>
+                      Buscar nodos, establecer HTML, inputs, dataset y
+                      visibilidad.
+                    </td>
+                    <td>Debe usarse desde bindings o helpers de UI.</td>
+                  </tr>
+                  <tr>
+                    <td><code>toolkit/adapters</code></td>
+                    <td>Integrar librerías visuales externas.</td>
+                    <td>
+                      El adapter debe importarse solo en la integración que lo
+                      necesita.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>toolkit/feedback</code></td>
+                    <td>Modal, toast y alertas controladas.</td>
+                    <td>No debe mezclarse feedback con reglas de negocio.</td>
+                  </tr>
+                  <tr>
+                    <td><code>toolkit/shared</code></td>
+                    <td>Utilidades técnicas pequeñas y reusable helpers.</td>
+                    <td>No debe convertirse en un módulo de dominio.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Catálogo rápido de adapters</h3>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Adapter</th>
+                    <th>Uso</th>
+                    <th>Cleanup esperado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>dropdownAdapter</code></td>
+                    <td>Dropdowns globales del layout.</td>
+                    <td>
+                      Lo inicializa startup; no debe repetirse en cada feature.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>select2Adapter</code></td>
+                    <td>Selects enriquecidos dentro de una page o fragment.</td>
+                    <td>Destruir la instancia al desmontar el binding.</td>
+                  </tr>
+                  <tr>
+                    <td><code>dataTableAdapter</code></td>
+                    <td>
+                      Fachada de plataforma para tablas; inyecta idioma y delega
+                      en el adapter de <code>toolkit</code>.
+                    </td>
+                    <td>Ejecutar destroy antes de retirar el DOM.</td>
+                  </tr>
+                  <tr>
+                    <td><code>dateRangePickerAdapter</code></td>
+                    <td>Rangos de fecha o fecha única con plugin externo.</td>
+                    <td>Remueve el picker en <code>unmount</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>simpleModal</code></td>
+                    <td>
+                      Fachada de feedback; el HTML remoto vive en
+                      <code>platform</code> y <code>toolkit</code> solo muestra
+                      HTML recibido.
+                    </td>
+                    <td>Limpiar contenido y fragments montados al cerrar.</td>
+                  </tr>
+                  <tr>
+                    <td><code>toastAdapter</code></td>
+                    <td>
+                      Fachada de feedback; el HTML remoto vive en
+                      <code>platform</code> y el adapter monta el fragment SSR.
+                    </td>
+                    <td>
+                      Desmonta contenido cuando Bootstrap oculta el toast.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>swalAdapter</code></td>
+                    <td>Confirmaciones, alertas y formularios simples.</td>
+                    <td>
+                      No necesita DOM cleanup propio, pero no debe contener
+                      negocio.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              Todo adapter que crea estado externo debe destruirse en `unmount`.
+            </div>
+            <ul class="guide-checklist">
+              <li>
+                Un adapter pesado no debe importarse desde startup o runtime si
+                solo lo usa una pantalla.
+              </li>
+              <li>
+                Si el adapter devuelve una función o instancia de limpieza, debe
+                guardarse y ejecutarse en <code>unmount</code>.
+              </li>
+              <li>
+                Los adapters no deciden permisos, sesión ni reglas de negocio.
+              </li>
+            </ul>
+          </section>
+
+          <section id="vite" class="guide-section">
+            <h2>Vite, styles y assets</h2>
+            <p>
+              Vite compila `@surface/main.ts` hacia
+              `app-gateway/{PUBLIC_PATH}/ui-assets`. El gateway resuelve
+              manifest con `vite_styles()` y `vite_script()`.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                Si el asset no carga, deben revisarse
+                <a href="bridge.html#assets">Assets Vite</a>,
+                <a href="getting-started.html#env">Archivo .env</a> y
+                <a href="troubleshooting.html">Ayuda</a>.
+              </em>
+            </p>
+            <div class="code-card">
+              <div class="code-card__bar">
+                <span>Build surface</span>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  type="button"
+                  data-copy-code="sf-build"
+                >
+                  Copiar
+                </button>
+              </div>
+              <pre><code id="sf-build" class="language-bash">cd app-surface
+npm run lite:build</code></pre>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Pieza</th>
+                    <th>Qué hace</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>main.ts</code></td>
+                    <td>Entry único de Surface.</td>
+                  </tr>
+                  <tr>
+                    <td><code>vite.config.constants.ts</code></td>
+                    <td>
+                      Centraliza constantes tipadas, env público y opciones
+                      Rollup usadas por <code>vite.config.ts</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>__APP_ENV__</code></td>
+                    <td>
+                      Inyecta <code>BASE_URI</code>, <code>IS_PRODUCTION</code>,
+                      <code>MENU_LAYOUT</code>, <code>PUBLIC_PATH</code> y
+                      <code>SESSION_EXPIRY_ALERT</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>SPEED_UP_BUILD</code></td>
+                    <td>
+                      La lee Vite para decidir si el build será liviano. No se
+                      inyecta en <code>__APP_ENV__</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>outDir</code></td>
+                    <td>
+                      Publica assets en
+                      <code>app-gateway/{PUBLIC_PATH}/ui-assets</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>manifest</code></td>
+                    <td>
+                      Permite que Gateway resuelva archivos hashados en
+                      producción.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>manualChunks</code></td>
+                    <td>
+                      Separa vendors por paquete para mejorar cache y lectura
+                      del build.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>jquery</code> externo</td>
+                    <td>
+                      No empaqueta jQuery en el bundle si ya lo provee el
+                      layout.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4">Env de Vite y runtime inyectado</h3>
+            <p>
+              Vite inyecta <code>__APP_ENV__</code> en build time para que
+              Surface conozca preferencias de UI y datos públicos de build sin
+              leer archivos del Gateway. Las llamadas HTTP no se arman desde
+              <code>BASE_URI</code> ni <code>PUBLIC_PATH</code>; usan
+              <code>window.__BASE_URL__</code>, que Gateway declara en el SSR.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide">
+                <thead>
+                  <tr>
+                    <th>Variable</th>
+                    <th>Uso en Surface</th>
+                    <th>Regla</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>BASE_URI</code></td>
+                    <td>
+                      Participa en la base pública de assets generados por Vite
+                      y queda disponible en <code>__APP_ENV__</code>.
+                    </td>
+                    <td>
+                      No usarlo manualmente para requests HTTP de una feature.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>PUBLIC_PATH</code></td>
+                    <td>
+                      Define el segmento donde Vite publica
+                      <code>ui-assets</code> dentro del gateway.
+                    </td>
+                    <td>
+                      No usarlo para construir URLs HTTP de
+                      <code>serverClient</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>MENU_LAYOUT</code></td>
+                    <td>Controla layout de menú en startup.</td>
+                    <td>Debe afectar layout, no reglas de negocio.</td>
+                  </tr>
+                  <tr>
+                    <td><code>IS_PRODUCTION</code></td>
+                    <td>Permite ajustar comportamiento de build/runtime.</td>
+                    <td>No lo uses para ocultar errores funcionales.</td>
+                  </tr>
+                  <tr>
+                    <td><code>SESSION_EXPIRY_ALERT</code></td>
+                    <td>
+                      Define cuándo el contador emite warning de expiración.
+                    </td>
+                    <td>
+                      Debe estar alineado con la ventana de refresh del backend.
+                      Si no existe, Vite usa <code>SESSION_REFRESH_WINDOW</code>
+                      como fallback.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>SPEED_UP_BUILD</code></td>
+                    <td>
+                      No es runtime env. Solo cambia opciones internas de Vite.
+                    </td>
+                    <td>
+                      Puede estar en <code>.env</code>, pero no llega al
+                      navegador como configuración de aplicación.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ul class="guide-checklist">
+              <li>
+                Los estilos globales y de layout viven bajo
+                <code>workspace/styles</code>.
+              </li>
+              <li>Los CSS de layout se cargan de forma lazy desde startup.</li>
+              <li>
+                Las integraciones concretas deben importar solo lo que usan.
+              </li>
+              <li>
+                Los sourcemaps están pensados para desarrollo, no para
+                producción.
+              </li>
+            </ul>
+          </section>
+
+          <section id="complete-flow" class="guide-section">
+            <h2>Flujo completo de Surface</h2>
+            <p>
+              Surface arranca después de recibir HTML SSR. Su flujo normal es
+              descubrir atributos declarativos, cargar módulos UI bajo demanda,
+              montar bindings y comunicarse solo con gateway cuando necesita
+              datos o HTML nuevo.
+            </p>
+            <p class="guide-crosslink">
+              <em>
+                El HTML que activa este flujo nace en
+                <a href="app-gateway.html#views">Gateway views</a> y el contrato
+                entre ambos lados se desarrolla en
+                <a href="bridge.html#html">Contratos HTML</a>.
+              </em>
+            </p>
+
+            <div
+              class="file-flow file-flow--purple"
+              aria-label="Mapa archivo por archivo de Surface"
+            >
+              <article class="file-flow__item">
+                <span class="file-flow__marker">01</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Contrato SSR</p>
+                    <h3>Punto de montaje</h3>
+                    <code class="file-flow__path"
+                      >@views/items/index.page.php</code
+                    >
+                  </header>
+                  <p>
+                    Gateway deja marcas declarativas. Surface no adivina qué
+                    página es: lee <code>data-surface-page</code> y trabaja
+                    sobre el HTML existente.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-html">&lt;div data-surface-page="demo-items"&gt;
+  &lt;section data-item-summary&gt;&lt;/section&gt;
+&lt;/div&gt;</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> el registry de Surface que
+                    conoce la integración <code>demo-items</code>.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">02</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Registro UI</p>
+                    <h3>Integración</h3>
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/integration.ts</code
+                    >
+                  </header>
+                  <p>
+                    Aquí se conecta el id SSR con sus módulos lazy: page y
+                    fragments. No se escriben eventos DOM ni llamadas HTTP
+                    largas en este archivo.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-typescript">id: "demo-items",
+layout: "control",
+page: { load: () => import("./page") }</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> <code>page.ts</code> y a los
+                    fragment bindings registrados.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">03</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Comunicación</p>
+                    <h3>API de la integración</h3>
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/contracts.ts</code
+                    >
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/api.ts</code
+                    >
+                  </header>
+                  <p>
+                    Las firmas visibles para Surface viven en
+                    <code>contracts.ts</code>. Las llamadas a Gateway viven en
+                    <code>api.ts</code> para que el DOM no quede mezclado con
+                    URLs, métodos HTTP o parsing de respuestas.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-typescript">return serverClient.html("/items/summary", {
+  method: "POST",
+  body: form,
+  expect: { kind: "fragment", fragmentId: "item-summary" },
+});</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> el binding, como HTML o data ya
+                    validada por <code>serverClient</code>.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">04</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Intención UI</p>
+                    <h3>Actions</h3>
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/actions.ts</code
+                    >
+                  </header>
+                  <p>
+                    Aquí se arma el request tipado desde valores semánticos que
+                    llegan del binding y se coordina la llamada a
+                    <code>api.ts</code> con feedback visual.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-typescript">const request: ItemSearchRequest = { query };
+return await searchItems(request);</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> <code>page.ts</code> o al
+                    fragment, sin exponer detalles del payload HTTP al DOM.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">05</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">Interacción</p>
+                    <h3>Page binding</h3>
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/page.ts</code
+                    >
+                  </header>
+                  <p>
+                    Aquí se coordinan nodos DOM, eventos y render de respuestas.
+                    La intención de negocio sigue en Gateway; este archivo solo
+                    activa la experiencia y llama acciones.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-typescript">this.onSubmit(form, async () => {
+  const result = await runItemSearch(readQuery(form));
+  target.textContent = String(result.total);
+});</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> el DOM; si inserta un fragment,
+                    <code>FragmentRuntime</code> lo detecta.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">06</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">HTML insertado</p>
+                    <h3>Fragment binding</h3>
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/fragments/summary.ts</code
+                    >
+                  </header>
+                  <p>
+                    El fragment binding se monta sobre HTML que ya llegó desde
+                    Gateway. Sirve para botones, adapters o comportamiento local
+                    del fragment.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-typescript">const refresh = this.find&lt;HTMLButtonElement&gt;("[data-refresh-summary]");
+if (!refresh) return;</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> eventos locales del fragment y
+                    limpieza automática al desmontar.
+                  </p>
+                </div>
+              </article>
+
+              <article class="file-flow__item">
+                <span class="file-flow__marker">07</span>
+                <div class="file-flow__body">
+                  <header class="file-flow__header">
+                    <p class="file-flow__eyebrow">UI opt-in</p>
+                    <h3>Controls y adapters</h3>
+                    <code class="file-flow__path"
+                      >@workspace/integrations/items/controls.ts</code
+                    >
+                    <code class="file-flow__path">@toolkit/adapters/*</code>
+                  </header>
+                  <p>
+                    Aquí van plugins visuales, helpers técnicos y limpieza de
+                    recursos externos. Se cargan cuando la integración los
+                    necesita, no desde el runtime global.
+                  </p>
+                  <pre
+                    class="file-flow__snippet"
+                  ><code class="language-typescript">const select = await select2Adapter.mount(node);
+this.cleanup(() => select.destroy());</code></pre>
+                  <p class="file-flow__handoff">
+                    <strong>Entrega a:</strong> el binding que lo pidió y su
+                    ciclo de vida.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Archivo o zona</th>
+                    <th>Debe contener</th>
+                    <th>No debería contener</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Vista SSR</td>
+                    <td>Atributos declarativos y HTML inicial.</td>
+                    <td>Lógica Surface o llamadas a proveedores externos.</td>
+                  </tr>
+                  <tr>
+                    <td><code>integration.ts</code></td>
+                    <td>Id, layout y loaders lazy.</td>
+                    <td>Eventos DOM, queries o requests.</td>
+                  </tr>
+                  <tr>
+                    <td><code>api.ts</code></td>
+                    <td>
+                      Funciones pequeñas que llaman Gateway con tipos importados
+                      de <code>contracts.ts</code>.
+                    </td>
+                    <td>Manipulación de DOM.</td>
+                  </tr>
+                  <tr>
+                    <td><code>actions.ts</code></td>
+                    <td>
+                      Intención UI, armado de request tipado y coordinación de
+                      feedback.
+                    </td>
+                    <td>
+                      Reglas de aplicación o acceso directo a proveedores.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>contracts.ts</code></td>
+                    <td>
+                      Firmas TS de payloads y responses visibles desde Gateway.
+                    </td>
+                    <td>
+                      DTOs externos tratados como contrato propio de Surface.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>page.ts</code> o fragment binding</td>
+                    <td>DOM, eventos, adapters y render de respuesta.</td>
+                    <td>
+                      Reglas de aplicación, permisos o payloads HTTP si existe
+                      una acción.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>controls.ts</code></td>
+                    <td>Setup y teardown de UI opt-in.</td>
+                    <td>Bootstrap global de la app.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="guide-callout p-3 rounded">
+              Surface no decide permisos, intención de aplicación ni
+              credenciales externas. Si necesita datos de negocio, pide una ruta
+              del gateway y respeta el contrato HTML o JSON que reciba.
+            </div>
+          </section>
+
+          <section id="next" class="guide-section">
+            <h2>Recorrido de la guía</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <a class="guide-card-link" href="app-gateway.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Volver a: Gateway</h3>
+                      <p class="mb-0">
+                        Revisa routing, controllers, use cases, connectors,
+                        responses y assets servidos por Gateway.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a class="guide-card-link" href="bridge.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <h3 class="h5">Continuar con: Bridge</h3>
+                      <p class="mb-0">
+                        Ordena los contratos que comparten gateway y surface:
+                        HTML SSR, fragments, JSON, sesión y assets.
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/guide.js"></script>
+  </body>
+</html>

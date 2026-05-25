@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecosistema | Web Platform Core</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/img/web-platform-core.svg"
+    />
+    <script src="assets/js/theme.js"></script>
+    <link rel="stylesheet" href="assets/css/bondades.css" />
+    <link rel="stylesheet" href="assets/lib/css/font-awesomev6.5.1.css" />
+    <link rel="stylesheet" href="assets/lib/css/fonts.google.css" />
+    <script src="assets/lib/js/particles.min.js"></script>
+    <script src="assets/lib/js/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <div class="spotlight" id="spotlight"></div>
+
+    <div class="vignette"></div>
+
+    <div class="progress-bar-premium" id="progressBar" style="width: 0%"></div>
+
+    <div class="key-hint">
+      <span><kbd>←</kbd> <kbd>→</kbd> navegar</span>
+      <span><kbd>F</kbd> pantalla completa</span>
+    </div>
+
+    <div class="presentation" id="presentation">
+      <div class="slide active" data-index="0">
+        <div
+          class="slide-content"
+          style="text-align: center; align-items: center"
+        >
+          <div class="tags anim-reveal">
+            <span class="tag">Velocidad</span>
+            <span class="tag">Estandarización corporativa</span>
+            <span class="tag">Escalabilidad de equipos</span>
+          </div>
+          <h1 class="exec-title anim-reveal anim-reveal-d1">
+            Web Platform Core
+          </h1>
+          <p
+            class="subtitle anim-reveal anim-reveal-d2"
+            style="margin: 0 auto; max-width: 820px"
+          >
+            Una base común para lanzar soluciones digitales con mayor rapidez,
+            menor variabilidad entre equipos y más control operativo. La
+            propuesta busca transformar conocimiento acumulado en un
+            <span class="highlight">activo reutilizable de la organización</span
+            >.
+          </p>
+          <div
+            style="
+              margin-top: 1.8rem;
+              display: flex;
+              gap: 3rem;
+              flex-wrap: wrap;
+              justify-content: center;
+            "
+            class="anim-reveal anim-reveal-d3"
+          >
+            <div>
+              <div class="big-number">70-90%</div>
+              <small style="color: var(--text-muted); font-size: 0.9rem"
+                >menos tiempo de arranque</small
+              >
+            </div>
+            <div>
+              <div class="big-number">1</div>
+              <small style="color: var(--text-muted); font-size: 0.9rem"
+                >modelo corporativo común</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-index="1">
+        <div class="slide-content">
+          <span class="section-label anim-reveal">Decisión</span>
+          <h2 class="anim-reveal anim-reveal-d1">
+            <i
+              class="fa-solid fa-triangle-exclamation"
+              style="
+                color: var(--accent-rose);
+                filter: drop-shadow(0 0 8px rgba(196, 135, 110, 0.4));
+              "
+            ></i>
+            El costo de no estandarizar se paga en cada iniciativa
+          </h2>
+          <p class="subtitle anim-reveal anim-reveal-d1">
+            Cuando cada proyecto arranca desde cero, se paga varias veces por
+            decisiones parecidas: coordinación, criterios de calidad, curva de
+            aprendizaje, control del riesgo y consistencia de entrega.
+            <span class="highlight"
+              >El impacto es financiero, operativo y estratégico.</span
+            >
+          </p>
+          <div class="comparison anim-reveal anim-reveal-d2">
+            <div class="compare-col bad">
+              <h3 style="color: #c4876e">
+                <i class="fa-solid fa-circle-xmark"></i> Sin ecosistema común
+              </h3>
+              <ul>
+                <li>
+                  <i class="fa-solid fa-clock"></i> Mayor tiempo antes de
+                  mostrar valor
+                </li>
+                <li>
+                  <i class="fa-solid fa-shuffle"></i> Equipos resolviendo lo
+                  mismo de formas distintas
+                </li>
+                <li>
+                  <i class="fa-solid fa-users-gear"></i> Dependencia alta de
+                  personas clave
+                </li>
+                <li>
+                  <i class="fa-solid fa-chart-line"></i> Costos menos
+                  predecibles por proyecto
+                </li>
+              </ul>
+              <div class="mini-bar-chart">
+                <div class="mini-bars" aria-hidden="true">
+                  <span class="mini-bar bad" style="--h: 100%"></span>
+                  <span class="mini-bar bad" style="--h: 82%"></span>
+                  <span class="mini-bar bad" style="--h: 68%"></span>
+                  <span class="mini-bar bad" style="--h: 74%"></span>
+                </div>
+                <small>energía invertida en coordinación y arranque</small>
+              </div>
+            </div>
+            <div class="compare-col good">
+              <h3 style="color: var(--teal)">
+                <i class="fa-solid fa-circle-check"></i> Con ecosistema aprobado
+              </h3>
+              <ul>
+                <li><i class="fa-solid fa-rocket"></i> Menor time-to-use</li>
+                <li>
+                  <i class="fa-solid fa-gauge-high"></i> Mayor capacidad de
+                  entrega con el mismo equipo
+                </li>
+                <li>
+                  <i class="fa-solid fa-shield-halved"></i> Riesgo operativo más
+                  controlado
+                </li>
+                <li>
+                  <i class="fa-solid fa-scale-balanced"></i> Criterios comunes
+                  para priorizar, medir y escalar
+                </li>
+              </ul>
+              <div class="mini-bar-chart">
+                <div class="mini-bars" aria-hidden="true">
+                  <span class="mini-bar good" style="--h: 22%"></span>
+                  <span class="mini-bar good" style="--h: 72%"></span>
+                  <span class="mini-bar good" style="--h: 94%"></span>
+                  <span class="mini-bar good" style="--h: 88%"></span>
+                </div>
+                <small>energía desplazada hacia producto y entrega</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-index="2">
+        <div class="slide-content" style="gap: 0.5rem">
+          <span class="section-label anim-reveal">Propuesta</span>
+          <h2 class="anim-reveal anim-reveal-d1">
+            <i
+              class="fa-solid fa-bolt"
+              style="
+                color: var(--gold);
+                filter: drop-shadow(0 0 10px var(--gold-glow));
+              "
+            ></i>
+            Un acelerador interno para nuevas soluciones digitales
+          </h2>
+          <p class="subtitle anim-reveal anim-reveal-d1">
+            El <span class="highlight">ecosistema</span> permite iniciar
+            productos sobre una base ya probada. La decisión buscada es
+            aprobarlo como estándar interno para reducir fricción y aumentar
+            velocidad de ejecución.
+          </p>
+          <div class="ecosystem-band ecosystem-band--core">
+            <div class="ecosystem-band__label">Almacenamiento</div>
+            <div class="ecosystem-band__items">
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-server"></i> Servidor y entorno</span
+              >
+            </div>
+          </div>
+          <div class="ecosystem-band">
+            <div class="ecosystem-band__label">Fundación técnica</div>
+            <div class="ecosystem-band__items">
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-box"></i> Vite, npm y Composer</span
+              >
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-code-branch"></i> CI/CD</span
+              >
+            </div>
+          </div>
+          <div class="ecosystem-band ecosystem-band--core">
+            <div class="ecosystem-band__label">Plataforma de desarrollo</div>
+            <div class="platform-components">
+              <span class="arch-box primary"
+                >Miniframework<br /><small
+                  >BFF, SSR, Core y Extension</small
+                ></span
+              >
+              <span class="arch-box accent"
+                >Arquitectura<br /><small
+                  >Inspirada en Clean - Hexagonal Opinionada y Pragmática</small
+                ></span
+              >
+              <span class="arch-box cyan"
+                >Capacidades compartidas<br /><small
+                  >Observabilidad, Logs, Api HTTP Externo</small
+                ></span
+              >
+            </div>
+          </div>
+          <div class="ecosystem-band">
+            <div class="ecosystem-band__label">Productos habilitados</div>
+            <div class="ecosystem-band__items">
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-cart-shopping"></i>Ventas</span
+              >
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-calculator"></i>Contabilidad</span
+              >
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-children"></i>RRHH</span
+              >
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-cart-flatbed"></i>Inventario</span
+              >
+              <span class="ecosystem-chip"
+                ><i class="fa-brands fa-shopify"></i>Kardex</span
+              >
+            </div>
+          </div>
+          <div class="ecosystem-band ecosystem-band--core">
+            <div class="ecosystem-band__label">Usuarios finales</div>
+            <div class="ecosystem-band__items">
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-users"></i>Clientes</span
+              >
+              <span class="ecosystem-chip"
+                ><i class="fa-solid fa-people-group"></i>Usuarios</span
+              >
+            </div>
+          </div>
+          <div class="card-grid proposal-summary anim-reveal anim-reveal-d3">
+            <div class="card">
+              <h3><i class="fa-solid fa-bullseye"></i> Foco en valor</h3>
+              <p>
+                Menos tiempo en base repetida y más tiempo en resolver objetivos
+                de negocio.
+              </p>
+            </div>
+            <div class="card">
+              <h3><i class="fa-solid fa-repeat"></i> Reutilización</h3>
+              <p>
+                La inversión inicial se aprovecha en múltiples productos y
+                equipos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-index="3">
+        <div class="slide-content">
+          <span class="section-label anim-reveal">Impacto esperado</span>
+          <h2 class="anim-reveal anim-reveal-d1">
+            <i
+              class="fa-solid fa-chart-pie"
+              style="
+                color: var(--gold);
+                filter: drop-shadow(0 0 10px var(--gold-glow));
+              "
+            ></i>
+            Métricas que justifican la adopción
+          </h2>
+          <p class="subtitle anim-reveal anim-reveal-d1">
+            La aprobación debe evaluarse por resultados de negocio: rapidez,
+            capacidad, costo de repetición, calidad de entrega y dependencia
+            operativa.
+          </p>
+          <div class="card-grid anim-reveal anim-reveal-d2">
+            <div class="card accent-left">
+              <div class="big-number" style="font-size: 2.5rem">70-90%</div>
+              <h3>Arranque más rápido</h3>
+              <p>
+                Meta de reducción del tiempo necesario para iniciar una nueva
+                solución con base operativa lista.
+              </p>
+            </div>
+            <div class="card accent-left-teal">
+              <div class="big-number" style="font-size: 2.5rem">30-60%</div>
+              <h3>Más capacidad efectiva</h3>
+              <p>
+                Incremento esperado en productividad al reducir decisiones
+                repetidas y dependencias innecesarias.
+              </p>
+            </div>
+            <div class="card accent-left-rose">
+              <div class="big-number" style="font-size: 2.5rem">40-60%</div>
+              <h3>Menos retrabajo</h3>
+              <p>
+                Reducción estimada de ajustes por inconsistencia, criterios
+                distintos o falta de base común.
+              </p>
+            </div>
+          </div>
+          <div class="arch-row">
+            <span class="tag">Estándar común reutilizable</span>
+            <span class="tag">Integraciones ordenadas</span>
+            <span class="tag">Trazabilidad desde el inicio</span>
+          </div>
+
+          <div class="card-grid anim-reveal anim-reveal-d2">
+            <div class="card">
+              <h3><i class="fa-solid fa-scale-balanced"></i> Criterio común</h3>
+              <p>
+                Los equipos trabajan con una base compartida y una expectativa
+                uniforme de entrega.
+              </p>
+            </div>
+            <div class="card">
+              <h3><i class="fa-solid fa-eye"></i> Visibilidad</h3>
+              <p>
+                La dirección puede comparar iniciativas con indicadores
+                homogéneos, no con percepciones aisladas.
+              </p>
+            </div>
+            <div class="card">
+              <h3><i class="fa-solid fa-user-shield"></i> Continuidad</h3>
+              <p>El modo de trabajo queda institucionalizado.</p>
+            </div>
+            <div class="card">
+              <h3>
+                <i class="fa-solid fa-triangle-exclamation"></i> Menor deuda
+                técnica
+              </h3>
+              <p>
+                Cada nuevo producto nace con una base más controlada, reduciendo
+                desviaciones costosas desde el inicio.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-index="4">
+        <div class="slide-content">
+          <span class="section-label anim-reveal">Retorno</span>
+          <h2 class="anim-reveal anim-reveal-d1">
+            <i
+              class="fa-solid fa-gauge-high"
+              style="
+                color: var(--gold);
+                filter: drop-shadow(0 0 10px var(--gold-glow));
+              "
+            ></i>
+            La inversión se recupera por reutilización
+          </h2>
+          <p class="subtitle anim-reveal anim-reveal-d1">
+            El ecosistema se justifica cuando deja de ser un esfuerzo para un
+            solo producto y se convierte en una capacidad repetible. Cada nueva
+            iniciativa reduce el costo promedio de la inversión inicial.
+          </p>
+          <div class="card-grid anim-reveal anim-reveal-d2">
+            <div class="card accent-left">
+              <h3><i class="fa-solid fa-stopwatch"></i> Primer beneficio</h3>
+              <p>
+                Menos tiempo entre aprobación, inicio y primera versión
+                demostrable.
+              </p>
+            </div>
+            <div class="card accent-left-teal">
+              <h3><i class="fa-solid fa-repeat"></i> Segundo beneficio</h3>
+              <p>
+                Componentes, criterios y aprendizajes se reutilizan en
+                siguientes iniciativas.
+              </p>
+            </div>
+            <div class="card accent-left-rose">
+              <h3><i class="fa-solid fa-users"></i> Tercer beneficio</h3>
+              <p>
+                Más perfiles pueden aportar sin depender siempre del mismo grupo
+                experto.
+              </p>
+            </div>
+            <div class="card accent-left-blue">
+              <h3>
+                <i class="fa-solid fa-chart-simple"></i> Beneficio acumulado
+              </h3>
+              <p>
+                Cada proyecto nuevo reduce el costo unitario de operar el
+                ecosistema.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-index="5">
+        <div
+          class="slide-content"
+          style="text-align: center; align-items: center"
+        >
+          <h1
+            class="exec-title anim-reveal anim-reveal-d1"
+            style="font-size: clamp(2rem, 4.2vw, 3.3rem)"
+          >
+            Decisión recomendada:<br />aprobar el ecosistema como acelerador
+            interno.
+          </h1>
+          <p
+            class="subtitle anim-reveal anim-reveal-d2"
+            style="margin: 0 auto; max-width: 740px"
+          >
+            La propuesta busca aprobar una capacidad organizacional: entregar
+            más rápido, con menos riesgo, mayor consistencia y una
+            <span class="highlight"
+              >curva de aprendizaje mucho más corta para nuevos equipos.</span
+            >
+          </p>
+          <div
+            style="
+              margin-top: 1.2rem;
+              display: flex;
+              gap: 1.5rem;
+              flex-wrap: wrap;
+              justify-content: center;
+            "
+            class="anim-reveal anim-reveal-d3"
+          >
+            <a href="index.html" target="_blank" class="btn-cta">
+              <i class="fa-solid fa-book"></i> Ver respaldo documental
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-bar" id="navBar">
+      <div class="bondades-theme" data-guide-theme-selector>
+        <button
+          class="bondades-theme__button"
+          type="button"
+          data-guide-theme-toggle
+          aria-expanded="false"
+        >
+          <span class="bondades-theme__icon" aria-hidden="true"></span>
+          <span class="visually-hidden" data-guide-theme-current
+            >Dark mode</span
+          >
+        </button>
+        <div
+          class="bondades-theme__menu"
+          data-guide-theme-menu
+          role="listbox"
+          aria-label="Tema visual"
+        >
+          <button type="button" data-guide-theme-value="dark" role="option">
+            Dark mode
+          </button>
+          <button type="button" data-guide-theme-value="light" role="option">
+            Light mode
+          </button>
+        </div>
+      </div>
+      <button class="nav-btn" id="prevBtn" aria-label="Anterior">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div class="nav-dots" id="navDots"></div>
+      <span class="nav-counter" id="navCounter">1 / 8</span>
+      <button class="nav-btn" id="nextBtn" aria-label="Siguiente">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <script>
+      (function () {
+        if (typeof particlesJS !== "undefined") {
+          particlesJS("particles-js", {
+            particles: {
+              number: { value: 45, density: { enable: true, value_area: 900 } },
+              color: {
+                value: ["#d4a574", "#e8c97a", "#c4876e", "#4a9fd8", "#5ec4b0"],
+              },
+              shape: { type: "circle" },
+              opacity: {
+                value: 0.35,
+                random: true,
+                anim: {
+                  enable: true,
+                  speed: 0.3,
+                  opacity_min: 0.08,
+                  sync: false,
+                },
+              },
+              size: {
+                value: 2.5,
+                random: true,
+                anim: { enable: true, speed: 0.6, size_min: 0.4, sync: false },
+              },
+              line_linked: {
+                enable: true,
+                distance: 160,
+                color: "#d4a574",
+                opacity: 0.1,
+                width: 0.8,
+              },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: { enable: true, rotateX: 600, rotateY: 1200 },
+              },
+            },
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onhover: { enable: true, mode: "grab" },
+                onclick: { enable: false },
+                resize: true,
+              },
+              modes: { grab: { distance: 160, line_linked: { opacity: 0.3 } } },
+            },
+            retina_detect: true,
+          });
+        }
+
+        const spotlight = document.getElementById("spotlight");
+        document.addEventListener("mousemove", function (e) {
+          if (spotlight) {
+            spotlight.style.left = e.clientX + "px";
+            spotlight.style.top = e.clientY + "px";
+          }
+        });
+
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const totalSlides = slides.length;
+        let currentIndex = 0;
+        let cleanupTimer = null;
+        let fastModeTimer = null;
+        let lastInputAt = 0;
+        let wheelAccumulator = 0;
+        let wheelResetTimer = null;
+
+        const NORMAL_DURATION = 700;
+        const FAST_DURATION = 180;
+        const RAPID_INPUT_WINDOW = 400;
+        const WHEEL_THRESHOLD = 65;
+
+        const progressBar = document.getElementById("progressBar");
+        const navDotsContainer = document.getElementById("navDots");
+        const navCounter = document.getElementById("navCounter");
+
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement("span");
+          dot.className = "nav-dot";
+          dot.setAttribute("data-index", i);
+          dot.addEventListener("click", () => requestIndex(i));
+          navDotsContainer.appendChild(dot);
+        }
+        const dots = Array.from(document.querySelectorAll(".nav-dot"));
+
+        function clampIndex(index) {
+          return Math.max(0, Math.min(index, totalSlides - 1));
+        }
+
+        function updateUI() {
+          dots.forEach((dot, i) =>
+            dot.classList.toggle("active", i === currentIndex),
+          );
+          navCounter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+          progressBar.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
+        }
+
+        function shouldUseFastMode() {
+          const now = performance.now();
+          const isRapid = now - lastInputAt < RAPID_INPUT_WINDOW;
+          lastInputAt = now;
+          return isRapid;
+        }
+
+        function setFastMode(enabled, duration) {
+          document.body.classList.toggle("fast-nav", enabled);
+          clearTimeout(fastModeTimer);
+          if (enabled) {
+            fastModeTimer = setTimeout(
+              () => document.body.classList.remove("fast-nav"),
+              duration + 80,
+            );
+          }
+        }
+
+        function cleanSlideState(duration) {
+          slides.forEach((slide) => {
+            slide.style.transitionDuration = `${duration}ms`;
+          });
+        }
+
+        function goToSlide(index, fast = false) {
+          index = clampIndex(index);
+          if (index === currentIndex) return;
+
+          const duration = fast ? FAST_DURATION : NORMAL_DURATION;
+          clearTimeout(cleanupTimer);
+          cleanSlideState(duration);
+          setFastMode(fast, duration);
+
+          const previousIndex = currentIndex;
+          const currentSlide = slides[previousIndex];
+          const nextSlide = slides[index];
+          const direction = index > previousIndex ? "right" : "left";
+
+          slides.forEach((slide) => {
+            if (slide !== currentSlide && slide !== nextSlide) {
+              slide.classList.remove("active", "exit-left", "exit-right");
+              slide.style.transform = "";
+              slide.style.opacity = "";
+              slide.style.filter = "";
+            }
+          });
+
+          currentSlide.classList.remove("active", "exit-left", "exit-right");
+          currentSlide.classList.add(
+            direction === "right" ? "exit-left" : "exit-right",
+          );
+
+          nextSlide.classList.remove("active", "exit-left", "exit-right");
+          nextSlide.style.transform =
+            direction === "right"
+              ? "scale(0.94) translateX(60px) translateY(20px)"
+              : "scale(0.94) translateX(-60px) translateY(20px)";
+          nextSlide.style.opacity = "0";
+          nextSlide.style.filter = "blur(8px)";
+
+          void nextSlide.offsetWidth;
+
+          nextSlide.classList.add("active");
+          nextSlide.style.transform = "";
+          nextSlide.style.opacity = "";
+          nextSlide.style.filter = "";
+
+          currentIndex = index;
+          updateUI();
+
+          cleanupTimer = setTimeout(() => {
+            slides.forEach((slide, i) => {
+              slide.classList.remove("exit-left", "exit-right");
+              if (i !== currentIndex) slide.classList.remove("active");
+              slide.style.transform = "";
+              slide.style.opacity = "";
+              slide.style.filter = "";
+              slide.style.transitionDuration = "";
+            });
+          }, duration + 80);
+        }
+
+        function requestMove(direction) {
+          const fast = shouldUseFastMode();
+          goToSlide(currentIndex + direction, fast);
+        }
+
+        function requestIndex(index) {
+          const fast = shouldUseFastMode();
+          goToSlide(index, fast);
+        }
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            e.preventDefault();
+            requestMove(1);
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            requestMove(-1);
+          } else if (e.key === "f" || e.key === "F") {
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else {
+              document.documentElement.requestFullscreen();
+            }
+          }
+        });
+
+        document.addEventListener(
+          "wheel",
+          (e) => {
+            if (e.ctrlKey) return;
+            e.preventDefault();
+            const delta =
+              Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+            wheelAccumulator += delta;
+            clearTimeout(wheelResetTimer);
+            wheelResetTimer = setTimeout(() => {
+              wheelAccumulator = 0;
+            }, 140);
+            if (Math.abs(wheelAccumulator) < WHEEL_THRESHOLD) return;
+            const direction = wheelAccumulator > 0 ? 1 : -1;
+            const steps = Math.min(
+              3,
+              Math.max(1, Math.round(Math.abs(wheelAccumulator) / 120)),
+            );
+            wheelAccumulator = 0;
+            const fast = shouldUseFastMode();
+            goToSlide(currentIndex + direction * steps, fast);
+          },
+          { passive: false },
+        );
+
+        document
+          .getElementById("nextBtn")
+          .addEventListener("click", () => requestMove(1));
+        document
+          .getElementById("prevBtn")
+          .addEventListener("click", () => requestMove(-1));
+
+        let touchStartX = 0;
+        document.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+        document.addEventListener("touchend", (e) => {
+          const diff = touchStartX - e.changedTouches[0].screenX;
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) requestMove(1);
+            else requestMove(-1);
+          }
+        });
+
+        updateUI();
+        slides[0].classList.add("active");
+        slides[0].style.transform = "";
+        slides[0].style.opacity = "1";
+        slides[0].style.filter = "blur(0)";
+      })();
+    </script>
+  </body>
+</html>

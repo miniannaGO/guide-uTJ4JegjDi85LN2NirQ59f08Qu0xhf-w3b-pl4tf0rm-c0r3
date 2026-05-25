@@ -1,0 +1,367 @@
+:root {
+  --guide-sidebar-width: 280px;
+  --guide-bg: #19181a;
+  --guide-bg-soft: #221f22;
+  --guide-panel: #2d2a2e;
+  --guide-panel-soft: #403e41;
+  --guide-border: rgba(120, 220, 232, 0.2);
+  --guide-border-soft: rgba(255, 255, 255, 0.1);
+  --guide-text: #fcfcfa;
+  --guide-muted: #939293;
+  --guide-accent: #ff6188;
+  --guide-accent-strong: #ffd866;
+  --guide-accent-orange: #fc9867;
+  --guide-accent-green: #a9dc76;
+  --guide-accent-blue: #78dce8;
+  --guide-accent-purple: #ab9df2;
+  --guide-accent-sky: #7db7ff;
+  --guide-tab-1: var(--guide-accent);
+  --guide-tab-2: var(--guide-accent-orange);
+  --guide-tab-3: var(--guide-accent-strong);
+  --guide-tab-4: var(--guide-accent-green);
+  --guide-tab-5: var(--guide-accent-blue);
+  --guide-tab-6: var(--guide-accent-purple);
+  --guide-tab-7: var(--guide-accent-sky);
+  --guide-tab-aux: color-mix(
+    in srgb,
+    var(--guide-muted) 58%,
+    var(--guide-accent-blue)
+  );
+  --guide-tab-8: var(--guide-tab-aux);
+  --guide-tab-9: var(--guide-tab-aux);
+  --guide-tab-10: var(--guide-tab-aux);
+  --guide-process-1: #91a4c2;
+  --guide-process-2: #ad9bbd;
+  --guide-process-3: #c0a16d;
+  --guide-process-4: #87a891;
+  --guide-process-5: #bd8f86;
+  --page-color: var(--guide-tab-5);
+  --page-color-companion: var(--guide-tab-6);
+  --guide-danger: #ff6188;
+  --bs-body-bg: var(--guide-bg);
+  --bs-body-color: var(--guide-text);
+  --bs-secondary-color: var(--guide-muted);
+  --bs-border-color: var(--guide-border-soft);
+  --bs-link-color: var(--guide-accent-blue);
+  --bs-link-hover-color: var(--guide-accent-purple);
+  --bs-code-color: var(--guide-accent-strong);
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 12% 4rem,
+      rgba(255, 97, 136, 0.14),
+      transparent 27rem
+    ),
+    radial-gradient(
+      circle at 94% 18rem,
+      rgba(120, 220, 232, 0.1),
+      transparent 24rem
+    ),
+    linear-gradient(180deg, #221f22 0%, #19181a 36rem);
+  color: var(--guide-text);
+}
+
+.guide-shell {
+  min-height: 100vh;
+}
+
+.navbar.bg-white {
+  position: sticky;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 97, 136, 0.12),
+      rgba(120, 220, 232, 0.09) 46%,
+      rgba(171, 157, 242, 0.09)
+    ),
+    rgba(25, 24, 26, 0.9) !important;
+  border-color: rgba(120, 220, 232, 0.16) !important;
+  box-shadow:
+    0 1rem 2.4rem rgba(0, 0, 0, 0.32),
+    inset 0 -1px 0 rgba(252, 252, 250, 0.04);
+  backdrop-filter: blur(18px) saturate(145%);
+}
+
+footer.bg-white {
+  background: rgba(34, 31, 34, 0.92) !important;
+  border-color: var(--guide-border-soft) !important;
+  backdrop-filter: blur(16px);
+}
+
+.navbar.bg-white::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--guide-accent),
+    var(--guide-accent-orange),
+    var(--guide-accent-green),
+    var(--guide-accent-blue),
+    var(--guide-accent-purple),
+    transparent
+  );
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body[class*="guide-page--"] .navbar.bg-white {
+  background:
+    radial-gradient(
+      circle at 18% 0,
+      color-mix(in srgb, var(--page-color) 14%, transparent),
+      transparent 17rem
+    ),
+    radial-gradient(
+      circle at 86% 0,
+      color-mix(in srgb, var(--page-color-companion) 10%, transparent),
+      transparent 18rem
+    ),
+    rgba(25, 24, 26, 0.92) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 26%,
+    transparent
+  ) !important;
+}
+
+body[class*="guide-page--"] .navbar.bg-white::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--page-color) 86%, transparent),
+    color-mix(in srgb, var(--page-color-companion) 68%, transparent),
+    transparent
+  );
+  opacity: 0.86;
+}
+
+.navbar .container-fluid {
+  gap: 0.85rem;
+}
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.68rem;
+  min-width: 0;
+  padding: 0.2rem 0;
+  color: var(--guide-text);
+}
+
+.navbar-brand__logo {
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0.25rem 0.34rem rgba(0, 0, 0, 0.22));
+}
+
+.navbar-brand__text {
+  min-width: 0;
+  line-height: 1;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus-visible {
+  color: #fff;
+}
+
+.navbar .navbar-nav {
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.62rem;
+  padding: 0;
+}
+
+.navbar .nav-link {
+  --nav-color: var(--guide-accent-blue);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  min-height: 2.48rem;
+  padding: 0.52rem 0.28rem;
+  color: color-mix(in srgb, var(--nav-color) 26%, rgba(252, 252, 250, 0.84));
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.7rem;
+  font-weight: 780;
+  line-height: 1.1;
+  white-space: nowrap;
+  transition:
+    color 0.15s ease,
+    text-shadow 0.15s ease;
+}
+
+.navbar .nav-link::before {
+  content: "";
+  width: 0.48rem;
+  height: 0.48rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--nav-color);
+  box-shadow: 0 0 0.78rem color-mix(in srgb, var(--nav-color) 34%, transparent);
+  opacity: 0.78;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  right: 0.18rem;
+  bottom: 0.28rem;
+  left: 0.18rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--nav-color),
+    rgba(252, 252, 250, 0.28)
+  );
+  opacity: 0;
+  transform: scaleX(0.35);
+  transform-origin: left;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.navbar .nav-item:nth-child(1) .nav-link {
+  --nav-color: var(--guide-tab-1);
+}
+
+.navbar .nav-item:nth-child(2) .nav-link {
+  --nav-color: var(--guide-tab-2);
+}
+
+.navbar .nav-item:nth-child(3) .nav-link {
+  --nav-color: var(--guide-tab-3);
+}
+
+.navbar .nav-item:nth-child(4) .nav-link {
+  --nav-color: var(--guide-tab-4);
+}
+
+.navbar .nav-item:nth-child(5) .nav-link {
+  --nav-color: var(--guide-tab-5);
+}
+
+.navbar .nav-item:nth-child(6) .nav-link {
+  --nav-color: var(--guide-tab-6);
+}
+
+.navbar .nav-item:nth-child(7) .nav-link {
+  --nav-color: var(--guide-tab-7);
+}
+
+.navbar .nav-item:nth-child(8) .nav-link {
+  --nav-color: var(--guide-tab-8);
+}
+
+.navbar .nav-item:nth-child(9) .nav-link {
+  --nav-color: var(--guide-tab-9);
+}
+
+.navbar .nav-item:nth-child(10) .nav-link {
+  --nav-color: var(--guide-tab-10);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--bridge {
+  --nav-color: var(--guide-tab-5);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--tools {
+  --nav-color: var(--guide-tab-6);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--recipes {
+  --nav-color: var(--guide-tab-7);
+}
+
+.navbar .guide-nav-link--ecosystem {
+  --nav-color: var(--guide-accent-strong);
+  color: color-mix(in srgb, var(--nav-color) 58%, #fcfcfa);
+  font-weight: 900;
+}
+
+.navbar .guide-nav-link--ecosystem::after {
+  content: "↗";
+  position: static;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin-left: 0.28rem;
+  border-radius: 0;
+  background: transparent;
+  color: currentColor;
+  opacity: 0.82;
+  transform: none;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible {
+  color: #fff;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--nav-color) 36%, transparent);
+}
+
+.navbar .nav-link:hover::before,
+.navbar .nav-link:focus-visible::before {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link:focus-visible::after {
+  opacity: 0.74;
+  transform: scaleX(1);
+}
+
+.navbar .nav-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--nav-color) 44%, transparent);
+  outline-offset: 0.22rem;
+}
+
+.navbar .nav-link.active {
+  color: #fff;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--nav-color) 44%, transparent);
+}
+
+.navbar .nav-link.active::before {
+  opacity: 1;
+  transform: scale(1.16);
+}
+
+.navbar .nav-link.active::after {
+  opacity: 0.95;
+  transform: scaleX(1);
+}
+
+.navbar-toggler {
+  border-color: rgba(120, 220, 232, 0.28);
+  border-radius: 0.85rem;
+  background: rgba(25, 24, 26, 0.55);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(120, 220, 232, 0.16);
+}
+
+.navbar .navbar-collapse.collapsing {
+  transition-duration: 0.1s;
+}
