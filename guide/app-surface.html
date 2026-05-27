@@ -61,7 +61,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -411,9 +411,6 @@
                 </button>
               </div>
               <pre><code id="sf-surface-tree" class="language-text">app-surface/
-  index.html
-  main.ts
-  package.json
   platform/
     infrastructure/
       adapters/
@@ -450,8 +447,6 @@
       swal/
       toast/
     shared/
-  vite.config.constants.ts
-  vite.config.ts
   workspace/
     application/
     integrations/
@@ -462,7 +457,15 @@
       base/
       layouts/
       tokens/
-      vendors/</code></pre>
+      vendors/
+  .prettierrc
+  index.html
+  main.ts
+  package.json
+  package-lock.json
+  tsconfig.json
+  vite.config.constants.ts
+  vite.config.ts</code></pre>
             </div>
             <div class="table-responsive mt-3">
               <table class="table table-striped table-guide align-middle">
@@ -531,6 +534,38 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Convención</span>
+                <strong class="guide-callout__title">
+                  Surface se escribe en TypeScript aunque permita JavaScript.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Permitido por config</strong>
+                  <code>tsconfig.json / allowJs</code>
+                  <span>JavaScript puede coexistir por compatibilidad.</span>
+                </li>
+                <li>
+                  <strong>Convención del código</strong>
+                  <code>app-surface</code>
+                  <span
+                    >Integraciones, runtime, toolkit y workspace van en
+                    TypeScript.</span
+                  >
+                </li>
+                <li>
+                  <strong>Excepciones</strong>
+                  <span
+                    >Assets de documentación, scripts legacy cargados por
+                    Gateway o casos puntuales.</span
+                  >
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -671,12 +706,26 @@
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              Si una necesidad parece pedir un “módulo” con permisos, políticas,
-              reglas de negocio, services propios o lifecycle amplio,
-              seguramente hay lógica de Gateway moviéndose hacia Surface. La
-              decisión debe volver al bridge: qué HTML o JSON debe exponer
-              Gateway.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Frontera</span>
+                <strong class="guide-callout__title">
+                  Si aparece negocio en Surface, vuelve a diseñar el bridge.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Señal de alerta</strong>
+                  <span
+                    >Permisos, políticas, services propios o lifecycle
+                    amplio.</span
+                  >
+                </li>
+                <li>
+                  <strong>Decisión correcta</strong>
+                  <span>Definir qué HTML o JSON debe exponer Gateway.</span>
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -870,6 +919,16 @@
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Registro local</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page
+                          &lt;feature&gt; --id=&lt;data-surface-page&gt;
+                          --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -895,6 +954,23 @@
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">UI, HTTP y helpers</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page
+                          &lt;feature&gt; --id=&lt;data-surface-page&gt;
+                          --layout=control</code
+                        >
+                      </a>
+                      <a href="tools.html#make-integration-api-data">
+                        <code
+                          >composer robo -- make:integration-api-data
+                          &lt;feature&gt; &lt;nameFunction&gt; post
+                          /&lt;feature&gt;/search</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivos</span>
@@ -931,6 +1007,16 @@
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Controles y fragments</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-fragment">
+                        <code
+                          >composer robo -- make:fragment &lt;feature&gt;
+                          &lt;fragment&gt;
+                          --id=&lt;data-surface-fragment&gt;</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivos</span>
@@ -1043,6 +1129,41 @@
                 </tbody>
               </table>
             </div>
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Carga visual inicial</span>
+                <strong class="guide-callout__title">
+                  La página se muestra cuando termina de cargar el CSS de
+                  layout.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Entry</strong>
+                  <code>main.ts</code>
+                  <span>Carga el CSS base.</span>
+                </li>
+                <li>
+                  <strong>Layout assets</strong>
+                  <code>loadLayoutAssets(...)</code>
+                  <span>Importa CSS de `access` o `control`.</span>
+                </li>
+                <li>
+                  <strong>Visibilidad</strong>
+                  <code>document.documentElement.style.visibility</code>
+                  <span>Pasa a `visible` al terminar la carga.</span>
+                </li>
+                <li>
+                  <strong>Optimización</strong>
+                  <span
+                    >Mover CSS crítico al entry o al SSR sería un cambio de
+                    implementación.</span
+                  >
+                </li>
+              </ul>
+            </div>
 
             <h3 class="h5 mt-4">Control layout</h3>
             <ul class="guide-checklist">
@@ -1149,6 +1270,15 @@
                     <h4 class="guided-step__title">
                       Marca el HTML que viene del gateway
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page items
+                          --id=demo-items --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1179,6 +1309,15 @@
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Declara la integración</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page items
+                          --id=demo-items --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1208,6 +1347,15 @@
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Conecta el registry</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page items
+                          --id=demo-items --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1730,11 +1878,27 @@ export default class ItemsPage extends UiBinding {
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              <strong>Mensajes flash:</strong> no viajan por
-              <code>serverClient</code>, envelope ni headers. Gateway los
-              consume al renderizar HTML SSR o fragments; Surface solo monta el
-              HTML resultante si la vista declara <code>data-surface-*</code>.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Mensajes flash</span>
+                <strong class="guide-callout__title">
+                  Son parte del render SSR, no del cliente HTTP de Surface.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>No viajan por</strong>
+                  <code>serverClient / envelope / headers</code>
+                  <span>Gateway los consume antes de entregar HTML.</span>
+                </li>
+                <li>
+                  <strong>Surface</strong>
+                  <code>data-surface-*</code>
+                  <span
+                    >Solo monta el HTML resultante si la vista lo declara.</span
+                  >
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -1956,11 +2120,28 @@ export default class ItemsPage extends UiBinding {
               tiempo.
             </p>
 
-            <div class="guide-callout p-3 rounded">
-              <strong>Regla de frontera:</strong> una integración de
-              <code>workspace</code> puede reaccionar a errores de sesión, pero
-              no debe implementar su propia sesión. Eso vive en
-              <code>platform/infrastructure/session</code> y startup.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Regla de frontera</span>
+                <strong class="guide-callout__title">
+                  Una integración puede reaccionar, pero no implementar sesión.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Workspace</strong>
+                  <code>workspace</code>
+                  <span
+                    >Puede mostrar errores o reaccionar a estado de
+                    sesión.</span
+                  >
+                </li>
+                <li>
+                  <strong>Infraestructura</strong>
+                  <code>platform/infrastructure/session</code>
+                  <span>Con startup administra la sesión real de Surface.</span>
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -1981,11 +2162,65 @@ export default class ItemsPage extends UiBinding {
               </em>
             </p>
 
-            <div class="guide-callout p-3 rounded">
-              La API key, el bearer externo, la base URL del proveedor y la
-              traducción de errores viven en `app-gateway`. En `app-surface`
-              solo debería existir el contrato visible del gateway: ruta,
-              request local y tipo de respuesta esperado.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Consumo seguro</span>
+                <strong class="guide-callout__title">
+                  Surface solo ve el contrato del Gateway.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Vive en Gateway</strong>
+                  <code>API key / bearer / base URL / errores externos</code>
+                  <span
+                    >El navegador no debe cargar credenciales ni URLs de
+                    proveedor.</span
+                  >
+                </li>
+                <li>
+                  <strong>Vive en Surface</strong>
+                  <code>ruta / request local / response esperada</code>
+                  <span>Solo el contrato visible para pintar la interfaz.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Esqueleto progresivo</span>
+                <strong class="guide-callout__title">
+                  Tres comandos agregan el puente API desde una integración
+                  existente.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Data</strong>
+                  <code>make:integration-api-data</code>
+                  <span
+                    >Devuelve directamente `data` tipada desde Surface.</span
+                  >
+                </li>
+                <li>
+                  <strong>JSON</strong>
+                  <code>make:integration-api-json</code>
+                  <span>Conserva el envelope completo del Gateway.</span>
+                </li>
+                <li>
+                  <strong>HTML</strong>
+                  <code>make:integration-api-html</code>
+                  <span>Prepara consumo de fragmentos SSR embebibles.</span>
+                </li>
+              </ul>
+              <p>
+                Los tres crean `api.ts` si falta, agregan una función async
+                lowerCamelCase, registran la ruta, crean o completan controller
+                y dejan `CustomResponse` como marcador para reemplazar por tipos
+                locales de `contracts.ts`.
+              </p>
             </div>
 
             <div class="guided-recipe">
@@ -2003,6 +2238,16 @@ export default class ItemsPage extends UiBinding {
                     <h4 class="guided-step__title">
                       Primero confirma la ruta del gateway
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-data">
+                        <code
+                          >composer robo -- make:integration-api-data items
+                          searchItems post /items/search
+                          --controller-name=Item</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -2033,6 +2278,16 @@ renderFragmentView(...)</code></pre>
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Envuelve la llamada HTTP</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-data">
+                        <code
+                          >composer robo -- make:integration-api-data items
+                          searchItems post /items/search
+                          --controller-name=Item</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -2102,21 +2357,57 @@ fetchItemSummaryHtml(...)</code></pre>
               Surface, aunque el shape coincida con un DTO externo porque
               Gateway hizo passthrough.
             </p>
-            <p>
-              Si la firma viene de Swagger/OpenAPI, genérala con
-              <code
-                >composer robo -- surface:contract &lt;feature&gt;
-                &lt;RequestSignature&gt; &lt;ResponseSignature&gt;
-                &lt;swaggerPath&gt;</code
-              >. El comando agrega un bloque en <code>contracts.ts</code> según
-              <code>surfaceContractGenerator</code> de
-              <code>robo-configurations.json</code>; si la feature no existe,
-              crea su carpeta. Vive junto al generador PHP outbound en
-              <code>tools/HttpContractGenerator</code>: Gateway está en
-              <code>tools/HttpContractGenerator/Gateway</code>, Surface en
-              <code>tools/HttpContractGenerator/Surface</code> y lo compartido
-              en <code>tools/HttpContractGenerator/Shared</code>.
-            </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow"
+                  >Contrato desde OpenAPI</span
+                >
+                <strong class="guide-callout__title">
+                  Usa Robo cuando la firma viene de Swagger/OpenAPI.
+                </strong>
+              </div>
+              <ul class="guide-command-stack">
+                <li>
+                  <strong>Forma general</strong>
+                  <code
+                    >composer robo -- surface:contract &lt;feature&gt;
+                    &lt;RequestSignature&gt; &lt;ResponseSignature&gt;
+                    &lt;swaggerPath&gt;</code
+                  >
+                </li>
+                <li>
+                  <strong>Ejemplo</strong>
+                  <code
+                    >composer robo -- surface:contract items ItemSearchRequest
+                    ItemSummaryResponse
+                    ../tools/HttpContractGenerator/Specs/external-api.json</code
+                  >
+                </li>
+              </ul>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Salida</strong>
+                  <code>contracts.ts</code>
+                  <span
+                    >Agrega el bloque TypeScript dentro de la integración.</span
+                  >
+                </li>
+                <li>
+                  <strong>Configuración</strong>
+                  <code>surfaceContractGenerator</code>
+                  <span>Define destinos desde `robo-configurations.json`.</span>
+                </li>
+                <li>
+                  <strong>Feature nueva</strong>
+                  <span>Si la carpeta no existe, el comando la crea.</span>
+                </li>
+                <li>
+                  <strong>Generadores</strong>
+                  <code>Gateway / Surface / Shared</code>
+                  <span>Viven bajo `tools/HttpContractGenerator`.</span>
+                </li>
+              </ul>
+            </div>
             <div class="code-card">
               <div class="code-card__bar">
                 <span>@workspace/integrations/items/contracts.ts</span>
@@ -2154,6 +2445,11 @@ export class ItemSummary {
               Centraliza las llamadas HTTP dentro de la carpeta de la
               integración. `api.ts` conoce rutas Gateway, método HTTP y tipos
               importados desde `contracts.ts`; no conoce DOM ni feedback visual.
+              Si la ruta todavía no existe, los comandos
+              <code>make:integration-api-data</code>,
+              <code>make:integration-api-json</code> y
+              <code>make:integration-api-html</code> crean el esqueleto
+              coordinado entre <code>api.ts</code>, controller y routing.
             </p>
             <div class="code-card">
               <div class="code-card__bar">
@@ -2229,13 +2525,24 @@ export async function runItemSearch(query: string): Promise&lt;{ total: number; 
                 </button>
               </div>
               <pre><code id="sf-consume-page" class="language-typescript">import { UiBinding } from "@/platform/runtime/binding";
+import {
+  mountHtmlContent,
+  unmountHtmlContent,
+  type MountedContent,
+} from "@/toolkit/dom/content";
 import { runItemSearch } from "./actions";
 
 export default class ItemsPage extends UiBinding {
+  private summaryContent?: MountedContent;
+
   protected mount(): void {
     const searchButton = this.require&lt;HTMLButtonElement&gt;("#btn-search-items");
 
-    this.onClick(searchButton, () => this.search());
+    this.onClick(searchButton, () =&gt; this.search());
+  }
+
+  protected async unmount(): Promise&lt;void&gt; {
+    await unmountHtmlContent(this.summaryContent);
   }
 
   private async search(): Promise&lt;void&gt; {
@@ -2244,8 +2551,12 @@ export default class ItemsPage extends UiBinding {
 
     this.require("#item-count").textContent = String(result.total);
 
-    if (result.firstHtml)
-      this.setHtml("#item-summary-container", result.firstHtml);
+    if (!result.firstHtml) return;
+
+    const summary = this.require&lt;HTMLElement&gt;("#item-summary-container");
+    await unmountHtmlContent(this.summaryContent);
+    summary.innerHTML = result.firstHtml;
+    this.summaryContent = await mountHtmlContent(summary, this.contentMount);
   }
 }</code></pre>
             </div>
@@ -2711,8 +3022,22 @@ export default class ItemsPage extends UiBinding {
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              Todo adapter que crea estado externo debe destruirse en `unmount`.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Cleanup</span>
+                <strong class="guide-callout__title">
+                  Todo adapter con estado externo debe limpiarse al desmontar.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Punto de salida</strong>
+                  <code>unmount</code>
+                  <span
+                    >Destruye instancias, listeners o contenido dinámico.</span
+                  >
+                </li>
+              </ul>
             </div>
             <ul class="guide-checklist">
               <li>
@@ -2740,7 +3065,11 @@ export default class ItemsPage extends UiBinding {
               <em>
                 Si el asset no carga, deben revisarse
                 <a href="bridge.html#assets">Assets Vite</a>,
-                <a href="getting-started.html#env">Archivo .env</a> y
+                <a href="getting-started.html#env">Archivo .env</a>,
+                <a href="getting-started.html#dependencies"
+                  >qué instala Surface</a
+                >
+                y
                 <a href="troubleshooting.html">Ayuda</a>.
               </em>
             </p>
@@ -2757,6 +3086,34 @@ export default class ItemsPage extends UiBinding {
               </div>
               <pre><code id="sf-build" class="language-bash">cd app-surface
 npm run lite:build</code></pre>
+            </div>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Build local</span>
+                <strong class="guide-callout__title">
+                  Usa watch para velocidad y build completo para validar.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Watch rápido</strong>
+                  <code>npm run lite:build</code>
+                  <span
+                    >Ejecuta `vite build --watch` y recompila al cambiar
+                    Surface.</span
+                  >
+                </li>
+                <li>
+                  <strong>Salida</strong>
+                  <code>app-gateway/{PUBLIC_PATH}/ui-assets</code>
+                  <span>Gateway publica los assets ya emitidos por Vite.</span>
+                </li>
+                <li>
+                  <strong>Validación completa</strong>
+                  <code>npm run build</code>
+                  <span>Ejecuta `tsc && vite build` antes de publicar.</span>
+                </li>
+              </ul>
             </div>
             <div class="table-responsive">
               <table class="table table-striped table-guide">
@@ -2932,7 +3289,7 @@ npm run lite:build</code></pre>
             </p>
 
             <div
-              class="file-flow file-flow--purple"
+              class="file-flow"
               aria-label="Mapa archivo por archivo de Surface"
             >
               <article class="file-flow__item">
@@ -2955,6 +3312,15 @@ npm run lite:build</code></pre>
                   ><code class="language-html">&lt;div data-surface-page="demo-items"&gt;
   &lt;section data-item-summary&gt;&lt;/section&gt;
 &lt;/div&gt;</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-page">
+                      <code
+                        >composer robo -- make:integration-page items
+                        --id=demo-items --layout=control</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> el registry de Surface que
                     conoce la integración <code>demo-items</code>.
@@ -2982,6 +3348,15 @@ npm run lite:build</code></pre>
                   ><code class="language-typescript">id: "demo-items",
 layout: "control",
 page: { load: () => import("./page") }</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-page">
+                      <code
+                        >composer robo -- make:integration-page items
+                        --id=demo-items --layout=control</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> <code>page.ts</code> y a los
                     fragment bindings registrados.
@@ -3015,6 +3390,23 @@ page: { load: () => import("./page") }</code></pre>
   body: form,
   expect: { kind: "fragment", fragmentId: "item-summary" },
 });</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-api-html">
+                      <code
+                        >composer robo -- make:integration-api-html items
+                        fetchSummary post /items/summary
+                        --controller-name=Item</code
+                      >
+                    </a>
+                    <a href="tools.html#surface-contract-generator">
+                      <code
+                        >composer robo -- surface:contract items
+                        ItemSummaryRequest ItemSummaryResponse
+                        &lt;swaggerPath&gt;</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> el binding, como HTML o data ya
                     validada por <code>serverClient</code>.
@@ -3065,10 +3457,20 @@ return await searchItems(request);</code></pre>
                   </p>
                   <pre
                     class="file-flow__snippet"
-                  ><code class="language-typescript">this.onSubmit(form, async () => {
+                  ><code class="language-typescript">form.addEventListener("submit", async (event) => {
+  event.preventDefault();
   const result = await runItemSearch(readQuery(form));
   target.textContent = String(result.total);
 });</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-page">
+                      <code
+                        >composer robo -- make:integration-page items
+                        --id=demo-items --layout=control</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> el DOM; si inserta un fragment,
                     <code>FragmentRuntime</code> lo detecta.
@@ -3095,6 +3497,15 @@ return await searchItems(request);</code></pre>
                     class="file-flow__snippet"
                   ><code class="language-typescript">const refresh = this.find&lt;HTMLButtonElement&gt;("[data-refresh-summary]");
 if (!refresh) return;</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-fragment">
+                      <code
+                        >composer robo -- make:fragment items summary
+                        --id=item-summary</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> eventos locales del fragment y
                     limpieza automática al desmontar.
@@ -3120,8 +3531,8 @@ if (!refresh) return;</code></pre>
                   </p>
                   <pre
                     class="file-flow__snippet"
-                  ><code class="language-typescript">const select = await select2Adapter.mount(node);
-this.cleanup(() => select.destroy());</code></pre>
+                  ><code class="language-typescript">select2Adapter.initialize({ element: node });
+select2Adapter.destroy(node);</code></pre>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> el binding que lo pidió y su
                     ciclo de vida.
@@ -3193,10 +3604,30 @@ this.cleanup(() => select.destroy());</code></pre>
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              Surface no decide permisos, intención de aplicación ni
-              credenciales externas. Si necesita datos de negocio, pide una ruta
-              del gateway y respeta el contrato HTML o JSON que reciba.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Límite Surface</span>
+                <strong class="guide-callout__title">
+                  Surface activa UI, no decide reglas de aplicación.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>No decide</strong>
+                  <span
+                    >Permisos, intención de aplicación ni credenciales
+                    externas.</span
+                  >
+                </li>
+                <li>
+                  <strong>Consume</strong>
+                  <code>HTML / JSON</code>
+                  <span
+                    >Solicita una ruta Gateway y respeta el contrato
+                    recibido.</span
+                  >
+                </li>
+              </ul>
             </div>
           </section>
 

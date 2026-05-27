@@ -6,24 +6,26 @@
     ["app-gateway.html", "Gateway"],
     ["app-surface.html", "Surface"],
     ["bridge.html", "Bridge"],
-    ["tools.html", "Tools"],
+    ["tools.html", "Herramientas"],
     ["recipes.html", "Guías"],
     ["diagrams.html", "Diagramas"],
     ["reference.html", "Referencia"],
     ["troubleshooting.html", "Ayuda"],
-    ["bondades.html", "Ecosistema"],
+    ["pillars-capabilities.html", "Capacidades"],
   ];
 
   const guideNavigationAccentClasses = {
     "bridge.html": "guide-nav-link--bridge",
     "tools.html": "guide-nav-link--tools",
     "recipes.html": "guide-nav-link--recipes",
-    "bondades.html": "guide-nav-link--ecosystem",
+    "pillars-capabilities.html": "guide-nav-link--ecosystem",
   };
 
   const guideSearchPages = [
     ["index.html", "Inicio"],
-    ...guideNavigationItems.filter(([href]) => href !== "bondades.html"),
+    ...guideNavigationItems.filter(
+      ([href]) => href !== "pillars-capabilities.html",
+    ),
   ];
 
   const guideSearchAliases = {

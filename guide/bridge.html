@@ -61,7 +61,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -255,7 +255,7 @@
             </p>
 
             <div
-              class="file-flow file-flow--green"
+              class="file-flow"
               aria-label="Mapa de traspasos entre Gateway y Surface"
             >
               <article class="file-flow__item">
@@ -278,6 +278,15 @@
                   ><code class="language-html">&lt;div data-surface-page="demo-items"&gt;
   &lt;form data-item-search&gt;...&lt;/form&gt;
 &lt;/div&gt;</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-page">
+                      <code
+                        >composer robo -- make:integration-page items
+                        --id=demo-items --layout=control</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Traspaso:</strong> el browser recibe HTML con un
                     contrato declarativo.
@@ -304,6 +313,15 @@
                     class="file-flow__snippet"
                   ><code class="language-typescript">id: "demo-items",
 page: { load: () => import("./page") }</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-page">
+                      <code
+                        >composer robo -- make:integration-page items
+                        --id=demo-items --layout=control</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Traspaso:</strong> el runtime monta
                     <code>page.ts</code> sobre el nodo SSR.
@@ -330,9 +348,20 @@ page: { load: () => import("./page") }</code></pre>
                   </p>
                   <pre
                     class="file-flow__snippet"
-                  ><code class="language-typescript">this.onSubmit(form, async () => {
+                  ><code class="language-typescript">form.addEventListener("submit", async (event) => {
+  event.preventDefault();
   target.innerHTML = await searchItems(new FormData(form));
 });</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-api-html">
+                      <code
+                        >composer robo -- make:integration-api-html items
+                        searchItems post /items/summary
+                        --controller-name=ItemFragment</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Traspaso:</strong> Gateway recibe una request HTTP
                     normal.
@@ -362,6 +391,16 @@ page: { load: () => import("./page") }</code></pre>
                     class="file-flow__snippet"
                   ><code class="language-php">$router->post('/items/summary', [ItemFragmentController::class, 'summary']);
 return $this->renderFragmentView('items/summary.fragment', $result->data());</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-api-html">
+                      <code
+                        >composer robo -- make:integration-api-html items
+                        summary post /items/summary
+                        --controller-name=ItemFragment</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Traspaso:</strong> el use case recibe un input de
                     aplicación, no un detalle del DOM.
@@ -392,6 +431,24 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                   ><code class="language-php">return $this->runConnectorFlow(
   fn(ConnectorFlowInterface $flow) => $this->service->summary($input, $flow)
 );</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-use-case">
+                      <code
+                        >composer robo -- make:use-case SummaryItems
+                        --use-case-folder=Items</code
+                      >
+                    </a>
+                    <a href="tools.html#make-service">
+                      <code
+                        >composer robo -- make:service ItemSummary
+                        --use-case=SummaryItems</code
+                      >
+                    </a>
+                    <a href="tools.html#make-connector">
+                      <code>composer robo -- make:connector ExternalItem</code>
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Traspaso:</strong> una respuesta HTML, JSON o un
                     error normalizado.
@@ -422,6 +479,22 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                   ><code class="language-html">&lt;section data-surface-fragment="item-summary"&gt;
   &lt;button data-refresh-summary&gt;Actualizar&lt;/button&gt;
 &lt;/section&gt;</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-api-html">
+                      <code
+                        >composer robo -- make:integration-api-html items
+                        summary get /items/summary
+                        --controller-name=ItemFragment</code
+                      >
+                    </a>
+                    <a href="tools.html#make-fragment">
+                      <code
+                        >composer robo -- make:fragment items summary
+                        --id=item-summary</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Traspaso:</strong> UI activa sobre HTML de servidor.
                   </p>
@@ -474,11 +547,23 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              Si una pieza del flujo parece necesitar reglas de negocio en
-              Surface, la decisión debe volver a la frontera: Gateway decide
-              aplicación y Surface activa interacción sobre contratos ya
-              definidos.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Frontera</span>
+                <strong class="guide-callout__title">
+                  Si aparece negocio en Surface, vuelve al contrato del Gateway.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Gateway</strong>
+                  <span>Decide intención de aplicación.</span>
+                </li>
+                <li>
+                  <strong>Surface</strong>
+                  <span>Activa interacción sobre contratos ya definidos.</span>
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -599,6 +684,15 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Página completa</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page items
+                          --id=demo-items --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Gateway</span>
@@ -625,6 +719,22 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Fragment HTML</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-html">
+                        <code
+                          >composer robo -- make:integration-api-html items
+                          summary get /items/summary
+                          --controller-name=Items</code
+                        >
+                      </a>
+                      <a href="tools.html#make-fragment">
+                        <code
+                          >composer robo -- make:fragment items summary
+                          --id=item-summary</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Gateway</span>
@@ -651,6 +761,15 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Registry global</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page items
+                          --id=demo-items --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -899,6 +1018,16 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                     <h4 class="guided-step__title">
                       Declara la URL del gateway
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-data">
+                        <code
+                          >composer robo -- make:integration-api-data items
+                          fetchSummary get /items/summary
+                          --controller-name=Item</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -926,6 +1055,16 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Adapta HTTP a aplicación</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-data">
+                        <code
+                          >composer robo -- make:integration-api-data items
+                          fetchSummary get /items/summary
+                          --controller-name=Item</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -955,6 +1094,21 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                     <h4 class="guided-step__title">
                       Resuelve intención y datos
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-use-case">
+                        <code
+                          >composer robo -- make:use-case GetItemSummary
+                          --use-case-folder=Items</code
+                        >
+                      </a>
+                      <a href="tools.html#make-service">
+                        <code
+                          >composer robo -- make:service Item
+                          --use-case=GetItemSummary</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivos</span>
@@ -989,6 +1143,20 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                     <h4 class="guided-step__title">
                       Encapsula proveedor externo
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-service-client">
+                        <code
+                          >composer robo -- make:service-client
+                          ExternalApi</code
+                        >
+                      </a>
+                      <a href="tools.html#make-connector">
+                        <code
+                          >composer robo -- make:connector ExternalItem</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Carpetas</span>
@@ -1022,6 +1190,23 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Pide datos desde Surface</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-data">
+                        <code
+                          >composer robo -- make:integration-api-data items
+                          fetchSummary get /items/summary
+                          --controller-name=Item</code
+                        >
+                      </a>
+                      <a href="tools.html#surface-contract-generator">
+                        <code
+                          >composer robo -- surface:contract items
+                          ItemSummaryRequest ItemSummaryResponse
+                          &lt;swaggerPath&gt;</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivos</span>
@@ -1062,14 +1247,80 @@ return $this->renderFragmentView('items/summary.fragment', $result->data());</co
             </div>
 
             <h3 class="h5 mt-4">Contrato visible para Surface</h3>
-            <p>
-              Surface no ve `services.json`, tokens, DTOs externos ni URLs del
-              proveedor. Solo ve rutas del gateway y tipos locales para pintar
-              la interfaz. Esos tipos locales viven en `contracts.ts` como
-              clases exportadas con defaults y constructor `Partial&lt;T&gt;`;
-              `api.ts` los usa para tipar `serverClient`, y `actions.ts` arma el
-              request desde valores recibidos por `page.ts` o por un fragment.
-            </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Límite del navegador</span>
+                <strong class="guide-callout__title">
+                  Surface ve el contrato Gateway, no los detalles del proveedor.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>No visible</strong>
+                  <code>services.json</code>
+                  <span
+                    >También quedan fuera tokens, URLs y DTOs externos.</span
+                  >
+                </li>
+                <li>
+                  <strong>Tipos locales</strong>
+                  <code>contracts.ts</code>
+                  <span
+                    >Clases con defaults y constructor `Partial&lt;T&gt;`.</span
+                  >
+                </li>
+                <li>
+                  <strong>Cliente</strong>
+                  <code>api.ts / serverClient</code>
+                  <span>Tipa llamadas al Gateway visible desde Surface.</span>
+                </li>
+                <li>
+                  <strong>Acción UI</strong>
+                  <code>actions.ts / page.ts</code>
+                  <span
+                    >Arma el request desde valores de la página o
+                    fragment.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Puente con Robo</span>
+                <strong class="guide-callout__title">
+                  Crea el esqueleto, luego reemplaza los tipos temporales.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Page SSR</strong>
+                  <code>make:integration-page</code>
+                  <span>Crea la página base y la integración Surface.</span>
+                </li>
+                <li>
+                  <strong>Fragments</strong>
+                  <code>make:fragment</code>
+                  <span
+                    >Registra bindings dentro de una integración
+                    existente.</span
+                  >
+                </li>
+                <li>
+                  <strong>API progresiva</strong>
+                  <code>make:integration-api-data/json/html</code>
+                  <span
+                    >Agrega `api.ts`, ruta y action Gateway coordinadas.</span
+                  >
+                </li>
+                <li>
+                  <strong>Contrato final</strong>
+                  <code>CustomResponse -> contracts.ts</code>
+                  <span
+                    >Sustituye el marcador por tipos locales de Surface.</span
+                  >
+                </li>
+              </ul>
+            </div>
             <div class="row g-3">
               <div class="col-lg-6">
                 <div class="code-card h-100">
@@ -1186,11 +1437,28 @@ const summary = await serverClient.data&lt;ItemSummary, ItemSummaryRequest&gt;("
               </table>
             </div>
 
-            <div class="guide-callout p-3 rounded">
-              Si una integración UI necesita datos de compras, ventas, una
-              dependencia externa, primero debe existir una intención en
-              Gateway. El navegador no debería hablar con el proveedor externo
-              ni cargar sus credenciales.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Datos externos</span>
+                <strong class="guide-callout__title">
+                  El navegador no habla con proveedores ni carga credenciales.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Primero</strong>
+                  <span
+                    >Debe existir una intención de aplicación en Gateway.</span
+                  >
+                </li>
+                <li>
+                  <strong>Después</strong>
+                  <span
+                    >Surface consume una ruta Gateway con contrato HTML o
+                    JSON.</span
+                  >
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -1310,7 +1578,11 @@ const summary = await serverClient.data&lt;ItemSummary, ItemSummaryRequest&gt;("
               <code>expiresAtUnix</code> con <code>SESSION_TIME</code>. Si una
               respuesta es "no", la request puede continuar, pero
               <code>X-REMAINING</code> seguirá mostrando el vencimiento
-              anterior.
+              anterior. <code>SESSION_REFRESH_COOLDOWN</code> no suma tiempo por
+              sí mismo: solo evita escribir una nueva expiración demasiado
+              pronto; aunque haya pasado el cooldown, Gateway vuelve a refrescar
+              únicamente si la tab está otra vez dentro de
+              <code>SESSION_REFRESH_WINDOW</code>.
             </p>
             <h3 class="h5 mt-4">Cómo trabaja entre pestañas</h3>
             <p>
@@ -2094,13 +2366,13 @@ const summary = await serverClient.data&lt;ItemSummary, ItemSummaryRequest&gt;("
                 </a>
               </div>
               <div class="col-md-6">
-                <a class="guide-card-link" href="recipes.html">
+                <a class="guide-card-link" href="tools.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <h3 class="h5">Continuar con: Guías prácticas</h3>
+                      <h3 class="h5">Continuar con: Herramientas</h3>
                       <p class="mb-0">
-                        Convierte los contratos del bridge en pasos concretos
-                        para crear páginas, fragments, endpoints y adapters.
+                        Revisa los comandos Robo y generadores que automatizan
+                        páginas, fragments, endpoints y contratos.
                       </p>
                     </div>
                   </div>

@@ -61,7 +61,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -106,6 +106,7 @@
                 <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
                   <a class="nav-link" href="#requirements">Requisitos</a>
                   <a class="nav-link" href="#install">Instalación</a>
+                  <a class="nav-link" href="#dependencies">Qué se instala</a>
                   <a class="nav-link" href="#env">Archivo .env</a>
                   <a class="nav-link" href="#run">Ejecución local</a>
                   <a class="nav-link" href="#validate">Validación</a>
@@ -121,7 +122,7 @@
             <h2>Requisitos</h2>
             <p>
               Esta guía asume un entorno local de desarrollo. El proyecto actual
-              usa PHP para `app-gateway` y Typescript/Vite para `app-surface`.
+              usa PHP para `app-gateway` y TypeScript/Vite para `app-surface`.
             </p>
             <p class="guide-crosslink">
               <em>
@@ -204,10 +205,821 @@ cd app-surface
 npm install</code></pre>
             </div>
 
-            <div class="guide-callout p-3 rounded">
-              <strong>Regla práctica:</strong> si falla Composer, revisa versión
-              de PHP/extensiones. Si falla npm, revisa Node/npm y elimina
-              instalaciones incompletas antes de reintentar.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Regla práctica</span>
+                <strong class="guide-callout__title">
+                  Cuando una instalación falla, revisa primero el runtime.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Composer</strong>
+                  <span>Valida versión de PHP y extensiones requeridas.</span>
+                </li>
+                <li>
+                  <strong>npm</strong>
+                  <span
+                    >Valida Node/npm y limpia instalaciones incompletas antes de
+                    reintentar.</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Lectura siguiente</span>
+                <strong class="guide-callout__title">
+                  Después de instalar, entiende cuándo participa cada
+                  dependencia.
+                </strong>
+              </div>
+              <p class="mb-0">
+                Continúa con
+                <a href="#dependencies">qué se instala y por qué importa</a>
+                para separar runtime, build, CLI y ayudas de desarrollo.
+              </p>
+            </div>
+          </section>
+
+          <section id="dependencies" class="guide-section">
+            <h2>Qué se instala y por qué importa</h2>
+            <p>
+              Una dependencia es una pieza externa que el proyecto decide usar
+              en lugar de escribirla desde cero. Puede ser una librería para
+              leer variables de entorno, un cliente HTTP para llamar APIs, un
+              compilador de TypeScript, una librería visual o un paquete que
+              solo le da información al editor. Instalar dependencias no
+              significa que todas se ejecuten en producción ni que todas lleguen
+              al navegador.
+            </p>
+            <p>
+              La pregunta útil es: <strong>¿en qué momento participa?</strong>
+              Algunas piezas corren mientras Gateway responde una request real.
+              Otras solo existen cuando ejecutas un comando en consola. Otras
+              compilan los archivos de Surface y desaparecen antes de que el
+              usuario abra la página. Otras no ejecutan nada: solo describen
+              tipos para que TypeScript avise si estás usando mal una API.
+            </p>
+
+            <h3 class="h4 mt-4">Idea conceptual</h3>
+            <div class="row g-3">
+              <div class="col-md-6 col-xl-3">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h4 class="h5">Runtime</h4>
+                    <p class="mb-0">
+                      Lo que puede ejecutarse mientras la aplicación atiende una
+                      request o mientras el navegador usa una pantalla.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-3">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h4 class="h5">Build</h4>
+                    <p class="mb-0">
+                      Lo que transforma TypeScript, CSS y módulos en archivos
+                      finales que Gateway puede publicar.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-3">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h4 class="h5">Tooling</h4>
+                    <p class="mb-0">
+                      Herramientas para generar código, depurar, validar tipos,
+                      limpiar cache o asistir al desarrollo.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-3">
+                <div class="card h-100 concept-card">
+                  <div class="card-body">
+                    <h4 class="h5">Tipos</h4>
+                    <p class="mb-0">
+                      Paquetes que no agregan comportamiento; solo enseñan a
+                      TypeScript cómo se ve una API existente.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="mt-3">
+              En WPC hay dos mundos instalables. Gateway usa Composer porque es
+              PHP; Surface usa npm porque compila TypeScript y assets de
+              navegador. Ambos descargan paquetes, pero resuelven problemas
+              distintos. Composer prepara el backend y sus comandos; npm prepara
+              el frontend y el pipeline que emite archivos estáticos.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Término</th>
+                    <th>Explicación simple</th>
+                    <th>En WPC</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>composer.json</code></td>
+                    <td>
+                      Lista las dependencias directas y scripts del proyecto
+                      PHP.
+                    </td>
+                    <td>
+                      Vive en `app-gateway` y describe lo que Gateway necesita
+                      para arrancar, llamar servicios externos y ejecutar
+                      comandos.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>composer.lock</code></td>
+                    <td>
+                      Fija versiones exactas para que todos instalen lo mismo.
+                    </td>
+                    <td>
+                      Evita que dos máquinas tengan versiones distintas del
+                      contenedor, Guzzle, Dotenv o Robo aunque `composer.json`
+                      use rangos como `^7.4`.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>package.json</code></td>
+                    <td>
+                      Lista dependencias, scripts npm y metadatos del frontend.
+                    </td>
+                    <td>
+                      Vive en `app-surface` y declara Vite, TypeScript,
+                      librerías UI, tipos y comandos como `npm run build`.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>package-lock.json</code></td>
+                    <td>
+                      Fija el árbol exacto de paquetes descargados por npm.
+                    </td>
+                    <td>
+                      Hace reproducible el build de Surface y reduce sorpresas
+                      entre equipos, CI y máquinas locales.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>vendor/</code></td>
+                    <td>Carpeta donde Composer instala paquetes PHP.</td>
+                    <td>
+                      Gateway la usa para autoload, runtime PHP y comandos
+                      locales. No se edita a mano.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>node_modules/</code></td>
+                    <td>Carpeta donde npm instala paquetes JavaScript.</td>
+                    <td>
+                      Surface la usa para compilar. El servidor final no
+                      necesita esta carpeta si ya recibió los assets generados.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h4 mt-4">Flujo mental de instalación a ejecución</h3>
+            <ol class="guide-checklist">
+              <li>
+                <strong>Instalas Gateway:</strong>
+                <code>composer install</code> lee `composer.json` y
+                `composer.lock`, descarga paquetes PHP en `vendor/` y prepara el
+                autoload. Desde ese momento Gateway puede encontrar clases de
+                `App\\`, `Tools\\` y librerías externas.
+              </li>
+              <li>
+                <strong>Instalas Surface:</strong>
+                <code>npm install</code> lee `package.json` y
+                `package-lock.json`, descarga paquetes en `node_modules/` y deja
+                disponibles comandos como Vite, TypeScript y BrowserSync.
+              </li>
+              <li>
+                <strong>Compilas assets:</strong>
+                <code>npm run lite:build</code> o
+                <code>npm run build</code> convierten el código de Surface en
+                archivos CSS/JS y manifest dentro de
+                <code>app-gateway/{PUBLIC_PATH}/ui-assets</code>. Gateway no
+                ejecuta TypeScript; solo publica el resultado.
+              </li>
+              <li>
+                <strong>Atiendes una request:</strong>
+                Gateway usa dependencias PHP de runtime para cargar `.env`,
+                construir contenedor, resolver rutas, renderizar HTML, llamar
+                APIs externas o emitir JSON. Surface se monta sobre ese HTML con
+                los assets ya publicados.
+              </li>
+              <li>
+                <strong>Generas o mantienes código:</strong>
+                comandos como <code>composer robo</code>, dumps de desarrollo y
+                servidores auxiliares viven en dependencias de desarrollo. Son
+                importantes para el equipo, pero no deberían ser requisito para
+                responder cada request web.
+              </li>
+            </ol>
+
+            <h3 class="h4 mt-4">Cómo leer los grupos de dependencias</h3>
+            <p>
+              Los nombres de los grupos parecen obvios, pero conviene leerlos
+              como una decisión de disponibilidad. No dicen solo “qué paquete se
+              instala”; dicen en qué escenarios el proyecto espera encontrar ese
+              paquete.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Grupo</th>
+                    <th>Lectura conceptual</th>
+                    <th>Qué pasa si falta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>require</code></td>
+                    <td>
+                      Dependencias PHP necesarias para que Gateway funcione en
+                      runtime: bootstrap, contenedor, HTTP outbound, entorno o
+                      auditoría.
+                    </td>
+                    <td>
+                      Puede fallar una request real, el bootstrap, un controller
+                      o una integración externa.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>require-dev</code></td>
+                    <td>
+                      Dependencias PHP para comandos, generación, consola o
+                      diagnóstico durante desarrollo.
+                    </td>
+                    <td>
+                      Pueden fallar `composer robo`, dumps o tareas locales,
+                      pero una request web normal no debería depender de ellas.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>dependencies</code></td>
+                    <td>
+                      Librerías JavaScript/CSS que Surface puede usar en código
+                      del navegador, adapters UI o assets publicados.
+                    </td>
+                    <td>
+                      Puede fallar el bundle, una interacción UI, una utilidad
+                      de fecha o una alerta cargada por lazy import.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>devDependencies</code></td>
+                    <td>
+                      Herramientas Node para compilar, validar tipos, leer env
+                      de build, servir localmente o describir APIs legacy.
+                    </td>
+                    <td>
+                      Puede fallar `npm run build`, `npm run lite:build`, el
+                      typecheck o la experiencia del editor, aunque los assets
+                      ya generados puedan seguir sirviéndose.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow"
+                  >Lectura de manifiestos</span
+                >
+                <strong class="guide-callout__title">
+                  Distingue lo directo, lo fijado y lo disponible por entorno.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Dependencias directas</strong>
+                  <span
+                    >Son las declaradas por el proyecto en sus
+                    manifiestos.</span
+                  >
+                </li>
+                <li>
+                  <strong>Versiones exactas</strong>
+                  <code>composer.lock / package-lock.json</code>
+                  <span
+                    >Fijan el árbol instalado, pero no son API pública.</span
+                  >
+                </li>
+                <li>
+                  <strong>Composer</strong>
+                  <code>require / require-dev</code>
+                  <span
+                    >Cambia si está disponible en runtime PHP o solo
+                    tooling.</span
+                  >
+                </li>
+                <li>
+                  <strong>npm</strong>
+                  <code>dependencies / devDependencies</code>
+                  <span
+                    >Cambia si llega a build/runtime Surface o solo
+                    desarrollo.</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <h3 class="h4 mt-4">Composer: Gateway y tooling PHP</h3>
+            <p>
+              `app-gateway/composer.json` define el proyecto PHP. El autoload
+              PSR-4 expone `App\\` hacia `app-gateway/app/` y `Tools\\` hacia
+              `tools/`. Esa segunda entrada es deliberada: permite que comandos
+              Robo de Gateway usen generadores compartidos sin copiar código
+              dentro de `app-gateway`.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Paquete</th>
+                    <th>Grupo</th>
+                    <th>Para qué sirve</th>
+                    <th>Detalle operativo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>vlucas/phpdotenv</code></td>
+                    <td><code>require</code></td>
+                    <td>Carga variables desde el `.env` raíz.</td>
+                    <td>
+                      Gateway lo usa durante bootstrap HTTP y CLI para leer modo
+                      de ejecución, rutas públicas, sesión, assets y overrides
+                      outbound. Es runtime porque el sistema necesita conocer el
+                      entorno antes de construir contenedor, rutas o clientes.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>symfony/dependency-injection</code></td>
+                    <td><code>require</code></td>
+                    <td>Construye y compila el contenedor de servicios.</td>
+                    <td>
+                      Sostiene providers de `Core` y `Extension`, inyección de
+                      controllers, middleware, responses, clients outbound y
+                      servicios compartidos. No es una capa de negocio; es la
+                      infraestructura que evita instanciar dependencias a mano
+                      en cada request.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>symfony/config</code></td>
+                    <td><code>require</code></td>
+                    <td>
+                      Da soporte a carga de configuración y cache compilado.
+                    </td>
+                    <td>
+                      Acompaña al contenedor con `FileLocator`, `ConfigCache` y
+                      piezas de carga PHP. En producción permite fallar claro si
+                      el cache requerido no existe o no está alineado con el
+                      filesystem real.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>guzzlehttp/guzzle</code></td>
+                    <td><code>require</code></td>
+                    <td>Cliente HTTP concreto para integraciones outbound.</td>
+                    <td>
+                      Implementa la conversación técnica con APIs externas
+                      detrás de los contratos internos de HTTP. Los connectors
+                      no deben exponer Guzzle como regla de aplicación; lo
+                      consumen a través de infraestructura y devuelven
+                      resultados del proyecto.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>whichbrowser/parser</code></td>
+                    <td><code>require</code></td>
+                    <td>
+                      Parsea `User-Agent` para auditoría de sesión/navegador.
+                    </td>
+                    <td>
+                      Ayuda a registrar contexto técnico del navegador sin meter
+                      parsing manual en controllers. Es runtime porque el dato
+                      se obtiene durante requests reales.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>consolidation/robo</code></td>
+                    <td><code>require-dev</code></td>
+                    <td>Task runner de comandos `composer robo`.</td>
+                    <td>
+                      Ejecuta scaffolding, generación de contratos y tareas de
+                      mantenimiento. No participa en cada request web. En un
+                      servidor productivo normal puede omitirse con
+                      <code>composer install --no-dev</code> si no se ejecutan
+                      generadores allí.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>symfony/var-dumper</code></td>
+                    <td><code>require-dev</code></td>
+                    <td>Inspección legible de variables durante desarrollo.</td>
+                    <td>
+                      Alimenta herramientas de debug. Sirve para diagnosticar
+                      estructuras complejas sin convertir dumps en contrato
+                      público ni dejarlos como salida normal de aplicación.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>symfony/console</code></td>
+                    <td><code>require-dev</code></td>
+                    <td>Base CLI usada por Robo y comandos de soporte.</td>
+                    <td>
+                      La versión queda fijada para mantener compatible el
+                      runtime de consola con el bridge de deprecaciones usado
+                      por `composer robo`. Es tooling: si un flujo necesita
+                      estar disponible en runtime web, no debe depender de
+                      Console.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 class="h5 mt-4">Scripts Composer</h4>
+            <p>
+              Los scripts no son dependencias, pero explican cómo se invocan
+              piezas instaladas por Composer. Por eso conviene leerlos junto al
+              manifiesto.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Script</th>
+                    <th>Qué ejecuta</th>
+                    <th>Cuándo usarlo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>composer run build:prod</code></td>
+                    <td><code>php bin/gateway build:prod</code></td>
+                    <td>
+                      Prepara el gateway para producción después de compilar
+                      assets y validar configuración.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>composer run cache:clear</code></td>
+                    <td><code>php bin/gateway cache:clear</code></td>
+                    <td>
+                      Limpia cache generado por Gateway cuando cambian
+                      configuración, providers o artefactos compilados.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>composer run logs:prune</code></td>
+                    <td><code>php bin/gateway logs:prune</code></td>
+                    <td>
+                      Ejecuta retención de logs locales según las reglas del
+                      proyecto.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>composer robo</code></td>
+                    <td>
+                      <code>vendor/bin/robo</code> con bridge de compatibilidad
+                    </td>
+                    <td>
+                      Expone los comandos documentados en
+                      <a href="tools.html">Herramientas</a>. Cuando pases
+                      opciones, usa
+                      <code>composer robo -- &lt;command&gt;</code>
+                      para que Composer no las consuma antes de Robo.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h4 mt-4">
+              npm: Surface, build y librerías del navegador
+            </h3>
+            <p>
+              `app-surface/package.json` está marcado como `private` para evitar
+              publicación accidental y usa `type: module` porque Vite, la config
+              y el código TypeScript trabajan como módulos ES. Las dependencias
+              de producción describen librerías que pueden llegar al navegador o
+              a assets publicados; las de desarrollo describen herramientas que
+              hacen posible compilar, tipar y servir Surface.
+            </p>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Paquete</th>
+                    <th>Grupo</th>
+                    <th>Para qué sirve</th>
+                    <th>Detalle operativo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>bootstrap</code></td>
+                    <td><code>dependencies</code></td>
+                    <td>Base visual y JS de componentes Bootstrap.</td>
+                    <td>
+                      Los layouts SSR cargan Bootstrap compilado y los adapters
+                      de Surface leen `window.bootstrap` para modales, toasts y
+                      dropdowns. Se conserva como dependencia de runtime porque
+                      representa una librería UI del navegador, aunque no todos
+                      los módulos la importen directamente desde TypeScript.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>bootstrap-icons</code></td>
+                    <td><code>dependencies</code></td>
+                    <td>Fuente y clases de iconografía Bootstrap.</td>
+                    <td>
+                      Los layouts y estilos de workspace pueden depender de esa
+                      familia de iconos. Es visual, no lógica de negocio; si una
+                      pantalla usa iconos, debe tratarlos como assets de
+                      navegador.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>luxon</code></td>
+                    <td><code>dependencies</code></td>
+                    <td>Manejo de fechas en toolkit y adapters.</td>
+                    <td>
+                      `toolkit/shared/date.ts` y el adapter de `daterangepicker`
+                      usan `DateTime` para parsear, formatear y comparar fechas
+                      sin repartir conversiones manuales por cada integración.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>sweetalert2</code></td>
+                    <td><code>dependencies</code></td>
+                    <td>Alertas, confirmaciones, formularios y toasts UI.</td>
+                    <td>
+                      El adapter `toolkit/feedback/swal` lo carga de forma lazy
+                      con `import("sweetalert2")`. Eso lo mantiene como pieza de
+                      runtime, pero evita cargarlo antes de que una pantalla lo
+                      necesite.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/bootstrap</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos TypeScript para la API de Bootstrap.</td>
+                    <td>
+                      Permite tipar constructores y métodos usados por adapters
+                      sin empaquetar código adicional. El paquete desaparece del
+                      runtime; solo informa al compilador.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/datatables.net</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos para DataTables legacy.</td>
+                    <td>
+                      Surface puede inicializar wrappers sobre tablas ya
+                      renderizadas o plugins cargados por layout. Los tipos
+                      evitan `any` innecesario, pero no instalan el plugin en el
+                      navegador.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/daterangepicker</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos para el plugin `daterangepicker`.</td>
+                    <td>
+                      Acompaña al adapter de fechas que valida la existencia del
+                      plugin jQuery antes de usarlo. El paquete solo describe la
+                      forma de la API.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/jquery</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos para `$` y plugins jQuery legacy.</td>
+                    <td>
+                      Vite marca `jquery` como externo en Rollup; eso significa
+                      que Surface espera el global cargado por el layout y no lo
+                      mete al bundle. Los tipos permiten compilar código que
+                      interactúa con ese global.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/luxon</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos históricos para Luxon.</td>
+                    <td>
+                      Ayuda al compilador en integraciones que consumen
+                      `DateTime`. Aunque Luxon moderno ya publica tipos,
+                      mantener el paquete aquí no cambia el runtime; solo afecta
+                      validación TypeScript.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/moment</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>
+                      Tipos para interoperar con plugins legacy basados en
+                      Moment.
+                    </td>
+                    <td>
+                      `daterangepicker` y ecosistemas heredados suelen exponer
+                      objetos Moment. El tipo evita perder contrato en adapters
+                      aunque la estrategia propia de Surface prefiera Luxon para
+                      lógica nueva.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/node</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos de APIs Node usadas por config/build.</td>
+                    <td>
+                      `vite.config.ts` y `vite.config.constants.ts` usan rutas,
+                      records de entorno y tipos de build. Esto no llega al
+                      navegador; vive en el proceso Node que compila Surface.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>@types/select2</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Tipos para Select2.</td>
+                    <td>
+                      Permite tipar el adapter `toolkit/adapters/select2` y sus
+                      opciones sin convertir Select2 en dependencia empaquetada
+                      por Vite.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>browser-sync</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Servidor/proxy de apoyo para desarrollo local.</td>
+                    <td>
+                      Lo invoca el script `npm run serve`. Es útil para recarga,
+                      proxy o pruebas locales, pero no forma parte del bundle ni
+                      del servidor PHP.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>dotenv</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Lectura de variables durante tooling Node.</td>
+                    <td>
+                      Vite usa carga de entorno desde la raíz del workspace para
+                      construir `__APP_ENV__`, `outDir`, `assetBase`, sourcemaps
+                      y modo de build. No reemplaza a `vlucas/phpdotenv` en
+                      Gateway.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>sass</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>
+                      Compilación de estilos Sass cuando el build lo requiera.
+                    </td>
+                    <td>
+                      Pertenece al pipeline de assets. Si el CSS final ya fue
+                      emitido, el navegador no necesita Sass; solo recibe CSS.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>typescript</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Typecheck y compilación TypeScript.</td>
+                    <td>
+                      `npm run build` ejecuta `tsc` antes de `vite build`. Eso
+                      captura contratos rotos en `workspace`, `platform` y
+                      `toolkit` antes de publicar assets.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>vite</code></td>
+                    <td><code>devDependencies</code></td>
+                    <td>Bundler y dev/build tool de Surface.</td>
+                    <td>
+                      Lee `vite.config.ts`, aplica alias `@`, inyecta
+                      `__APP_ENV__`, genera manifest y publica assets en
+                      `app-gateway/{PUBLIC_PATH}/ui-assets`. Es esencial para
+                      construir, pero el servidor final consume los archivos ya
+                      emitidos.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 class="h5 mt-4">Scripts npm</h4>
+            <div class="table-responsive">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Script</th>
+                    <th>Qué ejecuta</th>
+                    <th>Uso esperado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>npm run dev</code></td>
+                    <td><code>vite</code></td>
+                    <td>
+                      Levanta el servidor de Vite. Útil para pruebas aisladas de
+                      frontend, no representa por completo el HTML SSR de
+                      Gateway.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>npm run build</code></td>
+                    <td><code>tsc &amp;&amp; vite build</code></td>
+                    <td>
+                      Validación completa: primero TypeScript, luego bundle,
+                      manifest y assets publicados.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>npm run preview</code></td>
+                    <td><code>vite preview</code></td>
+                    <td>
+                      Sirve el build de Vite para inspección local. No reemplaza
+                      una prueba real contra Gateway cuando necesitas layout
+                      SSR, sesión o rutas PHP.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>npm run serve</code></td>
+                    <td>
+                      <code>browser-sync start --config bs-config.cjs</code>
+                    </td>
+                    <td>
+                      Flujo auxiliar de desarrollo si existe configuración local
+                      de BrowserSync. No es requisito para runtime productivo.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><code>npm run lite:build</code></td>
+                    <td><code>vite build --watch</code></td>
+                    <td>
+                      Watch rápido usado en onboarding: recompila assets al
+                      cambiar Surface sin ejecutar `tsc` en cada ciclo.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Despliegue</span>
+                <strong class="guide-callout__title">
+                  El servidor final necesita runtime y assets, no todo el
+                  toolchain.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Servidor PHP</strong>
+                  <span>Requiere dependencias Composer de runtime.</span>
+                </li>
+                <li>
+                  <strong>Surface</strong>
+                  <span>Debe llegar con assets ya compilados.</span>
+                </li>
+                <li>
+                  <strong>Build en servidor</strong>
+                  <code>devDependencies</code>
+                  <span>Necesarias solo si el build ocurre allí.</span>
+                </li>
+                <li>
+                  <strong>Assets publicados</strong>
+                  <code>node_modules</code>
+                  <span
+                    >No se necesita en el servidor final si compilas
+                    antes.</span
+                  >
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -574,23 +1386,50 @@ npm install</code></pre>
                   </tr>
                   <tr>
                     <td colspan="3">
-                      <div class="guide-callout p-3 rounded mb-0">
-                        <strong>Tabs en sesión:</strong> el navegador puede
-                        compartir la cookie PHP entre varias pestañas, pero
-                        Surface envía un <code>X-TAB-SESSION</code> distinto por
-                        pestaña. Gateway guarda esas entradas en
-                        <code>$_SESSION['tabs']</code> y las limpia según
-                        <code>SESSION_CLEANUP_INTERVAL</code>. Así una pestaña
-                        puede renovar, expirar o cerrar su contexto sin borrar
-                        directamente el de otra. El refresh efectivo solo ocurre
-                        cuando faltan los segundos de
-                        <code>SESSION_REFRESH_WINDOW</code> o menos y, además,
-                        ya pasó <code>SESSION_REFRESH_COOLDOWN</code> desde el
-                        último refresh real de esa misma tab. Como guía rápida:
-                        login a las 12:00:00 con <code>SESSION_TIME=10</code>
-                        vence a las 12:10:00; una request a las 12:09:35 puede
-                        extender hasta las 12:19:35, pero otra a las 12:09:36 no
-                        vuelve a extender.
+                      <div
+                        class="guide-callout guide-callout--structured p-3 rounded mb-0"
+                      >
+                        <div class="guide-callout__header">
+                          <span class="guide-callout__eyebrow"
+                            >Tabs en sesión</span
+                          >
+                          <strong class="guide-callout__title">
+                            Cookie compartida, contexto por pestaña.
+                          </strong>
+                        </div>
+                        <ul class="guide-key-grid guide-key-grid--compact">
+                          <li>
+                            <strong>Header Surface</strong>
+                            <code>X-TAB-SESSION</code>
+                            <span>Identifica la pestaña activa.</span>
+                          </li>
+                          <li>
+                            <strong>Mapa Gateway</strong>
+                            <code>$_SESSION['tabs']</code>
+                            <span>Guarda entradas separadas por tab.</span>
+                          </li>
+                          <li>
+                            <strong>Limpieza</strong>
+                            <code>SESSION_CLEANUP_INTERVAL</code>
+                            <span
+                              >Controla cuándo se remueven tabs expiradas.</span
+                            >
+                          </li>
+                          <li>
+                            <strong>Refresh efectivo</strong>
+                            <code>SESSION_REFRESH_WINDOW + COOLDOWN</code>
+                            <span
+                              >Debe estar cerca de vencer y fuera del
+                              cooldown.</span
+                            >
+                          </li>
+                        </ul>
+                        <p>
+                          Guía rápida: login 12:00:00 con `SESSION_TIME=10`
+                          vence 12:10:00; una request 12:09:35 puede extender
+                          hasta 12:19:35, pero otra 12:09:36 no vuelve a
+                          extender si el cooldown todavía aplica.
+                        </p>
                       </div>
                     </td>
                   </tr>
@@ -599,18 +1438,48 @@ npm install</code></pre>
                   </tr>
                   <tr>
                     <td colspan="3">
-                      <div class="guide-callout p-3 rounded mb-0">
-                        <strong>Salida de logs:</strong> Gateway usa JSON Lines.
-                        En requests web, Core escribe directo en
-                        <code
-                          >app-gateway/var/log/develop/&lt;semana&gt;/stdout.jsonl</code
-                        >
-                        o en
-                        <code
-                          >app-gateway/var/log/production/&lt;semana&gt;/stdout.jsonl</code
-                        >. En CLI, los eventos salen por <code>stdout</code> y
-                        pueden guardarse con <code>tools/log-collector</code>.
-                        El visor lee la ruta fija del entorno.
+                      <div
+                        class="guide-callout guide-callout--structured p-3 rounded mb-0"
+                      >
+                        <div class="guide-callout__header">
+                          <span class="guide-callout__eyebrow"
+                            >Salida de logs</span
+                          >
+                          <strong class="guide-callout__title">
+                            Gateway escribe JSON Lines por entorno.
+                          </strong>
+                        </div>
+                        <ul class="guide-key-grid">
+                          <li>
+                            <strong>Requests web</strong>
+                            <code
+                              >app-gateway/var/log/{env}/&lt;semana&gt;/stdout.jsonl</code
+                            >
+                            <span
+                              >`develop` o `production` según el entorno.</span
+                            >
+                          </li>
+                          <li>
+                            <strong>CLI</strong>
+                            <code>stdout</code>
+                            <span>Puede persistirse con el collector.</span>
+                          </li>
+                          <li>
+                            <strong>Collector</strong>
+                            <code
+                              >tools/Observability/log-collector/collect.php</code
+                            >
+                            <span>Guarda eventos emitidos desde consola.</span>
+                          </li>
+                          <li>
+                            <strong>Viewer</strong>
+                            <code>tools/Observability/log-viewer</code>
+                            <span
+                              >Ruta de observabilidad permitida por
+                              `.htaccess`.</span
+                            >
+                          </li>
+                        </ul>
                       </div>
                     </td>
                   </tr>
@@ -778,7 +1647,10 @@ npm install</code></pre>
             <p>
               Hay dos piezas: compilar assets de surface y servir gateway. En
               desarrollo usa `lite:build` para mantener Vite recompilando los
-              assets publicados.
+              assets publicados. Ese script ejecuta
+              <code>vite build --watch</code>; no corre <code>tsc</code> antes
+              de cada build. Para una validación completa de TypeScript usa
+              <code>npm run build</code>.
             </p>
             <p class="guide-crosslink">
               <em>

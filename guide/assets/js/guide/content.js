@@ -1,5 +1,9 @@
 (() => {
   window.GuideDocs = window.GuideDocs || {};
+  const currentScript = document.currentScript;
+  const shikiModuleUrl = currentScript?.src
+    ? new URL("../../lib/js/shiki-guide.bundle.js", currentScript.src).href
+    : new URL("assets/lib/js/shiki-guide.bundle.js", window.location.href).href;
   const defaultDarkTheme = "dracula";
   const defaultLightTheme = "snazzy-light";
 
@@ -146,7 +150,7 @@
   async function shikiHighlighter() {
     if (!window.__guideShikiHighlighter) {
       window.__guideShikiHighlighter =
-        import("https://esm.sh/shiki@4.0.2").then(({ createHighlighter }) =>
+        import(shikiModuleUrl).then(({ createHighlighter }) =>
           createHighlighter({
             themes: [defaultDarkTheme, defaultLightTheme],
             langs: [

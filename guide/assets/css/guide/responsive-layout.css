@@ -559,6 +559,20 @@
   }
 }
 
+@media (min-width: 1200px) {
+  .guide-shell > .row > aside.col-xl-2 {
+    flex: 0 0 14%;
+    width: 14%;
+    max-width: 14%;
+  }
+
+  .guide-shell > .row > main.col-xl-10 {
+    flex: 0 0 86%;
+    width: 86%;
+    max-width: 86%;
+  }
+}
+
 @media (min-width: 1600px) {
   .navbar .container-fluid,
   .guide-shell,
@@ -599,12 +613,15 @@
   }
 
   .process-chips {
+    display: grid;
     grid-template-columns: 1fr;
     gap: 0.42rem;
   }
 
   .process-chips li {
-    border-radius: 0.24rem;
+    width: 100%;
+    min-width: 0;
+    border-radius: 0.54rem;
   }
 
   .file-flow__item {

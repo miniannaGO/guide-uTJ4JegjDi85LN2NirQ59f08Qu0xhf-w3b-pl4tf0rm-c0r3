@@ -88,7 +88,7 @@
   --card-color: var(--guide-tab-10);
 }
 
-.guide-card-link[href^="bondades.html"] .concept-card {
+.guide-card-link[href^="pillars-capabilities.html"] .concept-card {
   --card-color: var(--guide-accent-orange);
 }
 
@@ -348,6 +348,189 @@ ol.guide-checklist > li::before {
     linear-gradient(90deg, rgba(255, 97, 136, 0.1), rgba(120, 220, 232, 0.05)),
     rgba(25, 24, 26, 0.56);
   color: var(--guide-text);
+  line-height: 1.58;
+}
+
+.guide-callout--structured {
+  display: grid;
+  gap: 0.82rem;
+  border: 1px solid color-mix(in srgb, var(--page-color) 28%, var(--guide-border-soft));
+  border-left: 0.28rem solid color-mix(in srgb, var(--page-color) 72%, transparent);
+  border-radius: 0.86rem !important;
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      color-mix(in srgb, var(--page-color) 13%, transparent),
+      transparent 18rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 8%, transparent),
+      transparent 48%
+    ),
+    rgba(25, 24, 26, 0.58);
+}
+
+.guide-callout--structured p {
+  margin: 0;
+  color: color-mix(in srgb, var(--guide-muted) 74%, var(--guide-text));
+}
+
+.guide-callout__header {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.guide-callout__eyebrow {
+  color: color-mix(in srgb, var(--page-color) 72%, #fcfcfa);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.guide-callout__title {
+  display: block;
+  color: var(--guide-text);
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.guide-key-grid,
+.guide-command-stack {
+  display: grid;
+  gap: 0.58rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-key-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.guide-key-grid--compact {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.guide-key-grid li {
+  display: grid;
+  gap: 0.24rem;
+  min-width: 0;
+  padding: 0.62rem 0.7rem;
+  border: 1px solid
+    color-mix(in srgb, var(--page-color) 22%, rgba(255, 255, 255, 0.08));
+  border-radius: 0.58rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 9%, transparent),
+      transparent 55%
+    ),
+    rgba(255, 255, 255, 0.028);
+}
+
+.guide-key-grid strong {
+  color: color-mix(in srgb, var(--page-color) 58%, #fcfcfa);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.guide-key-grid span,
+.guide-key-grid small {
+  color: color-mix(in srgb, var(--guide-muted) 82%, var(--guide-text));
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.guide-key-grid code,
+.guide-command-stack code {
+  display: block;
+  max-width: 100%;
+  padding: 0;
+  color: color-mix(in srgb, var(--page-color) 54%, #fcfcfa);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.guide-command-stack {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.guide-command-stack code {
+  padding: 0.58rem 0.66rem;
+  border: 1px solid
+    color-mix(in srgb, var(--page-color) 24%, rgba(255, 255, 255, 0.08));
+  border-radius: 0.54rem;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color) 10%, transparent),
+      rgba(25, 24, 26, 0.5)
+    );
+  color: color-mix(in srgb, var(--guide-accent-strong) 82%, #fcfcfa);
+}
+
+.guide-command-stack strong {
+  color: color-mix(in srgb, var(--page-color) 62%, #fcfcfa);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.guide-command-stack li {
+  display: grid;
+  gap: 0.32rem;
+}
+
+.guide-mini-map {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.4rem), 1fr));
+  gap: 0.48rem;
+  margin: 0.74rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-mini-map li {
+  display: grid;
+  gap: 0.18rem;
+  min-width: 0;
+  padding: 0.5rem 0.58rem;
+  border: 1px solid
+    color-mix(in srgb, var(--card-color, var(--page-color)) 24%, rgba(255, 255, 255, 0.08));
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--card-color, var(--page-color)) 10%, transparent),
+      transparent 58%
+    ),
+    rgba(255, 255, 255, 0.026);
+}
+
+.guide-mini-map strong {
+  color: color-mix(in srgb, var(--card-color, var(--page-color)) 62%, #fcfcfa);
+  font-size: 0.74rem;
+  font-weight: 850;
+  line-height: 1.18;
+}
+
+.guide-mini-map span,
+.guide-mini-map code {
+  display: block;
+  padding: 0;
+  color: color-mix(in srgb, var(--guide-muted) 74%, var(--guide-text));
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.76rem;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
 }
 
 .guide-crosslink {
@@ -379,6 +562,38 @@ ol.guide-checklist > li::before {
 .guide-crosslink a:hover,
 .guide-crosslink a:focus-visible {
   color: #fff;
+}
+
+body[class*="guide-page--"]
+  main
+  .card:not(.concept-card)
+  .card-body
+  > ul
+  a:not(.btn) {
+  color: color-mix(in srgb, var(--page-color) 62%, #fcfcfa);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--page-color) 34%, transparent);
+  font-weight: 760;
+  text-decoration: none;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+body[class*="guide-page--"]
+  main
+  .card:not(.concept-card)
+  .card-body
+  > ul
+  a:not(.btn):hover,
+body[class*="guide-page--"]
+  main
+  .card:not(.concept-card)
+  .card-body
+  > ul
+  a:not(.btn):focus-visible {
+  color: #fff;
+  border-bottom-color: color-mix(in srgb, var(--page-color) 78%, transparent);
 }
 
 .guide-page--getting-started {
@@ -433,40 +648,83 @@ ol.guide-checklist > li::before {
 
 :not(pre) > code {
   color: color-mix(in srgb, var(--guide-accent-strong) 86%, #fcfcfa);
-  background: rgba(255, 216, 102, 0.075);
+  background: rgba(255, 216, 102, 0.055);
+  border: 0;
+  border-radius: 0.2rem;
+  box-shadow: inset 0 -1px 0 rgba(255, 216, 102, 0.18);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-family: var(--bs-font-monospace);
+  font-size: 0.9em;
+  font-weight: 400;
+  padding: 0.1rem 0.36rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.guide-key-grid code,
+.guide-callout--structured .guide-key-grid code {
+  display: block;
+  padding: 0;
+  color: color-mix(in srgb, var(--page-color) 54%, #fcfcfa);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.guide-mini-map code {
+  display: block;
+  padding: 0;
+  color: color-mix(in srgb, var(--guide-muted) 74%, var(--guide-text));
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.76rem;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+
+.guide-callout--structured .guide-command-stack code {
+  display: block;
+  padding: 0.58rem 0.66rem;
+  color: color-mix(in srgb, var(--guide-accent-strong) 82%, #fcfcfa);
+  border: 1px solid
+    color-mix(in srgb, var(--page-color) 24%, rgba(255, 255, 255, 0.08));
+  border-radius: 0.54rem;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color) 10%, transparent),
+      rgba(25, 24, 26, 0.5)
+    );
+  box-shadow: none;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.guide-term {
+  color: color-mix(in srgb, var(--page-color) 42%, var(--guide-text));
+  background: rgb(
+    from color-mix(in srgb, var(--page-color) 85%, black) r g b / 0.25
+  );
   border: 0;
   border-radius: 0.28rem;
-  box-shadow: inset 0 -1px 0 rgba(255, 216, 102, 0.24);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  box-shadow: inset 0 -1px 0
+    rgb(
+    from color-mix(in srgb, var(--page-color) 85%, black) r g b / 0.25
+  );
   font-family: var(--bs-font-monospace);
   font-size: 0.9em;
   font-weight: 400;
   padding: 0.15rem 0.75rem;
-  white-space: normal;
-}
-
-.guide-term {
-  color: color-mix(in srgb, var(--page-color) 36%, var(--guide-text));
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 1%, transparent),
-      color-mix(in srgb, var(--page-color) 5%, transparent)
-    ),
-    linear-gradient(
-      180deg,
-      transparent 62%,
-      color-mix(in srgb, var(--page-color) 10%, transparent) 62%
-    );
-  border: 1px solid color-mix(in srgb, var(--page-color) 18%, transparent);
-  border-radius: 0.24rem;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 500;
-  padding: 0.01rem 0.18rem 0.03rem;
-  box-shadow: none;
   text-decoration: none;
+  white-space: normal;
 }
 
 .guide-page--fundamentals main .card:not(.concept-card) .badge {

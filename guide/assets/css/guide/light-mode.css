@@ -525,6 +525,111 @@ html[data-bs-theme="light"] .guide-crosslink {
   color: rgba(23, 32, 51, 0.82);
 }
 
+html[data-bs-theme="light"] .guide-callout--structured {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 28%,
+    rgba(15, 23, 42, 0.13)
+  );
+  border-left-color: color-mix(in srgb, var(--page-color) 68%, transparent);
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      color-mix(in srgb, var(--page-color) 10%, transparent),
+      transparent 18rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 7%, transparent),
+      transparent 48%
+    ),
+    #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.65rem 1.25rem rgba(15, 23, 42, 0.08);
+}
+
+html[data-bs-theme="light"] .guide-callout--structured p {
+  color: rgba(23, 32, 51, 0.78);
+}
+
+html[data-bs-theme="light"] .guide-callout__eyebrow,
+html[data-bs-theme="light"] .guide-key-grid strong,
+html[data-bs-theme="light"] .guide-command-stack strong {
+  color: color-mix(in srgb, var(--page-color) 76%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-callout__title {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-key-grid li {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 7%, transparent),
+      transparent 55%
+    ),
+    rgba(255, 255, 255, 0.78);
+}
+
+html[data-bs-theme="light"] .guide-key-grid span,
+html[data-bs-theme="light"] .guide-key-grid small {
+  color: rgba(23, 32, 51, 0.72);
+}
+
+html[data-bs-theme="light"] .guide-key-grid code {
+  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-command-stack code {
+  color: #6f4200;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 22%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--page-color) 8%, transparent),
+    rgba(255, 255, 255, 0.82)
+  );
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-mini-map li {
+  border-color: color-mix(
+    in srgb,
+    var(--card-color, var(--page-color)) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--card-color, var(--page-color)) 8%, transparent),
+      transparent 58%
+    ),
+    rgba(255, 255, 255, 0.74);
+}
+
+html[data-bs-theme="light"] .guide-mini-map strong {
+  color: color-mix(in srgb, var(--card-color, var(--page-color)) 76%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-mini-map span,
+html[data-bs-theme="light"] .guide-mini-map code {
+  color: rgba(23, 32, 51, 0.74);
+  background: transparent;
+  box-shadow: none;
+}
+
 html[data-bs-theme="light"] .guide-crosslink a {
   color: color-mix(in srgb, var(--page-color) 72%, #1c2430);
 }
@@ -534,27 +639,79 @@ html[data-bs-theme="light"] .guide-crosslink a:focus-visible {
   color: #111827;
 }
 
+html[data-bs-theme="light"]
+  body[class*="guide-page--"]
+  main
+  .card:not(.concept-card)
+  .card-body
+  > ul
+  a:not(.btn) {
+  color: color-mix(in srgb, var(--page-color) 72%, #1c2430);
+  border-bottom-color: color-mix(in srgb, var(--page-color) 34%, transparent);
+}
+
+html[data-bs-theme="light"]
+  body[class*="guide-page--"]
+  main
+  .card:not(.concept-card)
+  .card-body
+  > ul
+  a:not(.btn):hover,
+html[data-bs-theme="light"]
+  body[class*="guide-page--"]
+  main
+  .card:not(.concept-card)
+  .card-body
+  > ul
+  a:not(.btn):focus-visible {
+  color: #111827;
+  border-bottom-color: color-mix(in srgb, var(--page-color) 72%, transparent);
+}
+
 html[data-bs-theme="light"] :not(pre) > code {
   color: #6f4200;
-  background: rgba(138, 82, 0, 0.1);
-  box-shadow: inset 0 -1px 0 rgba(138, 82, 0, 0.2);
+  background: rgba(138, 82, 0, 0.072);
+  box-shadow: inset 0 -1px 0 rgba(138, 82, 0, 0.16);
+}
+
+html[data-bs-theme="light"] .guide-key-grid code,
+html[data-bs-theme="light"] .guide-callout--structured .guide-key-grid code {
+  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-mini-map code {
+  color: rgba(23, 32, 51, 0.74);
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"]
+  .guide-callout--structured
+  .guide-command-stack
+  code {
+  color: #6f4200;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 22%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--page-color) 8%, transparent),
+    rgba(255, 255, 255, 0.82)
+  );
+  box-shadow: none;
 }
 
 html[data-bs-theme="light"] .guide-term {
   color: color-mix(in srgb, var(--page-color) 42%, var(--guide-text));
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 10%, #ffffff),
-      color-mix(in srgb, var(--page-color) 14%, #ffffff)
-    ),
-    linear-gradient(
-      180deg,
-      transparent 62%,
-      color-mix(in srgb, var(--page-color) 24%, transparent) 62%
-    );
-  border-color: color-mix(in srgb, var(--page-color) 22%, transparent);
-  box-shadow: none;
+  box-shadow: inset 0 -1px 0
+    rgb(from color-mix(in srgb, var(--page-color) 85%, black) r g b / 0.1);
+  background: rgb(
+    from color-mix(in srgb, var(--page-color) 85%, black) r g b / 0.1
+  );
 }
 
 html[data-bs-theme="light"] .guide-hero code,
@@ -613,16 +770,70 @@ html[data-bs-theme="light"] .diagram-list::-webkit-scrollbar-thumb {
   background: color-mix(in srgb, var(--diagram-menu-color) 36%, #c7d7df);
 }
 
-html[data-bs-theme="light"] .guide-action-btn--guides {
-  color: #1c2430;
+html[data-bs-theme="light"]
+  .guide-hero
+  .guide-hero-badges
+  .badge.text-bg-light {
+  color: #344054 !important;
+  border-color: rgba(15, 23, 42, 0.12);
   background:
-    linear-gradient(135deg, rgba(36, 140, 160, 0.18), rgba(109, 91, 183, 0.14)),
-    rgba(255, 255, 255, 0.76);
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(248, 250, 252, 0.9)
+    ),
+    rgba(255, 255, 255, 0.86) !important;
+  box-shadow:
+    0 0.45rem 1rem rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
+html[data-bs-theme="light"] .guide-hero .guide-action-btn {
+  text-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-action-btn--start {
+  color: #22170a;
+  border-color: rgba(178, 119, 20, 0.2) !important;
+  background: linear-gradient(135deg, #ffe58a 0%, #e9ac3f 100%), #e9ac3f;
+  box-shadow:
+    0 1rem 1.95rem rgba(15, 23, 42, 0.16),
+    0 0.3rem 0.82rem rgba(138, 82, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+html[data-bs-theme="light"] .guide-action-btn--guides {
+  color: #172033;
+  border-color: rgba(36, 140, 160, 0.18) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #dce7ed 100%), #dce7ed;
+  box-shadow:
+    0 0.95rem 1.8rem rgba(15, 23, 42, 0.14),
+    0 0.3rem 0.82rem rgba(36, 140, 160, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+html[data-bs-theme="light"] .guide-action-btn--impact {
+  color: #241116;
+  border-color: rgba(183, 73, 75, 0.2) !important;
+  background: linear-gradient(135deg, #ffb98f 0%, #d95272 100%), #d95272;
+  box-shadow:
+    0 1rem 1.95rem rgba(15, 23, 42, 0.16),
+    0 0.3rem 0.82rem rgba(180, 35, 82, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+html[data-bs-theme="light"] .guide-action-btn--start:hover,
+html[data-bs-theme="light"] .guide-action-btn--start:focus-visible,
+html[data-bs-theme="light"] .guide-action-btn--impact:hover,
+html[data-bs-theme="light"] .guide-action-btn--impact:focus-visible,
 html[data-bs-theme="light"] .guide-action-btn--guides:hover,
 html[data-bs-theme="light"] .guide-action-btn--guides:focus-visible {
   color: #111827;
+  border-color: rgba(15, 23, 42, 0.24) !important;
+  box-shadow:
+    0 1.18rem 2.1rem rgba(15, 23, 42, 0.2),
+    0 0.34rem 0.9rem rgba(255, 255, 255, 0.72),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
 }
 
 html[data-bs-theme="light"] .code-card {
@@ -745,18 +956,52 @@ html[data-bs-theme="light"] .process-stage__body p {
 }
 
 html[data-bs-theme="light"] .process-chips li {
-  color: color-mix(in srgb, var(--process-color) 78%, #172033);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--process-color) 11%, #ffffff),
-    rgba(255, 255, 255, 0.68) 76%
+  color: color-mix(in srgb, var(--process-color) 72%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--process-color) 28%,
+    rgba(15, 23, 42, 0.12)
   );
-  box-shadow: inset 2px 0 0
-    color-mix(in srgb, var(--process-color) 48%, transparent);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--process-color) 12%, transparent),
+      transparent 50%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.96),
+      rgba(242, 247, 251, 0.94)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.42rem 0.86rem rgba(15, 23, 42, 0.08);
 }
 
 html[data-bs-theme="light"] .process-chips li::before {
-  background: color-mix(in srgb, var(--process-color) 86%, #172033);
+  color: color-mix(in srgb, var(--process-color) 72%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--process-color) 34%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--process-color) 16%, #ffffff),
+    rgba(255, 255, 255, 0.84)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 0 0.72rem color-mix(in srgb, var(--process-color) 12%, transparent);
+}
+
+html[data-bs-theme="light"] .process-chips li::after {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--process-color) 28%, transparent),
+    transparent
+  );
+  opacity: 0.64;
 }
 
 html[data-bs-theme="light"] .ownership-pane,
@@ -892,6 +1137,38 @@ html[data-bs-theme="light"] .file-flow__handoff {
   background: #f8fbff;
 }
 
+html[data-bs-theme="light"] .file-flow__tool,
+html[data-bs-theme="light"] .guided-tool {
+  border-color: color-mix(
+    in srgb,
+    var(--file-flow-color, var(--page-color)) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--file-flow-color, var(--page-color)) 10%, #ffffff),
+    #f8fbff 68%
+  );
+}
+
+html[data-bs-theme="light"] .file-flow__tool strong,
+html[data-bs-theme="light"] .guided-tool strong,
+html[data-bs-theme="light"] .file-flow__tool a,
+html[data-bs-theme="light"] .guided-tool a {
+  color: color-mix(
+    in srgb,
+    var(--file-flow-color, var(--page-color)) 74%,
+    #172033
+  );
+}
+
+html[data-bs-theme="light"] .file-flow__tool a:hover,
+html[data-bs-theme="light"] .file-flow__tool a:focus-visible,
+html[data-bs-theme="light"] .guided-tool a:hover,
+html[data-bs-theme="light"] .guided-tool a:focus-visible {
+  color: #111827;
+}
+
 html[data-bs-theme="light"] .guided-recipe {
   border-color: rgba(138, 82, 0, 0.28);
   background:
@@ -949,21 +1226,7 @@ html[data-bs-theme="light"] .guided-next {
 
 html[data-bs-theme="light"] .guided-put .guide-term,
 html[data-bs-theme="light"] .guided-result .guide-term {
-  color: color-mix(in srgb, var(--page-color) 70%, #172033);
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 24%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 9%, #ffffff),
-      #ffffff
-    ),
-    #ffffff;
-  box-shadow: inset 0 -1px 0
-    color-mix(in srgb, var(--page-color) 14%, transparent);
+  color: color-mix(in srgb, var(--page-color) 42%, var(--guide-text));
 }
 
 html[data-bs-theme="light"] .guide-checklist li::before {
@@ -1423,6 +1686,17 @@ html[data-bs-theme="light"] .env-table thead th {
     color-mix(in srgb, var(--page-color) 24%, transparent);
 }
 
+html[data-bs-theme="light"] .table-guide a:not(.btn) {
+  color: color-mix(in srgb, var(--page-color) 72%, #1c2430);
+  border-bottom-color: color-mix(in srgb, var(--page-color) 34%, transparent);
+}
+
+html[data-bs-theme="light"] .table-guide a:not(.btn):hover,
+html[data-bs-theme="light"] .table-guide a:not(.btn):focus-visible {
+  color: #111827;
+  border-bottom-color: color-mix(in srgb, var(--page-color) 72%, transparent);
+}
+
 html[data-bs-theme="light"] .env-table__group td {
   color: #253044;
   background: linear-gradient(
@@ -1508,4 +1782,115 @@ html[data-bs-theme="light"] .file-flow__snippet {
 html[data-bs-theme="light"] .env-default {
   background: #f7f8fa;
   border-color: rgba(15, 23, 42, 0.12);
+}
+
+html[data-bs-theme="light"] .guide-callout--structured {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 28%,
+    rgba(15, 23, 42, 0.13)
+  );
+  border-left-color: color-mix(in srgb, var(--page-color) 68%, transparent);
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      color-mix(in srgb, var(--page-color) 10%, transparent),
+      transparent 18rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 7%, transparent),
+      transparent 48%
+    ),
+    #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.65rem 1.25rem rgba(15, 23, 42, 0.08);
+}
+
+html[data-bs-theme="light"] .guide-page--tools #tools-workflows {
+  --bs-accordion-btn-color: color-mix(in srgb, var(--page-color) 76%, #172033);
+  --bs-accordion-active-color: #172033;
+}
+
+html[data-bs-theme="light"]
+  .guide-page--tools
+  #tools-workflows
+  .accordion-item {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 34%,
+    rgba(15, 23, 42, 0.12)
+  ) !important;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in srgb, var(--page-color) 14%, transparent),
+      transparent 18rem
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f3f6fb 100%) !important;
+  box-shadow:
+    inset 0.14rem 0 0 color-mix(in srgb, var(--page-color) 42%, transparent),
+    0 0.75rem 1.55rem rgba(15, 23, 42, 0.1),
+    0 0 1.1rem color-mix(in srgb, var(--page-color) 10%, transparent) !important;
+}
+
+html[data-bs-theme="light"]
+  .guide-page--tools
+  #tools-workflows
+  .accordion-button {
+  color: color-mix(in srgb, var(--page-color) 76%, #172033);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--page-color) 12%, transparent),
+    rgba(255, 255, 255, 0.68) 52%,
+    transparent
+  );
+}
+
+html[data-bs-theme="light"]
+  .guide-page--tools
+  #tools-workflows
+  .accordion-button:hover {
+  color: color-mix(in srgb, var(--page-color) 86%, #111827);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--page-color) 18%, transparent),
+    rgba(255, 255, 255, 0.8) 56%,
+    transparent
+  );
+}
+
+html[data-bs-theme="light"]
+  .guide-page--tools
+  #tools-workflows
+  .accordion-button:not(.collapsed) {
+  color: #172033;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      color-mix(in srgb, var(--page-color) 22%, transparent),
+      transparent 18rem
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color) 22%, transparent),
+      rgba(255, 255, 255, 0.78) 58%,
+      transparent
+    );
+  box-shadow:
+    inset 0 -1px 0 color-mix(in srgb, var(--page-color) 24%, transparent),
+    0 0.55rem 1.1rem color-mix(in srgb, var(--page-color) 10%, transparent);
+}
+
+html[data-bs-theme="light"]
+  .guide-page--tools
+  #tools-workflows
+  .accordion-body {
+  border-top-color: color-mix(in srgb, var(--page-color) 24%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--page-color) 7%, transparent),
+    transparent
+  );
 }

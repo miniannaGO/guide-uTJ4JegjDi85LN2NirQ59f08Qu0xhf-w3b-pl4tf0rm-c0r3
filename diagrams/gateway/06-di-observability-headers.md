@@ -8,8 +8,10 @@ flowchart LR
   subgraph DI["Dependency Injection"]
     ContainerFactory["ContainerFactory"] --> CoreRoot["Core RootProvider"]
     ContainerFactory --> ExtensionApp["Extension AppProvider"]
-    CoreRoot --> CoreTags["Core tags<br/>routes, middleware, bootstrappers, headers"]
-    ExtensionApp --> AppTags["Extension tags<br/>routes, headers, session"]
+    CoreRoot --> CoreProviders["Core providers<br/>application, routing, filesystem,<br/>outbound, observability, errors,<br/>controllers, middleware"]
+    ExtensionApp --> ExtensionProviders["Extension providers<br/>application, controllers, middleware,<br/>routing, responses, runtime, session,<br/>connectors, outbound"]
+    CoreProviders --> CoreTags["Core tags<br/>routes, middleware, bootstrappers, headers"]
+    ExtensionProviders --> AppTags["Extension tags<br/>routes, headers, session"]
   end
 
   subgraph Lifecycle["Request lifecycle"]
@@ -62,7 +64,7 @@ flowchart LR
   classDef obs fill:#3B2F13,stroke:#F59E0B,stroke-width:2px,color:#FEF3C7;
   classDef error fill:#3F1D2B,stroke:#FB7185,stroke-width:2px,color:#FFE4E6;
 
-  class ContainerFactory,CoreRoot,ExtensionApp,CoreTags,AppTags di;
+  class ContainerFactory,CoreRoot,ExtensionApp,CoreProviders,ExtensionProviders,CoreTags,AppTags di;
   class Kernel,LifecycleBegin,RouteDispatcher,Response,LifecycleMark,LifecycleComplete life;
   class ResponseEmitter,HeaderEmitters,Correlation,Remaining,Output header;
   class TelemetryContext,ObservabilityConfig,RequestTelemetryLogger,TracingHttpClient,LogWriterFactory,StreamWriter,WeeklyWriter obs;
@@ -71,10 +73,10 @@ flowchart LR
 
 ## Puntos de control
 
-- Si cambias providers, valida tags y aliases relacionados.
+- Si cambias providers, valida tags y aliases relacionados. `Core` registra infraestructura genérica; `Extension` registra controllers, middlewares, rutas, runtime y outbound concretos de la app.
 - `X-REMAINING` conecta backend session con frontend session countdown.
 - Observabilidad cruza lifecycle, outbound, headers y errores.
-- En web, Core escribe JSONL semanal bajo `var/log/develop` o `var/log/production`; en CLI escribe por `stdout`.
+- En web, Core escribe JSONL semanal bajo `var/log/develop` o `var/log/production`; en CLI escribe por `stdout` y puede persistirse con `tools/Observability/log-collector/collect.php`. El visor permitido bajo `tools/` es `tools/Observability/log-viewer`.
 - `LOG_UPSTREAM_SPANS` controla si se emite detalle por cada llamada upstream.
 - No registres piezas transversales desde una feature si pertenecen a `Core`.
 

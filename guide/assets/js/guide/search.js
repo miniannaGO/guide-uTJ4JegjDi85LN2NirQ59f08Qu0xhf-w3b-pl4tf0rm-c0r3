@@ -419,6 +419,7 @@
   function isExcludedGuideSearchEntry(title, href) {
     return (
       String(href).includes("bondades.html") ||
+      String(href).includes("pillars-capabilities.html") ||
       normalizeGuideSearchText(title).includes("ecosistema")
     );
   }

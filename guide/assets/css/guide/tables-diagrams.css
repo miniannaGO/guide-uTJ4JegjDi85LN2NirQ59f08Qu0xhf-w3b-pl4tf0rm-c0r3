@@ -16,6 +16,23 @@
   background: rgba(255, 216, 102, 0.08);
 }
 
+.table-guide a:not(.btn) {
+  color: color-mix(in srgb, var(--page-color) 62%, #fcfcfa);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--page-color) 34%, transparent);
+  font-weight: 760;
+  text-decoration: none;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.table-guide a:not(.btn):hover,
+.table-guide a:not(.btn):focus-visible {
+  color: #fff;
+  border-bottom-color: color-mix(in srgb, var(--page-color) 78%, transparent);
+}
+
 .env-table-wrap {
   border: 1px solid rgba(255, 255, 255, 0.075);
   border-radius: 0.82rem;

@@ -60,7 +60,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -79,8 +79,8 @@
                 class="nav-link guide-nav-link--ecosystem"
                 target="_blank"
                 rel="noopener"
-                href="bondades.html"
-                >Ecosistema</a
+                href="pillars-capabilities.html"
+                >Capacidades</a
               >
             </li>
           </ul>
@@ -92,7 +92,7 @@
       <div class="container py-4">
         <div class="row align-items-center g-4">
           <div class="col-lg-8">
-            <div class="d-flex flex-wrap gap-2 mb-3">
+            <div class="d-flex flex-wrap gap-2 mb-3 guide-hero-badges">
               <span class="badge text-bg-light">Guía informativa</span>
               <span class="badge text-bg-light">Onboarding</span>
               <span class="badge text-bg-light">Gateway + Surface</span>
@@ -124,9 +124,9 @@
                 class="btn btn-lg guide-action-btn guide-action-btn--impact"
                 target="_blank"
                 rel="noopener"
-                href="bondades.html"
+                href="pillars-capabilities.html"
               >
-                Ecosistema
+                Capacidades
               </a>
             </div>
           </div>
@@ -151,7 +151,7 @@
                     <a href="bridge.html" rel="noopener">Bridge</a>
                   </li>
                   <li>
-                    <a href="tools.html" rel="noopener">Tools</a>
+                    <a href="tools.html" rel="noopener">Herramientas</a>
                   </li>
                   <li>
                     <a href="recipes.html" rel="noopener">Guías prácticas</a>
@@ -267,7 +267,7 @@
             inicia en <a href="getting-started.html">Empezar</a> y continúa con
             <a href="fundamentals.html">Bases</a>, donde se explica cómo se
             conectan las páginas siguientes. Cuando necesites crear componentes
-            o contratos, salta a <a href="tools.html">Tools</a>.
+            o contratos, salta a <a href="tools.html">Herramientas</a>.
           </em>
         </p>
         <div class="row g-3">
@@ -348,12 +348,30 @@
             <a class="guide-card-link" href="tools.html">
               <div class="card h-100 concept-card">
                 <div class="card-body">
-                  <span class="badge text-bg-success mb-2">Tools</span>
+                  <span class="badge text-bg-success mb-2">Herramientas</span>
                   <h2 class="h5">Scaffolding y contratos</h2>
                   <p class="mb-0">
-                    `make:*`, `http:contract`, `surface:contract`,
-                    `robo-configurations.json` y flujos de generación.
+                    Generadores para crear bases repetibles sin decidir la
+                    arquitectura por el dev.
                   </p>
+                  <ul class="guide-mini-map">
+                    <li>
+                      <strong>Scaffolding</strong>
+                      <code>make:*</code>
+                    </li>
+                    <li>
+                      <strong>Surface</strong>
+                      <code>integration-page / fragment / api</code>
+                    </li>
+                    <li>
+                      <strong>Contratos</strong>
+                      <code>http:contract / surface:contract</code>
+                    </li>
+                    <li>
+                      <strong>Configuración</strong>
+                      <code>robo-configurations.json</code>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </a>
@@ -401,11 +419,11 @@
             </a>
           </div>
           <div class="col-md-6 col-xl-3">
-            <a class="guide-card-link" href="bondades.html">
+            <a class="guide-card-link" href="pillars-capabilities.html">
               <div class="card h-100 concept-card">
                 <div class="card-body">
                   <span class="badge text-bg-info mb-2">Stack</span>
-                  <h2 class="h5">Ecosistema</h2>
+                  <h2 class="h5">Capacidades</h2>
                   <p class="mb-0">
                     Presentación sobre valor operativo, onboarding, stack
                     técnico y reducción de complejidad inicial.
@@ -551,6 +569,60 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Lectura inicial</span>
+                <strong class="guide-callout__title">
+                  Ubica primero la responsabilidad y luego entra al archivo.
+                </strong>
+              </div>
+              <ul class="guide-key-grid">
+                <li>
+                  <strong>Rutas</strong>
+                  <code>Extension/Presentation/Http/Routing</code>
+                </li>
+                <li>
+                  <strong>Controllers</strong>
+                  <code>Extension/Presentation/Http/Controller</code>
+                </li>
+                <li>
+                  <strong>Use cases</strong>
+                  <code>Extension/Application/UseCase</code>
+                </li>
+                <li>
+                  <strong>Services</strong>
+                  <code>Extension/Application/Service</code>
+                </li>
+                <li>
+                  <strong>Ports</strong>
+                  <code
+                    >Extension/Application/Port/*ConnectorInterface.php</code
+                  >
+                </li>
+                <li>
+                  <strong>Connectors</strong>
+                  <code>Extension/Infrastructure/Outbound/Connector</code>
+                </li>
+                <li>
+                  <strong>Clients externos</strong>
+                  <code
+                    >Extension/Infrastructure/Outbound/Client/&lt;Service&gt;</code
+                  >
+                </li>
+                <li>
+                  <strong>Vistas SSR</strong>
+                  <code>resources/views</code>
+                </li>
+                <li>
+                  <strong>Bindings Surface</strong>
+                  <code
+                    >app-surface/workspace/integrations/&lt;feature&gt;</code
+                  >
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -700,7 +772,7 @@
       <div class="container-fluid px-3 px-lg-4">
         <p class="mb-0 text-secondary">
           Guía Web Platform Core. Página estática para onboarding y consulta
-          rápida.
+          rápida. Versión 1.0.
         </p>
       </div>
     </footer>

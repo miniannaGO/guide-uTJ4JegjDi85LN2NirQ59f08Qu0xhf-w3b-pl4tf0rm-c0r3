@@ -61,7 +61,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -153,9 +153,9 @@
                     <a class="guide-card-link" href="tools.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Tools</h3>
+                          <h3 class="h5">Herramientas</h3>
                           <p class="mb-0">
-                            Comandos `make:*`, `http:contract`,
+                            Doce comandos `make:*`, `http:contract`,
                             `surface:contract` y configuración Robo.
                           </p>
                         </div>
@@ -229,8 +229,53 @@
                         <ul>
                           <li><code>npm install</code></li>
                           <li><code>npm run lite:build</code></li>
+                          <li><code>npm run build</code></li>
+                          <li><code>npm run preview</code></li>
+                          <li><code>npm run serve</code></li>
                         </ul>
                       </section>
+                    </div>
+                    <div
+                      class="guide-callout guide-callout--structured p-3 rounded mt-3"
+                    >
+                      <div class="guide-callout__header">
+                        <span class="guide-callout__eyebrow">Build rápido</span>
+                        <strong class="guide-callout__title">
+                          Usa el comando liviano para watch y el completo para
+                          validar.
+                        </strong>
+                      </div>
+                      <ul class="guide-key-grid guide-key-grid--compact">
+                        <li>
+                          <strong>Watch</strong>
+                          <code>npm run lite:build</code>
+                          <span
+                            >Ejecuta vite build --watch sin correr tsc en cada
+                            ciclo.</span
+                          >
+                        </li>
+                        <li>
+                          <strong>Validación</strong>
+                          <code>npm run build</code>
+                          <span
+                            >Compila y valida TypeScript de forma
+                            completa.</span
+                          >
+                        </li>
+                        <li>
+                          <strong>Composer</strong>
+                          <code>require / require-dev</code>
+                          <span>Separa runtime de tooling como Robo.</span>
+                        </li>
+                        <li>
+                          <strong>npm</strong>
+                          <code>dependencies / devDependencies</code>
+                          <span
+                            >Separa bundle de herramientas como Vite,
+                            TypeScript, Sass y @types.</span
+                          >
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -241,6 +286,11 @@
                     <h2 class="h4">Lectura viva</h2>
                     <ul class="mb-0">
                       <li><a href="../tutorials/README.md">Tutoriales</a></li>
+                      <li>
+                        <a href="../tutorials/tools/README.md"
+                          >Tutorial de herramientas y comandos Robo</a
+                        >
+                      </li>
                       <li><a href="diagrams.html">Visor de diagramas</a></li>
                       <li>
                         <a href="../diagrams/README.md"
@@ -311,6 +361,36 @@
                     </tbody>
                   </table>
                 </div>
+                <div
+                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
+                >
+                  <div class="guide-callout__header">
+                    <span class="guide-callout__eyebrow"
+                      >Contratos generados</span
+                    >
+                    <strong class="guide-callout__title">
+                      La clase principal respeta PSR-4 y los auxiliares quedan
+                      internos.
+                    </strong>
+                  </div>
+                  <ul class="guide-key-grid guide-key-grid--compact">
+                    <li>
+                      <strong>Comando</strong>
+                      <code>http:contract</code>
+                      <span>Genera contratos PHP para Gateway outbound.</span>
+                    </li>
+                    <li>
+                      <strong>Archivo</strong>
+                      <code>PSR-4</code>
+                      <span>Una request o response principal por archivo.</span>
+                    </li>
+                    <li>
+                      <strong>Auxiliares</strong>
+                      <code>@internal</code>
+                      <span>No son API pública de la aplicación.</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -362,44 +442,6 @@
                         </td>
                       </tr>
                       <tr>
-                        <td><code>composer robo -- surface:contract</code></td>
-                        <td>
-                          Genera bloques TypeScript en
-                          <code
-                            >workspace/integrations/&lt;feature&gt;/contracts.ts</code
-                          >
-                          desde Swagger/OpenAPI.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <code>tools/HttpContractGenerator/Gateway</code>
-                        </td>
-                        <td>
-                          Implementación del generador Gateway/PHP para
-                          contratos outbound.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <code>tools/HttpContractGenerator/Surface</code>
-                        </td>
-                        <td>
-                          Implementación del generador Surface dentro del
-                          generador común de contratos HTTP. Emite clases
-                          TypeScript para
-                          <code>contracts.ts</code>.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>tools/HttpContractGenerator/Shared</code></td>
-                        <td>
-                          Lectura OpenAPI, utilidades de rutas, consola,
-                          reportes y nombres comunes compartidos por Gateway y
-                          Surface.
-                        </td>
-                      </tr>
-                      <tr>
                         <td>
                           <code>data-surface-page-status</code> /
                           <code>data-surface-fragment-status</code>
@@ -440,6 +482,31 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div
+                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
+                >
+                  <div class="guide-callout__header">
+                    <span class="guide-callout__eyebrow">Surface</span>
+                    <strong class="guide-callout__title">
+                      La convención del código nuevo es TypeScript.
+                    </strong>
+                  </div>
+                  <ul class="guide-key-grid guide-key-grid--compact">
+                    <li>
+                      <strong>Compatibilidad</strong>
+                      <code>tsconfig.json / allowJs</code>
+                      <span>Permite JavaScript cuando haga falta.</span>
+                    </li>
+                    <li>
+                      <strong>Convención</strong>
+                      <code>app-surface</code>
+                      <span
+                        >Integraciones, runtime, toolkit y workspace se escriben
+                        en TypeScript.</span
+                      >
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -719,7 +786,13 @@
                         <td><code>CustomPayloadRequestInterface</code></td>
                         <td>
                           Payload especial cuando propiedades públicas no
-                          bastan.
+                          bastan. El factory usa <code>payload()</code> si la
+                          request implementa esta interfaz; si no, usa
+                          <code>get_object_vars(...)</code>. En contratos
+                          generados suele aparecer para serializar fechas:
+                          <code>date-time</code> como
+                          <code>DateTimeInterface::ATOM</code> y
+                          <code>date</code> como <code>Y-m-d</code>.
                         </td>
                       </tr>
                       <tr>
@@ -809,7 +882,9 @@
                       <tr>
                         <td>Manifest Vite</td>
                         <td>
-                          <code>public/ui-assets/.vite/manifest.json</code>.
+                          <code
+                            >app-gateway/{PUBLIC_PATH}/ui-assets/.vite/manifest.json</code
+                          >.
                         </td>
                         <td>Confirma qué entry, CSS e imports se sirven.</td>
                       </tr>

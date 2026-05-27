@@ -61,7 +61,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -531,11 +531,13 @@
               <div class="col-md-6 col-xl-4">
                 <div class="card h-100">
                   <div class="card-body">
-                    <h2 class="h5">Adapter duplicado</h2>
+                    <h2 class="h5">Estado externo sin destruir</h2>
                     <p>
-                      Debe revisarse que `unmount()` destruya
-                      Select2/DataTables/DateRangePicker antes de reemplazar
-                      HTML.
+                      Debe revisarse que `unmount()` destruya o limpie cualquier
+                      plugin legacy, listener externo o estado fuera del binding
+                      antes de reemplazar HTML. El problema no es tener otro
+                      archivo adapter, sino montar estado externo sin su
+                      `destroy` correspondiente.
                     </p>
                     <p class="small mb-0">
                       Ver:
@@ -561,8 +563,66 @@
               Estos fallos viven entre la sesión por pestaña, los headers
               compartidos y el build que deja disponible el código de Surface.
             </p>
-            <div class="row g-3">
-              <div class="col-md-6 col-xl-4">
+            <div class="row g-3 align-items-start">
+              <div class="col-12">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h2 class="h5">Mantener sesión no suma tiempo</h2>
+                    <p>
+                      No toda llamada de refresh extiende la sesión. Gateway
+                      solo suma tiempo cuando la tab está en ventana de
+                      renovación y ya pasó el cooldown.
+                    </p>
+                    <ul class="guide-key-grid guide-key-grid--compact">
+                      <li>
+                        <strong>Respuesta</strong>
+                        <code>X-REMAINING</code>
+                        <span>Confirma si el vencimiento cambió.</span>
+                      </li>
+                      <li>
+                        <strong>Metadata</strong>
+                        <code>tabs.{tabId}.metadata</code>
+                        <span
+                          >Revisa expiración y último refresh de la tab.</span
+                        >
+                      </li>
+                      <li>
+                        <strong>Ventana</strong>
+                        <code>SESSION_REFRESH_WINDOW</code>
+                        <span
+                          >Solo refresca si la tab ya está cerca de
+                          expirar.</span
+                        >
+                      </li>
+                      <li>
+                        <strong>Cooldown</strong>
+                        <code>SESSION_REFRESH_COOLDOWN</code>
+                        <span
+                          >Evita sumar tiempo en requests demasiado
+                          seguidas.</span
+                        >
+                      </li>
+                    </ul>
+                    <p class="small mt-3">
+                      Ejemplo: si renovó a las 12:09:35 y se vuelve a pedir a
+                      las 12:09:36 con `SESSION_REFRESH_COOLDOWN=60`, es normal
+                      que no sume más tiempo.
+                    </p>
+                    <p class="small mb-0">
+                      Ver:
+                      <a href="app-gateway.html#security-session"
+                        >renovación en Gateway</a
+                      >,
+                      <a href="app-surface.html#session-runtime"
+                        >contador en Surface</a
+                      >
+                      y
+                      <a href="app-surface.html#http">hooks de sesión HTTP</a>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
                 <div class="card h-100">
                   <div class="card-body">
                     <h2 class="h5">Sesión por pestaña falla</h2>
@@ -583,35 +643,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-xl-4">
-                <div class="card h-100">
-                  <div class="card-body">
-                    <h2 class="h5">Mantener sesión no suma tiempo</h2>
-                    <p>
-                      Revisar <code>X-REMAINING</code> y los timestamps de
-                      <code>tabs.{tabId}.metadata</code>. Gateway solo refresca
-                      si la tab está dentro de
-                      <code>SESSION_REFRESH_WINDOW</code> y ya pasó
-                      <code>SESSION_REFRESH_COOLDOWN</code> desde
-                      <code>refreshedAtUnix</code>. Si renovó a las 12:09:35 y
-                      se vuelve a pedir a las 12:09:36, es normal que no sume
-                      más tiempo.
-                    </p>
-                    <p class="small mb-0">
-                      Ver:
-                      <a href="app-gateway.html#security-session"
-                        >renovación en Gateway</a
-                      >,
-                      <a href="app-surface.html#session-runtime"
-                        >contador en Surface</a
-                      >
-                      y
-                      <a href="app-surface.html#http">hooks de sesión HTTP</a>.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 col-xl-4">
+              <div class="col-md-6">
                 <div class="card h-100">
                   <div class="card-body">
                     <h2 class="h5">No carga manifest Vite</h2>
@@ -631,7 +663,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-xl-4">
+              <div class="col-md-6">
                 <div class="card h-100">
                   <div class="card-body">
                     <h2 class="h5">Falta una entrada del manifest</h2>

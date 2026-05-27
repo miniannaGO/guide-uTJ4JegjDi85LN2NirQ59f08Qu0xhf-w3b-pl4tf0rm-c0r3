@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WPC | Pilares y capacidades</title>
+    <meta
+      name="description"
+      content="Presentación ejecutiva de pilares y capacidades de Web Platform Core."
+    />
+    <link rel="icon" href="assets/img/web-platform-core.svg" />
+    <script src="assets/js/theme.js"></script>
+    <link rel="stylesheet" href="assets/lib/css/fonts.google.css" />
+    <link rel="stylesheet" href="assets/css/pillars-capabilities.css" />
+  </head>
+  <body>
+    <div class="presentation-shell" data-presentation>
+      <header class="deck-chrome" aria-label="Controles de presentación">
+        <a class="brand-mark" href="#slide-1" aria-label="Ir a portada">
+          <span>WPC</span>
+        </a>
+        <div class="deck-meta">
+          <button
+            class="theme-toggle"
+            type="button"
+            data-theme-toggle
+            aria-label="Cambiar a modo claro"
+            aria-pressed="false"
+            title="Cambiar a modo claro"
+          >
+            <i
+              class="theme-toggle__icon theme-toggle__icon--light"
+              data-lucide="sun"
+              aria-hidden="true"
+            ></i>
+            <i
+              class="theme-toggle__icon theme-toggle__icon--dark"
+              data-lucide="moon"
+              aria-hidden="true"
+            ></i>
+            <span class="visually-hidden" data-theme-toggle-label>
+              Cambiar a modo claro
+            </span>
+          </button>
+          <div class="deck-status">
+            <span class="deck-status__label" data-slide-kicker>Pilar</span>
+            <span class="deck-status__counter" data-slide-counter>01 / 07</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="deck" aria-live="polite">
+        <section
+          id="slide-1"
+          class="slide slide--cover is-active"
+          data-slide
+          data-kicker="Portada"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="cover-grid">
+            <div class="cover-copy">
+              <p class="eyebrow">Web Platform Core</p>
+              <h1>WPC</h1>
+              <p class="cover-subtitle">
+                Arquitectura modular para acelerar soluciones empresariales.
+              </p>
+            </div>
+            <div class="hero-container" aria-label="Contenedor WPC cerrado">
+              <div class="wpc-core">
+                <span>WPC</span>
+              </div>
+              <div class="orbit orbit--one"></div>
+              <div class="orbit orbit--two"></div>
+              <div class="orbit orbit--three"></div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="slide-2"
+          class="slide slide--overview"
+          data-slide
+          data-kicker="Ecosistema"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="slide-heading">
+            <p class="eyebrow">Vista general</p>
+            <h2>Un contenedor. Cuatro capacidades.</h2>
+          </div>
+          <div class="ecosystem-map" aria-label="Ecosistema WPC">
+            <div class="ecosystem-center">
+              <span>WPC</span>
+            </div>
+            <article class="closed-box closed-box--gateway">
+              <span>APP GATEWAY</span>
+              <small>BFF</small>
+            </article>
+            <article class="closed-box closed-box--surface">
+              <span>APP SURFACE</span>
+              <small>Frontend</small>
+            </article>
+            <article class="closed-box closed-box--guide">
+              <span>GUÍA VERSIONADA</span>
+              <small>Conocimiento</small>
+            </article>
+            <article class="closed-box closed-box--tools">
+              <span>HERRAMIENTAS</span>
+              <small>Operación</small>
+            </article>
+          </div>
+        </section>
+
+        <section
+          id="slide-3"
+          class="slide slide--pillar"
+          data-slide
+          data-kicker="APP GATEWAY"
+          style="--accent: #ffd866"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="pillar-layout">
+            <div class="pillar-copy">
+              <p class="eyebrow">Pilar 01</p>
+              <h2>APP GATEWAY</h2>
+              <p class="pillar-role">BFF empresarial</p>
+              <ul class="benefit-grid" aria-label="Bondades de App Gateway">
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="shield-check"></i>
+                  </span>
+                  <span class="benefit-label">Núcleo sólido</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="puzzle"></i>
+                  </span>
+                  <span class="benefit-label">Extensibilidad</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="network"></i>
+                  </span>
+                  <span class="benefit-label">Orden arquitectónico</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="layers-3"></i>
+                  </span>
+                  <span class="benefit-label">Base robusta</span>
+                </li>
+              </ul>
+            </div>
+            <div class="module-stage" aria-label="Caja APP GATEWAY">
+              <div class="module-box">
+                <div class="module-box__lid"></div>
+                <div class="module-box__back"></div>
+                <div class="module-box__left"></div>
+                <div class="module-box__right"></div>
+                <div class="module-box__front">
+                  <span>APP GATEWAY</span>
+                </div>
+                <div
+                  class="module-box__payload"
+                  id="gatewayPayload"
+                  aria-hidden="true"
+                >
+                  <span>Core</span>
+                  <small>Miniframework</small>
+                  <span>Extension</span>
+                  <small>Clean + Hexagonal Pragmática</small>
+                </div>
+              </div>
+              <button
+                class="module-toggle"
+                type="button"
+                data-module-toggle
+                data-open-label="Abrir caja"
+                data-close-label="Cerrar caja"
+                aria-expanded="false"
+                aria-controls="gatewayPayload"
+                aria-label="Abrir módulo APP GATEWAY"
+              >
+                <i
+                  class="module-toggle__icon module-toggle__icon--closed"
+                  data-lucide="package"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  class="module-toggle__icon module-toggle__icon--open"
+                  data-lucide="package-open"
+                  aria-hidden="true"
+                ></i>
+                <span class="visually-hidden">Abrir caja</span>
+              </button>
+              <p class="module-status">Módulo consolidado</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="slide-4"
+          class="slide slide--pillar"
+          data-slide
+          data-kicker="APP SURFACE"
+          style="--accent: #a9dc76"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="pillar-layout">
+            <div class="pillar-copy">
+              <p class="eyebrow">Pilar 02</p>
+              <h2>APP SURFACE</h2>
+              <p class="pillar-role">Frontend progresivo</p>
+              <ul class="benefit-grid" aria-label="Bondades de App Surface">
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="zap"></i>
+                  </span>
+                  <span class="benefit-label">Frontend acelerado</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="component"></i>
+                  </span>
+                  <span class="benefit-label">Reutilización visual</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="badge-check"></i>
+                  </span>
+                  <span class="benefit-label">Consistencia</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="rocket"></i>
+                  </span>
+                  <span class="benefit-label">Productividad</span>
+                </li>
+              </ul>
+            </div>
+            <div class="module-stage" aria-label="Caja APP SURFACE">
+              <div class="module-box">
+                <div class="module-box__lid"></div>
+                <div class="module-box__back"></div>
+                <div class="module-box__left"></div>
+                <div class="module-box__right"></div>
+                <div class="module-box__front">
+                  <span>APP SURFACE</span>
+                </div>
+                <div
+                  class="module-box__payload"
+                  id="surfacePayload"
+                  aria-hidden="true"
+                >
+                  <span>Admin UI Integration Pack</span>
+                  <small>Adminty</small>
+                  <span>Toolkit</span>
+                  <small>Componentes y adapters</small>
+                </div>
+              </div>
+              <button
+                class="module-toggle"
+                type="button"
+                data-module-toggle
+                data-open-label="Abrir caja"
+                data-close-label="Cerrar caja"
+                aria-expanded="false"
+                aria-controls="surfacePayload"
+                aria-label="Abrir módulo APP SURFACE"
+              >
+                <i
+                  class="module-toggle__icon module-toggle__icon--closed"
+                  data-lucide="package"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  class="module-toggle__icon module-toggle__icon--open"
+                  data-lucide="package-open"
+                  aria-hidden="true"
+                ></i>
+                <span class="visually-hidden">Abrir caja</span>
+              </button>
+              <p class="module-status">Módulo consolidado</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="slide-5"
+          class="slide slide--pillar slide--long-title"
+          data-slide
+          data-kicker="GUÍA VERSIONADA"
+          style="--accent: #7db7ff"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="pillar-layout">
+            <div class="pillar-copy">
+              <p class="eyebrow">Pilar 03</p>
+              <h2
+                class="pillar-title pillar-title--guide"
+                aria-label="GUÍA VERSIONADA"
+              >
+                <span aria-hidden="true">GUÍA</span>
+                <span aria-hidden="true">VERSIONADA</span>
+              </h2>
+              <p class="pillar-role">Conocimiento operativo</p>
+              <ul
+                class="benefit-grid"
+                aria-label="Bondades de la guía versionada"
+              >
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="book-open-check"></i>
+                  </span>
+                  <span class="benefit-label">Documentación viva</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="git-branch"></i>
+                  </span>
+                  <span class="benefit-label">Trazabilidad</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="list-tree"></i>
+                  </span>
+                  <span class="benefit-label">Conocimiento ordenado</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="handshake"></i>
+                  </span>
+                  <span class="benefit-label">Transferencia técnica</span>
+                </li>
+              </ul>
+            </div>
+            <div class="module-stage" aria-label="Caja GUÍA VERSIONADA">
+              <div class="module-box">
+                <div class="module-box__lid"></div>
+                <div class="module-box__back"></div>
+                <div class="module-box__left"></div>
+                <div class="module-box__right"></div>
+                <div class="module-box__front">
+                  <span>GUÍA VERSIONADA</span>
+                </div>
+                <div
+                  class="module-box__payload"
+                  id="guidePayload"
+                  aria-hidden="true"
+                >
+                  <span>Prototipos</span>
+                  <small>Código fuente</small>
+                  <span>Diagramas</span>
+                  <small>Documentación detallada</small>
+                </div>
+              </div>
+              <button
+                class="module-toggle"
+                type="button"
+                data-module-toggle
+                data-open-label="Abrir caja"
+                data-close-label="Cerrar caja"
+                aria-expanded="false"
+                aria-controls="guidePayload"
+                aria-label="Abrir módulo GUÍA VERSIONADA"
+              >
+                <i
+                  class="module-toggle__icon module-toggle__icon--closed"
+                  data-lucide="package"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  class="module-toggle__icon module-toggle__icon--open"
+                  data-lucide="package-open"
+                  aria-hidden="true"
+                ></i>
+                <span class="visually-hidden">Abrir caja</span>
+              </button>
+              <p class="module-status">DOCUMENTACIÓN VIVA</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="slide-6"
+          class="slide slide--pillar slide--long-title"
+          data-slide
+          data-kicker="HERRAMIENTAS"
+          style="--accent: #ab9df2"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="pillar-layout">
+            <div class="pillar-copy">
+              <p class="eyebrow">Pilar 04</p>
+              <h2
+                class="pillar-title pillar-title--tools"
+                aria-label="HERRAMIENTAS"
+              >
+                <span aria-hidden="true">HERRAMIENTAS</span>
+              </h2>
+              <p class="pillar-role">Gobierno técnico</p>
+              <ul class="benefit-grid" aria-label="Bondades de herramientas">
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="activity"></i>
+                  </span>
+                  <span class="benefit-label">Observabilidad</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="bot"></i>
+                  </span>
+                  <span class="benefit-label">Automatización</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="landmark"></i>
+                  </span>
+                  <span class="benefit-label">Gobierno técnico</span>
+                </li>
+                <li>
+                  <span class="benefit-icon" aria-hidden="true">
+                    <i data-lucide="gauge"></i>
+                  </span>
+                  <span class="benefit-label">Eficiencia operativa</span>
+                </li>
+              </ul>
+            </div>
+            <div class="module-stage" aria-label="Caja HERRAMIENTAS">
+              <div class="module-box">
+                <div class="module-box__lid"></div>
+                <div class="module-box__back"></div>
+                <div class="module-box__left"></div>
+                <div class="module-box__right"></div>
+                <div class="module-box__front">
+                  <span>HERRAMIENTAS</span>
+                </div>
+                <div
+                  class="module-box__payload module-box__payload--stacked"
+                  id="toolsPayload"
+                  aria-hidden="true"
+                >
+                  <span>TELEMETRÍA</span>
+                  <small>Logs</small>
+                  <span>COMPONENTES</span>
+                  <small>Automatización</small>
+                  <span>CONTRATOS</span>
+                  <small>Automatización</small>
+                </div>
+              </div>
+              <button
+                class="module-toggle"
+                type="button"
+                data-module-toggle
+                data-open-label="Abrir caja"
+                data-close-label="Cerrar caja"
+                aria-expanded="false"
+                aria-controls="toolsPayload"
+                aria-label="Abrir módulo HERRAMIENTAS"
+              >
+                <i
+                  class="module-toggle__icon module-toggle__icon--closed"
+                  data-lucide="package"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  class="module-toggle__icon module-toggle__icon--open"
+                  data-lucide="package-open"
+                  aria-hidden="true"
+                ></i>
+                <span class="visually-hidden">Abrir caja</span>
+              </button>
+              <p class="module-status">AUTOMATIZACIÓN POR COMANDOS</p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="slide-7"
+          class="slide slide--closing"
+          data-slide
+          data-kicker="Cierre"
+        >
+          <div class="slide__ambient" aria-hidden="true"></div>
+          <div class="closing-layout">
+            <div class="slide-heading">
+              <p class="eyebrow">Ecosistema completo</p>
+              <h2>WPC acelera con estructura.</h2>
+            </div>
+            <div class="closing-system" aria-label="Pilares completos de WPC">
+              <div class="closing-core">WPC</div>
+              <div class="closing-pill closing-pill--gateway">
+                <span class="closing-pill__icon" aria-hidden="true">
+                  <i data-lucide="server"></i>
+                </span>
+                <span>BFF</span>
+              </div>
+              <div class="closing-pill closing-pill--surface">
+                <span class="closing-pill__icon" aria-hidden="true">
+                  <i data-lucide="monitor-smartphone"></i>
+                </span>
+                <span>Frontend</span>
+              </div>
+              <div class="closing-pill closing-pill--guide">
+                <span class="closing-pill__icon" aria-hidden="true">
+                  <i data-lucide="book-open"></i>
+                </span>
+                <span>Guía Versionada</span>
+              </div>
+              <div class="closing-pill closing-pill--tools">
+                <span class="closing-pill__icon" aria-hidden="true">
+                  <i data-lucide="wrench"></i>
+                </span>
+                <span>Herramientas</span>
+              </div>
+            </div>
+            <a class="closing-bondades-link" href="bondades.html">
+              <span>Ver Ecosistema</span>
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="deck-controls">
+        <button
+          class="deck-button"
+          type="button"
+          data-prev
+          aria-label="Slide anterior"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <div class="progress-track" aria-label="Progreso de presentación">
+          <span data-progress></span>
+        </div>
+        <button
+          class="deck-button"
+          type="button"
+          data-next
+          aria-label="Slide siguiente"
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </footer>
+    </div>
+
+    <script src="assets/lib/js/lucide.min.js" defer></script>
+    <script src="assets/js/pillars-capabilities.js" defer></script>
+  </body>
+</html>

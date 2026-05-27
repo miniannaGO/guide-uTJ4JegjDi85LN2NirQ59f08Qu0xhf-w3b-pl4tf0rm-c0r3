@@ -20,13 +20,16 @@ docs/guide/
   app-surface.html
   assets/
     css/guide.css
+    css/pillars-capabilities.css
     js/guide.js
+    js/pillars-capabilities.js
   bondades.html
   bridge.html
   diagrams.html
   fundamentals.html
   getting-started.html
   index.html
+  pillars-capabilities.html
   recipes.html
   reference.html
   tools.html
@@ -36,16 +39,17 @@ docs/guide/
 ## Decisiones
 
 - Bootstrap 5 local en `assets/` para layout y componentes.
-- Shiki por CDN para visor de código con tema de sintaxis.
+- Shiki local empaquetado en `assets/lib/js/shiki-guide.bundle.js` para visor de código con tema de sintaxis.
 - Tema oscuro inspirado en Monokai Pro Spectrum para lectura prolongada.
 - CSS propio para legibilidad, visor de código y visor Markdown/Mermaid.
-- JavaScript propio mínimo para copiar snippets y mejorar navegación.
+- JavaScript propio modular para navegación, búsqueda, anchors, copiado, Markdown/Mermaid y resaltado de código.
 - Menú global renderizado por JavaScript para mantener las páginas alineadas.
 - `.htaccess` permite `docs/guide` y `docs/diagrams` para que el visor pueda leer Markdown/Mermaid.
 - Contenido estático mantenido manualmente.
 - Cada tema grande vive en su propio archivo HTML para evitar una página gigante.
-- `tools.html` documenta `ExtensionScaffolder`, `HttpContractGenerator`, comandos Robo y `robo-configurations.json`.
-- `bondades.html` funciona como presentación de impacto y valor operativo; no reemplaza las páginas técnicas de aprendizaje.
+- La página de herramientas (`tools.html`) documenta `ExtensionScaffolder`, `HttpContractGenerator`, comandos Robo y `robo-configurations.json`.
+- `pillars-capabilities.html` funciona como presentación principal de ecosistema, pilares y capacidades.
+- `bondades.html` funciona como presentación complementaria de impacto y valor operativo; se enlaza desde el cierre de `pillars-capabilities.html` y no reemplaza las páginas técnicas de aprendizaje.
 - Cada tema grande debe abrir con una síntesis o conclusión para orientar, y después bajar a detalle amplio, explícito y conectado con el resto de la guía.
 
 ## Mantenimiento

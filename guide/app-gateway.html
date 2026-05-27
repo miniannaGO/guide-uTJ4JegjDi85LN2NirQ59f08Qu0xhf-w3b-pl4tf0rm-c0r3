@@ -61,7 +61,7 @@
               <a class="nav-link" href="bridge.html">Bridge</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tools.html">Tools</a>
+              <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="recipes.html">Guías</a>
@@ -261,24 +261,6 @@
                 </tbody>
               </table>
             </div>
-            <p class="guide-crosslink">
-              <em>
-                Orden sugerido dentro de esta página:
-                <a href="#extension-filesystem">filesystem</a>,
-                <a href="#routing">routing</a>,
-                <a href="#routing-api">router</a>,
-                <a href="#controllers">controllers</a>,
-                <a href="#usecases">use cases</a>,
-                <a href="#services">services/connectors</a>,
-                <a href="#external-clients">service clients</a>,
-                <a href="#middlewares">middlewares</a>,
-                <a href="#bootstrap-di">Bootstrap/DI</a>,
-                <a href="#security-session">seguridad</a>,
-                <a href="#views">views/responses</a> y
-                <a href="#errors">errores</a>. El ciclo HTTP y el flujo completo
-                quedan como lectura de cierre para unir todas las piezas.
-              </em>
-            </p>
           </section>
 
           <section id="core-extension" class="guide-section">
@@ -576,10 +558,118 @@
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              Los feature deben clasificarse como salida HTML, salida JSON,
-              integración externa, lifecycle, seguridad, assets o UI progresiva.
-              La mayor parte del proyecto pertenece a una de esas familias.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Clasificación</span>
+                <strong class="guide-callout__title">
+                  Cada feature debe ubicarse en una familia clara.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Salida</strong>
+                  <code>HTML / JSON</code>
+                  <span
+                    >Respuestas directas hacia navegador o cliente
+                    Surface.</span
+                  >
+                </li>
+                <li>
+                  <strong>Infraestructura</strong>
+                  <code>lifecycle / seguridad / assets</code>
+                  <span>Reglas transversales que sostienen el runtime.</span>
+                </li>
+                <li>
+                  <strong>Integración</strong>
+                  <code>externa / UI progresiva</code>
+                  <span>Conexión con proveedores o con Surface.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-guide align-middle">
+                <thead>
+                  <tr>
+                    <th>Si buscas...</th>
+                    <th>Lee primero</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ruta HTTP</td>
+                    <td>
+                      <code>Extension/Presentation/Http/Routing/...</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Controller</td>
+                    <td>
+                      <code>Extension/Presentation/Http/Controller/...</code>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Use case</td>
+                    <td><code>Extension/Application/UseCase/...</code></td>
+                  </tr>
+                  <tr>
+                    <td>Service</td>
+                    <td><code>Extension/Application/Service/...</code></td>
+                  </tr>
+                  <tr>
+                    <td>Port outbound</td>
+                    <td>
+                      <code
+                        >Extension/Application/Port/*ConnectorInterface.php</code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Connector concreto</td>
+                    <td>
+                      <code
+                        >Extension/Infrastructure/Outbound/Connector/*Connector.php</code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Client HTTP externo</td>
+                    <td>
+                      <code
+                        >Extension/Infrastructure/Outbound/Client/&lt;Service&gt;/&lt;Service&gt;ServiceClient.php</code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Request outbound</td>
+                    <td>
+                      <code
+                        >Extension/Infrastructure/Outbound/Client/&lt;Service&gt;/Request/...</code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>DTO externo</td>
+                    <td>
+                      <code
+                        >Extension/Contract/Outbound/&lt;Service&gt;/...</code
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Vista SSR</td>
+                    <td><code>resources/views/...</code></td>
+                  </tr>
+                  <tr>
+                    <td>Binding Surface</td>
+                    <td>
+                      <code
+                        >app-surface/workspace/integrations/&lt;feature&gt;/...</code
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </section>
 
@@ -873,16 +963,36 @@
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              Si una clase solo transporta datos de proveedor externo, es
-              <code>Contract/Outbound</code>. Si expresa una salida de la
-              aplicación, es <code>Application/ReadModel</code>. Si representa
-              un concepto propio estable, es <code>Domain/Model</code>. Para
-              crear esqueletos consistentes sin escribir rutas, controllers o
-              use cases a mano, revisa
-              <a href="tools.html#extension-scaffolder"
-                >Tools: artefactos de Extension</a
-              >.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Ubicación de datos</span>
+                <strong class="guide-callout__title">
+                  El significado del dato decide la carpeta.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Proveedor externo</strong>
+                  <code>Contract/Outbound</code>
+                  <span>DTOs de transporte hacia o desde integraciones.</span>
+                </li>
+                <li>
+                  <strong>Salida de app</strong>
+                  <code>Application/ReadModel</code>
+                  <span>Datos listos para responder o renderizar.</span>
+                </li>
+                <li>
+                  <strong>Concepto estable</strong>
+                  <code>Domain/Model</code>
+                  <span>Modelo propio del dominio de Extension.</span>
+                </li>
+              </ul>
+              <p class="mb-0 mt-3">
+                Para crear esqueletos consistentes, revisa
+                <a href="tools.html#extension-scaffolder">
+                  Herramientas: artefactos de Extension </a
+                >.
+              </p>
             </div>
           </section>
 
@@ -928,6 +1038,15 @@ $router->get('/items/summary', [ItemFragmentController::class, 'summary']);</cod
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Página pública</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-route-controller">
+                        <code
+                          >composer robo -- make:route-controller get /items
+                          Item --action=index</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -958,6 +1077,16 @@ $router->get('/items/summary', [ItemFragmentController::class, 'summary']);</cod
                     <h4 class="guided-step__title">
                       Página autenticada o JSON
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-route-use-case">
+                        <code
+                          >composer robo -- make:route-use-case post
+                          /items/search Item SearchItems --use-case-folder=Items
+                          --action=search</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -988,6 +1117,16 @@ $router->get('/items/summary', [ItemFragmentController::class, 'summary']);</cod
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Fragment HTML</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-html">
+                        <code
+                          >composer robo -- make:integration-api-html items
+                          summary get /items/summary
+                          --controller-name=ItemFragment</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1352,6 +1491,15 @@ public function index(): HttpResponseInterface
                     <h4 class="guided-step__title">
                       Controller de página o JSON
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-route-controller">
+                        <code
+                          >composer robo -- make:route-controller get /items
+                          Item --action=index</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1382,6 +1530,15 @@ public function index(): HttpResponseInterface
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Vista SSR completa</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-page">
+                        <code
+                          >composer robo -- make:integration-page items
+                          --id=demo-items --layout=control</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1414,6 +1571,16 @@ public function index(): HttpResponseInterface
                     <h4 class="guided-step__title">
                       Controller y vista de fragment
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-integration-api-html">
+                        <code
+                          >composer robo -- make:integration-api-html items
+                          summary get /items/summary
+                          --controller-name=ItemFragment</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1480,10 +1647,28 @@ return $this->runConnectorFlow(
   fn(ConnectorFlowInterface $flow) => $this->service->loadItemSummary($itemId, $flow)
 );</code></pre>
             </div>
-            <div class="guide-callout p-3 rounded">
-              `takeOrAbort(...)` no debe mezclarse con `$flow->required(...)` o
-              `$flow->optional(...)`. Cuando se abre un flow, todo connector de
-              ese bloque pasa por el flow.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Carril único</span>
+                <strong class="guide-callout__title">
+                  No mezcles el atajo simple con el flujo robusto.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Simple</strong>
+                  <code>takeOrAbort(...)</code>
+                  <span>Una dependencia obligatoria directa.</span>
+                </li>
+                <li>
+                  <strong>Robusto</strong>
+                  <code>$flow-&gt;required(...) / $flow-&gt;optional(...)</code>
+                  <span
+                    >Cuando se abre un flow, todo connector de ese bloque pasa
+                    por él.</span
+                  >
+                </li>
+              </ul>
             </div>
             <ul class="guide-checklist">
               <li>`run(...)` envuelve una decisión de aplicación simple.</li>
@@ -1616,6 +1801,15 @@ return $this->runConnectorFlow(
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Use case</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-use-case">
+                        <code
+                          >composer robo -- make:use-case SearchItems
+                          --use-case-folder=Items</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1735,6 +1929,14 @@ return $this->runConnectorFlow(
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Port de aplicación</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-connector">
+                        <code
+                          >composer robo -- make:connector ExternalItem</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1764,6 +1966,14 @@ return $this->runConnectorFlow(
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Connector concreto</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-connector">
+                        <code
+                          >composer robo -- make:connector ExternalItem</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1793,6 +2003,15 @@ return $this->runConnectorFlow(
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Service opcional</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-service">
+                        <code
+                          >composer robo -- make:service Item
+                          --use-case=SearchItems</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1843,6 +2062,15 @@ $flow->optional(...)</code></pre>
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Configura el cliente</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-service-client">
+                        <code
+                          >composer robo -- make:service-client
+                          ExternalApi</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1872,6 +2100,15 @@ $flow->optional(...)</code></pre>
                 <li class="guided-step">
                   <div class="guided-step__body">
                     <h4 class="guided-step__title">Registra DI del client</h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-service-client">
+                        <code
+                          >composer robo -- make:service-client
+                          ExternalApi</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivo</span>
@@ -1901,6 +2138,15 @@ $flow->optional(...)</code></pre>
                     <h4 class="guided-step__title">
                       Describe la llamada externa
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#http-contract-generator">
+                        <code
+                          >composer robo http:contract GetExternalRecordRequest
+                          ExternalRecordResponse &lt;swaggerPath&gt;</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivos</span>
@@ -1934,6 +2180,20 @@ $flow->optional(...)</code></pre>
                     <h4 class="guided-step__title">
                       Baja la integración a la app
                     </h4>
+                    <div class="guided-tool">
+                      <strong>Automatiza con Robo</strong>
+                      <a href="tools.html#make-connector">
+                        <code
+                          >composer robo -- make:connector ExternalItem</code
+                        >
+                      </a>
+                      <a href="tools.html#make-service-client">
+                        <code
+                          >composer robo -- make:service-client
+                          ExternalApi</code
+                        >
+                      </a>
+                    </div>
                     <div class="guided-field-grid">
                       <div class="guided-field">
                         <span>Archivos</span>
@@ -2074,6 +2334,76 @@ $services->set(ExternalApiServiceClient::class)
               forma especial, corresponde implementar
               `CustomPayloadRequestInterface`.
             </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Payload outbound</span>
+                <strong class="guide-callout__title">
+                  Usa un punto de escape cuando el payload no debe salir crudo.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Contrato</strong>
+                  <code>CustomPayloadRequestInterface</code>
+                  <span
+                    >Expone `payload()` para armar el body manualmente.</span
+                  >
+                </li>
+                <li>
+                  <strong>Factory</strong>
+                  <code>EndpointOutboundRequestFactory</code>
+                  <span
+                    >Detecta el contrato antes de serializar propiedades.</span
+                  >
+                </li>
+                <li>
+                  <strong>Fallback</strong>
+                  <code>get_object_vars(...)</code>
+                  <span
+                    >Se usa cuando la request no implementa el contrato.</span
+                  >
+                </li>
+                <li>
+                  <strong>Fechas</strong>
+                  <code>date-time -> ATOM / date -> Y-m-d</code>
+                  <span>El generador normaliza formatos antes de enviar.</span>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Contrato generado</span>
+                <strong class="guide-callout__title">
+                  La clase principal respeta PSR-4 y los auxiliares quedan
+                  internos.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Archivo</strong>
+                  <span
+                    >Una request por archivo y una response por archivo.</span
+                  >
+                </li>
+                <li>
+                  <strong>OpenAPI auxiliar</strong>
+                  <code>@internal</code>
+                  <span
+                    >El generador puede agrupar clases internas en el mismo
+                    archivo.</span
+                  >
+                </li>
+                <li>
+                  <strong>Límite</strong>
+                  <span
+                    >Esas clases pertenecen al contrato generado, no a la API
+                    pública.</span
+                  >
+                </li>
+              </ul>
+            </div>
             <div class="code-card">
               <div class="code-card__bar">
                 <span>EndpointRequest + DTO</span>
@@ -2412,9 +2742,9 @@ public function execute(int $itemId): UseCaseResult
                   <tr>
                     <td><code>RootProvider.php</code></td>
                     <td>
-                      Importa providers transversales: application, routing,
-                      filesystem, outbound, observability, errores, controllers
-                      y middleware base.
+                      Importa providers transversales de <code>Core</code>:
+                      application, routing, filesystem, outbound, observability,
+                      errores, controllers y middleware base.
                     </td>
                     <td>
                       Solo cuando cambias una capacidad compartida de
@@ -2424,9 +2754,9 @@ public function execute(int $itemId): UseCaseResult
                   <tr>
                     <td><code>AppProvider.php</code></td>
                     <td>
-                      Importa providers de la app: controllers, use cases,
-                      middleware, runtime, sesión, responses, outbound y
-                      connectors.
+                      Importa providers concretos de <code>Extension</code>:
+                      application, controllers, middleware, routing, responses,
+                      runtime, sesión, connectors y outbound.
                     </td>
                     <td>
                       Al agregar una familia nueva de servicios en
@@ -2460,12 +2790,55 @@ public function execute(int $itemId): UseCaseResult
               </table>
             </div>
 
-            <div class="guide-callout p-3 rounded">
-              <strong>Regla operativa:</strong> no debe registrarse manualmente
-              una clase que ya puede resolverse por autowiring o por convención.
-              El registro manual debe explicar una frontera real: runtime
-              concreto, adapter externo, alias de interfaz o servicio
-              transversal.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Registro manual</span>
+                <strong class="guide-callout__title">
+                  Solo se registra a mano cuando existe una frontera real.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Evita</strong>
+                  <code>autowiring / convención</code>
+                  <span
+                    >No dupliques registros que el contenedor ya puede
+                    resolver.</span
+                  >
+                </li>
+                <li>
+                  <strong>Justifica</strong>
+                  <span
+                    >Runtime concreto, adapter externo, alias de interfaz o
+                    servicio transversal.</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Providers</span>
+                <strong class="guide-callout__title">
+                  Core y Extension registran responsabilidades distintas.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Core</strong>
+                  <code>invoker / pipeline / router / contratos base</code>
+                  <span
+                    >Infraestructura genérica del mini-framework interno.</span
+                  >
+                </li>
+                <li>
+                  <strong>Extension</strong>
+                  <code>controllers / middleware / rutas / runtime</code>
+                  <span>Piezas concretas de la aplicación.</span>
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -2580,18 +2953,45 @@ composer run build:prod</code></pre>
               </table>
             </div>
 
-            <div class="guide-callout p-3 rounded mt-3">
-              <strong>Orden recomendado de deploy:</strong> compila assets de
-              Surface con <code>npm run build</code>, valida que exista el
-              manifest en
-              <code
-                >app-gateway/{PUBLIC_PATH}/ui-assets/.vite/manifest.json</code
-              >
-              y luego ejecuta <code>composer run build:prod</code> en Gateway.
-              Surface produce archivos estáticos; Gateway produce contenedor y
-              rutas. Ambos artefactos son necesarios antes de exponer el
-              release. La parte de assets se explica en
-              <a href="app-surface.html#vite">Surface: Vite y estilos</a>.
+            <div
+              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+            >
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Deploy</span>
+                <strong class="guide-callout__title">
+                  Publica assets de Surface antes de preparar Gateway.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>1. Surface</strong>
+                  <code>npm run build</code>
+                  <span>Emite CSS, JS y manifest de Vite.</span>
+                </li>
+                <li>
+                  <strong>2. Manifest</strong>
+                  <code
+                    >app-gateway/{PUBLIC_PATH}/ui-assets/.vite/manifest.json</code
+                  >
+                  <span
+                    >Debe existir antes del build productivo de Gateway.</span
+                  >
+                </li>
+                <li>
+                  <strong>3. Gateway</strong>
+                  <code>composer run build:prod</code>
+                  <span>Genera contenedor, rutas y artefactos PHP.</span>
+                </li>
+              </ul>
+              <p>
+                Surface produce archivos estáticos; Gateway produce contenedor y
+                rutas. Amplía assets en
+                <a href="app-surface.html#vite">Surface: Vite y estilos</a> y
+                dependencias en
+                <a href="getting-started.html#dependencies"
+                  >qué se instala y por qué importa</a
+                >.
+              </p>
             </div>
           </section>
 
@@ -2813,43 +3213,127 @@ composer run build:prod</code></pre>
 
             <h3 class="h5 mt-4">Cómo conviven varias pestañas</h3>
             <p>
-              Varias pestañas del mismo navegador comparten la misma cookie de
-              sesión PHP, pero no comparten necesariamente el mismo
-              <code>tabId</code>. Por eso el Gateway no guarda un único usuario
-              plano en sesión para todo el navegador; guarda un mapa
-              <code>tabs</code> indexado por id de pestaña. Una pestaña puede
-              expirar, cerrarse o refrescarse sin borrar directamente el estado
-              de otra.
+              Varias pestañas comparten la cookie PHP, pero cada una puede tener
+              un contexto propio. Gateway separa esa identidad para que una tab
+              pueda renovar, expirar o cerrar su contexto sin borrar
+              directamente el de otra.
             </p>
-            <p>
-              <code>SESSION_TIME</code> define la vida total emitida al crear o
-              refrescar una tab. El refresh no ocurre en cada request: solo
-              cuando la pestaña está dentro de
-              <code>SESSION_REFRESH_WINDOW</code> y ya pasó
-              <code>SESSION_REFRESH_COOLDOWN</code> desde el último refresh. Esa
-              combinación reduce escrituras sobre el archivo de sesión y evita
-              que cada request protegida alargue la vida de la tab sin control.
-            </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Modelo por pestaña</span>
+                <strong class="guide-callout__title">
+                  Cookie de navegador, tab session por contexto activo.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Cookie PHP</strong>
+                  <span>Identifica la sesión compartida del navegador.</span>
+                </li>
+                <li>
+                  <strong>Tab id</strong>
+                  <code>tabId</code>
+                  <span>Separa el contexto de cada pestaña.</span>
+                </li>
+                <li>
+                  <strong>Mapa interno</strong>
+                  <code>tabs</code>
+                  <span
+                    >Gateway guarda entradas indexadas por id de pestaña.</span
+                  >
+                </li>
+                <li>
+                  <strong>Vida de tab</strong>
+                  <code>SESSION_TIME</code>
+                  <span
+                    >Define la duración al crear o refrescar el contexto.</span
+                  >
+                </li>
+                <li>
+                  <strong>Refresh</strong>
+                  <code>SESSION_REFRESH_WINDOW + COOLDOWN</code>
+                  <span
+                    >Solo renueva cuando está cerca de expirar y fuera del
+                    cooldown.</span
+                  >
+                </li>
+              </ul>
+            </div>
 
-            <div class="guide-callout p-3 rounded">
-              <strong>Dónde cortar:</strong> si falta CSRF, tab session o una
-              sesión activa, el controller o middleware puede cortar antes del
-              use case. El use case no debería saber cómo se llama el header ni
-              cómo se guarda el id de pestaña.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Corte temprano</span>
+                <strong class="guide-callout__title">
+                  Controller o middleware corta antes del use case.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Condiciones</strong>
+                  <span
+                    >CSRF faltante, tab session ausente o sesión inactiva.</span
+                  >
+                </li>
+                <li>
+                  <strong>Límite</strong>
+                  <span
+                    >El use case no necesita conocer headers ni storage de
+                    pestañas.</span
+                  >
+                </li>
+              </ul>
             </div>
-            <div class="guide-callout p-3 rounded">
-              <strong>Mantenimiento de sesión:</strong>
-              <code>TabSessionGarbageCollector</code> usa
-              <code>SESSION_CLEANUP_INTERVAL</code> y
-              <code>SESSION_CLEANUP_LAST_RUN_KEY</code> para evitar limpiar tabs
-              expiradas en cada request.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Mantenimiento</span>
+                <strong class="guide-callout__title">
+                  La limpieza de tabs expiradas también tiene cooldown.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Collector</strong>
+                  <code>TabSessionGarbageCollector</code>
+                  <span>Remueve entradas vencidas.</span>
+                </li>
+                <li>
+                  <strong>Intervalo</strong>
+                  <code>SESSION_CLEANUP_INTERVAL</code>
+                  <span>Evita ejecutar limpieza en cada request.</span>
+                </li>
+                <li>
+                  <strong>Marca interna</strong>
+                  <code>SESSION_CLEANUP_LAST_RUN_KEY</code>
+                  <span>Recuerda cuándo fue la última limpieza.</span>
+                </li>
+              </ul>
             </div>
-            <div class="guide-callout p-3 rounded">
-              <strong>Mensajes flash:</strong>
-              <code>flashMessage(...)</code> escribe bajo
-              <code>_flash.{tabId}</code> antes de un redirect, y
-              <code>pullFlashMessages(...)</code> lee y elimina esos mensajes al
-              renderizar la siguiente vista.
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Mensajes flash</span>
+                <strong class="guide-callout__title">
+                  El mensaje pertenece a la tab que originó el redirect.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Escritura</strong>
+                  <code>flashMessage(...)</code>
+                  <span>Guarda el mensaje antes del redirect.</span>
+                </li>
+                <li>
+                  <strong>Ubicación</strong>
+                  <code>_flash.{tabId}</code>
+                  <span>Separa mensajes por pestaña.</span>
+                </li>
+                <li>
+                  <strong>Lectura</strong>
+                  <code>pullFlashMessages(...)</code>
+                  <span
+                    >Consume y elimina al renderizar la siguiente vista.</span
+                  >
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -2859,6 +3343,36 @@ composer run build:prod</code></pre>
               Gateway renderiza HTML o envelope JSON. Surface consume ese
               contrato después.
             </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Bridge SSR + Surface</span>
+                <strong class="guide-callout__title">
+                  Usa scaffolding para la base convencional, no para negocio.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Page</strong>
+                  <code>make:integration-page</code>
+                </li>
+                <li>
+                  <strong>APIs Surface</strong>
+                  <code>make:integration-api-data/json/html</code>
+                </li>
+                <li>
+                  <strong>Fragment</strong>
+                  <code>make:fragment</code>
+                </li>
+                <li>
+                  <strong>Routing</strong>
+                  <code>ExtensionRouteRegister.php</code>
+                </li>
+              </ul>
+              <p>
+                Estos comandos no crean use cases, services, connectors ni
+                lógica de negocio.
+              </p>
+            </div>
             <p class="guide-crosslink">
               <em>
                 Este punto es el puente central: amplíalo en
@@ -3297,23 +3811,51 @@ composer run build:prod</code></pre>
               </table>
             </div>
 
-            <p>
-              La observabilidad de Gateway usa JSON Lines. En requests web, Core
-              escribe directo en
-              <code
-                >app-gateway/var/log/develop/&lt;semana&gt;/stdout.jsonl</code
-              >
-              o
-              <code
-                >app-gateway/var/log/production/&lt;semana&gt;/stdout.jsonl</code
-              >. En CLI, los eventos salen por <code>stdout</code> y pueden
-              persistirse con <code>tools/log-collector</code>. El visor de logs
-              usa esas rutas fijas por entorno y las crea si no existen. El
-              viewer solo lista carpetas semanales <code>YYYY-WNN</code>, así la
-              carpeta <code>develop</code> o <code>production</code> no se
-              mezcla con las semanas. Así el request PHP no bloquea archivos
-              locales con <code>LOCK_EX</code>.
-            </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Observabilidad</span>
+                <strong class="guide-callout__title">
+                  Gateway escribe JSON Lines por semana y por entorno.
+                </strong>
+              </div>
+              <ul class="guide-key-grid">
+                <li>
+                  <strong>Web develop</strong>
+                  <code
+                    >app-gateway/var/log/develop/&lt;semana&gt;/stdout.jsonl</code
+                  >
+                </li>
+                <li>
+                  <strong>Web production</strong>
+                  <code
+                    >app-gateway/var/log/production/&lt;semana&gt;/stdout.jsonl</code
+                  >
+                </li>
+                <li>
+                  <strong>CLI</strong>
+                  <code>stdout</code>
+                  <span>Puede persistirse con el collector.</span>
+                </li>
+                <li>
+                  <strong>Collector</strong>
+                  <code>tools/Observability/log-collector/collect.php</code>
+                </li>
+                <li>
+                  <strong>Viewer</strong>
+                  <code>tools/Observability/log-viewer</code>
+                  <span>Ruta permitida bajo `tools/` por `.htaccess`.</span>
+                </li>
+                <li>
+                  <strong>Semanas</strong>
+                  <code>YYYY-WNN</code>
+                  <span>Evita mezclar entorno con carpetas semanales.</span>
+                </li>
+              </ul>
+              <p>
+                El request PHP escribe directo para evitar bloqueos locales con
+                `LOCK_EX`.
+              </p>
+            </div>
             <p>
               Cuando se reporta un error, la traza se reduce a los campos
               <code>file</code>, <code>line</code>, <code>function</code> y
@@ -3461,7 +4003,7 @@ composer run build:prod</code></pre>
             </p>
 
             <div
-              class="file-flow file-flow--blue"
+              class="file-flow"
               aria-label="Mapa archivo por archivo de Gateway"
             >
               <article class="file-flow__item">
@@ -3481,6 +4023,15 @@ composer run build:prod</code></pre>
                   <pre
                     class="file-flow__snippet"
                   ><code class="language-php">$router->post('/items/search', [ItemController::class, 'search']);</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-route-controller">
+                      <code
+                        >composer robo -- make:route-controller post
+                        /items/search Item --action=search</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong>
                     <code>ItemController::search(...)</code>.
@@ -3529,6 +4080,16 @@ composer run build:prod</code></pre>
                     class="file-flow__snippet"
                   ><code class="language-php">$input = (string) $this->request->getPost('someInput', '');
 return $this->respondJson(fn() => $this->searchItems->execute($input));</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-route-use-case">
+                      <code
+                        >composer robo -- make:route-use-case post /items/search
+                        Item SearchItems --use-case-folder=Items
+                        --action=search</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> el use case que expresa la
                     intención de aplicación.
@@ -3556,6 +4117,15 @@ return $this->respondJson(fn() => $this->searchItems->execute($input));</code></
                   ><code class="language-php">return $this->runConnectorFlow(
   fn(ConnectorFlowInterface $flow) => $this->service->search($input, $flow)
 );</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-use-case">
+                      <code
+                        >composer robo -- make:use-case SearchItems
+                        --use-case-folder=Items</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> un service cuando hay
                     composición, o a un port directo cuando el caso es simple.
@@ -3582,6 +4152,15 @@ return $this->respondJson(fn() => $this->searchItems->execute($input));</code></
                     class="file-flow__snippet"
                   ><code class="language-php">$items = $flow->required($this->items->search($input));
 $stats = $flow->optional($this->items->stats($input), null);</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-service">
+                      <code
+                        >composer robo -- make:service ItemSearch
+                        --use-case=SearchItems</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> un output/read model usable por
                     el use case.
@@ -3612,6 +4191,12 @@ $stats = $flow->optional($this->items->stats($input), null);</code></pre>
                   ><code class="language-php">return $this->client
   ->searchItems($input)
   ->toConnectorResult();</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-connector">
+                      <code>composer robo -- make:connector ItemSearch</code>
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> el use case o service, nunca a
                     la vista directamente.
@@ -3641,6 +4226,16 @@ $stats = $flow->optional($this->items->stats($input), null);</code></pre>
   'items/summary.fragment',
   $result->data()
 );</code></pre>
+                  <div class="file-flow__tool">
+                    <strong>Automatiza con Robo</strong>
+                    <a href="tools.html#make-integration-api-html">
+                      <code
+                        >composer robo -- make:integration-api-html items
+                        fetchSummary get /items/summary
+                        --controller-name=Item</code
+                      >
+                    </a>
+                  </div>
                   <p class="file-flow__handoff">
                     <strong>Entrega a:</strong> browser o Surface, según el tipo
                     de respuesta.
@@ -3695,13 +4290,24 @@ $stats = $flow->optional($this->items->stats($input), null);</code></pre>
                 </tbody>
               </table>
             </div>
-            <div class="guide-callout p-3 rounded">
-              <p class="mb-2">
-                El use case puede consumir un connector directo por su port
-                cuando el carril es simple. No debería hablar con HTTP externo
-                sin normalizar ni conocer URLs, bearer, TLS o payloads de
-                proveedor; eso pertenece a outbound client y connector.
-              </p>
+            <div class="guide-callout guide-callout--structured p-3 rounded">
+              <div class="guide-callout__header">
+                <span class="guide-callout__eyebrow">Frontera outbound</span>
+                <strong class="guide-callout__title">
+                  El use case consume ports, no detalles HTTP de proveedor.
+                </strong>
+              </div>
+              <ul class="guide-key-grid guide-key-grid--compact">
+                <li>
+                  <strong>Carril simple</strong>
+                  <span>Puede consumir un connector directo por su port.</span>
+                </li>
+                <li>
+                  <strong>No conoce</strong>
+                  <code>URLs / bearer / TLS / payloads externos</code>
+                  <span>Eso pertenece a outbound client y connector.</span>
+                </li>
+              </ul>
             </div>
           </section>
 

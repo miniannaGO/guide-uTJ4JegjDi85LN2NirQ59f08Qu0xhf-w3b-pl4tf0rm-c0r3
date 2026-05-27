@@ -12,10 +12,10 @@
     const currentThemeLabel =
       window.GuideTheme?.labels?.[currentTheme] ?? "Dark mode";
     const ecosystemItem = guideNavigationItems.find(
-      ([href]) => href === "bondades.html",
+      ([href]) => href === "pillars-capabilities.html",
     );
     const regularItems = guideNavigationItems.filter(
-      ([href]) => href !== "bondades.html",
+      ([href]) => href !== "pillars-capabilities.html",
     );
 
     nav.innerHTML =
@@ -67,7 +67,7 @@
   function renderGuideNavItem(href, label, current) {
     const active = href === current ? " active" : "";
     const aria = href === current ? ' aria-current="page"' : "";
-    const isEcosystem = href === "bondades.html";
+    const isEcosystem = href === "pillars-capabilities.html";
     const target = isEcosystem ? ' target="_blank" rel="noopener"' : "";
     const accentClass = guideNavigationAccentClasses[href]
       ? ` ${guideNavigationAccentClasses[href]}`

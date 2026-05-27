@@ -10,6 +10,7 @@ Los diagramas son una guía visual. Si contradicen el código, la configuración
 2. [App Gateway](gateway/README.md)
 3. [App Surface](surface/README.md)
 4. [Puente Gateway / Surface](bridge/README.md)
+5. [Herramientas](tools/README.md)
 
 ## Lectura recomendada
 
@@ -22,6 +23,7 @@ Para entender una interacción completa:
 -> bridge/01-ssr-progressive-enhancement
 -> surface/01-startup-layouts
 -> surface/02-runtime-pages-fragments-bindings
+-> tools/01-robo-tools-commands
 ```
 
 Para cambiar un contrato compartido, revisa además:

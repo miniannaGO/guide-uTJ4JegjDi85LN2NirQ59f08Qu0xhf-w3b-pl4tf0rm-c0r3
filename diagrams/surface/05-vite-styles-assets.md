@@ -6,7 +6,9 @@ Este diagrama explica cómo se compila `app-surface` y cómo `app-gateway` consu
 %%{init: {"theme": "Redux Dark", "themeVariables": {"background": "#0B1020", "primaryColor": "#172033", "primaryTextColor": "#F8FAFC", "primaryBorderColor": "#38BDF8", "lineColor": "#94A3B8", "clusterBkg": "#111827", "clusterBorder": "#475569", "fontFamily": "Inter, Segoe UI, Arial"}}}%%
 flowchart LR
   Package["package.json<br/>npm run build"] --> Tsc["tsc"]
+  Package --> LiteBuild["npm run lite:build<br/>vite build --watch"]
   Tsc --> Vite["vite build<br/>vite.config.ts"]
+  LiteBuild --> Vite
 
   subgraph Config["Vite config"]
     IndexHtml["index.html<br/>Vite dev harness"] -. "serve local" .-> Vite
@@ -58,7 +60,7 @@ flowchart LR
   classDef gateway fill:#2A223A,stroke:#C084FC,stroke-width:2px,color:#F3E8FF;
   classDef error fill:#3F1D2B,stroke:#FB7185,stroke-width:2px,color:#FFE4E6;
 
-  class Package,Tsc,Vite build;
+  class Package,Tsc,LiteBuild,Vite build;
   class Env,AppEnv,SpeedUp,Input,External,Chunks,AppConfig,IndexHtml config;
   class MainCss,Base,Vendors,Tokens,Startup,AccessCss,ControlCss styles;
   class Output,Manifest,JsCss,BrowserTags,Browser output;
@@ -69,6 +71,7 @@ flowchart LR
 ## Puntos de control
 
 - El build de surface publica en `app-gateway/{PUBLIC_PATH}/ui-assets`.
+- `npm run lite:build` ejecuta `vite build --watch`; no ejecuta `tsc` antes de cada build. Para validación completa usa `npm run build`.
 - `ViteAssets` resuelve manifest y tags desde el gateway.
 - `index.html` es un harness local de Vite; la UI real de producción la renderiza `app-gateway`.
 - En producción, manifest faltante debe fallar claro.

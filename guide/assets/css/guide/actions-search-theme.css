@@ -6,101 +6,182 @@
 }
 
 .guide-hero-actions {
-  gap: 0.85rem !important;
+  gap: 0.95rem !important;
+  perspective: 900px;
+}
+
+.guide-hero-badges {
+  gap: 0.5rem !important;
+}
+
+.guide-hero .guide-hero-badges .badge.text-bg-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2rem;
+  padding: 0.42rem 0.68rem;
+  color: rgba(252, 252, 250, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.72rem;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(255, 255, 255, 0.03)
+    ),
+    rgba(25, 24, 26, 0.34) !important;
+  box-shadow:
+    0 0.45rem 1rem rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.guide-hero .guide-hero-badges .badge.text-bg-light::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: rgba(120, 220, 232, 0.72);
+  box-shadow: 0 0 0.55rem rgba(120, 220, 232, 0.22);
+}
+
+.guide-hero .guide-hero-badges .badge.text-bg-light:nth-child(2)::before {
+  background: rgba(255, 216, 102, 0.72);
+  box-shadow: 0 0 0.55rem rgba(255, 216, 102, 0.2);
+}
+
+.guide-hero .guide-hero-badges .badge.text-bg-light:nth-child(3)::before {
+  background: rgba(171, 157, 242, 0.72);
+  box-shadow: 0 0 0.55rem rgba(171, 157, 242, 0.2);
 }
 
 .guide-hero .guide-action-btn {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   min-height: 3.15rem;
-  padding: 0.82rem 1.22rem;
-  border-radius: 999px;
-  border: none;
+  min-width: 8.75rem;
+  padding: 0.84rem 1.32rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   font-size: 0.98rem;
   font-weight: 900;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
+  text-shadow: none;
   transform: translateY(0);
   transition:
-    transform 0.16s ease,
-    box-shadow 0.16s ease,
-    border-color 0.16s ease,
-    filter 0.16s ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease,
+    filter 0.18s ease;
+}
+
+.guide-hero .guide-action-btn::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.05) 42%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+  opacity: 0.78;
+  pointer-events: none;
 }
 
 .guide-hero .guide-action-btn::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.24) 42%,
-    transparent 70%
-  );
-  opacity: 0;
-  transform: translateX(-75%);
-  transition:
-    opacity 0.16s ease,
-    transform 0.38s ease;
+  inset: -1px;
+  z-index: -2;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.06);
+  opacity: 0.65;
+  transition: opacity 0.18s ease;
   pointer-events: none;
 }
 
 .guide-hero .guide-action-btn:hover,
 .guide-hero .guide-action-btn:focus-visible {
-  transform: translateY(-2px);
-  filter: saturate(1.08);
+  transform: translateY(-3px);
+  filter: saturate(1.04);
 }
 
 .guide-hero .guide-action-btn:hover::before,
 .guide-hero .guide-action-btn:focus-visible::before {
-  opacity: 1;
-  transform: translateX(75%);
+  opacity: 0.92;
+}
+
+.guide-hero .guide-action-btn:active {
+  transform: translateY(1px);
+  transition-duration: 0.08s;
 }
 
 .guide-action-btn--start {
-  color: #19181a;
-  background: linear-gradient(135deg, #fcfcfa, #ffd866 58%, #fc9867);
+  color: #17140f;
+  border-color: rgba(255, 216, 102, 0.42) !important;
+  background: linear-gradient(135deg, #ffe68a 0%, #f3b64c 100%), #f3b64c;
   box-shadow:
-    0 0.95rem 2rem rgba(0, 0, 0, 0.28),
-    0 0 1.55rem rgba(255, 216, 102, 0.24);
+    0 1.05rem 2.35rem rgba(0, 0, 0, 0.32),
+    0 0.32rem 0.9rem rgba(255, 216, 102, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
 }
 
 .guide-action-btn--guides {
   color: #fcfcfa;
-  border-color: rgba(120, 220, 232, 0.38) !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.34);
+  border-color: rgba(120, 220, 232, 0.28) !important;
   background:
-    linear-gradient(
-      135deg,
-      rgba(120, 220, 232, 0.28),
-      rgba(171, 157, 242, 0.24)
-    ),
-    rgba(25, 24, 26, 0.52);
+    linear-gradient(135deg, rgba(64, 80, 92, 0.92), rgba(31, 37, 46, 0.94)),
+    rgba(25, 24, 26, 0.66);
   box-shadow:
-    0 0.95rem 2rem rgba(0, 0, 0, 0.26),
-    0 0 1.45rem rgba(120, 220, 232, 0.2);
+    0 1.02rem 2.25rem rgba(0, 0, 0, 0.3),
+    0 0.32rem 0.9rem rgba(120, 220, 232, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .guide-action-btn--impact {
-  color: #19181a;
-  background: linear-gradient(135deg, #ffd866, #fc9867 48%, #ff6188);
+  color: #201015;
+  border-color: rgba(255, 151, 146, 0.34) !important;
+  background: linear-gradient(135deg, #ffb68d 0%, #e65d7c 100%), #e65d7c;
   box-shadow:
-    0 1rem 2.25rem rgba(0, 0, 0, 0.3),
-    0 0 1.9rem rgba(255, 97, 136, 0.26),
-    0 0 1.35rem rgba(255, 216, 102, 0.22);
+    0 1.05rem 2.35rem rgba(0, 0, 0, 0.32),
+    0 0.32rem 0.9rem rgba(255, 97, 136, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .guide-action-btn--start:hover,
 .guide-action-btn--start:focus-visible,
 .guide-action-btn--impact:hover,
 .guide-action-btn--impact:focus-visible {
-  color: #19181a;
-  border-color: rgba(255, 255, 255, 0.68);
+  color: #17140f;
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow:
+    0 1.22rem 2.55rem rgba(0, 0, 0, 0.36),
+    0 0.38rem 1rem rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
 }
 
 .guide-action-btn--guides:hover,
 .guide-action-btn--guides:focus-visible {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.54) !important;
+  border-color: rgba(255, 255, 255, 0.48) !important;
+  box-shadow:
+    0 1.18rem 2.48rem rgba(0, 0, 0, 0.34),
+    0 0.38rem 0.98rem rgba(120, 220, 232, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.guide-action-btn--start:active,
+.guide-action-btn--impact:active,
+.guide-action-btn--guides:active {
+  box-shadow:
+    0 0.45rem 1rem rgba(0, 0, 0, 0.26),
+    inset 0 0.12rem 0.28rem rgba(0, 0, 0, 0.14);
 }
 
 @media (max-width: 575.98px) {

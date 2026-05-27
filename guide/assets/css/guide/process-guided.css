@@ -81,43 +81,88 @@
 }
 
 .process-chips {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
-  gap: 0.36rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.52rem;
+  counter-reset: process-chip;
   margin: 0;
-  padding: 0.12rem 0 0;
+  padding: 0.22rem 0 0;
   list-style: none;
 }
 
 .process-chips li {
+  counter-increment: process-chip;
   position: relative;
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  flex: 1 1 10.8rem;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: min(100%, 9.8rem);
+  min-height: 2.15rem;
   max-width: 100%;
-  padding: 0.3rem 0.42rem 0.3rem 0.78rem;
-  border: 0;
-  border-radius: 0.24rem;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--process-color) 10%, transparent),
-    rgba(25, 24, 26, 0.4) 74%
-  );
-  box-shadow: inset 2px 0 0
-    color-mix(in srgb, var(--process-color) 52%, transparent);
-  color: color-mix(in srgb, var(--process-color) 28%, var(--guide-text));
+  padding: 0.4rem 0.62rem 0.4rem 0.42rem;
+  border: 1px solid
+    color-mix(in srgb, var(--process-color) 24%, rgba(255, 255, 255, 0.08));
+  border-radius: 0.54rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--process-color) 15%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(180deg, rgba(64, 62, 65, 0.56), rgba(25, 24, 26, 0.68));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0.42rem 0.9rem rgba(0, 0, 0, 0.13);
+  color: color-mix(in srgb, var(--process-color) 38%, var(--guide-text));
   font-family: var(--bs-font-monospace);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 750;
+  line-height: 1.18;
+  letter-spacing: 0;
   overflow-wrap: anywhere;
 }
 
 .process-chips li::before {
-  position: absolute;
-  top: 0.82rem;
-  left: 0.42rem;
-  width: 0.22rem;
-  height: 0.22rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--process-color) 80%, #fcfcfa);
+  content: counter(process-chip, decimal-leading-zero);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.58rem;
+  height: 1.34rem;
+  border: 1px solid
+    color-mix(in srgb, var(--process-color) 38%, rgba(255, 255, 255, 0.1));
+  border-radius: 0.42rem;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--process-color) 34%, rgba(255, 255, 255, 0.06)),
+    color-mix(in srgb, var(--process-color) 12%, rgba(25, 24, 26, 0.72))
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0.72rem color-mix(in srgb, var(--process-color) 8%, transparent);
+  color: color-mix(in srgb, var(--process-color) 74%, #fcfcfa);
+  font-size: 0.62rem;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.process-chips li::after {
   content: "";
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.22rem;
+  left: 2.58rem;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--process-color) 34%, transparent),
+    transparent
+  );
+  opacity: 0.52;
+  pointer-events: none;
 }
 
 .process-stage--pink {
@@ -285,18 +330,6 @@
   margin-top: 1rem;
 }
 
-.file-flow--blue {
-  --file-flow-color: var(--guide-accent-blue);
-}
-
-.file-flow--purple {
-  --file-flow-color: var(--guide-accent-purple);
-}
-
-.file-flow--green {
-  --file-flow-color: var(--guide-accent-green);
-}
-
 .file-flow__item {
   display: grid;
   grid-template-columns: 2.65rem minmax(0, 1fr);
@@ -419,6 +452,78 @@
   color: var(--file-flow-color);
 }
 
+.file-flow__tool,
+.guided-tool {
+  display: grid;
+  gap: 0.28rem;
+  min-width: 0;
+  padding: 0.58rem 0.68rem;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--file-flow-color, var(--page-color)) 22%,
+      rgba(255, 255, 255, 0.08)
+    );
+  border-radius: 0.58rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(
+        in srgb,
+        var(--file-flow-color, var(--page-color)) 9%,
+        transparent
+      ),
+      transparent 62%
+    ),
+    rgba(255, 255, 255, 0.025);
+}
+
+.file-flow__tool strong,
+.guided-tool strong {
+  color: color-mix(
+    in srgb,
+    var(--file-flow-color, var(--page-color)) 72%,
+    #fcfcfa
+  );
+  font-size: 0.74rem;
+  font-weight: 850;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.file-flow__tool a,
+.guided-tool a {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  color: color-mix(
+    in srgb,
+    var(--file-flow-color, var(--page-color)) 70%,
+    #fcfcfa
+  );
+  text-decoration: none;
+}
+
+.file-flow__tool a:hover,
+.file-flow__tool a:focus-visible,
+.guided-tool a:hover,
+.guided-tool a:focus-visible {
+  color: #fff;
+}
+
+.file-flow__tool code,
+.guided-tool code {
+  display: block;
+  padding: 0;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 .guided-recipe {
   position: relative;
   display: grid;
@@ -499,6 +604,13 @@
   display: grid;
   gap: 0.65rem;
   min-width: 0;
+}
+
+.guided-step__body pre {
+  padding: 0.75em;
+  border: 1px solid
+    color-mix(in srgb, var(--page-color) 20%, rgba(255, 255, 255, 0.08)) !important;
+  margin-bottom: 0;
 }
 
 .guided-step__title {
@@ -612,23 +724,7 @@
 
 .guided-put .guide-term {
   color: color-mix(in srgb, var(--page-color) 58%, #fcfcfa);
-  border: 1px solid color-mix(in srgb, var(--page-color) 22%, transparent);
-  border-radius: 0.22rem;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 9%, transparent),
-      rgba(15, 14, 16, 0.24)
-    ),
-    rgba(15, 14, 16, 0.16);
-  box-shadow: inset 0 -1px 0
-    color-mix(in srgb, var(--page-color) 18%, transparent);
   text-transform: none;
-  letter-spacing: 0;
-  font-family: var(--bs-font-monospace);
-  font-size: 0.88em;
-  font-weight: 650;
-  padding: 0.02rem 0.22rem 0.04rem;
 }
 
 .guided-result {
@@ -638,23 +734,7 @@
 
 .guided-result .guide-term {
   color: color-mix(in srgb, var(--page-color) 58%, #fcfcfa);
-  border: 1px solid color-mix(in srgb, var(--page-color) 22%, transparent);
-  border-radius: 0.22rem;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 9%, transparent),
-      rgba(15, 14, 16, 0.24)
-    ),
-    rgba(15, 14, 16, 0.16);
-  box-shadow: inset 0 -1px 0
-    color-mix(in srgb, var(--page-color) 18%, transparent);
   text-transform: none;
-  letter-spacing: 0;
-  font-family: var(--bs-font-monospace);
-  font-size: 0.88em;
-  font-weight: 650;
-  padding: 0.02rem 0.22rem 0.04rem;
 }
 
 .guided-next {
