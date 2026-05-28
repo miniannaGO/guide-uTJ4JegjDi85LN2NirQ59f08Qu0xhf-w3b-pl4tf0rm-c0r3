@@ -563,6 +563,38 @@ html[data-bs-theme="light"] .guide-callout__title {
   color: #172033;
 }
 
+html[data-bs-theme="light"]
+  .guide-section
+  > .card
+  > .card-body
+  > h2:first-child {
+  color: color-mix(in srgb, var(--page-color) 76%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-subsection {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 24%,
+    rgba(15, 23, 42, 0.1)
+  );
+  border-left-color: color-mix(in srgb, var(--page-color) 74%, #d0d7e2);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 7%, transparent),
+      transparent 46%
+    ),
+    rgba(255, 255, 255, 0.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    0 0.45rem 1rem rgba(15, 23, 42, 0.07);
+}
+
+html[data-bs-theme="light"] .guide-subsection > h3:first-child,
+html[data-bs-theme="light"] .guide-subsection > h4:first-child {
+  color: color-mix(in srgb, var(--page-color) 74%, #172033);
+}
+
 html[data-bs-theme="light"] .guide-key-grid li {
   border-color: color-mix(
     in srgb,
@@ -993,15 +1025,6 @@ html[data-bs-theme="light"] .process-chips li::before {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
     0 0 0.72rem color-mix(in srgb, var(--process-color) 12%, transparent);
-}
-
-html[data-bs-theme="light"] .process-chips li::after {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--process-color) 28%, transparent),
-    transparent
-  );
-  opacity: 0.64;
 }
 
 html[data-bs-theme="light"] .ownership-pane,
@@ -1496,7 +1519,9 @@ html[data-bs-theme="light"] .guide-card-link:focus-visible .concept-card {
 html[data-bs-theme="light"]
   .guide-page--fundamentals
   #mental-model
-  .card:not(.concept-card),
+  .row
+  > [class*="col-"]
+  > .card:not(.concept-card),
 html[data-bs-theme="light"]
   .guide-page--troubleshooting
   .troubleshooting-group
@@ -1538,7 +1563,9 @@ html[data-bs-theme="light"]
 html[data-bs-theme="light"]
   .guide-page--fundamentals
   #mental-model
-  .card:not(.concept-card)::before,
+  .row
+  > [class*="col-"]
+  > .card:not(.concept-card)::before,
 html[data-bs-theme="light"]
   .guide-page--troubleshooting
   .troubleshooting-group
@@ -1684,6 +1711,22 @@ html[data-bs-theme="light"] .env-table thead th {
   background: #f1f3f5 !important;
   box-shadow: inset 0 -2px 0
     color-mix(in srgb, var(--page-color) 24%, transparent);
+}
+
+html[data-bs-theme="light"] .table-guide__group td {
+  color: #253044;
+  border-top-color: rgba(15, 23, 42, 0.12);
+  border-bottom-color: rgba(15, 23, 42, 0.1);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--guide-accent-strong) 8%, #f1f3f5),
+    #f1f3f5 42%,
+    #ffffff
+  ) !important;
+  box-shadow:
+    inset 4px 0 0
+      color-mix(in srgb, var(--guide-accent-strong) 44%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
 html[data-bs-theme="light"] .table-guide a:not(.btn) {

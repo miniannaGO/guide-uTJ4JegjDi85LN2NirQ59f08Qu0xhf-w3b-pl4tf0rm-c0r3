@@ -16,6 +16,37 @@
   background: rgba(255, 216, 102, 0.08);
 }
 
+.table-guide__group td {
+  padding: 0.72rem 0.9rem 0.52rem;
+  color: color-mix(in srgb, var(--guide-accent-strong) 74%, #fcfcfa);
+  border-top: 1px solid
+    color-mix(in srgb, var(--guide-accent-strong) 24%, transparent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(
+        in srgb,
+        var(--guide-accent-strong) 13%,
+        rgba(255, 255, 255, 0.025)
+      ),
+      rgba(255, 255, 255, 0.014) 48%,
+      transparent
+    ),
+    rgba(8, 8, 9, 0.24) !important;
+  box-shadow:
+    inset 4px 0 0
+      color-mix(in srgb, var(--guide-accent-strong) 58%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.table-guide tbody .table-guide__group:first-child td {
+  border-top: 0;
+}
+
 .table-guide a:not(.btn) {
   color: color-mix(in srgb, var(--page-color) 62%, #fcfcfa);
   border-bottom: 1px solid

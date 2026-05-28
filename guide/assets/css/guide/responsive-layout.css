@@ -420,6 +420,10 @@
     scroll-margin-top: 10.25rem;
   }
 
+  .guide-subsection-anchor {
+    scroll-margin-top: 10.25rem;
+  }
+
   .guide-nav .nav-link {
     flex: 0 0 auto;
     border: 1px solid rgba(255, 255, 255, 0.065);
@@ -555,6 +559,10 @@
   }
 
   .guide-section {
+    scroll-margin-top: 9.5rem;
+  }
+
+  .guide-subsection-anchor {
     scroll-margin-top: 9.5rem;
   }
 }

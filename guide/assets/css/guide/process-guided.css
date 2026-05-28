@@ -148,23 +148,6 @@
   line-height: 1;
 }
 
-.process-chips li::after {
-  content: "";
-  position: absolute;
-  right: 0.6rem;
-  bottom: 0.22rem;
-  left: 2.58rem;
-  height: 1px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--process-color) 34%, transparent),
-    transparent
-  );
-  opacity: 0.52;
-  pointer-events: none;
-}
-
 .process-stage--pink {
   --process-color: var(--guide-process-1);
 }

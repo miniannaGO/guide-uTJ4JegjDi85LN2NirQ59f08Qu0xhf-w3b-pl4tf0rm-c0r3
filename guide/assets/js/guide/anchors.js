@@ -293,6 +293,10 @@
   }
 
   function guideAnchorHighlightSurface(target) {
+    if (target.classList.contains("guide-subsection-anchor")) {
+      return target;
+    }
+
     if (
       target.classList.contains("guide-section") ||
       target.classList.contains("card") ||
@@ -389,13 +393,19 @@
   function resolveGuideNavActiveEntry(entries) {
     const topEdge = guideAnchorOffset() + 4;
     const bottomEdge = window.innerHeight;
-    const firstVisible = entries.find(({ section }) => {
+    const visibleEntries = entries.filter(({ section }) => {
       const rect = section.getBoundingClientRect();
 
       return rect.bottom > topEdge && rect.top < bottomEdge;
     });
+    const visibleAtTop = [...visibleEntries].reverse().find(({ section }) => {
+      const rect = section.getBoundingClientRect();
 
-    if (firstVisible) return firstVisible;
+      return rect.top <= topEdge && rect.bottom > topEdge;
+    });
+
+    if (visibleAtTop) return visibleAtTop;
+    if (visibleEntries.length) return visibleEntries[0];
 
     return (
       [...entries]
