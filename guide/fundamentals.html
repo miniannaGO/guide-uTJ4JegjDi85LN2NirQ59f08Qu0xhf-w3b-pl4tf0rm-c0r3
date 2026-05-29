@@ -107,9 +107,9 @@
                   <a class="nav-link" href="#vocabulary">Vocabulario mínimo</a>
                   <a class="nav-link" href="#mental-model">Modelo mental</a>
                   <a class="nav-link" href="#context">Contextos</a>
-                  <a class="nav-link" href="#flow">Flujo completo</a>
                   <a class="nav-link" href="#ownership">Ownership</a>
                   <a class="nav-link" href="#reading">Cómo leer cambios</a>
+                  <a class="nav-link" href="#flow">Flujo completo</a>
                   <a class="nav-link" href="#next">Recorrido de la guía</a>
                 </nav>
               </div>
@@ -302,6 +302,16 @@
                   Surface (Frontend) progresivo. La regla más importante es no
                   mezclar responsabilidades.
                 </p>
+                <p>
+                  Para un primer acercamiento, léelo como una conversación:
+                  Gateway recibe una petición, decide qué significa para la
+                  aplicación y responde con HTML, JSON o un error controlado.
+                  Surface llega después: toma ese HTML ya renderizado y le suma
+                  interacción. Si algo exige decidir permisos, consultar una API
+                  externa o interpretar reglas de aplicación, pertenece a
+                  Gateway. Si algo escucha clicks, monta un plugin visual o
+                  actualiza un fragment ya recibido, pertenece a Surface.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     Para revisar esas responsabilidades con más detalle, la
@@ -311,7 +321,7 @@
                     <a href="bridge.html#ownership">Ownership rápido</a>.
                   </em>
                 </p>
-                <div class="row g-3 pt-3">
+                <div class="row g-3">
                   <div class="col-lg-4">
                     <div class="card h-100 border-primary-subtle">
                       <div class="card-body">
@@ -416,6 +426,122 @@
                     >.
                   </em>
                 </p>
+              </div>
+            </div>
+          </section>
+
+          <section id="ownership" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2>Ownership de contratos</h2>
+                <div class="ownership-board">
+                  <section class="ownership-pane ownership-pane--gateway">
+                    <span class="ownership-pane__label">Gateway</span>
+                    <h3>Decide contrato y estado</h3>
+                    <ul>
+                      <li>Estado de aplicación y permisos.</li>
+                      <li>HTML SSR, JSON, redirect y errores.</li>
+                      <li>Layouts, fragments y `data-surface-*`.</li>
+                      <li>Headers de sesión y assets Vite.</li>
+                    </ul>
+                  </section>
+
+                  <div class="ownership-bridge">
+                    <span>Contrato compartido</span>
+                    <strong
+                      >HTML SSR + envelope JSON + headers + manifest
+                      Vite</strong
+                    >
+                  </div>
+
+                  <section class="ownership-pane ownership-pane--surface">
+                    <span class="ownership-pane__label">Surface</span>
+                    <h3>Activa interacción y feedback</h3>
+                    <ul>
+                      <li>Listeners, adapters y feedback UI.</li>
+                      <li>Pages y fragments declarados por HTML.</li>
+                      <li>HTTP hacia gateway con `serverClient`.</li>
+                      <li>
+                        Firmas TS locales en `contracts.ts` por integración.
+                      </li>
+                      <li>Montaje/desmontaje limpio del DOM.</li>
+                    </ul>
+                  </section>
+                </div>
+                <p class="guide-crosslink">
+                  <em>
+                    Cada contrato se desarrolla con ejemplos en
+                    <a href="bridge.html#html">Contratos HTML</a>,
+                    <a href="bridge.html#json">JSON envelope</a> y
+                    <a href="bridge.html#assets">Assets Vite</a>.
+                  </em>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section id="reading" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2>Cómo leer cambios</h2>
+                <p>
+                  La lectura debe concentrarse en los archivos correctos. Esta
+                  regla ayuda a delimitar el análisis antes de modificar código:
+                </p>
+                <p>
+                  Esto evita dos errores típicos al empezar: buscar lógica de
+                  negocio dentro de un binding de Surface, o buscar problemas de
+                  montaje dentro de un use case de Gateway. El orden de lectura
+                  no siempre es el orden físico de carpetas; es el orden en que
+                  la responsabilidad viaja por la solución.
+                </p>
+                <p class="guide-crosslink">
+                  <em>
+                    Cuando este mapa deba convertirse en pasos concretos, las
+                    <a href="recipes.html">Guías prácticas</a> y los
+                    <a href="diagrams.html">diagramas</a> sirven como validación
+                    cruzada.
+                  </em>
+                </p>
+                <div class="guide-quick-grid">
+                  <section class="guide-quick-item">
+                    <h3>Cambio SSR</h3>
+                    <ol class="flow-rail flow-rail--green">
+                      <li>routing</li>
+                      <li>controller</li>
+                      <li>response/view</li>
+                      <li>plantilla PHP</li>
+                      <li>integración UI si aplica</li>
+                    </ol>
+                  </section>
+                  <section class="guide-quick-item">
+                    <h3>Cambio JSON</h3>
+                    <ol class="flow-rail flow-rail--blue">
+                      <li>routing</li>
+                      <li>controller</li>
+                      <li>use case</li>
+                      <li>response JSON</li>
+                      <li>consumidor surface</li>
+                    </ol>
+                  </section>
+                  <section class="guide-quick-item">
+                    <h3>Cambio integración UI</h3>
+                    <ol class="flow-rail flow-rail--purple">
+                      <li>integration.ts</li>
+                      <li>page.ts o fragments</li>
+                      <li>actions.ts / api.ts</li>
+                      <li>platform/runtime solo si el montaje falla</li>
+                    </ol>
+                  </section>
+                  <section class="guide-quick-item">
+                    <h3>Cambio assets</h3>
+                    <ol class="flow-rail flow-rail--orange">
+                      <li>app-surface/vite.config.ts</li>
+                      <li>main.ts/styles</li>
+                      <li>gateway ViteAssets/parciales</li>
+                    </ol>
+                  </section>
+                </div>
               </div>
             </div>
           </section>
@@ -525,115 +651,6 @@
                     >.
                   </em>
                 </p>
-              </div>
-            </div>
-          </section>
-
-          <section id="ownership" class="guide-section">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body">
-                <h2>Ownership de contratos</h2>
-                <div class="ownership-board">
-                  <section class="ownership-pane ownership-pane--gateway">
-                    <span class="ownership-pane__label">Gateway</span>
-                    <h3>Decide contrato y estado</h3>
-                    <ul>
-                      <li>Estado de aplicación y permisos.</li>
-                      <li>HTML SSR, JSON, redirect y errores.</li>
-                      <li>Layouts, fragments y `data-surface-*`.</li>
-                      <li>Headers de sesión y assets Vite.</li>
-                    </ul>
-                  </section>
-
-                  <div class="ownership-bridge">
-                    <span>Contrato compartido</span>
-                    <strong
-                      >HTML SSR + envelope JSON + headers + manifest
-                      Vite</strong
-                    >
-                  </div>
-
-                  <section class="ownership-pane ownership-pane--surface">
-                    <span class="ownership-pane__label">Surface</span>
-                    <h3>Activa interacción y feedback</h3>
-                    <ul>
-                      <li>Listeners, adapters y feedback UI.</li>
-                      <li>Pages y fragments declarados por HTML.</li>
-                      <li>HTTP hacia gateway con `serverClient`.</li>
-                      <li>
-                        Firmas TS locales en `contracts.ts` por integración.
-                      </li>
-                      <li>Montaje/desmontaje limpio del DOM.</li>
-                    </ul>
-                  </section>
-                </div>
-                <p class="guide-crosslink">
-                  <em>
-                    Cada contrato se desarrolla con ejemplos en
-                    <a href="bridge.html#html">Contratos HTML</a>,
-                    <a href="bridge.html#json">JSON envelope</a> y
-                    <a href="bridge.html#assets">Assets Vite</a>.
-                  </em>
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section id="reading" class="guide-section">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body">
-                <h2>Cómo leer cambios</h2>
-                <p>
-                  La lectura debe concentrarse en los archivos correctos. Esta
-                  regla ayuda a delimitar el análisis antes de modificar código:
-                </p>
-                <p class="guide-crosslink">
-                  <em>
-                    Cuando este mapa deba convertirse en pasos concretos, las
-                    <a href="recipes.html">Guías prácticas</a> y los
-                    <a href="diagrams.html">diagramas</a> sirven como validación
-                    cruzada.
-                  </em>
-                </p>
-                <div class="guide-quick-grid pt-3">
-                  <section class="guide-quick-item">
-                    <h3>Cambio SSR</h3>
-                    <ol class="flow-rail flow-rail--green">
-                      <li>routing</li>
-                      <li>controller</li>
-                      <li>response/view</li>
-                      <li>plantilla PHP</li>
-                      <li>integración UI si aplica</li>
-                    </ol>
-                  </section>
-                  <section class="guide-quick-item">
-                    <h3>Cambio JSON</h3>
-                    <ol class="flow-rail flow-rail--blue">
-                      <li>routing</li>
-                      <li>controller</li>
-                      <li>use case</li>
-                      <li>response JSON</li>
-                      <li>consumidor surface</li>
-                    </ol>
-                  </section>
-                  <section class="guide-quick-item">
-                    <h3>Cambio runtime UI</h3>
-                    <ol class="flow-rail flow-rail--purple">
-                      <li>platform/runtime</li>
-                      <li>platform/startup</li>
-                      <li>registry</li>
-                      <li>integración concreta</li>
-                    </ol>
-                  </section>
-                  <section class="guide-quick-item">
-                    <h3>Cambio assets</h3>
-                    <ol class="flow-rail flow-rail--orange">
-                      <li>app-surface/vite.config.ts</li>
-                      <li>main.ts/styles</li>
-                      <li>gateway ViteAssets/parciales</li>
-                    </ol>
-                  </section>
-                </div>
               </div>
             </div>
           </section>

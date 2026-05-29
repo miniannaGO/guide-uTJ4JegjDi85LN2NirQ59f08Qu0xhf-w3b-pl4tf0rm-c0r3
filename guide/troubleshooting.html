@@ -147,6 +147,22 @@
                   Primero se debe ubicar qué contrato falló: ruta, HTML, JSON,
                   sesión, assets, DI, outbound o montaje de Surface.
                 </p>
+                <p>
+                  Lee el fallo en el mismo orden en que corre la solución:
+                  request HTTP, ruta, middleware, controller, use case,
+                  service/connector si existe, response y finalmente Surface.
+                  Si el error aparece al final, igual conviene confirmar que los
+                  pasos anteriores entregaron el contrato esperado.
+                </p>
+                <p>
+                  La pregunta inicial no es “¿qué archivo cambio?”, sino “¿qué
+                  promesa se rompió?”. Si el navegador esperaba HTML y recibió
+                  JSON, el problema está en el contrato de respuesta. Si Surface
+                  no monta, primero confirma que el HTML tenga el atributo
+                  correcto. Si el use case falla, revisa si el error nació por
+                  input, por estado de aplicación o por una dependencia externa.
+                  Esa disciplina evita arreglos al azar.
+                </p>
                 <ol class="guide-checklist">
                   <li>
                     Identificar la salida esperada: página, fragment, JSON,
@@ -337,7 +353,7 @@
                   aplicación.
                 </p>
                 <div class="row g-3">
-                  <div class="col-md-6 col-xl-4">
+                  <div class="col-12">
                     <div class="card h-100">
                       <div class="card-body">
                         <h2 class="h5">Parcialidad no se muestra</h2>
@@ -676,27 +692,6 @@
                   <div class="col-md-6">
                     <div class="card h-100">
                       <div class="card-body">
-                        <h2 class="h5">Sesión por pestaña falla</h2>
-                        <p>
-                          Validar `ensureTabSession()`, header `X-TAB-SESSION` y
-                          estado de sesión PHP.
-                        </p>
-                        <p class="small mb-0">
-                          Ver:
-                          <a href="app-gateway.html#security-session"
-                            >sesión Gateway</a
-                          >,
-                          <a href="app-surface.html#session-runtime"
-                            >sesión Surface</a
-                          >
-                          y <a href="app-surface.html#http">headers HTTP</a>.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="card h-100">
-                      <div class="card-body">
                         <h2 class="h5">No carga manifest Vite</h2>
                         <p>
                           En local debe ejecutarse `npm run lite:build` en
@@ -737,6 +732,27 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Sesión por pestaña falla</h2>
+                        <p>
+                          Validar `ensureTabSession()`, header `X-TAB-SESSION` y
+                          estado de sesión PHP.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="app-gateway.html#security-session"
+                            >sesión Gateway</a
+                          >,
+                          <a href="app-surface.html#session-runtime"
+                            >sesión Surface</a
+                          >
+                          y <a href="app-surface.html#http">headers HTTP</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -754,7 +770,7 @@
                   unir navegador, Gateway y llamadas upstream.
                 </p>
                 <div class="row g-3">
-                  <div class="col-md-6 col-xl-4">
+                  <div class="col-12">
                     <div class="card h-100">
                       <div class="card-body">
                         <h2 class="h5">No puedo rastrear un fallo</h2>

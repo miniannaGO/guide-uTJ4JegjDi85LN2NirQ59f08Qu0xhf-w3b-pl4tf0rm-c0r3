@@ -66,7 +66,7 @@
       if (title) title.textContent = label;
       if (sourceLink) sourceLink.setAttribute("href", source);
       viewer.innerHTML =
-        '<div class="guide-callout p-3 rounded">Cargando diagrama...</div>';
+        '<div class="guide-callout">Cargando diagrama...</div>';
 
       try {
         const response = await fetch(source);
@@ -80,7 +80,7 @@
         await bootShikiCodeBlocks(viewer);
         enhanceInlineTerms(viewer);
       } catch {
-        viewer.innerHTML = `<div class="guide-callout p-3 rounded">No se pudo cargar el Markdown. Abre el archivo fuente desde el enlace superior.</div>`;
+        viewer.innerHTML = `<div class="guide-callout">No se pudo cargar el Markdown. Abre el archivo fuente desde el enlace superior.</div>`;
       }
     }
 

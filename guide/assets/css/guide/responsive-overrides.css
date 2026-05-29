@@ -185,6 +185,29 @@
       inset 0 -2px 0 color-mix(in srgb, var(--page-color) 62%, transparent),
       0 0.35rem 0.72rem rgba(15, 23, 42, 0.075);
   }
+
+  html[data-bs-theme="light"] .guide-nav-mobile-menu {
+    border-color: color-mix(
+      in srgb,
+      var(--page-color) 24%,
+      rgba(15, 23, 42, 0.14)
+    );
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.16);
+  }
+
+  html[data-bs-theme="light"] .guide-nav-mobile-menu .dropdown-item {
+    color: #253044;
+  }
+
+  html[data-bs-theme="light"] .guide-nav-mobile-menu .dropdown-item:hover,
+  html[data-bs-theme="light"]
+    .guide-nav-mobile-menu
+    .dropdown-item:focus-visible,
+  html[data-bs-theme="light"] .guide-nav-mobile-menu .dropdown-item.active {
+    color: color-mix(in srgb, var(--page-color) 82%, #111827);
+    background: color-mix(in srgb, var(--page-color) 12%, #ffffff);
+  }
 }
 
 @media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {

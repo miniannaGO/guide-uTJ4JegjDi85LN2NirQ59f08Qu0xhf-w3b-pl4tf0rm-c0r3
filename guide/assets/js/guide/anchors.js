@@ -83,6 +83,7 @@
   function isGuideMobileNavDragReady(nav, event) {
     if (!window.matchMedia("(max-width: 991.98px)").matches) return false;
     if (event.pointerType === "mouse" && event.button !== 0) return false;
+    if (event.target?.closest?.(".guide-nav-mobile-menu")) return false;
 
     return nav.scrollWidth > nav.clientWidth + 1;
   }
@@ -104,6 +105,114 @@
     if (window.ResizeObserver) {
       new ResizeObserver(sync).observe(nav);
     }
+  }
+
+  function bootGuideNavMobileDropdowns() {
+    const nav = document.querySelector("#guide-nav");
+    if (!nav || nav.dataset.guideMobileDropdownsReady === "true") return;
+
+    nav.dataset.guideMobileDropdownsReady = "true";
+
+    const links = [...nav.children].filter((item) =>
+      item.matches?.("a.nav-link[href^='#']"),
+    );
+    let dropdownIndex = 0;
+
+    for (let index = 0; index < links.length; index++) {
+      const parent = links[index];
+      if (parent.classList.contains("guide-nav-link--subsection")) continue;
+
+      const children = [];
+      let nextIndex = index + 1;
+
+      while (
+        nextIndex < links.length &&
+        links[nextIndex].classList.contains("guide-nav-link--subsection")
+      ) {
+        children.push(links[nextIndex]);
+        nextIndex++;
+      }
+
+      if (!children.length) continue;
+
+      dropdownIndex++;
+      parent.classList.add("guide-nav-link--has-mobile-dropdown");
+      children.forEach((child) =>
+        child.classList.add("guide-nav-link--mobile-child"),
+      );
+      nav.insertBefore(
+        renderGuideNavMobileDropdown(parent, children, dropdownIndex),
+        parent,
+      );
+      index = nextIndex - 1;
+    }
+
+    if (dropdownIndex > 0) {
+      window.addEventListener("resize", positionOpenGuideNavMobileDropdowns, {
+        passive: true,
+      });
+      window.addEventListener("scroll", positionOpenGuideNavMobileDropdowns, {
+        passive: true,
+      });
+      nav.addEventListener("scroll", positionOpenGuideNavMobileDropdowns, {
+        passive: true,
+      });
+    }
+  }
+
+  function renderGuideNavMobileDropdown(parent, children, index) {
+    const dropdown = document.createElement("div");
+    const toggle = document.createElement("button");
+    const label = document.createElement("span");
+    const menu = document.createElement("ul");
+    const toggleId = `guide-nav-mobile-toggle-${index}`;
+
+    dropdown.className = "guide-nav-mobile-dropdown dropdown";
+    dropdown.dataset.guideNavMobileDropdown = "true";
+
+    toggle.className = "nav-link guide-nav-mobile-toggle dropdown-toggle";
+    toggle.type = "button";
+    toggle.id = toggleId;
+    toggle.setAttribute("data-bs-toggle", "dropdown");
+    toggle.setAttribute("data-bs-auto-close", "true");
+    toggle.setAttribute("data-bs-boundary", "viewport");
+    toggle.setAttribute("data-bs-display", "static");
+    toggle.setAttribute("data-bs-offset", "0,8");
+    toggle.setAttribute("aria-expanded", "false");
+
+    label.className = "guide-nav-mobile-toggle__label";
+    label.textContent = parent.textContent.trim();
+    toggle.append(label);
+
+    menu.className = "dropdown-menu guide-nav-mobile-menu";
+    menu.setAttribute("aria-labelledby", toggleId);
+    menu.append(renderGuideNavMobileItem(parent, true));
+    children.forEach((child) => menu.append(renderGuideNavMobileItem(child)));
+
+    dropdown.append(toggle, menu);
+    dropdown.addEventListener("shown.bs.dropdown", () => {
+      positionGuideNavMobileDropdown(dropdown);
+    });
+    dropdown.addEventListener("hidden.bs.dropdown", () => {
+      resetGuideNavMobileDropdown(dropdown);
+    });
+
+    return dropdown;
+  }
+
+  function renderGuideNavMobileItem(sourceLink, isParent = false) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+
+    link.className = isParent
+      ? "dropdown-item guide-nav-mobile-item guide-nav-mobile-item--parent"
+      : "dropdown-item guide-nav-mobile-item";
+    link.href = sourceLink.getAttribute("href") ?? "#";
+    link.textContent = sourceLink.textContent.trim();
+    link.dataset.guideNavMobileItem = "true";
+    item.append(link);
+
+    return item;
   }
 
   function bootGuideAnchorHighlights() {
@@ -329,7 +438,8 @@
 
           event.preventDefault();
           event.stopImmediatePropagation();
-          setGuideNavActive(link);
+          setGuideNavActive(guidePrimaryNavLink(nav, link));
+          closeGuideNavMobileDropdown(link);
           scrollToGuideTarget(target);
           history.pushState(null, "", hash);
         },
@@ -379,7 +489,8 @@
   }
 
   function guideNavEntries(nav) {
-    return [...nav.querySelectorAll('a[href^="#"]')]
+    return [...nav.children]
+      .filter((item) => item.matches?.("a.nav-link[href^='#']"))
       .map((link) => {
         const hash = link.getAttribute("href");
         const targetId = hash ? decodeURIComponent(hash.slice(1)) : "";
@@ -420,20 +531,134 @@
     if (!activeLink) return;
 
     const nav = activeLink.closest("#guide-nav");
-    const previous = nav?.querySelector(".nav-link.active");
-    if (previous === activeLink) {
-      scrollActiveMenuItemIntoView(activeLink);
-      return;
-    }
+    if (!nav) return;
 
-    nav?.querySelectorAll(".nav-link.active").forEach((link) => {
-      link.classList.remove("active");
-      link.removeAttribute("aria-current");
+    const href = activeLink.getAttribute("href");
+    if (!href) return;
+
+    nav
+      .querySelectorAll(".nav-link.active, .dropdown-item.active")
+      .forEach((link) => {
+        link.classList.remove("active");
+        link.removeAttribute("aria-current");
+      });
+    nav
+      .querySelectorAll(".guide-nav-mobile-dropdown.is-active")
+      .forEach((dropdown) => dropdown.classList.remove("is-active"));
+
+    guideNavLinksForHref(nav, href).forEach((link) => {
+      link.classList.add("active");
+      link.setAttribute("aria-current", "location");
     });
+    syncGuideNavMobileDropdownActive(nav, href);
+    scrollActiveMenuItemIntoView(
+      guideNavMobileScrollTarget(nav, activeLink, href),
+    );
+  }
 
-    activeLink.classList.add("active");
-    activeLink.setAttribute("aria-current", "location");
-    scrollActiveMenuItemIntoView(activeLink);
+  function guidePrimaryNavLink(nav, link) {
+    if (!link.classList.contains("guide-nav-mobile-item")) return link;
+
+    const href = link.getAttribute("href");
+    if (!href) return link;
+
+    return (
+      [...nav.children].find(
+        (item) =>
+          item.matches?.("a.nav-link[href^='#']") &&
+          item.getAttribute("href") === href,
+      ) ?? link
+    );
+  }
+
+  function guideNavLinksForHref(nav, href) {
+    return [...nav.querySelectorAll("a[href]")].filter(
+      (link) => link.getAttribute("href") === href,
+    );
+  }
+
+  function syncGuideNavMobileDropdownActive(nav, href) {
+    nav.querySelectorAll(".guide-nav-mobile-dropdown").forEach((dropdown) => {
+      const hasActiveItem = [...dropdown.querySelectorAll("a[href]")].some(
+        (link) => link.getAttribute("href") === href,
+      );
+      const toggle = dropdown.querySelector(".guide-nav-mobile-toggle");
+
+      dropdown.classList.toggle("is-active", hasActiveItem);
+      toggle?.classList.toggle("active", hasActiveItem);
+    });
+  }
+
+  function guideNavMobileScrollTarget(nav, activeLink, href) {
+    if (!window.matchMedia("(max-width: 991.98px)").matches) return activeLink;
+
+    const activeDropdown = [
+      ...nav.querySelectorAll(".guide-nav-mobile-dropdown"),
+    ].find((dropdown) =>
+      [...dropdown.querySelectorAll("a[href]")].some(
+        (link) => link.getAttribute("href") === href,
+      ),
+    );
+
+    return (
+      activeDropdown?.querySelector(".guide-nav-mobile-toggle") ?? activeLink
+    );
+  }
+
+  function closeGuideNavMobileDropdown(link) {
+    const dropdown = link.closest(".guide-nav-mobile-dropdown");
+    const toggle = dropdown?.querySelector(".guide-nav-mobile-toggle");
+    if (!toggle) return;
+
+    window.bootstrap?.Dropdown?.getOrCreateInstance(toggle)?.hide();
+  }
+
+  function positionOpenGuideNavMobileDropdowns() {
+    document
+      .querySelectorAll(".guide-nav-mobile-dropdown .dropdown-menu.show")
+      .forEach((menu) =>
+        positionGuideNavMobileDropdown(
+          menu.closest(".guide-nav-mobile-dropdown"),
+        ),
+      );
+  }
+
+  function positionGuideNavMobileDropdown(dropdown) {
+    if (!dropdown || !window.matchMedia("(max-width: 991.98px)").matches) return;
+
+    const toggle = dropdown.querySelector(".guide-nav-mobile-toggle");
+    const menu = dropdown.querySelector(".guide-nav-mobile-menu");
+    if (!toggle || !menu) return;
+
+    const viewportPadding = 12;
+    const toggleRect = toggle.getBoundingClientRect();
+    const menuWidth = Math.min(
+      Math.max(menu.offsetWidth, 220),
+      window.innerWidth - viewportPadding * 2,
+    );
+    const left = Math.min(
+      Math.max(toggleRect.left, viewportPadding),
+      window.innerWidth - menuWidth - viewportPadding,
+    );
+
+    menu.style.position = "fixed";
+    menu.style.inset = "auto";
+    menu.style.left = `${left}px`;
+    menu.style.top = `${toggleRect.bottom + 8}px`;
+    menu.style.width = `${menuWidth}px`;
+    menu.style.transform = "none";
+  }
+
+  function resetGuideNavMobileDropdown(dropdown) {
+    const menu = dropdown?.querySelector(".guide-nav-mobile-menu");
+    if (!menu) return;
+
+    menu.style.position = "";
+    menu.style.inset = "";
+    menu.style.left = "";
+    menu.style.top = "";
+    menu.style.width = "";
+    menu.style.transform = "";
   }
 
   function scrollActiveMenuItemIntoView(item) {
@@ -493,6 +718,7 @@
   window.GuideDocs.anchors = {
     bootGuideNavDragScroll,
     syncGuideNavOverflow,
+    bootGuideNavMobileDropdowns,
     bootGuideAnchorHighlights,
     bootGuideNavAnchors,
     bootGuideNavActiveState,

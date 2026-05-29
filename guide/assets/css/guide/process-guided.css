@@ -507,6 +507,43 @@
   overflow-wrap: anywhere;
 }
 
+body:not(.guide-page--tools) .guided-step__body > .guided-field-grid {
+  order: 10;
+}
+
+body:not(.guide-page--tools) .guided-step__body > .guided-tool {
+  order: 20;
+}
+
+body:not(.guide-page--tools) .guided-step__body > .guided-next {
+  order: 30;
+}
+
+body:not(.guide-page--tools) .file-flow__tool,
+body:not(.guide-page--tools) .guided-tool {
+  border-style: dashed;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(
+        in srgb,
+        var(--file-flow-color, var(--page-color)) 6%,
+        transparent
+      ),
+      transparent 62%
+    ),
+    rgba(255, 255, 255, 0.018);
+}
+
+body:not(.guide-page--tools) .file-flow__tool strong,
+body:not(.guide-page--tools) .guided-tool strong {
+  color: color-mix(
+    in srgb,
+    var(--file-flow-color, var(--page-color)) 58%,
+    var(--guide-muted)
+  );
+}
+
 .guided-recipe {
   position: relative;
   display: grid;
@@ -594,6 +631,7 @@
   border: 1px solid
     color-mix(in srgb, var(--page-color) 20%, rgba(255, 255, 255, 0.08)) !important;
   margin-bottom: 0;
+  background: rgba(25, 24, 26, 0.72) !important;
 }
 
 .guided-step__title {

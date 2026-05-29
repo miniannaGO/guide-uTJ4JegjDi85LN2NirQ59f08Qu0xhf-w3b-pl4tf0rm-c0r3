@@ -231,7 +231,20 @@
                   Surface no crea pantallas desde cero. Parte del HTML que
                   Gateway ya renderizó. Cuando encuentra una marca declarativa,
                   carga el módulo correspondiente, monta comportamiento y limpia
-                  cuando ese HTML desaparece.
+                  cuando ese HTML desaparece. Para leer el código de una
+                  feature Surface, empieza por <code>integration.ts</code>:
+                  allí se declara qué id SSR atiende la integración y qué
+                  módulo se carga después.
+                </p>
+                <p>
+                  Esto significa que Surface no es “la aplicación completa en el
+                  navegador”. Es una capa de activación. Su trabajo es pequeño
+                  pero importante: encontrar el HTML correcto, conectar eventos,
+                  llamar rutas Gateway con <code>serverClient</code>, montar
+                  adapters visuales cuando hagan falta y desmontarlos sin dejar
+                  estado colgado. Cuando una explicación necesite reglas de
+                  negocio, permisos o proveedores externos, esta página solo los
+                  menciona como frontera y envía el detalle a Gateway o Bridge.
                 </p>
                 <div class="table-responsive">
                   <table class="table table-striped table-guide align-middle">
@@ -244,10 +257,10 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Workspace define la integración.</td>
+                        <td>Workspace empieza en <code>integration.ts</code>.</td>
                         <td>
-                          Declara el id, layout, loader de page, fragments y
-                          registro antes de que el runtime pueda montar algo.
+                          Declara el id, layout, loader de page y fragments
+                          antes de que el runtime pueda montar algo.
                         </td>
                         <td><a href="#workspace">Workspace</a></td>
                       </tr>
@@ -494,61 +507,61 @@
                     </button>
                   </div>
                   <pre><code id="sf-surface-tree" class="language-text">app-surface/
-      platform/
-        infrastructure/
-          adapters/
-          dom/
-          feedback/
-          http/
-          session/
-            expiry/
-            state/
-          shared/
-          app-config.ts
-          http.ts
-          ui-errors.ts
-        runtime/
-          binding/
-          mounting/
-          contracts.ts
-          error-reporting.ts
-          index.ts
-          services.ts
-          ui-errors.ts
-        startup/
-          control/
-          access-layout.ts
-          app.ts
-          layouts.ts
-        types/
-      toolkit/
-        adapters/
-          select2/
-        dom/
-        feedback/
-          modal/
-          swal/
-          toast/
-        shared/
-      workspace/
-        application/
-        integrations/
-          &lt;feature&gt;/
-            fragments/
-          registry.ts
-        styles/
-          base/
-          layouts/
-          tokens/
-          vendors/
-      .prettierrc
-      index.html
-      main.ts
-      package.json
-      package-lock.json
-      tsconfig.json
-      vite.config.constants.ts
-      vite.config.ts</code></pre>
+  platform/
+    infrastructure/
+      adapters/
+      dom/
+      feedback/
+      http/
+      session/
+        expiry/
+        state/
+      shared/
+      app-config.ts
+      http.ts
+      ui-errors.ts
+    runtime/
+      binding/
+      mounting/
+      contracts.ts
+      error-reporting.ts
+      index.ts
+      services.ts
+      ui-errors.ts
+    startup/
+      control/
+      access-layout.ts
+      app.ts
+      layouts.ts
+    types/
+  toolkit/
+    adapters/
+      select2/
+    dom/
+    feedback/
+      modal/
+      swal/
+      toast/
+    shared/
+  workspace/
+    application/
+    integrations/
+      &lt;feature&gt;/
+        fragments/
+      registry.ts
+    styles/
+      base/
+      layouts/
+      tokens/
+      vendors/
+  .prettierrc
+  index.html
+  main.ts
+  package.json
+  package-lock.json
+  tsconfig.json
+  vite.config.constants.ts
+  vite.config.ts</code></pre>
                 </div>
                 <div class="table-responsive mt-3">
                   <table class="table table-striped table-guide align-middle">
@@ -618,9 +631,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Convención</span>
                     <strong class="guide-callout__title">
@@ -805,9 +816,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Frontera</span>
                     <strong class="guide-callout__title">
@@ -844,6 +853,42 @@
                   crean cuando la feature realmente consume JSON, arma requests
                   reutilizables o monta fragments.
                 </p>
+                <div class="guide-callout guide-callout--structured">
+                  <div class="guide-callout__header">
+                    <span class="guide-callout__eyebrow">Orden de lectura</span>
+                    <strong class="guide-callout__title">
+                      Primero identifica la integración, luego sigue el código
+                      que esa integración carga.
+                    </strong>
+                  </div>
+                  <ul class="guide-key-grid guide-key-grid--compact">
+                    <li>
+                      <strong>1. Registro local</strong>
+                      <code>integration.ts</code>
+                      <span>Conecta el id SSR con loaders lazy.</span>
+                    </li>
+                    <li>
+                      <strong>2. Binding</strong>
+                      <code>page.ts / fragments/*.ts</code>
+                      <span>Lee DOM, escucha eventos y registra cleanup.</span>
+                    </li>
+                    <li>
+                      <strong>3. Intención UI</strong>
+                      <code>actions.ts</code>
+                      <span>Arma requests desde valores semánticos.</span>
+                    </li>
+                    <li>
+                      <strong>4. Comunicación</strong>
+                      <code>api.ts / contracts.ts</code>
+                      <span>Tipa y ejecuta llamadas a Gateway.</span>
+                    </li>
+                    <li>
+                      <strong>5. UI opt-in</strong>
+                      <code>controls.ts</code>
+                      <span>Monta adapters visuales solo cuando se usan.</span>
+                    </li>
+                  </ul>
+                </div>
                 <div class="code-card">
                   <div class="code-card__bar">
                     <span>Esquema recomendado</span>
@@ -856,25 +901,25 @@
                     </button>
                   </div>
                   <pre><code id="sf-workspace-tree" class="language-text">app-surface/workspace/
-      application/
-        &lt;helper&gt;.ts
-      integrations/
-        &lt;feature&gt;/
-          actions.ts
-          api.ts
-          contracts.ts
-          controls.ts
-          fragments/
-            &lt;fragment&gt;.ts
-          integration.ts
-          page.ts
-          request.ts
-        registry.ts
-      styles/
-        base/
-        layouts/
-        tokens/
-        vendors/</code></pre>
+  application/
+    &lt;helper&gt;.ts
+  integrations/
+    &lt;feature&gt;/
+      actions.ts
+      api.ts
+      contracts.ts
+      controls.ts
+      fragments/
+        &lt;fragment&gt;.ts
+      integration.ts
+      page.ts
+      request.ts
+    registry.ts
+  styles/
+    base/
+    layouts/
+    tokens/
+    vendors/</code></pre>
                 </div>
                 <div class="table-responsive">
                   <table class="table table-striped table-guide align-middle">
@@ -1040,7 +1085,7 @@
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">Registro local</h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page
@@ -1075,7 +1120,7 @@
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">UI, HTTP y helpers</h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page
@@ -1130,7 +1175,7 @@
                           Controles y fragments
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-fragment">
                             <code
                               >composer robo -- make:fragment &lt;feature&gt;
@@ -1260,9 +1305,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow"
                       >Carga visual inicial</span
@@ -1349,8 +1392,8 @@
                         </button>
                       </div>
                       <pre><code id="sf-html" class="language-markup">&lt;div data-surface-page="demo-items"&gt;
-      &lt;section data-surface-fragment="item-summary"&gt;&lt;/section&gt;
-    &lt;/div&gt;</code></pre>
+  &lt;section data-surface-fragment="item-summary"&gt;&lt;/section&gt;
+&lt;/div&gt;</code></pre>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -1366,15 +1409,15 @@
                         </button>
                       </div>
                       <pre><code id="sf-integration" class="language-typescript">export const itemsIntegration = {
-      id: "demo-items",
-      layout: "control",
-      page: { load: () => import("@/workspace/integrations/items/page") },
-      fragments: {
-        "item-summary": {
-          load: () => import("@/workspace/integrations/items/fragments/summary"),
-        },
-      },
-    } satisfies UiIntegration;</code></pre>
+  id: "demo-items",
+  layout: "control",
+  page: { load: () => import("@/workspace/integrations/items/page") },
+  fragments: {
+    "item-summary": {
+      load: () => import("@/workspace/integrations/items/fragments/summary"),
+    },
+  },
+} satisfies UiIntegration;</code></pre>
                     </div>
                   </div>
                 </div>
@@ -1409,7 +1452,7 @@
                           Marca el HTML que viene del gateway
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page items
@@ -1450,7 +1493,7 @@
                           Declara la integración
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page items
@@ -1488,7 +1531,7 @@
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">Conecta el registry</h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page items
@@ -1611,25 +1654,25 @@
                     </button>
                   </div>
                   <pre><code id="sf-runtime-module" class="language-typescript">import { UiBinding } from "@/platform/runtime/binding";
-    import type { MountContext, Unmount } from "@/platform/runtime/contracts";
-    //Forma 1: función mount simple.
-    export function mount(root: HTMLElement, context: MountContext): Unmount {
-      const button = root.querySelector("button");
-      const listener = () => console.log(context.integrationId);
-      button?.addEventListener("click", listener);
-    
-      return () => button?.removeEventListener("click", listener);
-    }
-    //Forma 2: clase con lifecycle y helpers DOM.
-    export default class ItemsPage extends UiBinding {
-      protected mount(): void {
-        this.onClick(this.require("#btn-search"), () => this.search());
-      }
-    
-      private async search(): Promise&lt;void&gt; {
-        // Acción UI de la página.
-      }
-    }</code></pre>
+import type { MountContext, Unmount } from "@/platform/runtime/contracts";
+//Forma 1: función mount simple.
+export function mount(root: HTMLElement, context: MountContext): Unmount {
+  const button = root.querySelector("button");
+  const listener = () => console.log(context.integrationId);
+  button?.addEventListener("click", listener);
+
+  return () => button?.removeEventListener("click", listener);
+}
+//Forma 2: clase con lifecycle y helpers DOM.
+export default class ItemsPage extends UiBinding {
+  protected mount(): void {
+    this.onClick(this.require("#btn-search"), () => this.search());
+  }
+
+  private async search(): Promise&lt;void&gt; {
+    // Acción UI de la página.
+  }
+}</code></pre>
                 </div>
 
                 <ul class="guide-checklist">
@@ -1685,19 +1728,19 @@
                     </button>
                   </div>
                   <pre><code id="sf-binding" class="language-typescript">export default class ExampleBinding extends UiBinding {
-      protected mount(): void {
-        const button = this.find&lt;HTMLButtonElement&gt;("#btn-example");
-        if (!button) return;
-    
-        this.onClick(button, async () => {
-          // Acción UI protegida por guardUiAction.
-        });
-      }
-    
-      protected unmount(): void {
-        // Destruye adapters o estado externo.
-      }
-    }</code></pre>
+  protected mount(): void {
+    const button = this.find&lt;HTMLButtonElement&gt;("#btn-example");
+    if (!button) return;
+
+    this.onClick(button, async () => {
+      // Acción UI protegida por guardUiAction.
+    });
+  }
+
+  protected unmount(): void {
+    // Destruye adapters o estado externo.
+  }
+}</code></pre>
                 </div>
                 <ul class="guide-checklist">
                   <li>
@@ -2048,9 +2091,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Mensajes flash</span>
                     <strong class="guide-callout__title">
@@ -2331,9 +2372,7 @@
                     click suma tiempo.
                   </p>
 
-                  <div
-                    class="guide-callout guide-callout--structured p-3 rounded"
-                  >
+                  <div class="guide-callout guide-callout--structured">
                     <div class="guide-callout__header">
                       <span class="guide-callout__eyebrow"
                         >Regla de frontera</span
@@ -2390,9 +2429,7 @@
                   id="consume-gateway-boundary"
                   class="guide-subsection guide-subsection-anchor"
                 >
-                  <div
-                    class="guide-callout guide-callout--structured p-3 rounded"
-                  >
+                  <div class="guide-callout guide-callout--structured">
                     <div class="guide-callout__header">
                       <span class="guide-callout__eyebrow">Consumo seguro</span>
                       <strong class="guide-callout__title">
@@ -2421,9 +2458,7 @@
                     </ul>
                   </div>
 
-                  <div
-                    class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                  >
+                  <div class="guide-callout guide-callout--structured">
                     <div class="guide-callout__header">
                       <span class="guide-callout__eyebrow"
                         >Esqueleto progresivo</span
@@ -2486,7 +2521,7 @@
                             Primero confirma la ruta del gateway
                           </h4>
                           <div class="guided-tool">
-                            <strong>Automatiza con Robo</strong>
+                            <strong>Ayuda de Robo</strong>
                             <a href="tools.html#make-integration-api-data">
                               <code
                                 >composer robo -- make:integration-api-data
@@ -2507,7 +2542,7 @@
                               <div class="guided-put">
                                 Un action que responda json o html:
                                 <pre><code class="language-php">respondJson(...)
-    renderFragmentView(...)</code></pre>
+renderFragmentView(...)</code></pre>
                               </div>
                             </div>
                             <div class="guided-field">
@@ -2528,7 +2563,7 @@
                             Envuelve la llamada HTTP
                           </h4>
                           <div class="guided-tool">
-                            <strong>Automatiza con Robo</strong>
+                            <strong>Ayuda de Robo</strong>
                             <a href="tools.html#make-integration-api-data">
                               <code
                                 >composer robo -- make:integration-api-data
@@ -2549,7 +2584,7 @@
                               <div class="guided-put">
                                 Funciones usando <code>serverClient</code>:
                                 <pre><code class="language-typescript">searchItems(...)
-    fetchItemSummaryHtml(...)</code></pre>
+fetchItemSummaryHtml(...)</code></pre>
                               </div>
                             </div>
                             <div class="guided-field">
@@ -2613,9 +2648,7 @@
                     que ve Surface, aunque el shape coincida con un DTO externo
                     porque Gateway hizo passthrough.
                   </p>
-                  <div
-                    class="guide-callout guide-callout--structured p-3 rounded"
-                  >
+                  <div class="guide-callout guide-callout--structured">
                     <div class="guide-callout__header">
                       <span class="guide-callout__eyebrow"
                         >Contrato desde OpenAPI</span
@@ -2684,24 +2717,24 @@
                       </button>
                     </div>
                     <pre><code id="sf-consume-contracts" class="language-typescript">export class ItemSearchRequest {
-      public query: string = "";
-      public status: string = "";
-    
-      constructor(init: Partial&lt;ItemSearchRequest&gt; = {}) {
-        Object.assign(this, init);
-      }
-    }
-    
-    export class ItemSummary {
-      public id: number = 0;
-      public displayName: string = "";
-      public total: number = 0;
-      public state: string = "";
-    
-      constructor(init: Partial&lt;ItemSummary&gt; = {}) {
-        Object.assign(this, init);
-      }
-    }</code></pre>
+  public query: string = "";
+  public status: string = "";
+
+  constructor(init: Partial&lt;ItemSearchRequest&gt; = {}) {
+    Object.assign(this, init);
+  }
+}
+
+export class ItemSummary {
+  public id: number = 0;
+  public displayName: string = "";
+  public total: number = 0;
+  public state: string = "";
+
+  constructor(init: Partial&lt;ItemSummary&gt; = {}) {
+    Object.assign(this, init);
+  }
+}</code></pre>
                   </div>
                 </section>
 
@@ -2733,22 +2766,22 @@
                     </div>
                     <pre><code id="sf-consume-api" class="language-typescript">import type { ItemSearchRequest, ItemSummary } from "./contracts";
     
-    import { serverClient } from "@/platform/infrastructure/http";
-    
-    export async function searchItems(request: ItemSearchRequest): Promise&lt;ItemSummary[]&gt; {
-      return await serverClient.data&lt;ItemSummary[], ItemSearchRequest&gt;("/items/search", {
-        method: "POST",
-        body: request,
-      });
-    }
-    
-    export async function fetchItemSummaryHtml(itemId: number): Promise&lt;string&gt; {
-      return await serverClient.html("/items/summary", {
-        method: "GET",
-        params: { itemId },
-        expect: { kind: "fragment", fragmentId: "item-summary" },
-      });
-    }</code></pre>
+import { serverClient } from "@/platform/infrastructure/http";
+
+export async function searchItems(request: ItemSearchRequest): Promise&lt;ItemSummary[]&gt; {
+  return await serverClient.data&lt;ItemSummary[], ItemSearchRequest&gt;("/items/search", {
+    method: "POST",
+    body: request,
+  });
+}
+
+export async function fetchItemSummaryHtml(itemId: number): Promise&lt;string&gt; {
+  return await serverClient.html("/items/summary", {
+    method: "GET",
+    params: { itemId },
+    expect: { kind: "fragment", fragmentId: "item-summary" },
+  });
+}</code></pre>
                   </div>
                 </section>
 
@@ -2776,16 +2809,15 @@
                       </button>
                     </div>
                     <pre><code id="sf-consume-actions" class="language-typescript">import type { ItemSearchRequest } from "./contracts";
-    
-    import { fetchItemSummaryHtml, searchItems } from "./api";
-    
-    export async function runItemSearch(query: string): Promise&lt;{ total: number; firstHtml?: string }&gt; {
-      const request: ItemSearchRequest = { query };
-      const rows = await searchItems(request);
-      const firstHtml = rows[0] ? await fetchItemSummaryHtml(rows[0].id) : undefined;
-    
-      return { total: rows.length, firstHtml };
-    }</code></pre>
+import { fetchItemSummaryHtml, searchItems } from "./api";
+
+export async function runItemSearch(query: string): Promise&lt;{ total: number; firstHtml?: string }&gt; {
+  const request: ItemSearchRequest = { query };
+  const rows = await searchItems(request);
+  const firstHtml = rows[0] ? await fetchItemSummaryHtml(rows[0].id) : undefined;
+
+  return { total: rows.length, firstHtml };
+}</code></pre>
                   </div>
 
                   <div class="code-card mt-3">
@@ -2800,40 +2832,40 @@
                       </button>
                     </div>
                     <pre><code id="sf-consume-page" class="language-typescript">import { UiBinding } from "@/platform/runtime/binding";
-    import {
-      mountHtmlContent,
-      unmountHtmlContent,
-      type MountedContent,
-    } from "@/toolkit/dom/content";
-    import { runItemSearch } from "./actions";
-    
-    export default class ItemsPage extends UiBinding {
-      private summaryContent?: MountedContent;
-    
-      protected mount(): void {
-        const searchButton = this.require&lt;HTMLButtonElement&gt;("#btn-search-items");
-    
-        this.onClick(searchButton, () =&gt; this.search());
-      }
-    
-      protected async unmount(): Promise&lt;void&gt; {
-        await unmountHtmlContent(this.summaryContent);
-      }
-    
-      private async search(): Promise&lt;void&gt; {
-        const query = this.require&lt;HTMLInputElement&gt;("#item-query").value.trim();
-        const result = await runItemSearch(query);
-    
-        this.require("#item-count").textContent = String(result.total);
-    
-        if (!result.firstHtml) return;
-    
-        const summary = this.require&lt;HTMLElement&gt;("#item-summary-container");
-        await unmountHtmlContent(this.summaryContent);
-        summary.innerHTML = result.firstHtml;
-        this.summaryContent = await mountHtmlContent(summary, this.contentMount);
-      }
-    }</code></pre>
+import {
+  mountHtmlContent,
+  unmountHtmlContent,
+  type MountedContent,
+} from "@/toolkit/dom/content";
+import { runItemSearch } from "./actions";
+
+export default class ItemsPage extends UiBinding {
+  private summaryContent?: MountedContent;
+
+  protected mount(): void {
+    const searchButton = this.require&lt;HTMLButtonElement&gt;("#btn-search-items");
+
+    this.onClick(searchButton, () =&gt; this.search());
+  }
+
+  protected async unmount(): Promise&lt;void&gt; {
+    await unmountHtmlContent(this.summaryContent);
+  }
+
+  private async search(): Promise&lt;void&gt; {
+    const query = this.require&lt;HTMLInputElement&gt;("#item-query").value.trim();
+    const result = await runItemSearch(query);
+
+    this.require("#item-count").textContent = String(result.total);
+
+    if (!result.firstHtml) return;
+
+    const summary = this.require&lt;HTMLElement&gt;("#item-summary-container");
+    await unmountHtmlContent(this.summaryContent);
+    summary.innerHTML = result.firstHtml;
+    this.summaryContent = await mountHtmlContent(summary, this.contentMount);
+  }
+}</code></pre>
                   </div>
                 </section>
 
@@ -2898,12 +2930,11 @@
                       </button>
                     </div>
                     <pre><code id="sf-consume-formdata" class="language-typescript">const formData = new FormData(formElement);
-    
-    await serverClient.data&lt;UploadReceipt&gt;("/items/import", {
-      method: "POST",
-      body: formData,
-      bodyType: "form-data",
-    });</code></pre>
+await serverClient.data&lt;UploadReceipt&gt;("/items/import", {
+  method: "POST",
+  body: formData,
+  bodyType: "form-data",
+});</code></pre>
                   </div>
 
                   <ul class="guide-checklist">
@@ -2970,24 +3001,24 @@
                     </button>
                   </div>
                   <pre><code id="sf-content-mount" class="language-typescript">import { simpleModal } from "@/platform/infrastructure/feedback";
-    import { UiBinding } from "@/platform/runtime/binding";
-    
-    export default class ItemsPage extends UiBinding {
-      private readonly modal = simpleModal.withContentMount(this.contentMount);
-    
-      protected mount(): void {
-        const button = this.find&lt;HTMLButtonElement&gt;("#btn-open-summary");
-        if (!button) return;
-    
-        this.onClick(button, async () => {
-          await this.modal.showRemote("/items/summary", {
-            method: "GET",
-            params: { itemId: 3021 },
-            expect: { kind: "fragment", fragmentId: "item-summary" },
-          });
-        });
-      }
-    }</code></pre>
+import { UiBinding } from "@/platform/runtime/binding";
+
+export default class ItemsPage extends UiBinding {
+  private readonly modal = simpleModal.withContentMount(this.contentMount);
+
+  protected mount(): void {
+    const button = this.find&lt;HTMLButtonElement&gt;("#btn-open-summary");
+    if (!button) return;
+
+    this.onClick(button, async () => {
+      await this.modal.showRemote("/items/summary", {
+        method: "GET",
+        params: { itemId: 3021 },
+        expect: { kind: "fragment", fragmentId: "item-summary" },
+      });
+    });
+  }
+}</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -3083,41 +3114,41 @@
                     </button>
                   </div>
                   <pre><code id="sf-toolkit-tree" class="language-text">app-surface/toolkit/
-      adapters/
-        bootstrap.ts
-        datatable.ts
-        daterangepicker.ts
-        dropdown.ts
-        legacy-globals.ts
-        select2/
-          adapter.ts
-          helpers.ts
-          types.ts
-        select2.ts
-      dom/
-        content.ts
-        events.ts
-        index.ts
-      feedback/
-        modal/
-          adapter.ts
-          contracts.ts
-          index.ts
-          view.ts
-        swal/
-          adapter.ts
-          contracts.ts
-          index.ts
-        toast/
-          adapter.ts
-          contracts.ts
-          index.ts
-          view.ts
-      shared/
-        color.ts
-        date.ts
-        dev-console.ts
-        utils.ts</code></pre>
+  adapters/
+    bootstrap.ts
+    datatable.ts
+    daterangepicker.ts
+    dropdown.ts
+    legacy-globals.ts
+    select2/
+      adapter.ts
+      helpers.ts
+      types.ts
+    select2.ts
+  dom/
+    content.ts
+    events.ts
+    index.ts
+  feedback/
+    modal/
+      adapter.ts
+      contracts.ts
+      index.ts
+      view.ts
+    swal/
+      adapter.ts
+      contracts.ts
+      index.ts
+    toast/
+      adapter.ts
+      contracts.ts
+      index.ts
+      view.ts
+  shared/
+    color.ts
+    date.ts
+    dev-console.ts
+    utils.ts</code></pre>
                 </div>
                 <div class="table-responsive">
                   <table class="table table-striped table-guide align-middle">
@@ -3337,9 +3368,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Cleanup</span>
                     <strong class="guide-callout__title">
@@ -3409,11 +3438,9 @@
                     </button>
                   </div>
                   <pre><code id="sf-build" class="language-bash">cd app-surface
-    npm run lite:build</code></pre>
+npm run lite:build</code></pre>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Build local</span>
                     <strong class="guide-callout__title">
@@ -3624,6 +3651,15 @@
                 </p>
                 <p class="guide-crosslink">
                   <em>
+                    Como lectura de código Surface, empieza en
+                    <code>integration.ts</code>, sigue por <code>page.ts</code>
+                    o fragments, y baja a <code>actions.ts</code>,
+                    <code>api.ts</code> y <code>contracts.ts</code> cuando la UI
+                    necesita hablar con Gateway.
+                  </em>
+                </p>
+                <p class="guide-crosslink">
+                  <em>
                     El HTML que activa este flujo nace en
                     <a href="app-gateway.html#views">Gateway views</a> y el
                     contrato entre ambos lados se desarrolla en
@@ -3636,11 +3672,11 @@
                   aria-label="Mapa archivo por archivo de Surface"
                 >
                   <article class="file-flow__item">
-                    <span class="file-flow__marker">01</span>
+                    <span class="file-flow__marker">00</span>
                     <div class="file-flow__body">
                       <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Contrato SSR</p>
-                        <h3>Punto de montaje</h3>
+                        <p class="file-flow__eyebrow">Precondición Gateway</p>
+                        <h3>HTML recibido</h3>
                         <code class="file-flow__path"
                           >@views/items/index.page.php</code
                         >
@@ -3653,10 +3689,10 @@
                       <pre
                         class="file-flow__snippet"
                       ><code class="language-html">&lt;div data-surface-page="demo-items"&gt;
-      &lt;section data-item-summary&gt;&lt;/section&gt;
-    &lt;/div&gt;</code></pre>
+  &lt;section data-item-summary&gt;&lt;/section&gt;
+&lt;/div&gt;</code></pre>
                       <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
+                        <strong>Ayuda de Robo</strong>
                         <a href="tools.html#make-integration-page">
                           <code
                             >composer robo -- make:integration-page items
@@ -3672,7 +3708,7 @@
                   </article>
 
                   <article class="file-flow__item">
-                    <span class="file-flow__marker">02</span>
+                    <span class="file-flow__marker">01</span>
                     <div class="file-flow__body">
                       <header class="file-flow__header">
                         <p class="file-flow__eyebrow">Registro UI</p>
@@ -3689,10 +3725,10 @@
                       <pre
                         class="file-flow__snippet"
                       ><code class="language-typescript">id: "demo-items",
-    layout: "control",
-    page: { load: () => import("./page") }</code></pre>
+layout: "control",
+page: { load: () => import("./page") }</code></pre>
                       <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
+                        <strong>Ayuda de Robo</strong>
                         <a href="tools.html#make-integration-page">
                           <code
                             >composer robo -- make:integration-page items
@@ -3708,7 +3744,73 @@
                   </article>
 
                   <article class="file-flow__item">
+                    <span class="file-flow__marker">02</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Interacción</p>
+                        <h3>Page binding</h3>
+                        <code class="file-flow__path"
+                          >@workspace/integrations/items/page.ts</code
+                        >
+                      </header>
+                      <p>
+                        Aquí se coordinan nodos DOM, eventos y render de
+                        respuestas. La intención de negocio sigue en Gateway;
+                        este archivo solo activa la experiencia y llama
+                        acciones.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-typescript">form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const result = await runItemSearch(readQuery(form));
+  target.textContent = String(result.total);
+});</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-integration-page">
+                          <code
+                            >composer robo -- make:integration-page items
+                            --id=demo-items --layout=control</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Entrega a:</strong> acciones, API o DOM; si
+                        inserta un fragment, <code>FragmentRuntime</code> lo
+                        detecta.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
                     <span class="file-flow__marker">03</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Intención UI</p>
+                        <h3>Actions</h3>
+                        <code class="file-flow__path"
+                          >@workspace/integrations/items/actions.ts</code
+                        >
+                      </header>
+                      <p>
+                        Aquí se arma el request tipado desde valores semánticos
+                        que llegan del binding y se coordina la llamada a
+                        <code>api.ts</code> con feedback visual.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-typescript">const request: ItemSearchRequest = { query };
+return await searchItems(request);</code></pre>
+                      <p class="file-flow__handoff">
+                        <strong>Entrega a:</strong> <code>page.ts</code> o al
+                        fragment, sin exponer detalles del payload HTTP al DOM.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">04</span>
                     <div class="file-flow__body">
                       <header class="file-flow__header">
                         <p class="file-flow__eyebrow">Comunicación</p>
@@ -3729,12 +3831,12 @@
                       <pre
                         class="file-flow__snippet"
                       ><code class="language-typescript">return serverClient.html("/items/summary", {
-      method: "POST",
-      body: form,
-      expect: { kind: "fragment", fragmentId: "item-summary" },
-    });</code></pre>
+  method: "POST",
+  body: form,
+  expect: { kind: "fragment", fragmentId: "item-summary" },
+});</code></pre>
                       <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
+                        <strong>Ayuda de Robo</strong>
                         <a href="tools.html#make-integration-api-html">
                           <code
                             >composer robo -- make:integration-api-html items
@@ -3758,72 +3860,7 @@
                   </article>
 
                   <article class="file-flow__item">
-                    <span class="file-flow__marker">04</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Intención UI</p>
-                        <h3>Actions</h3>
-                        <code class="file-flow__path"
-                          >@workspace/integrations/items/actions.ts</code
-                        >
-                      </header>
-                      <p>
-                        Aquí se arma el request tipado desde valores semánticos
-                        que llegan del binding y se coordina la llamada a
-                        <code>api.ts</code> con feedback visual.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-typescript">const request: ItemSearchRequest = { query };
-    return await searchItems(request);</code></pre>
-                      <p class="file-flow__handoff">
-                        <strong>Entrega a:</strong> <code>page.ts</code> o al
-                        fragment, sin exponer detalles del payload HTTP al DOM.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
                     <span class="file-flow__marker">05</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Interacción</p>
-                        <h3>Page binding</h3>
-                        <code class="file-flow__path"
-                          >@workspace/integrations/items/page.ts</code
-                        >
-                      </header>
-                      <p>
-                        Aquí se coordinan nodos DOM, eventos y render de
-                        respuestas. La intención de negocio sigue en Gateway;
-                        este archivo solo activa la experiencia y llama
-                        acciones.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-typescript">form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const result = await runItemSearch(readQuery(form));
-      target.textContent = String(result.total);
-    });</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-integration-page">
-                          <code
-                            >composer robo -- make:integration-page items
-                            --id=demo-items --layout=control</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Entrega a:</strong> el DOM; si inserta un
-                        fragment, <code>FragmentRuntime</code> lo detecta.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">06</span>
                     <div class="file-flow__body">
                       <header class="file-flow__header">
                         <p class="file-flow__eyebrow">HTML insertado</p>
@@ -3840,9 +3877,9 @@
                       <pre
                         class="file-flow__snippet"
                       ><code class="language-typescript">const refresh = this.find&lt;HTMLButtonElement&gt;("[data-refresh-summary]");
-    if (!refresh) return;</code></pre>
+if (!refresh) return;</code></pre>
                       <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
+                        <strong>Ayuda de Robo</strong>
                         <a href="tools.html#make-fragment">
                           <code
                             >composer robo -- make:fragment items summary
@@ -3858,7 +3895,7 @@
                   </article>
 
                   <article class="file-flow__item">
-                    <span class="file-flow__marker">07</span>
+                    <span class="file-flow__marker">06</span>
                     <div class="file-flow__body">
                       <header class="file-flow__header">
                         <p class="file-flow__eyebrow">UI opt-in</p>
@@ -3876,7 +3913,7 @@
                       <pre
                         class="file-flow__snippet"
                       ><code class="language-typescript">select2Adapter.initialize({ element: node });
-    select2Adapter.destroy(node);</code></pre>
+select2Adapter.destroy(node);</code></pre>
                       <p class="file-flow__handoff">
                         <strong>Entrega a:</strong> el binding que lo pidió y su
                         ciclo de vida.
@@ -3952,9 +3989,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Límite Surface</span>
                     <strong class="guide-callout__title">

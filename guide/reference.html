@@ -128,10 +128,19 @@
               <div class="card-body">
                 <h2 class="h4">Cómo usar la referencia</h2>
                 <p>
-                  Esta página no reemplaza las explicaciones largas. Sirve para
-                  ubicar de forma rápida un contrato, header, carpeta, script o
-                  indicador de diagnóstico y luego volver a la página donde se
-                  explica el flujo completo.
+                  Esta página es una mesa de consulta rápida. No intenta
+                  explicar de nuevo Gateway, Surface, Bridge, instalación o
+                  troubleshooting; para eso ya existen páginas especializadas.
+                  Aquí conviene venir cuando recuerdas el concepto general, pero
+                  necesitas confirmar el nombre exacto de una ruta, header,
+                  script, helper, status o señal de diagnóstico.
+                </p>
+                <p>
+                  La regla editorial de esta página es deliberada: dar el dato
+                  corto y enlazar el lugar donde se explota el tema. Si una fila
+                  requiere más de una lectura para entenderse, la respuesta no
+                  debería crecer aquí; debería llevarte al flujo completo que le
+                  corresponde.
                 </p>
                 <div class="row g-3">
                   <div class="col-md-6 col-xl-3">
@@ -198,7 +207,12 @@
                   </div>
                 </div>
 
-                <div id="quick-access" class="row g-3">
+              </div>
+            </div>
+          </section>
+
+          <section id="quick-access" class="guide-section">
+            <div class="row g-3">
                   <div class="col-lg-6">
                     <div class="card h-100 border-0 shadow-sm">
                       <div class="card-body">
@@ -236,50 +250,18 @@
                             </ul>
                           </section>
                         </div>
-                        <div
-                          class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                        >
-                          <div class="guide-callout__header">
-                            <span class="guide-callout__eyebrow"
-                              >Build rápido</span
+                        <p class="guide-crosslink mb-0">
+                          <em>
+                            Si dudas cuál script usar, vuelve a
+                            <a href="getting-started.html#run"
+                              >Ejecución local</a
                             >
-                            <strong class="guide-callout__title">
-                              Usa el comando liviano para watch y el completo
-                              para validar.
-                            </strong>
-                          </div>
-                          <ul class="guide-key-grid guide-key-grid--compact">
-                            <li>
-                              <strong>Watch</strong>
-                              <code>npm run lite:build</code>
-                              <span
-                                >Ejecuta vite build --watch sin correr tsc en
-                                cada ciclo.</span
-                              >
-                            </li>
-                            <li>
-                              <strong>Validación</strong>
-                              <code>npm run build</code>
-                              <span
-                                >Compila y valida TypeScript de forma
-                                completa.</span
-                              >
-                            </li>
-                            <li>
-                              <strong>Composer</strong>
-                              <code>require / require-dev</code>
-                              <span>Separa runtime de tooling como Robo.</span>
-                            </li>
-                            <li>
-                              <strong>npm</strong>
-                              <code>dependencies / devDependencies</code>
-                              <span
-                                >Separa bundle de herramientas como Vite,
-                                TypeScript, Sass y @types.</span
-                              >
-                            </li>
-                          </ul>
-                        </div>
+                            o a
+                            <a href="app-surface.html#vite"
+                              >Vite, styles y assets</a
+                            >. La referencia solo conserva el nombre exacto.
+                          </em>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -312,10 +294,12 @@
                       </div>
                     </div>
                   </div>
-                </div>
+            </div>
+          </section>
 
-                <div id="folder-paths" class="card border-0 shadow-sm mt-3">
-                  <div class="card-body">
+          <section id="folder-paths" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Rutas de carpetas</h2>
                     <p class="guide-crosslink">
                       <em>
@@ -374,9 +358,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div
-                      class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                    >
+                    <div class="guide-callout guide-callout--structured">
                       <div class="guide-callout__header">
                         <span class="guide-callout__eyebrow"
                           >Contratos generados</span
@@ -411,8 +393,11 @@
                   </div>
                 </div>
 
-                <div id="quick-contracts" class="card border-0 shadow-sm mt-3">
-                  <div class="card-body">
+          </section>
+
+          <section id="quick-contracts" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Contratos rápidos</h2>
                     <p class="guide-crosslink">
                       <em>
@@ -508,9 +493,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div
-                      class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                    >
+                    <div class="guide-callout guide-callout--structured">
                       <div class="guide-callout__header">
                         <span class="guide-callout__eyebrow">Surface</span>
                         <strong class="guide-callout__title">
@@ -536,8 +519,11 @@
                   </div>
                 </div>
 
-                <div id="http-headers" class="card border-0 shadow-sm mt-3">
-                  <div class="card-body">
+          </section>
+
+          <section id="http-headers" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Headers HTTP</h2>
                     <p class="guide-crosslink">
                       <em>
@@ -601,8 +587,11 @@
                   </div>
                 </div>
 
-                <div id="errors-status" class="card border-0 shadow-sm mt-3">
-                  <div class="card-body">
+          </section>
+
+          <section id="errors-status" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Errores y status</h2>
                     <p class="guide-crosslink">
                       <em>
@@ -681,8 +670,11 @@
                   </div>
                 </div>
 
-                <div id="surface-toolkit" class="card border-0 shadow-sm mt-3">
-                  <div class="card-body">
+          </section>
+
+          <section id="surface-toolkit" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Surface toolkit y fachadas</h2>
                     <p class="guide-crosslink">
                       <em>
@@ -791,11 +783,11 @@
                   </div>
                 </div>
 
-                <div
-                  id="outbound-connectors"
-                  class="card border-0 shadow-sm mt-3"
-                >
-                  <div class="card-body">
+          </section>
+
+          <section id="outbound-connectors" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Outbound y connectors</h2>
                     <p class="guide-crosslink">
                       <em>
@@ -881,11 +873,11 @@
                   </div>
                 </div>
 
-                <div
-                  id="diagnostic-signals"
-                  class="card border-0 shadow-sm mt-3"
-                >
-                  <div class="card-body">
+          </section>
+
+          <section id="diagnostic-signals" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
                     <h2 class="h4">Señales de diagnóstico</h2>
                     <p>
                       Estas señales no son negocio: son indicadores del runtime
@@ -944,8 +936,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
           </section>
 
           <section id="next" class="guide-section">

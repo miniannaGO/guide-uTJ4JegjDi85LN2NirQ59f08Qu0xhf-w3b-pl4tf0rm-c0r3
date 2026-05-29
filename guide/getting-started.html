@@ -162,6 +162,12 @@
                   actual usa PHP para `app-gateway` y TypeScript/Vite para
                   `app-surface`.
                 </p>
+                <p>
+                  El objetivo de esta página es dejar el entorno listo para leer
+                  la solución en orden: primero Gateway como entrada HTTP y
+                  salida controlada, después Surface como activación progresiva
+                  del HTML que Gateway entrega.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     Para entender el rol de cada contexto antes de instalar,
@@ -170,7 +176,7 @@
                     <a href="app-surface.html#overview">App Surface</a>.
                   </em>
                 </p>
-                <div class="row g-3 pt-3">
+                <div class="row g-3">
                   <div class="col-md-6 col-xl-4">
                     <div class="card h-100 concept-card">
                       <div class="card-body">
@@ -215,6 +221,16 @@
                   (URL_DEL_REPOSITORIO) como placeholder en la documentación
                   interna de onboarding.
                 </p>
+                <p>
+                  La instalación prepara dos mundos distintos. Composer descarga
+                  las dependencias PHP que necesita Gateway para arrancar,
+                  resolver rutas, usar DI y ejecutar comandos de soporte. npm
+                  descarga las dependencias de Surface para compilar TypeScript,
+                  Sass y assets que luego Gateway servirá desde sus layouts.
+                  Si una de estas dos instalaciones falla, no conviene avanzar
+                  al `.env` todavía: primero debe quedar claro qué lado no quedó
+                  listo.
+                </p>
                 <div class="code-card">
                   <div class="code-card__bar">
                     <span>Clonar proyecto</span>
@@ -227,7 +243,7 @@
                     </button>
                   </div>
                   <pre><code id="gs-clone" class="language-bash">git clone &lt;URL_DEL_REPOSITORIO&gt; web-platform-core
-    cd web-platform-core</code></pre>
+cd web-platform-core</code></pre>
                 </div>
 
                 <div class="code-card">
@@ -242,10 +258,10 @@
                     </button>
                   </div>
                   <pre><code id="gs-install" class="language-bash">cd app-gateway
-    composer install
+composer install
     
-    cd app-surface
-    npm install</code></pre>
+cd app-surface
+npm install</code></pre>
                 </div>
               </div>
             </div>
@@ -263,6 +279,14 @@
                   <code>tsc</code> antes de cada build. Para una validación
                   completa de TypeScript usa <code>npm run build</code>.
                 </p>
+                <p>
+                  Piensa en esta sección como una prueba de vida del entorno:
+                  Surface debe producir archivos consumibles por Gateway, y
+                  Gateway debe poder resolverlos al renderizar HTML. En esta
+                  página no se explica todavía el manifest de Vite ni el runtime
+                  de montaje; aquí solo se verifica que las piezas mínimas
+                  existan para que las siguientes páginas tengan sentido.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     El detalle del build vive en
@@ -271,7 +295,7 @@
                     <a href="bridge.html#assets">Assets Vite</a>.
                   </em>
                 </p>
-                <div class="row g-3 pt-3">
+                <div class="row g-3">
                   <div class="col-xl-12">
                     <div class="code-card h-100">
                       <div class="code-card__bar">
@@ -285,7 +309,7 @@
                         </button>
                       </div>
                       <pre><code id="gs-build" class="language-bash">cd app-surface
-    npm run lite:build</code></pre>
+npm run lite:build</code></pre>
                     </div>
                   </div>
                 </div>
@@ -616,9 +640,7 @@
                       </tr>
                       <tr>
                         <td colspan="3">
-                          <div
-                            class="guide-callout guide-callout--structured p-3 rounded mb-0"
-                          >
+                          <div class="guide-callout guide-callout--structured">
                             <div class="guide-callout__header">
                               <span class="guide-callout__eyebrow"
                                 >Equivalencia services.json</span
@@ -648,12 +670,12 @@
                                     <span>Base actual en services.json</span>
                                   </div>
                                   <pre><code class="language-json">{
-      "clients": {
-        "&lt;prefix&gt;": {
-          "uri": "https://ip:port"
-        }
-      }
-    }</code></pre>
+  "clients": {
+    "&lt;prefix&gt;": {
+      "uri": "https://ip:port"
+    }
+  }
+}</code></pre>
                                 </div>
                               </div>
                               <div class="col-xl-6">
@@ -662,10 +684,10 @@
                                     <span>Variables equivalentes en .env</span>
                                   </div>
                                   <pre><code class="language-bash">API_&lt;PREFIX&gt;_URI="https://ip:port"
-    API_&lt;PREFIX&gt;_BEARER=""
-    API_&lt;PREFIX&gt;_TIMEOUT_SECONDS=30
-    API_&lt;PREFIX&gt;_CONNECT_TIMEOUT_SECONDS=10
-    API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
+API_&lt;PREFIX&gt;_BEARER=""
+API_&lt;PREFIX&gt;_TIMEOUT_SECONDS=30
+API_&lt;PREFIX&gt;_CONNECT_TIMEOUT_SECONDS=10
+API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                                 </div>
                               </div>
                             </div>
@@ -677,16 +699,16 @@
                                 >
                               </div>
                               <pre><code class="language-json">{
-      "clients": {
-        "&lt;prefix&gt;": {
-          "uri": "https://ip:port",
-          "bearer": "",
-          "timeoutSeconds": 30,
-          "connectTimeoutSeconds": 10,
-          "verifyTls": false
-        }
-      }
-    }</code></pre>
+  "clients": {
+    "&lt;prefix&gt;": {
+      "uri": "https://ip:port",
+      "bearer": "",
+      "timeoutSeconds": 30,
+      "connectTimeoutSeconds": 10,
+      "verifyTls": false
+    }
+  }
+}</code></pre>
                             </div>
                             <ul class="guide-key-grid guide-key-grid--compact">
                               <li>
@@ -798,9 +820,7 @@
                       </tr>
                       <tr>
                         <td colspan="3">
-                          <div
-                            class="guide-callout guide-callout--structured p-3 rounded mb-0"
-                          >
+                          <div class="guide-callout guide-callout--structured">
                             <div class="guide-callout__header">
                               <span class="guide-callout__eyebrow"
                                 >Salida de logs</span
@@ -974,9 +994,7 @@
                       </tr>
                       <tr>
                         <td colspan="3">
-                          <div
-                            class="guide-callout guide-callout--structured p-3 rounded mb-0"
-                          >
+                          <div class="guide-callout guide-callout--structured">
                             <div class="guide-callout__header">
                               <span class="guide-callout__eyebrow"
                                 >Tabs en sesión</span
@@ -1058,7 +1076,7 @@
                               mover otra vez <code>expiresAtUnix</code>.
                             </p>
                             <div
-                              class="guide-callout guide-callout--structured p-3 rounded mt-3"
+                              class="guide-callout guide-callout--structured"
                             >
                               <div class="guide-callout__header">
                                 <span class="guide-callout__eyebrow"
@@ -1585,9 +1603,7 @@
                     </table>
                   </div>
 
-                  <div
-                    class="guide-callout guide-callout--structured p-3 rounded"
-                  >
+                  <div class="guide-callout guide-callout--structured">
                     <div class="guide-callout__header">
                       <span class="guide-callout__eyebrow"
                         >Lectura de manifiestos</span
@@ -2056,9 +2072,7 @@
                     </table>
                   </div>
 
-                  <div
-                    class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                  >
+                  <div class="guide-callout guide-callout--structured">
                     <div class="guide-callout__header">
                       <span class="guide-callout__eyebrow">Despliegue</span>
                       <strong class="guide-callout__title">

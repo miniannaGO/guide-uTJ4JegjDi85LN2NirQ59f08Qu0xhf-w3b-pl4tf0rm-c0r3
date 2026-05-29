@@ -23,6 +23,7 @@ docs/guide/
     css/pillars-capabilities.css
     js/guide.js
     js/pillars-capabilities.js
+  BASES.md
   bondades.html
   bridge.html
   diagrams.html

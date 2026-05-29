@@ -287,6 +287,45 @@
   color: var(--guide-muted);
 }
 
+.guide-page--troubleshooting
+  .troubleshooting-group
+  .row
+  .card:not(.concept-card)
+  .card-body
+  a:not(.btn):not(.guide-card-link) {
+  color: color-mix(in srgb, var(--support-card-color) 66%, #fcfcfa);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--support-card-color) 38%, transparent);
+  font-weight: 760;
+  text-decoration: none;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+.guide-page--troubleshooting
+  .troubleshooting-group
+  .row
+  .card:not(.concept-card)
+  .card-body
+  a:not(.btn):not(.guide-card-link):hover,
+.guide-page--troubleshooting
+  .troubleshooting-group
+  .row
+  .card:not(.concept-card)
+  .card-body
+  a:not(.btn):not(.guide-card-link):focus-visible {
+  color: #fff;
+  border-bottom-color: color-mix(
+    in srgb,
+    var(--support-card-color) 78%,
+    transparent
+  );
+  text-shadow: 0 0 0.9rem
+    color-mix(in srgb, var(--support-card-color) 22%, transparent);
+}
+
 .guide-checklist {
   display: grid;
   gap: 0.58rem;
@@ -351,12 +390,19 @@ ol.guide-checklist > li::before {
 }
 
 .guide-callout {
+  margin-block: 1rem 0;
+  padding: 1rem;
   border-left: 4px solid var(--guide-accent);
+  border-radius: var(--bs-border-radius);
   background:
     linear-gradient(90deg, rgba(255, 97, 136, 0.1), rgba(120, 220, 232, 0.05)),
     rgba(25, 24, 26, 0.56);
   color: var(--guide-text);
   line-height: 1.58;
+}
+
+.guide-callout:first-child {
+  margin-top: 0;
 }
 
 .guide-callout--structured {
@@ -553,8 +599,7 @@ ol.guide-checklist > li::before {
 }
 
 .guide-crosslink {
-  margin-top: 0.85rem;
-  margin-bottom: 0;
+  margin-block: 0.85rem 1rem;
   padding: 0.72rem 0.86rem;
   color: rgba(252, 252, 250, 0.72);
   border-left: 3px solid color-mix(in srgb, var(--page-color) 48%, transparent);
@@ -567,6 +612,10 @@ ol.guide-checklist > li::before {
     rgba(255, 255, 255, 0.018);
   font-size: 0.92rem;
   line-height: 1.55;
+}
+
+.guide-crosslink:last-child {
+  margin-bottom: 0;
 }
 
 .guide-crosslink em {
@@ -615,7 +664,22 @@ body[class*="guide-page--"]
   border-bottom-color: color-mix(in srgb, var(--page-color) 78%, transparent);
 }
 
+.guide-page--index {
+  --page-color: var(--guide-tab-5);
+  --page-color-companion: var(--guide-tab-6);
+}
+
+html:has(> body.guide-page--index) {
+  --page-color: var(--guide-tab-5);
+  --page-color-companion: var(--guide-tab-6);
+}
+
 .guide-page--getting-started {
+  --page-color: var(--guide-tab-1);
+  --page-color-companion: var(--guide-tab-1);
+}
+
+html:has(> body.guide-page--getting-started) {
   --page-color: var(--guide-tab-1);
   --page-color-companion: var(--guide-tab-1);
 }
@@ -625,7 +689,17 @@ body[class*="guide-page--"]
   --page-color-companion: var(--guide-tab-2);
 }
 
+html:has(> body.guide-page--fundamentals) {
+  --page-color: var(--guide-tab-2);
+  --page-color-companion: var(--guide-tab-2);
+}
+
 .guide-page--app-gateway {
+  --page-color: var(--guide-tab-3);
+  --page-color-companion: var(--guide-tab-3);
+}
+
+html:has(> body.guide-page--app-gateway) {
   --page-color: var(--guide-tab-3);
   --page-color-companion: var(--guide-tab-3);
 }
@@ -635,7 +709,17 @@ body[class*="guide-page--"]
   --page-color-companion: var(--guide-tab-4);
 }
 
+html:has(> body.guide-page--app-surface) {
+  --page-color: var(--guide-tab-4);
+  --page-color-companion: var(--guide-tab-4);
+}
+
 .guide-page--bridge {
+  --page-color: var(--guide-tab-5);
+  --page-color-companion: var(--guide-tab-5);
+}
+
+html:has(> body.guide-page--bridge) {
   --page-color: var(--guide-tab-5);
   --page-color-companion: var(--guide-tab-5);
 }
@@ -645,7 +729,17 @@ body[class*="guide-page--"]
   --page-color-companion: var(--guide-tab-6);
 }
 
+html:has(> body.guide-page--tools) {
+  --page-color: var(--guide-tab-6);
+  --page-color-companion: var(--guide-tab-6);
+}
+
 .guide-page--recipes {
+  --page-color: var(--guide-tab-7);
+  --page-color-companion: var(--guide-tab-7);
+}
+
+html:has(> body.guide-page--recipes) {
   --page-color: var(--guide-tab-7);
   --page-color-companion: var(--guide-tab-7);
 }
@@ -655,12 +749,27 @@ body[class*="guide-page--"]
   --page-color-companion: var(--guide-tab-8);
 }
 
+html:has(> body.guide-page--diagrams) {
+  --page-color: var(--guide-tab-8);
+  --page-color-companion: var(--guide-tab-8);
+}
+
 .guide-page--reference {
   --page-color: var(--guide-tab-8);
   --page-color-companion: var(--guide-tab-8);
 }
 
+html:has(> body.guide-page--reference) {
+  --page-color: var(--guide-tab-8);
+  --page-color-companion: var(--guide-tab-8);
+}
+
 .guide-page--troubleshooting {
+  --page-color: var(--guide-tab-8);
+  --page-color-companion: var(--guide-tab-8);
+}
+
+html:has(> body.guide-page--troubleshooting) {
   --page-color: var(--guide-tab-8);
   --page-color-companion: var(--guide-tab-8);
 }

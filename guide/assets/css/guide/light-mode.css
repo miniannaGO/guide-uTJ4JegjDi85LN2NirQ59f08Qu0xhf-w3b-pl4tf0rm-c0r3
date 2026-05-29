@@ -78,6 +78,18 @@ html[data-bs-theme="light"] {
     var(--guide-muted) 58%,
     var(--guide-accent-blue)
   );
+  --guide-scrollbar-track: #e8eef5;
+  --guide-scrollbar-track-strong: #f8fbff;
+  --guide-scrollbar-thumb: color-mix(
+    in srgb,
+    var(--page-color) 42%,
+    #a7b8c8
+  );
+  --guide-scrollbar-thumb-hover: color-mix(
+    in srgb,
+    var(--page-color) 62%,
+    #7f95a8
+  );
   --guide-process-1: #4f6c98;
   --guide-process-2: #735d94;
   --guide-process-3: #866121;
@@ -1192,6 +1204,30 @@ html[data-bs-theme="light"] .guided-tool a:focus-visible {
   color: #111827;
 }
 
+html[data-bs-theme="light"] body:not(.guide-page--tools) .file-flow__tool,
+html[data-bs-theme="light"] body:not(.guide-page--tools) .guided-tool {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--file-flow-color, var(--page-color)) 7%, #ffffff),
+    #f8fbff 70%
+  );
+}
+
+html[data-bs-theme="light"]
+  body:not(.guide-page--tools)
+  .file-flow__tool
+  strong,
+html[data-bs-theme="light"]
+  body:not(.guide-page--tools)
+  .guided-tool
+  strong {
+  color: color-mix(
+    in srgb,
+    var(--file-flow-color, var(--page-color)) 58%,
+    #475467
+  );
+}
+
 html[data-bs-theme="light"] .guided-recipe {
   border-color: rgba(138, 82, 0, 0.28);
   background:
@@ -1590,6 +1626,44 @@ html[data-bs-theme="light"]
   color: color-mix(in srgb, var(--support-card-color) 58%, #172033);
 }
 
+html[data-bs-theme="light"]
+  .guide-page--troubleshooting
+  .troubleshooting-group
+  .row
+  .card:not(.concept-card)
+  .card-body
+  a:not(.btn):not(.guide-card-link) {
+  color: color-mix(in srgb, var(--support-card-color) 72%, #172033);
+  border-bottom-color: color-mix(
+    in srgb,
+    var(--support-card-color) 34%,
+    transparent
+  );
+}
+
+html[data-bs-theme="light"]
+  .guide-page--troubleshooting
+  .troubleshooting-group
+  .row
+  .card:not(.concept-card)
+  .card-body
+  a:not(.btn):not(.guide-card-link):hover,
+html[data-bs-theme="light"]
+  .guide-page--troubleshooting
+  .troubleshooting-group
+  .row
+  .card:not(.concept-card)
+  .card-body
+  a:not(.btn):not(.guide-card-link):focus-visible {
+  color: #111827;
+  border-bottom-color: color-mix(
+    in srgb,
+    var(--support-card-color) 72%,
+    transparent
+  );
+  text-shadow: none;
+}
+
 html[data-bs-theme="light"] .guide-sidebar > .card::before,
 html[data-bs-theme="light"]
   body[class*="guide-page--"]
@@ -1936,4 +2010,8 @@ html[data-bs-theme="light"]
     color-mix(in srgb, var(--page-color) 7%, transparent),
     transparent
   );
+}
+
+html[data-bs-theme="light"] .guided-step__body pre {
+  background: transparent !important;
 }

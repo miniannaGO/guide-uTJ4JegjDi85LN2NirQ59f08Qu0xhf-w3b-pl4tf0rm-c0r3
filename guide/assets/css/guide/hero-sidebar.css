@@ -371,6 +371,35 @@ body[class*="guide-page--"] .guide-page-hero h1 {
     inset 0 1px 0 rgba(255, 255, 255, 0.055) !important;
 }
 
+.guide-sidebar .card,
+.guide-nav-mobile-menu {
+  scrollbar-color: var(--guide-scrollbar-thumb) transparent;
+  scrollbar-width: thin;
+}
+
+.guide-sidebar .card::-webkit-scrollbar,
+.guide-nav-mobile-menu::-webkit-scrollbar {
+  width: 0.62rem;
+  height: 0.62rem;
+}
+
+.guide-sidebar .card::-webkit-scrollbar-track,
+.guide-nav-mobile-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.guide-sidebar .card::-webkit-scrollbar-thumb,
+.guide-nav-mobile-menu::-webkit-scrollbar-thumb {
+  border: 2px solid color-mix(in srgb, var(--guide-panel) 82%, transparent);
+  border-radius: 999px;
+  background: var(--guide-scrollbar-thumb);
+}
+
+.guide-sidebar .card::-webkit-scrollbar-thumb:hover,
+.guide-nav-mobile-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--guide-scrollbar-thumb-hover);
+}
+
 body[class*="guide-page--"] .guide-sidebar > .card {
   border-color: color-mix(
     in srgb,
@@ -429,6 +458,10 @@ body[class*="guide-page--"] .guide-sidebar > .card::before {
   font-size: 0.82rem;
   font-weight: 680;
   line-height: 1.24;
+}
+
+.guide-nav-mobile-dropdown {
+  display: none;
 }
 
 .guide-page--tools .guide-nav .guide-nav-link--section {

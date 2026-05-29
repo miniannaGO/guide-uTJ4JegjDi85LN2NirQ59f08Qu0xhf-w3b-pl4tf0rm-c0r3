@@ -493,6 +493,79 @@
       inset 0 -2px 0 color-mix(in srgb, var(--page-color) 66%, transparent),
       0 0 14px color-mix(in srgb, var(--page-color) 12%, transparent);
   }
+
+  .guide-nav > .guide-nav-link--has-mobile-dropdown,
+  .guide-nav > .guide-nav-link--mobile-child {
+    display: none;
+  }
+
+  .guide-nav-mobile-dropdown {
+    display: block;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .guide-nav-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    max-width: min(16rem, calc(100vw - 2rem));
+    gap: 0.34rem;
+  }
+
+  .guide-nav-mobile-toggle__label {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .guide-nav-mobile-menu {
+    z-index: 1040;
+    min-width: min(18rem, calc(100vw - 1.5rem));
+    max-width: min(22rem, calc(100vw - 1.5rem));
+    max-height: min(60vh, 24rem);
+    overflow: auto;
+    padding: 0.38rem;
+    border: 1px solid color-mix(in srgb, var(--page-color) 30%, transparent);
+    border-radius: 0.76rem;
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--page-color) 11%, transparent),
+        color-mix(in srgb, var(--page-color-companion) 6%, transparent)
+      ),
+      linear-gradient(180deg, rgba(45, 42, 46, 0.99), rgba(25, 24, 26, 0.98));
+    box-shadow:
+      0 1rem 2rem rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .guide-nav-mobile-menu[data-bs-popper] {
+    position: fixed !important;
+  }
+
+  .guide-nav-mobile-menu .dropdown-item {
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.62rem;
+    color: rgba(252, 252, 250, 0.82);
+    font-size: 0.82rem;
+    line-height: 1.18;
+    white-space: normal;
+  }
+
+  .guide-nav-mobile-menu .dropdown-item:hover,
+  .guide-nav-mobile-menu .dropdown-item:focus-visible,
+  .guide-nav-mobile-menu .dropdown-item.active {
+    color: #fff;
+    background: color-mix(in srgb, var(--page-color) 18%, transparent);
+  }
+
+  .guide-nav-mobile-item--parent {
+    color: color-mix(in srgb, var(--page-color) 78%, #fcfcfa) !important;
+    font-weight: 820;
+  }
 }
 
 @media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {
@@ -568,6 +641,13 @@
 }
 
 @media (min-width: 1200px) {
+  .guide-sidebar .card {
+    max-height: calc(100vh - 6rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
   .guide-shell > .row > aside.col-xl-2 {
     flex: 0 0 14%;
     width: 14%;

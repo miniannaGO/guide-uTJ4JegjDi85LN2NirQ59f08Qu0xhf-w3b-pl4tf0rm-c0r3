@@ -108,7 +108,6 @@
                   <a class="nav-link" href="#bridge-first-read"
                     >Lectura guiada</a
                   >
-                  <a class="nav-link" href="#complete-flow">Flujo completo</a>
                   <a class="nav-link" href="#html">HTML contracts</a>
                   <a class="nav-link" href="#json">JSON envelope</a>
                   <a class="nav-link" href="#external-flow"
@@ -121,6 +120,7 @@
                   <a class="nav-link" href="#contract-map">Mapa contratos</a>
                   <a class="nav-link" href="#end-to-end-matrix">Matriz E2E</a>
                   <a class="nav-link" href="#ownership">Ownership</a>
+                  <a class="nav-link" href="#complete-flow">Flujo completo</a>
                   <a class="nav-link" href="#next">Recorrido de la guía</a>
                 </nav>
               </div>
@@ -167,6 +167,22 @@
                   es una carpeta única. Es el acuerdo entre dos mundos: Gateway
                   produce HTML/JSON/headers/assets; Surface los consume sin
                   inventar negocio paralelo.
+                </p>
+                <p>
+                  Por eso esta página no intenta volver a explicar todo Gateway
+                  ni todo Surface. Su especialidad es la frontera: qué formato
+                  cruza de un lado al otro, quién lo produce, quién lo valida y
+                  qué se considera contrato roto. Cuando leas una sección del
+                  bridge, pregúntate siempre: “¿qué lado promete esto?” y “¿qué
+                  lado lo consume?”.
+                </p>
+                <p>
+                  Para seguir una interacción completa, léela como una entrega
+                  de responsabilidades: Gateway renderiza HTML SSR, Surface
+                  monta una integración, Surface pide datos o HTML con
+                  <code>serverClient</code>, Gateway pasa por ruta, controller y
+                  use case, y la respuesta vuelve como envelope JSON o fragment
+                  HTML validable.
                 </p>
                 <div class="table-responsive">
                   <table class="table table-striped table-guide align-middle">
@@ -232,362 +248,18 @@
                 <p class="guide-crosslink">
                   <em>
                     Orden sugerido dentro de esta página:
-                    <a href="#complete-flow">flujo completo</a>,
                     <a href="#html">HTML</a>, <a href="#json">JSON</a>,
                     <a href="#external-flow">flujo externo</a>,
                     <a href="#session">sesión</a>,
                     <a href="#security">seguridad</a>,
                     <a href="#error-contracts">errores</a>,
                     <a href="#assets">assets</a>,
-                    <a href="#contract-map">mapa de contratos</a> y
-                    <a href="#end-to-end-matrix">matriz E2E</a>.
+                    <a href="#contract-map">mapa de contratos</a>,
+                    <a href="#end-to-end-matrix">matriz E2E</a>,
+                    <a href="#ownership">ownership</a> y
+                    <a href="#complete-flow">flujo completo</a>.
                   </em>
                 </p>
-              </div>
-            </div>
-          </section>
-
-          <section id="complete-flow" class="guide-section">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body">
-                <h2>Flujo completo del bridge</h2>
-                <p>
-                  El bridge es la conversación completa entre HTML SSR, runtime
-                  UI, requests al gateway y respuestas controladas. No agrega
-                  una capa nueva: ordena qué lado decide cada parte del
-                  contrato.
-                </p>
-                <p class="guide-crosslink">
-                  <em>
-                    Si este traspaso involucra proveedores externos, ve a
-                    <a href="#external-flow">Flujo externo completo</a>. Si la
-                    respuesta vuelve parcial o fallida, revisa
-                    <a href="#json">JSON envelope</a>.
-                  </em>
-                </p>
-
-                <div
-                  class="file-flow"
-                  aria-label="Mapa de traspasos entre Gateway y Surface"
-                >
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">01</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Gateway declara</p>
-                        <h3>Vista SSR</h3>
-                        <code class="file-flow__path"
-                          >@views/items/index.page.php</code
-                        >
-                      </header>
-                      <p>
-                        La vista entrega HTML real y deja marcas que Surface
-                        puede reconocer. No le pide a Surface que invente
-                        estructura de negocio.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-html">&lt;div data-surface-page="demo-items"&gt;
-      &lt;form data-item-search&gt;...&lt;/form&gt;
-    &lt;/div&gt;</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-integration-page">
-                          <code
-                            >composer robo -- make:integration-page items
-                            --id=demo-items --layout=control</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Traspaso:</strong> el browser recibe HTML con un
-                        contrato declarativo.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">02</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Surface reconoce</p>
-                        <h3>Integración UI</h3>
-                        <code class="file-flow__path"
-                          >@workspace/integrations/items/integration.ts</code
-                        >
-                      </header>
-                      <p>
-                        El id de la vista y el id de la integración deben
-                        coincidir. Ese acuerdo permite cargar solo el código UI
-                        necesario para esa página.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-typescript">id: "demo-items",
-    page: { load: () => import("./page") }</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-integration-page">
-                          <code
-                            >composer robo -- make:integration-page items
-                            --id=demo-items --layout=control</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Traspaso:</strong> el runtime monta
-                        <code>page.ts</code> sobre el nodo SSR.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">03</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Surface pide</p>
-                        <h3>Binding y API</h3>
-                        <code class="file-flow__path"
-                          >@workspace/integrations/items/page.ts</code
-                        >
-                        <code class="file-flow__path"
-                          >@workspace/integrations/items/api.ts</code
-                        >
-                      </header>
-                      <p>
-                        El binding escucha el evento y la API llama a Gateway.
-                        Esta pieza no consulta proveedores externos ni decide
-                        permisos.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-typescript">form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      target.innerHTML = await searchItems(new FormData(form));
-    });</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-integration-api-html">
-                          <code
-                            >composer robo -- make:integration-api-html items
-                            searchItems post /items/summary
-                            --controller-name=ItemFragment</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Traspaso:</strong> Gateway recibe una request
-                        HTTP normal.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">04</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Gateway recibe</p>
-                        <h3>Ruta y controller</h3>
-                        <code class="file-flow__path"
-                          >@extension/Presentation/Http/Routing/*</code
-                        >
-                        <code class="file-flow__path"
-                          >@extension/Presentation/Http/Controller/*</code
-                        >
-                      </header>
-                      <p>
-                        La ruta apunta al controller. El controller lee el
-                        request, llama el use case si hay intención de
-                        aplicación y adapta la salida.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-php">$router->post('/items/summary', [ItemFragmentController::class, 'summary']);
-    return $this->renderFragmentView('items/summary.fragment', $result->data());</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-integration-api-html">
-                          <code
-                            >composer robo -- make:integration-api-html items
-                            summary post /items/summary
-                            --controller-name=ItemFragment</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Traspaso:</strong> el use case recibe un input
-                        de aplicación, no un detalle del DOM.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">05</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Gateway decide</p>
-                        <h3>Use case, service y connector</h3>
-                        <code class="file-flow__path"
-                          >@extension/Application/UseCase/*</code
-                        >
-                        <code class="file-flow__path"
-                          >@extension/Infrastructure/Outbound/Connector/*</code
-                        >
-                      </header>
-                      <p>
-                        Aquí se resuelve la intención, se componen integraciones
-                        si hace falta y se normalizan fallos externos. Surface
-                        solo ve el resultado controlado.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-php">return $this->runConnectorFlow(
-      fn(ConnectorFlowInterface $flow) => $this->service->summary($input, $flow)
-    );</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-use-case">
-                          <code
-                            >composer robo -- make:use-case SummaryItems
-                            --use-case-folder=Items</code
-                          >
-                        </a>
-                        <a href="tools.html#make-service">
-                          <code
-                            >composer robo -- make:service ItemSummary
-                            --use-case=SummaryItems</code
-                          >
-                        </a>
-                        <a href="tools.html#make-connector">
-                          <code
-                            >composer robo -- make:connector ExternalItem</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Traspaso:</strong> una respuesta HTML, JSON o un
-                        error normalizado.
-                      </p>
-                    </div>
-                  </article>
-
-                  <article class="file-flow__item">
-                    <span class="file-flow__marker">06</span>
-                    <div class="file-flow__body">
-                      <header class="file-flow__header">
-                        <p class="file-flow__eyebrow">Retorno HTML</p>
-                        <h3>Fragment y fragment binding</h3>
-                        <code class="file-flow__path"
-                          >@views/items/summary.fragment.php</code
-                        >
-                        <code class="file-flow__path"
-                          >@workspace/integrations/items/fragments/summary.ts</code
-                        >
-                      </header>
-                      <p>
-                        Gateway devuelve HTML con marcas de fragment. Surface lo
-                        inserta y el runtime monta el binding del fragment sin
-                        volver a decidir el contenido.
-                      </p>
-                      <pre
-                        class="file-flow__snippet"
-                      ><code class="language-html">&lt;section data-surface-fragment="item-summary"&gt;
-      &lt;button data-refresh-summary&gt;Actualizar&lt;/button&gt;
-    &lt;/section&gt;</code></pre>
-                      <div class="file-flow__tool">
-                        <strong>Automatiza con Robo</strong>
-                        <a href="tools.html#make-integration-api-html">
-                          <code
-                            >composer robo -- make:integration-api-html items
-                            summary get /items/summary
-                            --controller-name=ItemFragment</code
-                          >
-                        </a>
-                        <a href="tools.html#make-fragment">
-                          <code
-                            >composer robo -- make:fragment items summary
-                            --id=item-summary</code
-                          >
-                        </a>
-                      </div>
-                      <p class="file-flow__handoff">
-                        <strong>Traspaso:</strong> UI activa sobre HTML de
-                        servidor.
-                      </p>
-                    </div>
-                  </article>
-                </div>
-
-                <div class="table-responsive mt-3">
-                  <table class="table table-striped table-guide align-middle">
-                    <thead>
-                      <tr>
-                        <th>Pregunta práctica</th>
-                        <th>Respuesta</th>
-                        <th>Archivo donde se ve</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>¿Quién declara la estructura inicial?</td>
-                        <td>Gateway, porque renderiza SSR.</td>
-                        <td>Views PHP.</td>
-                      </tr>
-                      <tr>
-                        <td>¿Quién conecta esa estructura con JS?</td>
-                        <td>Surface, mediante registry e integración.</td>
-                        <td><code>integration.ts</code>.</td>
-                      </tr>
-                      <tr>
-                        <td>¿Dónde se maneja el click o submit?</td>
-                        <td>Surface binding.</td>
-                        <td><code>page.ts</code> o fragment binding.</td>
-                      </tr>
-                      <tr>
-                        <td>¿Dónde se decide la intención de negocio?</td>
-                        <td>Gateway use case.</td>
-                        <td><code>Application/UseCase/*</code>.</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          ¿Quién transforma proveedor externo en contrato local?
-                        </td>
-                        <td>Gateway connector.</td>
-                        <td>
-                          <code>Infrastructure/Outbound/Connector/*</code>.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>¿Quién activa el HTML que volvió?</td>
-                        <td>Surface FragmentRuntime.</td>
-                        <td><code>fragments/*.ts</code>.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
-                  <div class="guide-callout__header">
-                    <span class="guide-callout__eyebrow">Frontera</span>
-                    <strong class="guide-callout__title">
-                      Si aparece negocio en Surface, vuelve al contrato del
-                      Gateway.
-                    </strong>
-                  </div>
-                  <ul class="guide-key-grid guide-key-grid--compact">
-                    <li>
-                      <strong>Gateway</strong>
-                      <span>Decide intención de aplicación.</span>
-                    </li>
-                    <li>
-                      <strong>Surface</strong>
-                      <span
-                        >Activa interacción sobre contratos ya definidos.</span
-                      >
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </section>
@@ -619,8 +291,8 @@
                         </button>
                       </div>
                       <pre><code id="br-page" class="language-markup">&lt;div data-surface-page="demo-items"&gt;
-      ...
-    &lt;/div&gt;</code></pre>
+    ...
+&lt;/div&gt;</code></pre>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -636,8 +308,8 @@
                         </button>
                       </div>
                       <pre><code id="br-fragment" class="language-markup">&lt;section data-surface-fragment="item-summary"&gt;
-      ...
-    &lt;/section&gt;</code></pre>
+  ...
+&lt;/section&gt;</code></pre>
                     </div>
                   </div>
                 </div>
@@ -722,7 +394,7 @@
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">Página completa</h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page items
@@ -757,7 +429,7 @@
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">Fragment HTML</h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-api-html">
                             <code
                               >composer robo -- make:integration-api-html items
@@ -799,7 +471,7 @@
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">Registry global</h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-page">
                             <code
                               >composer robo -- make:integration-page items
@@ -874,13 +546,13 @@
                     </button>
                   </div>
                   <pre><code id="br-json" class="language-javascript">{
-      success: true,
-      data: {},
-      message: "Operación completada",
-      errors: [],
-      code: 200,
-      errorMeta: null
-    }</code></pre>
+  success: true,
+  data: {},
+  message: "Operación completada",
+  errors: [],
+  code: 200,
+  errorMeta: null
+}</code></pre>
                 </div>
                 <div class="code-card mt-3">
                   <div class="code-card__bar">
@@ -894,18 +566,18 @@
                     </button>
                   </div>
                   <pre><code id="br-json-partial" class="language-javascript">{
-      success: true,
-      data: {
-        id: 3021,
-        displayName: "Cliente de ejemplo",
-        total: 489.9,
-        state: "issued"
-      },
-      message: "Recurso consultado con advertencias",
-      errors: ["No se pudo cargar el detalle opcional"],
-      code: 200,
-      errorMeta: null
-    }</code></pre>
+  success: true,
+  data: {
+    id: 3021,
+    displayName: "Cliente de ejemplo",
+    total: 489.9,
+    state: "issued"
+  },
+  message: "Recurso consultado con advertencias",
+  errors: ["No se pudo cargar el detalle opcional"],
+  code: 200,
+  errorMeta: null
+}</code></pre>
                 </div>
                 <ul class="guide-checklist">
                   <li>`success=true` y `errors=[]` es éxito completo.</li>
@@ -1081,7 +753,7 @@
                           Declara la URL del gateway
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-api-data">
                             <code
                               >composer robo -- make:integration-api-data items
@@ -1120,7 +792,7 @@
                           Adapta HTTP a aplicación
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-api-data">
                             <code
                               >composer robo -- make:integration-api-data items
@@ -1159,7 +831,7 @@
                           Resuelve intención y datos
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-use-case">
                             <code
                               >composer robo -- make:use-case GetItemSummary
@@ -1209,7 +881,7 @@
                           Encapsula proveedor externo
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-service-client">
                             <code
                               >composer robo -- make:service-client
@@ -1260,7 +932,7 @@
                           Pide datos desde Surface
                         </h4>
                         <div class="guided-tool">
-                          <strong>Automatiza con Robo</strong>
+                          <strong>Ayuda de Robo</strong>
                           <a href="tools.html#make-integration-api-data">
                             <code
                               >composer robo -- make:integration-api-data items
@@ -1316,9 +988,7 @@
                 </div>
 
                 <h3 class="h5 mt-4">Contrato visible para Surface</h3>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow"
                       >Límite del navegador</span
@@ -1362,13 +1032,11 @@
                     </li>
                   </ul>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
-                    <span class="guide-callout__eyebrow">Puente con Robo</span>
+                    <span class="guide-callout__eyebrow">Robo como ayuda</span>
                     <strong class="guide-callout__title">
-                      Crea el esqueleto, luego reemplaza los tipos temporales.
+                      Usa el esqueleto para apoyar el puente, no para definirlo.
                     </strong>
                   </div>
                   <ul class="guide-key-grid guide-key-grid--compact">
@@ -1417,30 +1085,30 @@
                         </button>
                       </div>
                       <pre><code id="br-surface-contract" class="language-typescript">// contracts.ts
-    export class ItemSummaryRequest {
-      public itemId: number = 0;
-    
-      constructor(init: Partial&lt;ItemSummaryRequest&gt; = {}) {
-        Object.assign(this, init);
-      }
-    }
-    
-    export class ItemSummary {
-      public id: number = 0;
-      public displayName: string = "";
-      public total: number = 0;
-      public state: string = "";
-    
-      constructor(init: Partial&lt;ItemSummary&gt; = {}) {
-        Object.assign(this, init);
-      }
-    }
-    
-    // api.ts
-    const summary = await serverClient.data&lt;ItemSummary, ItemSummaryRequest&gt;("/items/summary", {
-      method: "GET",
-      params: new ItemSummaryRequest({ itemId: 3021 }),
-    });</code></pre>
+export class ItemSummaryRequest {
+  public itemId: number = 0;
+
+  constructor(init: Partial&lt;ItemSummaryRequest&gt; = {}) {
+    Object.assign(this, init);
+  }
+}
+
+export class ItemSummary {
+  public id: number = 0;
+  public displayName: string = "";
+  public total: number = 0;
+  public state: string = "";
+
+  constructor(init: Partial&lt;ItemSummary&gt; = {}) {
+    Object.assign(this, init);
+  }
+}
+
+// api.ts
+const summary = await serverClient.data&lt;ItemSummary, ItemSummaryRequest&gt;("/items/summary", {
+  method: "GET",
+  params: new ItemSummaryRequest({ itemId: 3021 }),
+});</code></pre>
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -1456,13 +1124,13 @@
                         </button>
                       </div>
                       <pre><code id="br-gateway-contract" class="language-php">public function summary(): HttpResponseInterface
-    {
-      $itemId = (int) $this->request->getQuery('itemId', 0);
-    
-      return $this->respondJson(
-        fn() => $this->getItemSummary->execute($itemId)
-      );
-    }</code></pre>
+{
+  $itemId = (int) $this->request->getQuery('itemId', 0);
+
+  return $this->respondJson(
+    fn() => $this->getItemSummary->execute($itemId)
+  );
+}</code></pre>
                     </div>
                   </div>
                 </div>
@@ -1519,9 +1187,7 @@
                   </table>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Datos externos</span>
                     <strong class="guide-callout__title">
@@ -2488,6 +2154,350 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="complete-flow" class="guide-section">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body">
+                <h2>Flujo completo del bridge</h2>
+                <p>
+                  El bridge es la conversación completa entre HTML SSR, runtime
+                  UI, requests al gateway y respuestas controladas. No agrega
+                  una capa nueva: ordena qué lado decide cada parte del
+                  contrato.
+                </p>
+                <p class="guide-crosslink">
+                  <em>
+                    Si este traspaso involucra proveedores externos, ve a
+                    <a href="#external-flow">Flujo externo completo</a>. Si la
+                    respuesta vuelve parcial o fallida, revisa
+                    <a href="#json">JSON envelope</a>.
+                  </em>
+                </p>
+
+                <div
+                  class="file-flow"
+                  aria-label="Mapa de traspasos entre Gateway y Surface"
+                >
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">01</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Gateway declara</p>
+                        <h3>Vista SSR</h3>
+                        <code class="file-flow__path"
+                          >@views/items/index.page.php</code
+                        >
+                      </header>
+                      <p>
+                        La vista entrega HTML real y deja marcas que Surface
+                        puede reconocer. No le pide a Surface que invente
+                        estructura de negocio.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-html">&lt;div data-surface-page="demo-items"&gt;
+  &lt;form data-item-search&gt;...
+  &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-integration-page">
+                          <code
+                            >composer robo -- make:integration-page items
+                            --id=demo-items --layout=control</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Traspaso:</strong> el browser recibe HTML con un
+                        contrato declarativo.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">02</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Surface reconoce</p>
+                        <h3>Integración UI</h3>
+                        <code class="file-flow__path"
+                          >@workspace/integrations/items/integration.ts</code
+                        >
+                      </header>
+                      <p>
+                        El id de la vista y el id de la integración deben
+                        coincidir. Ese acuerdo permite cargar solo el código UI
+                        necesario para esa página.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-typescript">id: "demo-items",
+page: { load: () => import("./page") }</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-integration-page">
+                          <code
+                            >composer robo -- make:integration-page items
+                            --id=demo-items --layout=control</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Traspaso:</strong> el runtime monta
+                        <code>page.ts</code> sobre el nodo SSR.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">03</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Surface pide</p>
+                        <h3>Binding y API</h3>
+                        <code class="file-flow__path"
+                          >@workspace/integrations/items/page.ts</code
+                        >
+                        <code class="file-flow__path"
+                          >@workspace/integrations/items/api.ts</code
+                        >
+                      </header>
+                      <p>
+                        El binding escucha el evento y la API llama a Gateway.
+                        Esta pieza no consulta proveedores externos ni decide
+                        permisos.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-typescript">form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  target.innerHTML = await searchItems(new FormData(form));
+});</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-integration-api-html">
+                          <code
+                            >composer robo -- make:integration-api-html items
+                            searchItems post /items/summary
+                            --controller-name=ItemFragment</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Traspaso:</strong> Gateway recibe una request
+                        HTTP normal.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">04</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Gateway recibe</p>
+                        <h3>Ruta y controller</h3>
+                        <code class="file-flow__path"
+                          >@extension/Presentation/Http/Routing/*</code
+                        >
+                        <code class="file-flow__path"
+                          >@extension/Presentation/Http/Controller/*</code
+                        >
+                      </header>
+                      <p>
+                        La ruta apunta al controller. El controller lee el
+                        request, llama el use case si hay intención de
+                        aplicación y adapta la salida.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-php">$router->post('/items/summary', [ItemFragmentController::class, 'summary']);
+return $this->renderFragmentView('items/summary.fragment', $result->data());</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-integration-api-html">
+                          <code
+                            >composer robo -- make:integration-api-html items
+                            summary post /items/summary
+                            --controller-name=ItemFragment</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Traspaso:</strong> el use case recibe un input
+                        de aplicación, no un detalle del DOM.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">05</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Gateway decide</p>
+                        <h3>Use case, service y connector</h3>
+                        <code class="file-flow__path"
+                          >@extension/Application/UseCase/*</code
+                        >
+                        <code class="file-flow__path"
+                          >@extension/Infrastructure/Outbound/Connector/*</code
+                        >
+                      </header>
+                      <p>
+                        Aquí se resuelve la intención, se componen integraciones
+                        si hace falta y se normalizan fallos externos. Surface
+                        solo ve el resultado controlado.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-php">return $this->runConnectorFlow(
+  fn(ConnectorFlowInterface $flow) => $this->service->summary($input, $flow)
+);</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-use-case">
+                          <code
+                            >composer robo -- make:use-case SummaryItems
+                            --use-case-folder=Items</code
+                          >
+                        </a>
+                        <a href="tools.html#make-service">
+                          <code
+                            >composer robo -- make:service ItemSummary
+                            --use-case=SummaryItems</code
+                          >
+                        </a>
+                        <a href="tools.html#make-connector">
+                          <code
+                            >composer robo -- make:connector ExternalItem</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Traspaso:</strong> una respuesta HTML, JSON o un
+                        error normalizado.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="file-flow__item">
+                    <span class="file-flow__marker">06</span>
+                    <div class="file-flow__body">
+                      <header class="file-flow__header">
+                        <p class="file-flow__eyebrow">Retorno HTML</p>
+                        <h3>Fragment y fragment binding</h3>
+                        <code class="file-flow__path"
+                          >@views/items/summary.fragment.php</code
+                        >
+                        <code class="file-flow__path"
+                          >@workspace/integrations/items/fragments/summary.ts</code
+                        >
+                      </header>
+                      <p>
+                        Gateway devuelve HTML con marcas de fragment. Surface lo
+                        inserta y el runtime monta el binding del fragment sin
+                        volver a decidir el contenido.
+                      </p>
+                      <pre
+                        class="file-flow__snippet"
+                      ><code class="language-html">&lt;section data-surface-fragment="item-summary"&gt;
+  &lt;button data-refresh-summary&gt;Actualizar&lt;/button&gt;
+&lt;/section&gt;</code></pre>
+                      <div class="file-flow__tool">
+                        <strong>Ayuda de Robo</strong>
+                        <a href="tools.html#make-integration-api-html">
+                          <code
+                            >composer robo -- make:integration-api-html items
+                            summary get /items/summary
+                            --controller-name=ItemFragment</code
+                          >
+                        </a>
+                        <a href="tools.html#make-fragment">
+                          <code
+                            >composer robo -- make:fragment items summary
+                            --id=item-summary</code
+                          >
+                        </a>
+                      </div>
+                      <p class="file-flow__handoff">
+                        <strong>Traspaso:</strong> UI activa sobre HTML de
+                        servidor.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <div class="table-responsive mt-3">
+                  <table class="table table-striped table-guide align-middle">
+                    <thead>
+                      <tr>
+                        <th>Pregunta práctica</th>
+                        <th>Respuesta</th>
+                        <th>Archivo donde se ve</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>¿Quién declara la estructura inicial?</td>
+                        <td>Gateway, porque renderiza SSR.</td>
+                        <td>Views PHP.</td>
+                      </tr>
+                      <tr>
+                        <td>¿Quién conecta esa estructura con JS?</td>
+                        <td>Surface, mediante registry e integración.</td>
+                        <td><code>integration.ts</code>.</td>
+                      </tr>
+                      <tr>
+                        <td>¿Dónde se maneja el click o submit?</td>
+                        <td>Surface binding.</td>
+                        <td><code>page.ts</code> o fragment binding.</td>
+                      </tr>
+                      <tr>
+                        <td>¿Dónde se decide la intención de negocio?</td>
+                        <td>Gateway use case.</td>
+                        <td><code>Application/UseCase/*</code>.</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          ¿Quién transforma proveedor externo en contrato local?
+                        </td>
+                        <td>Gateway connector.</td>
+                        <td>
+                          <code>Infrastructure/Outbound/Connector/*</code>.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>¿Quién activa el HTML que volvió?</td>
+                        <td>Surface FragmentRuntime.</td>
+                        <td><code>fragments/*.ts</code>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="guide-callout guide-callout--structured">
+                  <div class="guide-callout__header">
+                    <span class="guide-callout__eyebrow">Frontera</span>
+                    <strong class="guide-callout__title">
+                      Si aparece negocio en Surface, vuelve al contrato del
+                      Gateway.
+                    </strong>
+                  </div>
+                  <ul class="guide-key-grid guide-key-grid--compact">
+                    <li>
+                      <strong>Gateway</strong>
+                      <span>Decide intención de aplicación.</span>
+                    </li>
+                    <li>
+                      <strong>Surface</strong>
+                      <span
+                        >Activa interacción sobre contratos ya definidos.</span
+                      >
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

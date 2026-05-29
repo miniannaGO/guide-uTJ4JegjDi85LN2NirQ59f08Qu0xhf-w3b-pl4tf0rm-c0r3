@@ -3,6 +3,7 @@
 
   navigation.renderGlobalNavigation();
   search.bootGuideSearch();
+  anchors.bootGuideNavMobileDropdowns();
   anchors.syncGuideNavOverflow();
   anchors.bootGuideNavDragScroll();
   anchors.bootGuideAnchorHighlights();

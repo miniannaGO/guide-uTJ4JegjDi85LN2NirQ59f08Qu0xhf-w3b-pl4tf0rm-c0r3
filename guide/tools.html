@@ -183,9 +183,17 @@
                   contratos y wiring convencional; la intención de aplicación
                   sigue siendo una decisión humana.
                 </p>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <p>
+                  Para alguien que recién entra al proyecto, conviene leer esta
+                  página como un manual de asistentes de código. Un comando Robo
+                  puede crear archivos con nombres, namespaces y ubicaciones
+                  correctas, pero no sabe si tu feature necesita un use case
+                  simple, un service con varias fuentes, un connector opcional o
+                  un fragment HTML. Esa decisión se toma con las reglas de
+                  Gateway, Surface y Bridge; el comando solo evita trabajo
+                  mecánico cuando la decisión ya está clara.
+                </p>
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Mapa rápido</span>
                     <strong class="guide-callout__title">
@@ -236,9 +244,7 @@
                   aplicación, composición de datos, degradación parcial o
                   conversación con un proveedor externo.
                 </p>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Regla central</span>
                     <strong class="guide-callout__title">
@@ -254,9 +260,7 @@
                   </p>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Surface</span>
                     <strong class="guide-callout__title">
@@ -378,7 +382,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-list" class="language-bash">cd app-gateway
-    composer robo list</code></pre>
+composer robo list</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -454,9 +458,7 @@
                   </table>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Composer + Robo</span>
                     <strong class="guide-callout__title">
@@ -516,46 +518,46 @@
                     </button>
                   </div>
                   <pre><code id="tools-config" class="language-json">{
-      "extensionScaffolder": {
-        "paths": {
-          "appProvider": "app-gateway/app/Extension/Bootstrap/Container/AppProvider.php",
-          "connector": "app-gateway/app/Extension/Infrastructure/Outbound/Connector",
-          "controller": "app-gateway/app/Extension/Presentation/Http/Controller",
-          "mainMenuItems": "app-gateway/app/Extension/Presentation/Http/Navigation/MainMenuItems.php",
-          "middleware": "app-gateway/app/Extension/Presentation/Http/Middleware",
-          "outboundProvider": "app-gateway/app/Extension/Bootstrap/Container/Outbound",
-          "port": "app-gateway/app/Extension/Application/Port",
-          "service": "app-gateway/app/Extension/Application/Service",
-          "serviceClient": "app-gateway/app/Extension/Infrastructure/Outbound/Client",
-          "surfaceIntegration": "app-surface/workspace/integrations",
-          "surfaceRegistry": "app-surface/workspace/integrations/registry.ts",
-          "useCase": "app-gateway/app/Extension/Application/UseCase",
-          "view": "app-gateway/resources/views"
-        },
-        "namespaces": {
-          "connector": "App\\Extension\\Infrastructure\\Outbound\\Connector",
-          "controller": "App\\Extension\\Presentation\\Http\\Controller",
-          "middleware": "App\\Extension\\Presentation\\Http\\Middleware",
-          "port": "App\\Extension\\Application\\Port",
-          "service": "App\\Extension\\Application\\Service",
-          "serviceClient": "App\\Extension\\Infrastructure\\Outbound\\Client",
-          "useCase": "App\\Extension\\Application\\UseCase"
-        },
-        "defaults": {
-          "action": "index"
-        }
-      },
-      "httpContractGenerator": {
-        "pathRequest": "app-gateway/app/Extension/Infrastructure/Outbound/Client/Admision/Request",
-        "namespaceRequest": "App\\Extension\\Infrastructure\\Outbound\\Client\\Admision\\Request",
-        "pathResponse": "app-gateway/app/Extension/Contract/Outbound/Admision",
-        "namespaceResponse": "App\\Extension\\Contract\\Outbound\\Admision"
-      },
-      "surfaceContractGenerator": {
-        "contractsFileName": "contracts.ts",
-        "integrationsBasePath": "app-surface/workspace/integrations"
-      }
-    }</code></pre>
+  "extensionScaffolder": {
+    "paths": {
+      "appProvider": "app-gateway/app/Extension/Bootstrap/Container/AppProvider.php",
+      "connector": "app-gateway/app/Extension/Infrastructure/Outbound/Connector",
+      "controller": "app-gateway/app/Extension/Presentation/Http/Controller",
+      "mainMenuItems": "app-gateway/app/Extension/Presentation/Http/Navigation/MainMenuItems.php",
+      "middleware": "app-gateway/app/Extension/Presentation/Http/Middleware",
+      "outboundProvider": "app-gateway/app/Extension/Bootstrap/Container/Outbound",
+      "port": "app-gateway/app/Extension/Application/Port",
+      "service": "app-gateway/app/Extension/Application/Service",
+      "serviceClient": "app-gateway/app/Extension/Infrastructure/Outbound/Client",
+      "surfaceIntegration": "app-surface/workspace/integrations",
+      "surfaceRegistry": "app-surface/workspace/integrations/registry.ts",
+      "useCase": "app-gateway/app/Extension/Application/UseCase",
+      "view": "app-gateway/resources/views"
+    },
+    "namespaces": {
+      "connector": "App\\Extension\\Infrastructure\\Outbound\\Connector",
+      "controller": "App\\Extension\\Presentation\\Http\\Controller",
+      "middleware": "App\\Extension\\Presentation\\Http\\Middleware",
+      "port": "App\\Extension\\Application\\Port",
+      "service": "App\\Extension\\Application\\Service",
+      "serviceClient": "App\\Extension\\Infrastructure\\Outbound\\Client",
+      "useCase": "App\\Extension\\Application\\UseCase"
+    },
+    "defaults": {
+      "action": "index"
+    }
+  },
+  "httpContractGenerator": {
+    "pathRequest": "app-gateway/app/Extension/Infrastructure/Outbound/Client/Admision/Request",
+    "namespaceRequest": "App\\Extension\\Infrastructure\\Outbound\\Client\\Admision\\Request",
+    "pathResponse": "app-gateway/app/Extension/Contract/Outbound/Admision",
+    "namespaceResponse": "App\\Extension\\Contract\\Outbound\\Admision"
+  },
+  "surfaceContractGenerator": {
+    "contractsFileName": "contracts.ts",
+    "integrationsBasePath": "app-surface/workspace/integrations"
+  }
+}</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -748,9 +750,7 @@
                   </table>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Regla de uso</span>
                     <strong class="guide-callout__title">
@@ -899,12 +899,10 @@
                     </button>
                   </div>
                   <pre><code id="tools-route-controller" class="language-bash">composer robo -- make:route-controller &lt;method&gt; &lt;path&gt; &lt;controllerName&gt;
-    composer robo -- make:route-controller get /demo Demo</code></pre>
+composer robo -- make:route-controller get /demo Demo</code></pre>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow"
                       >Protección de rutas</span
@@ -1016,7 +1014,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-route-use-case" class="language-bash">composer robo -- make:route-use-case &lt;method&gt; &lt;path&gt; &lt;controllerName&gt; &lt;useCaseName&gt; --use-case-folder=&lt;folder&gt; --action=&lt;action&gt;
-    composer robo -- make:route-use-case post /auth/demo Demo CreateDemo --use-case-folder=Demo --action=create</code></pre>
+composer robo -- make:route-use-case post /auth/demo Demo CreateDemo --use-case-folder=Demo --action=create</code></pre>
                 </div>
                 <ul class="guide-checklist mt-3">
                   <li>
@@ -1122,10 +1120,10 @@
                     </button>
                   </div>
                   <pre><code id="tools-use-case" class="language-bash">composer robo -- make:use-case &lt;useCaseName&gt; --use-case-folder=&lt;folder&gt;
-    composer robo -- make:use-case ListItems --use-case-folder=Demo
-    
-    composer robo -- make:use-case &lt;useCaseName&gt; &lt;controllerName&gt; --use-case-folder=&lt;folder&gt; --action=&lt;action&gt;
-    composer robo -- make:use-case ListItems ExternalItem --use-case-folder=Demo --action=list</code></pre>
+composer robo -- make:use-case ListItems --use-case-folder=Demo
+
+composer robo -- make:use-case &lt;useCaseName&gt; &lt;controllerName&gt; --use-case-folder=&lt;folder&gt; --action=&lt;action&gt;
+composer robo -- make:use-case ListItems ExternalItem --use-case-folder=Demo --action=list</code></pre>
                 </div>
                 <div class="table-responsive mt-3">
                   <table class="table table-striped table-guide align-middle">
@@ -1168,9 +1166,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Use case</span>
                     <strong class="guide-callout__title">
@@ -1245,12 +1241,12 @@
                     </button>
                   </div>
                   <pre><code id="tools-service" class="language-bash">composer robo -- make:service &lt;serviceName&gt;
-    composer robo -- make:service ExternalItem
-    
-    composer robo -- make:service &lt;serviceName&gt; --use-case=&lt;useCaseName&gt;
-    composer robo -- make:service ExternalItem --use-case=ListItems</code></pre>
+composer robo -- make:service ExternalItem
+
+composer robo -- make:service &lt;serviceName&gt; --use-case=&lt;useCaseName&gt;
+composer robo -- make:service ExternalItem --use-case=ListItems</code></pre>
                 </div>
-                <p class="guide-crosslink mt-3">
+                <p class="guide-crosslink">
                   <em>
                     La decisión de usar service se explica en
                     <a href="app-gateway.html#services">Services y connectors</a
@@ -1258,7 +1254,7 @@
                     fallback o parcialidad; no para delegación vacía.
                   </em>
                 </p>
-                <div class="table-responsive mt-3">
+                <div class="table-responsive">
                   <table class="table table-striped table-guide align-middle">
                     <thead>
                       <tr>
@@ -1334,7 +1330,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-connector" class="language-bash">composer robo -- make:connector &lt;connectorName&gt;
-    composer robo -- make:connector ExternalItem</code></pre>
+composer robo -- make:connector ExternalItem</code></pre>
                 </div>
                 <div class="table-responsive mt-3">
                   <table class="table table-striped table-guide align-middle">
@@ -1370,9 +1366,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Ubicación</span>
                     <strong class="guide-callout__title">
@@ -1425,7 +1419,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-service-client" class="language-bash">composer robo -- make:service-client &lt;serviceClientName&gt;
-    composer robo -- make:service-client ExternalApi</code></pre>
+composer robo -- make:service-client ExternalApi</code></pre>
                 </div>
                 <ul class="guide-checklist mt-3">
                   <li>
@@ -1477,7 +1471,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-integration-page" class="language-bash">composer robo -- make:integration-page &lt;feature&gt; --id=&lt;data-surface-page&gt; --layout=control|access
-    composer robo -- make:integration-page items --id=items-page --layout=control</code></pre>
+composer robo -- make:integration-page items --id=items-page --layout=control</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -1607,9 +1601,7 @@
                   </table>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Layout</span>
                     <strong class="guide-callout__title">
@@ -1662,7 +1654,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-fragment" class="language-bash">composer robo -- make:fragment &lt;feature&gt; &lt;fragment&gt; --id=&lt;data-surface-fragment&gt;
-    composer robo -- make:fragment items detail --id=items-detail</code></pre>
+composer robo -- make:fragment items detail --id=items-detail</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -1719,9 +1711,7 @@
                   </table>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Montaje</span>
                     <strong class="guide-callout__title">
@@ -1772,7 +1762,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-integration-api-data" class="language-bash">composer robo -- make:integration-api-data &lt;feature&gt; &lt;nameFunction&gt; &lt;method&gt; &lt;path&gt; --controller-name=&lt;ControllerName&gt;
-    composer robo -- make:integration-api-data items searchItems post /items/search --controller-name=Items</code></pre>
+composer robo -- make:integration-api-data items searchItems post /items/search --controller-name=Items</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -1874,12 +1864,10 @@
                     </button>
                   </div>
                   <pre><code id="tools-integration-api-json" class="language-bash">composer robo -- make:integration-api-json &lt;feature&gt; &lt;nameFunction&gt; &lt;method&gt; &lt;path&gt; --controller-name=&lt;ControllerName&gt;
-    composer robo -- make:integration-api-json items inspectItems get /items/inspect --controller-name=Items</code></pre>
+composer robo -- make:integration-api-json items inspectItems get /items/inspect --controller-name=Items</code></pre>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Envelope JSON</span>
                     <strong class="guide-callout__title">
@@ -1940,7 +1928,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-integration-api-html" class="language-bash">composer robo -- make:integration-api-html &lt;feature&gt; &lt;nameFunction&gt; &lt;method&gt; &lt;path&gt; --controller-name=&lt;ControllerName&gt;
-    composer robo -- make:integration-api-html items fetchPanel get /items/panel --controller-name=Items</code></pre>
+composer robo -- make:integration-api-html items fetchPanel get /items/panel --controller-name=Items</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -2031,7 +2019,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-middleware" class="language-bash">composer robo -- make:middleware &lt;middlewareName&gt;
-    composer robo -- make:middleware RequireDemoContext</code></pre>
+composer robo -- make:middleware RequireDemoContext</code></pre>
                 </div>
               </div>
             </div>
@@ -2068,7 +2056,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-http-contract" class="language-bash">composer robo http:contract &lt;RequestSignature&gt; &lt;ResponseSignature&gt; &lt;swaggerPath&gt;
-    composer robo http:contract CreateItemRequest CreateItemResponse ../tools/HttpContractGenerator/Specs/external-api.json</code></pre>
+composer robo http:contract CreateItemRequest CreateItemResponse ../tools/HttpContractGenerator/Specs/external-api.json</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -2164,9 +2152,7 @@
                   </div>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Fechas y payload</span>
                     <strong class="guide-callout__title">
@@ -2210,9 +2196,7 @@
                   </ul>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Estructura PHP</span>
                     <strong class="guide-callout__title">
@@ -2273,7 +2257,7 @@
                     </button>
                   </div>
                   <pre><code id="tools-surface-contract" class="language-bash">composer robo -- surface:contract &lt;feature&gt; &lt;RequestSignature&gt; &lt;ResponseSignature&gt; &lt;swaggerPath&gt;
-    composer robo -- surface:contract items CreateItemRequest CreateItemResponse ../tools/HttpContractGenerator/Specs/external-api.json</code></pre>
+composer robo -- surface:contract items CreateItemRequest CreateItemResponse ../tools/HttpContractGenerator/Specs/external-api.json</code></pre>
                 </div>
 
                 <div class="table-responsive mt-3">
@@ -2322,9 +2306,7 @@
                   </table>
                 </div>
 
-                <div
-                  class="guide-callout guide-callout--structured p-3 rounded mt-3"
-                >
+                <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
                     <span class="guide-callout__eyebrow">Contrato Surface</span>
                     <strong class="guide-callout__title">
