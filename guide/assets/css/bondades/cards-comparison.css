@@ -60,9 +60,6 @@
 .card.accent-left {
   border-left: 3px solid var(--gold);
 }
-.card.accent-left-blue {
-  border-left: 3px solid var(--blue-bright);
-}
 .card.accent-left-rose {
   border-left: 3px solid var(--accent-rose);
 }
@@ -99,6 +96,12 @@
   font-family: "Playfair Display", serif;
   font-size: 1.3rem;
   margin-bottom: 1rem;
+}
+.compare-col.bad h3 {
+  color: #c4876e;
+}
+.compare-col.good h3 {
+  color: var(--teal);
 }
 .compare-col ul {
   list-style: none;
@@ -159,6 +162,30 @@
     rgba(94, 196, 176, 0.28)
   );
   box-shadow: 0 0 16px rgba(94, 196, 176, 0.22);
+}
+.compare-col.bad .mini-bar:nth-child(1) {
+  --h: 100%;
+}
+.compare-col.bad .mini-bar:nth-child(2) {
+  --h: 82%;
+}
+.compare-col.bad .mini-bar:nth-child(3) {
+  --h: 68%;
+}
+.compare-col.bad .mini-bar:nth-child(4) {
+  --h: 74%;
+}
+.compare-col.good .mini-bar:nth-child(1) {
+  --h: 22%;
+}
+.compare-col.good .mini-bar:nth-child(2) {
+  --h: 72%;
+}
+.compare-col.good .mini-bar:nth-child(3) {
+  --h: 94%;
+}
+.compare-col.good .mini-bar:nth-child(4) {
+  --h: 88%;
 }
 .mini-bar-chart small {
   display: block;

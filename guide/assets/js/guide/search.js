@@ -111,7 +111,7 @@
         aria-labelledby="guide-search-title"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
           <div class="modal-content guide-search-modal__content">
             <div class="modal-header">
               <h2 class="modal-title fs-5" id="guide-search-title">Buscar en la guía</h2>
@@ -357,7 +357,7 @@
 
     doc
       .querySelectorAll(
-        "#guide-nav .nav-link[href], .guide-sidebar .nav-link[href], .diagram-list .nav-link[href]",
+        "#guide-nav .nav-link[href], .guide-sidebar .nav-link[href]",
       )
       .forEach((link) => {
         addGuideSearchEntry(entries, seen, {
@@ -434,7 +434,7 @@
   }
 
   function nearestGuideLinkContext(link) {
-    const item = link.closest("li, .diagram-list__group, .guide-sidebar");
+    const item = link.closest("li, .guide-sidebar");
     const context = item?.querySelector("h3, h2");
 
     return textOfGuideNode(context || link);

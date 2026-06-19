@@ -11,6 +11,7 @@
     />
     <script src="assets/js/theme.js"></script>
     <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/lib/css/bootstrap-icons-min.css" rel="stylesheet" />
     <link href="assets/css/guide.css" rel="stylesheet" />
   </head>
 
@@ -23,7 +24,7 @@
   >
     <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
       <div class="container-fluid px-3 px-lg-4">
-        <a class="navbar-brand fw-bold" href="index.html">
+        <a class="navbar-brand" href="index.html">
           <img
             class="navbar-brand__logo"
             src="assets/img/web-platform-core.svg"
@@ -64,7 +65,7 @@
               <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="recipes.html">Guías</a>
+              <a class="nav-link" href="recipes.html">Prácticas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="diagrams.html">Diagramas</a>
@@ -90,8 +91,9 @@
         </nav>
         <h1 class="display-6 fw-bold">Empezar</h1>
         <p class="lead mb-0">
-          Instala el proyecto, configura `.env`, compila assets y valida que el
-          gateway y surface estén conversando.
+          Preparación del entorno local: instalar dependencias, configurar
+          <code>.env</code>, construir los archivos del navegador y comprobar
+          que Gateway y Surface puedan ejecutarse juntos.
         </p>
       </div>
     </header>
@@ -108,6 +110,36 @@
                   <a class="nav-link" href="#install">Instalación</a>
                   <a class="nav-link" href="#run">Ejecución local</a>
                   <a class="nav-link" href="#env">Archivo .env</a>
+                  <a
+                    class="nav-link guide-nav-link--subsection"
+                    href="#env-minimum"
+                    >Mínimo local</a
+                  >
+                  <a
+                    class="nav-link guide-nav-link--subsection"
+                    href="#env-runtime"
+                    >Runtime</a
+                  >
+                  <a
+                    class="nav-link guide-nav-link--subsection"
+                    href="#env-paths-assets"
+                    >Rutas/assets</a
+                  >
+                  <a
+                    class="nav-link guide-nav-link--subsection"
+                    href="#env-outbound"
+                    >Outbound</a
+                  >
+                  <a
+                    class="nav-link guide-nav-link--subsection"
+                    href="#env-logs"
+                    >Logs</a
+                  >
+                  <a
+                    class="nav-link guide-nav-link--subsection"
+                    href="#env-session"
+                    >Sesión</a
+                  >
                   <a class="nav-link" href="#dependencies">Qué se instala</a>
                   <a
                     class="nav-link guide-nav-link--subsection"
@@ -117,7 +149,7 @@
                   <a
                     class="nav-link guide-nav-link--subsection"
                     href="#dependencies-flow"
-                    >Flujo mental</a
+                    >Secuencia</a
                   >
                   <a
                     class="nav-link guide-nav-link--subsection"
@@ -145,7 +177,7 @@
                     >Scripts npm</a
                   >
                   <a class="nav-link" href="#validate">Validación</a>
-                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                  <a class="nav-link" href="#next">Ruta de lectura</a>
                 </nav>
               </div>
             </div>
@@ -158,55 +190,96 @@
               <div class="card-body">
                 <h2>Requisitos</h2>
                 <p>
-                  Esta guía asume un entorno local de desarrollo. El proyecto
-                  actual usa PHP para `app-gateway` y TypeScript/Vite para
-                  `app-surface`.
+                  Esta sección no instala nada todavía: fija las herramientas
+                  mínimas que deben existir antes de tocar el repositorio. El
+                  proyecto se apoya en PHP para
+                  <code>app-gateway</code> y en TypeScript/Vite para
+                  <code>app-surface</code>.
                 </p>
                 <p>
-                  El objetivo de esta página es dejar el entorno listo para leer
-                  la solución en orden: primero Gateway como entrada HTTP y
-                  salida controlada, después Surface como activación progresiva
-                  del HTML que Gateway entrega.
+                  Con esas piezas disponibles, la guía puede leerse en orden:
+                  primero
+                  <a href="app-gateway.html#overview">Gateway</a> como entrada
+                  HTTP y salida controlada, después
+                  <a href="app-surface.html#overview">Surface</a> como
+                  activación progresiva del HTML entregado por Gateway.
                 </p>
-                <p class="guide-crosslink">
-                  <em>
-                    Para entender el rol de cada contexto antes de instalar,
-                    consulta <a href="fundamentals.html#context">Contextos</a>,
-                    <a href="app-gateway.html#overview">App Gateway</a> y
-                    <a href="app-surface.html#overview">App Surface</a>.
-                  </em>
-                </p>
-                <div class="row g-3">
-                  <div class="col-md-6 col-xl-4">
-                    <div class="card h-100 concept-card">
-                      <div class="card-body">
-                        <h3 class="h5">PHP</h3>
-                        <p class="mb-0">PHP 8.2 o superior.</p>
-                      </div>
-                    </div>
+
+                <div
+                  class="guide-requirements-panel"
+                  role="group"
+                  aria-label="Requisitos del entorno local"
+                >
+                  <div class="guide-requirements-panel__header">
+                    <span class="guide-requirements-panel__eyebrow">
+                      <i class="bi bi-check2-circle" aria-hidden="true"></i>
+                      Entorno local
+                    </span>
+                    <p>
+                      Este panel separa el runtime, el gestor de dependencias
+                      PHP y el gestor frontend para identificar qué parte del
+                      entorno falta o está desactualizada.
+                    </p>
                   </div>
-                  <div class="col-md-6 col-xl-4">
-                    <div class="card h-100 concept-card">
-                      <div class="card-body">
-                        <h3 class="h5">Composer</h3>
-                        <p class="mb-0">
-                          Instala dependencias de `app-gateway` y genera
-                          autoload.
+                  <ol class="guide-requirements-panel__nodes">
+                    <li
+                      class="guide-requirement-node guide-requirement-node--primary"
+                    >
+                      <span
+                        class="guide-requirement-node__icon"
+                        aria-hidden="true"
+                      >
+                        <i class="bi bi-filetype-php"></i>
+                      </span>
+                      <div class="guide-requirement-node__body">
+                        <span class="guide-requirement-node__role"
+                          >Gateway</span
+                        >
+                        <h3>PHP 8.2 en adelante</h3>
+                        <p>Runtime base de Gateway</p>
+                      </div>
+                    </li>
+                    <li
+                      class="guide-requirement-node guide-requirement-node--companion"
+                    >
+                      <span
+                        class="guide-requirement-node__icon"
+                        aria-hidden="true"
+                      >
+                        <i class="bi bi-box-seam"></i>
+                      </span>
+                      <div class="guide-requirement-node__body">
+                        <span class="guide-requirement-node__role"
+                          >Dependencias</span
+                        >
+                        <h3>Composer</h3>
+                        <p>
+                          Instala paquetes PHP y prepara el autoload del
+                          Gateway.
                         </p>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 col-xl-4">
-                    <div class="card h-100 concept-card">
-                      <div class="card-body">
-                        <h3 class="h5">npm</h3>
-                        <p class="mb-0">
-                          Instala dependencias y ejecuta Vite/TypeScript en
-                          `app-surface`.
+                    </li>
+                    <li
+                      class="guide-requirement-node guide-requirement-node--support"
+                    >
+                      <span
+                        class="guide-requirement-node__icon"
+                        aria-hidden="true"
+                      >
+                        <i class="bi bi-terminal"></i>
+                      </span>
+                      <div class="guide-requirement-node__body">
+                        <span class="guide-requirement-node__role"
+                          >Surface</span
+                        >
+                        <h3>npm</h3>
+                        <p>
+                          Gestiona dependencias y scripts de Surface, Vite y
+                          TypeScript.
                         </p>
                       </div>
-                    </div>
-                  </div>
+                    </li>
+                  </ol>
                 </div>
               </div>
             </div>
@@ -217,19 +290,18 @@
               <div class="card-body">
                 <h2>Instalación</h2>
                 <p>
-                  El repo remoto final todavía puede cambiar. Por ahora deja
-                  (URL_DEL_REPOSITORIO) como placeholder en la documentación
-                  interna de onboarding.
+                  Instalar el proyecto significa preparar dos áreas que trabajan
+                  juntas: Gateway necesita sus paquetes PHP y Surface necesita
+                  sus herramientas de TypeScript y Vite. El objetivo de este
+                  paso no es arrancar todavía la aplicación, sino dejar ambas
+                  áreas listas para que los comandos posteriores encuentren sus
+                  dependencias.
                 </p>
                 <p>
-                  La instalación prepara dos mundos distintos. Composer descarga
-                  las dependencias PHP que necesita Gateway para arrancar,
-                  resolver rutas, usar DI y ejecutar comandos de soporte. npm
-                  descarga las dependencias de Surface para compilar TypeScript,
-                  Sass y assets que luego Gateway servirá desde sus layouts.
-                  Si una de estas dos instalaciones falla, no conviene avanzar
-                  al `.env` todavía: primero debe quedar claro qué lado no quedó
-                  listo.
+                  En términos técnicos, Composer crea el árbol de dependencias
+                  PHP y npm crea el árbol de dependencias frontend. Si una
+                  instalación falla, se debe resolver ese lado antes de
+                  configurar el <code>.env</code>.
                 </p>
                 <div class="code-card">
                   <div class="code-card__bar">
@@ -242,8 +314,7 @@
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="gs-clone" class="language-bash">git clone &lt;URL_DEL_REPOSITORIO&gt; web-platform-core
-cd web-platform-core</code></pre>
+                  <pre><code id="gs-clone" class="language-bash">/ruta/donde/crear-el-proyecto&gt; git clone &lt;URL_DEL_REPOSITORIO&gt; web-platform-core</code></pre>
                 </div>
 
                 <div class="code-card">
@@ -257,11 +328,9 @@ cd web-platform-core</code></pre>
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="gs-install" class="language-bash">cd app-gateway
-composer install
+                  <pre><code id="gs-install" class="language-bash">/raiz-del-proyecto/app-gateway&gt; composer install
     
-cd app-surface
-npm install</code></pre>
+/raiz-del-proyecto/app-surface&gt; npm install</code></pre>
                 </div>
               </div>
             </div>
@@ -272,28 +341,28 @@ npm install</code></pre>
               <div class="card-body">
                 <h2>Ejecución local</h2>
                 <p>
-                  Hay dos piezas: compilar assets de surface y servir gateway.
-                  En desarrollo usa `lite:build` para mantener Vite recompilando
-                  los assets publicados. Ese script ejecuta
-                  <code>vite build --watch</code>; no corre
-                  <code>tsc</code> antes de cada build. Para una validación
-                  completa de TypeScript usa <code>npm run build</code>.
+                  La primera ejecución comprueba una sola cosa: que Surface
+                  puede transformar su código TypeScript en archivos que Gateway
+                  pueda publicar. Por eso se inicia un proceso que queda atento
+                  a los cambios y vuelve a compilar cuando se modifica el
+                  frontend.
                 </p>
                 <p>
-                  Piensa en esta sección como una prueba de vida del entorno:
-                  Surface debe producir archivos consumibles por Gateway, y
-                  Gateway debe poder resolverlos al renderizar HTML. En esta
-                  página no se explica todavía el manifest de Vite ni el runtime
-                  de montaje; aquí solo se verifica que las piezas mínimas
-                  existan para que las siguientes páginas tengan sentido.
+                  Ese proceso se conoce como <em>watch</em>. En desarrollo se
+                  usa <code>lite:build</code> para que Vite recompile los assets
+                  publicados cuando cambie el código TypeScript. Ese script
+                  ejecuta <code>vite build --watch</code>; no corre
+                  <code>tsc</code> antes de cada build. Para una validación
+                  completa de TypeScript se debe usar
+                  <code>npm run build</code>.
                 </p>
-                <p class="guide-crosslink">
-                  <em>
-                    El detalle del build vive en
-                    <a href="app-surface.html#vite">Vite, styles y assets</a>, y
-                    la forma en que gateway los resuelve está en
-                    <a href="bridge.html#assets">Assets Vite</a>.
-                  </em>
+                <p>
+                  Esta prueba confirma que Surface puede producir archivos que
+                  Gateway resolverá al renderizar HTML. No explica todavía el
+                  <a href="app-surface.html#vite">build de Vite</a>, la
+                  <a href="bridge.html#assets">resolución de assets</a> ni el
+                  runtime de montaje; solo valida que la base instalada puede
+                  ejecutar el primer ciclo local.
                 </p>
                 <div class="row g-3">
                   <div class="col-xl-12">
@@ -308,8 +377,7 @@ npm install</code></pre>
                           Copiar
                         </button>
                       </div>
-                      <pre><code id="gs-build" class="language-bash">cd app-surface
-npm run lite:build</code></pre>
+                      <pre><code id="gs-build" class="language-bash">/raiz-del-proyecto/app-surface&gt; npm run lite:build</code></pre>
                     </div>
                   </div>
                 </div>
@@ -322,20 +390,20 @@ npm run lite:build</code></pre>
               <div class="card-body">
                 <h2>Archivo .env</h2>
                 <p>
-                  El `.env` vive en la raíz de la solución. Se crea desde
-                  `.env.template`. Controla modo runtime, rutas base, sesión,
-                  assets y overrides outbound.
+                  El archivo <code>.env</code> permite cambiar cómo se ejecuta
+                  la solución en cada entorno sin modificar el código fuente.
+                  Allí se indican decisiones como la ubicación pública del
+                  proyecto, el modo local o productivo y los ajustes que
+                  dependen del servidor donde se despliega.
                 </p>
-                <p class="guide-crosslink">
-                  <em>
-                    Si una variable afecta assets, outbound o sesión, amplía el
-                    contexto en
-                    <a href="app-surface.html#vite">Vite y assets</a>,
-                    <a href="app-gateway.html#external-clients"
-                      >API HTTP clients externos</a
-                    >
-                    y <a href="bridge.html#session">headers de sesión</a>.
-                  </em>
+                <p>
+                  Vive en la raíz de la solución y se crea desde
+                  <code>.env.template</code>. Sus grupos controlan el modo de
+                  ejecución, rutas base,
+                  <a href="bridge.html#session">sesión</a>,
+                  <a href="app-surface.html#vite">assets</a> y overrides
+                  <a href="app-gateway.html#external-clients-config">outbound</a
+                  >.
                 </p>
                 <div class="code-card">
                   <div class="code-card__bar">
@@ -348,357 +416,491 @@ npm run lite:build</code></pre>
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="gs-env-copy" class="language-bash">copy .env.template .env</code></pre>
+                  <pre><code id="gs-env-copy" class="language-bash">/raiz-del-proyecto copy .env.template .env</code></pre>
                 </div>
 
-                <div class="table-responsive env-table-wrap mt-3">
-                  <table
-                    class="table table-striped table-guide env-table align-middle"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Variable</th>
-                        <th>Qué controla</th>
-                        <th>Cómo decidir el valor</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="env-table__group">
-                        <td colspan="3">Runtime general</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>IS_PRODUCTION</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>false</code></span
-                              >
+                <section
+                  id="env-minimum"
+                  class="guide-subsection guide-subsection-anchor env-subsection env-subsection--minimum"
+                >
+                  <h3>Mínimo para levantar localmente</h3>
+                  <p>
+                    Para el primer arranque no se necesita completar toda la
+                    plantilla. Después de copiar <code>.env.template</code>,
+                    basta con revisar las variables que ubican la aplicación en
+                    el servidor local y mantienen el runtime en modo desarrollo.
+                  </p>
+                  <div class="code-card">
+                    <div class="code-card__bar">
+                      <span>.env mínimo local</span>
+                      <button
+                        class="btn btn-sm btn-outline-light"
+                        type="button"
+                        data-copy-code="gs-env-minimum"
+                      >
+                        Copiar
+                      </button>
+                    </div>
+                    <pre><code id="gs-env-minimum" class="language-bash">IS_PRODUCTION=false
+DEEP_DEPLOYED=true
+BASE_URI="web-platform-core"</code></pre>
+                  </div>
+                  <p class="guide-minimum-note">
+                    Si Gateway se sirve desde la raíz del host, se debe usar
+                    <code>BASE_URI=""</code>. Las variables de sesión, logs y
+                    outbound pueden dejarse con sus valores por defecto hasta
+                    que se necesite ajustar ese comportamiento.
+                  </p>
+                </section>
+
+                <section
+                  id="env-runtime"
+                  class="guide-subsection guide-subsection-anchor env-subsection"
+                >
+                  <h3>Runtime general</h3>
+                  <p>
+                    Estas variables deciden el comportamiento general del
+                    proceso que está ejecutando la aplicación. En la guía, ese
+                    proceso activo se denomina <em>runtime</em>. Aquí se define
+                    si el entorno es local o productivo, cuánto detalle puede
+                    mostrar ante un error y qué versión identifica el
+                    despliegue.
+                  </p>
+                  <div class="table-responsive env-table-wrap">
+                    <table
+                      class="table table-striped table-guide env-table align-middle"
+                    >
+                      <colgroup>
+                        <col class="w-32pct" />
+                        <col class="w-22pct" />
+                        <col class="w-46pct" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Qué controla</th>
+                          <th>Cómo decidir el valor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>IS_PRODUCTION</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>false</code></span
+                                >
+                              </div>
                             </div>
+                          </td>
+                          <td>Modo general del runtime.</td>
+                          <td>
+                            Valor recomendado localmente: <code>false</code>. En
+                            <code>true</code>
+                            reutiliza cache DI, exige release válido y oculta
+                            detalle técnico.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>DEEP_DEPLOYED</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>false</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Detalle técnico de errores hacia cliente.</td>
+                          <td>
+                            Solo aplica con <code>IS_PRODUCTION=false</code>.
+                            Puede configurarse en <code>true</code> para
+                            depuración local.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>VERSION_DEPLOY</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill env-pill--required"
+                                  >Obligatoria en producción</span
+                                >
+                                <span class="env-default"
+                                  >Default: <code>0</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            Versión del despliegue utilizada para renovar los
+                            assets almacenados en caché.
+                          </td>
+                          <td>
+                            Debe usarse un entero tipo <code>20260101</code>. En
+                            producción debe ser mayor que <code>0</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SPEED_UP_BUILD</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>false</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Optimización del build Surface.</td>
+                          <td>
+                            Solo la lee Vite. En <code>true</code> desactiva
+                            minify/treeshake para iterar más rápido; no llega al
+                            runtime PHP ni a <code>__APP_ENV__</code>.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+
+                <section
+                  id="env-paths-assets"
+                  class="guide-subsection guide-subsection-anchor env-subsection"
+                >
+                  <h3>Rutas, assets y UI</h3>
+                  <p>
+                    Este grupo responde a una pregunta visible: ¿dónde
+                    encontrará el navegador la aplicación y los archivos que
+                    necesita? Las variables ubican el proyecto dentro del
+                    servidor, indican la ruta pública de CSS y scripts
+                    compilados, fijan la zona horaria y permiten establecer una
+                    preferencia visual. Esos archivos publicados se denominan
+                    <em>assets</em>.
+                  </p>
+                  <div class="table-responsive env-table-wrap">
+                    <table
+                      class="table table-striped table-guide env-table align-middle"
+                    >
+                      <colgroup>
+                        <col class="w-32pct" />
+                        <col class="w-22pct" />
+                        <col class="w-46pct" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Qué controla</th>
+                          <th>Cómo decidir el valor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>BASE_URI</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill env-pill--required"
+                                  >Obligatoria para surface</span
+                                >
+                                <span class="env-default"
+                                  >Default: <code>""</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Directorio base de la solución.</td>
+                          <td>
+                            Sin slash inicial ni final cuando se use subcarpeta.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>APP_BASE_PATH</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>app-gateway</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Segmento del gateway.</td>
+                          <td>Normalmente <code>app-gateway</code>.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>PUBLIC_PATH</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>public</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Carpeta pública de assets.</td>
+                          <td>Normalmente <code>public</code>.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>APP_TIMEZONE</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>America/Lima</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Zona horaria del bootstrap web y CLI.</td>
+                          <td>
+                            Por defecto <code>America/Lima</code>; cambia solo
+                            si el despliegue lo requiere.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>MENU_LAYOUT</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>wide</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            Preferencia de layout disponible para runtime/UI.
+                          </td>
+                          <td>
+                            <code>wide</code> para ancho completo o
+                            <code>box</code> para contenedor más acotado.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="guide-minimum-grid">
+                    <div class="guide-minimum-point">
+                      <i class="bi bi-signpost-split" aria-hidden="true"></i>
+                      <div>
+                        <strong>Ruta pública</strong>
+                        <span>
+                          <code>BASE_URI</code>, <code>APP_BASE_PATH</code> y
+                          <code>PUBLIC_PATH</code> deben coincidir con la URL
+                          local.
+                        </span>
+                      </div>
+                    </div>
+                    <div class="guide-minimum-point">
+                      <i class="bi bi-clock" aria-hidden="true"></i>
+                      <div>
+                        <strong>Zona horaria</strong>
+                        <span>
+                          <code>APP_TIMEZONE</code> fija fechas, logs y cálculos
+                          temporales desde el bootstrap.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section
+                  id="env-outbound"
+                  class="guide-subsection guide-subsection-anchor env-subsection"
+                >
+                  <h3>Outbound</h3>
+                  <p>
+                    Cuando Gateway debe comunicarse con un sistema externo, la
+                    dirección, las credenciales o los tiempos de espera pueden
+                    cambiar entre entornos. La guía llama <em>outbound</em> a
+                    esas comunicaciones que salen de la aplicación. Este grupo
+                    permite ajustar por entorno la configuración base declarada
+                    en <code>services.json</code> sin modificar ese archivo
+                    versionado.
+                  </p>
+                  <div class="table-responsive env-table-wrap">
+                    <table
+                      class="table table-striped table-guide env-table align-middle"
+                    >
+                      <colgroup>
+                        <col class="w-32pct" />
+                        <col class="w-22pct" />
+                        <col class="w-46pct" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Qué controla</th>
+                          <th>Cómo decidir el valor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>API_&lt;PREFIX&gt;_URI</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill env-pill--conditional"
+                                  >Condicional</span
+                                >
+                                <span class="env-default"
+                                  >Default: <code>services.json</code> /
+                                  vacío</span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>URL base de un servicio outbound.</td>
+                          <td>
+                            Prioriza este valor sobre
+                            <code>services.json</code>. Es obligatoria solo
+                            cuando el servicio requerido no trae
+                            <code>uri</code> válida en
+                            <code>services.json</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>API_&lt;PREFIX&gt;_BEARER</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>services.json</code> /
+                                  <code>""</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Token bearer para un servicio outbound.</td>
+                          <td>
+                            Debe configurarse solo cuando el servicio requiere
+                            autenticación por bearer.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>API_&lt;PREFIX&gt;_TIMEOUT_SECONDS</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>services.json</code> /
+                                  <code>30.0</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Timeout total de una llamada outbound.</td>
+                          <td>Debe ser numérico y mayor que <code>0</code>.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code
+                                >API_&lt;PREFIX&gt;_CONNECT_TIMEOUT_SECONDS</code
+                              >
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>services.json</code> /
+                                  <code>10.0</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Timeout de conexión hacia el servicio.</td>
+                          <td>Debe ser numérico y mayor que <code>0</code>.</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>API_&lt;PREFIX&gt;_VERIFY_TLS</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>services.json</code> /
+                                  <code>false</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Validación TLS del cliente outbound.</td>
+                          <td>
+                            Debe ser <code>true</code> o <code>false</code>; en
+                            producción normalmente conviene dejarlo en
+                            <code>true</code> si el servicio tiene TLS válido.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="guide-callout guide-callout--structured">
+                    <div class="guide-callout__header">
+                      <span class="guide-callout__eyebrow"
+                        >Equivalencia services.json</span
+                      >
+                      <strong class="guide-callout__title">
+                        <code>services.json</code> declara la base;
+                        <code>.env</code> solo sobrescribe por entorno.
+                      </strong>
+                    </div>
+                    <p>
+                      Gateway carga primero
+                      <code>app-gateway/services.json</code>. Dentro de ese
+                      archivo, cada entrada bajo <code>clients</code> es un
+                      cliente outbound nombrado. Ese nombre es importante: el
+                      provider lo pide al core y el core construye las variables
+                      de entorno con la forma <code>API_&lt;PREFIX&gt;_*</code>,
+                      usando el nombre del servicio en mayúsculas. Así que las
+                      variables equivalentes empiezan por
+                      <code>API_&lt;PREFIX&gt;_</code>.
+                    </p>
+                    <div class="row g-3">
+                      <div class="col-xl-6">
+                        <div class="code-card h-100">
+                          <div class="code-card__bar">
+                            <span>Base actual en services.json</span>
                           </div>
-                        </td>
-                        <td>Modo general del runtime.</td>
-                        <td>
-                          Valor recomendado localmente: `false`. En `true`
-                          reutiliza cache DI, exige release válido y oculta
-                          detalle técnico.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>DEEP_DEPLOYED</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>false</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Detalle técnico de errores hacia cliente.</td>
-                        <td>
-                          Solo aplica con `IS_PRODUCTION=false`. Puede
-                          configurarse en `true` para depuración local.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>VERSION_DEPLOY</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill env-pill--required"
-                                >Obligatoria en producción</span
-                              >
-                              <span class="env-default"
-                                >Default: <code>0</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          Versión de release para assets y cache endurecido.
-                        </td>
-                        <td>
-                          Debe usarse un entero tipo `20260101`. En producción
-                          debe ser mayor que `0`.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SPEED_UP_BUILD</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>false</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Optimización del build Surface.</td>
-                        <td>
-                          Solo la lee Vite. En `true` desactiva minify/treeshake
-                          para iterar más rápido; no llega al runtime PHP ni a
-                          <code>__APP_ENV__</code>.
-                        </td>
-                      </tr>
-                      <tr class="env-table__group">
-                        <td colspan="3">Rutas públicas y assets</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>BASE_URI</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill env-pill--required"
-                                >Obligatoria para surface</span
-                              >
-                              <span class="env-default"
-                                >Default: <code>""</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Directorio base de la solución.</td>
-                        <td>
-                          Sin slash inicial ni final cuando se use subcarpeta.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>APP_BASE_PATH</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>app-gateway</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Segmento del gateway.</td>
-                        <td>Normalmente `app-gateway`.</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>PUBLIC_PATH</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>public</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Carpeta pública de assets.</td>
-                        <td>Normalmente `public`.</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>APP_TIMEZONE</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>America/Lima</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Zona horaria del bootstrap web y CLI.</td>
-                        <td>
-                          Por defecto `America/Lima`; cambia solo si el
-                          despliegue lo requiere.
-                        </td>
-                      </tr>
-                      <tr class="env-table__group">
-                        <td colspan="3">UI / BFF</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>MENU_LAYOUT</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>wide</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          Preferencia de layout disponible para runtime/UI.
-                        </td>
-                        <td>
-                          `wide` para ancho completo o `box` para contenedor más
-                          acotado.
-                        </td>
-                      </tr>
-                      <tr class="env-table__group">
-                        <td colspan="3">
-                          APIs outbound de HTTP client externo
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>API_&lt;PREFIX&gt;_URI</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill env-pill--conditional"
-                                >Condicional</span
-                              >
-                              <span class="env-default"
-                                >Default: <code>services.json</code> /
-                                vacío</span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>URL base de un servicio outbound.</td>
-                        <td>
-                          Prioriza este valor sobre `services.json`. Es
-                          obligatoria solo cuando el servicio requerido no trae
-                          `uri` válida en `services.json`; para `admision`, el
-                          prefijo es `API_ADMISION_`.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>API_&lt;PREFIX&gt;_BEARER</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>services.json</code> /
-                                <code>""</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Token bearer para un servicio outbound.</td>
-                        <td>
-                          Debe configurarse solo cuando el servicio requiere
-                          autenticación por bearer.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>API_&lt;PREFIX&gt;_TIMEOUT_SECONDS</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>services.json</code> /
-                                <code>30.0</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Timeout total de una llamada outbound.</td>
-                        <td>Debe ser numérico y mayor que `0`.</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code
-                              >API_&lt;PREFIX&gt;_CONNECT_TIMEOUT_SECONDS</code
-                            >
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>services.json</code> /
-                                <code>10.0</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Timeout de conexión hacia el servicio.</td>
-                        <td>Debe ser numérico y mayor que `0`.</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>API_&lt;PREFIX&gt;_VERIFY_TLS</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>services.json</code> /
-                                <code>false</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Validación TLS del cliente outbound.</td>
-                        <td>
-                          Debe ser `true` o `false`; en producción normalmente
-                          conviene dejarlo en `true` si el servicio tiene TLS
-                          válido.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="3">
-                          <div class="guide-callout guide-callout--structured">
-                            <div class="guide-callout__header">
-                              <span class="guide-callout__eyebrow"
-                                >Equivalencia services.json</span
-                              >
-                              <strong class="guide-callout__title">
-                                `services.json` declara la base; `.env` solo
-                                sobrescribe por entorno.
-                              </strong>
-                            </div>
-                            <p>
-                              Gateway carga primero
-                              <code>app-gateway/services.json</code>. Dentro de
-                              ese archivo, cada entrada bajo
-                              <code>clients</code> es un cliente outbound
-                              nombrado. Ese nombre es importante: el provider lo
-                              pide al core y el core construye las variables de
-                              entorno con la forma
-                              <code>API_&lt;PREFIX&gt;_*</code>, usando el
-                              nombre del servicio en mayúsculas. Así que las
-                              variables equivalentes empiezan por
-                              <code>API_&lt;PREFIX&gt;_</code>.
-                            </p>
-                            <div class="row g-3">
-                              <div class="col-xl-6">
-                                <div class="code-card h-100">
-                                  <div class="code-card__bar">
-                                    <span>Base actual en services.json</span>
-                                  </div>
-                                  <pre><code class="language-json">{
+                          <pre><code class="language-json">{
   "clients": {
     "&lt;prefix&gt;": {
       "uri": "https://ip:port"
     }
   }
 }</code></pre>
-                                </div>
-                              </div>
-                              <div class="col-xl-6">
-                                <div class="code-card h-100">
-                                  <div class="code-card__bar">
-                                    <span>Variables equivalentes en .env</span>
-                                  </div>
-                                  <pre><code class="language-bash">API_&lt;PREFIX&gt;_URI="https://ip:port"
+                        </div>
+                      </div>
+                      <div class="col-xl-6">
+                        <div class="code-card h-100">
+                          <div class="code-card__bar">
+                            <span>Variables equivalentes en .env</span>
+                          </div>
+                          <pre><code class="language-bash">API_&lt;PREFIX&gt;_URI="https://ip:port"
 API_&lt;PREFIX&gt;_BEARER=""
 API_&lt;PREFIX&gt;_TIMEOUT_SECONDS=30
 API_&lt;PREFIX&gt;_CONNECT_TIMEOUT_SECONDS=10
 API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="code-card mt-3">
-                              <div class="code-card__bar">
-                                <span
-                                  >Forma completa equivalente en
-                                  services.json</span
-                                >
-                              </div>
-                              <pre><code class="language-json">{
+                        </div>
+                      </div>
+                    </div>
+                    <div class="code-card mt-3">
+                      <div class="code-card__bar">
+                        <span>Forma completa equivalente en services.json</span>
+                      </div>
+                      <pre><code class="language-json">{
   "clients": {
     "&lt;prefix&gt;": {
       "uri": "https://ip:port",
@@ -709,617 +911,392 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
     }
   }
 }</code></pre>
-                            </div>
-                            <ul class="guide-key-grid guide-key-grid--compact">
-                              <li>
-                                <strong>Base versionable</strong>
-                                <code>services.json</code>
-                                <span>
-                                  Guarda valores compartibles del cliente, como
-                                  la URL local base o timeouts estándar.
-                                </span>
-                              </li>
-                              <li>
-                                <strong>Override de entorno</strong>
-                                <code>.env</code>
-                                <span>
-                                  Gana sobre `services.json` cuando la variable
-                                  existe y no está vacía.
-                                </span>
-                              </li>
-                              <li>
-                                <strong>Texto vacío</strong>
-                                <code>URI / BEARER</code>
-                                <span>
-                                  Si la variable está vacía, el core conserva el
-                                  valor leído desde `services.json`.
-                                </span>
-                              </li>
-                              <li>
-                                <strong>Validación fuerte</strong>
-                                <code>TIMEOUT / TLS</code>
-                                <span>
-                                  Los timeouts deben ser numéricos y mayores que
-                                  `0`; TLS debe interpretarse como booleano.
-                                </span>
-                              </li>
-                            </ul>
-                            <p class="mt-3 mb-0">
-                              Si ni `services.json` ni `.env` entregan una
-                              <code>uri</code> usable, Gateway falla claro al
-                              crear la definición del servicio. Los demás campos
-                              tienen defaults del core: bearer vacío, timeout
-                              total <code>30.0</code>, timeout de conexión
-                              <code>10.0</code> y <code>verifyTls=false</code>.
-                            </p>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="env-table__group">
-                        <td colspan="3">Logs</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>LOG_UPSTREAM_SPANS</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>auto</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Detalle por llamada outbound.</td>
-                        <td>
-                          <code>auto</code> mantiene detalle en desarrollo y
-                          evita un evento por upstream en producción. El resumen
-                          queda en access/metrics.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>LOG_COLLECTOR_FLUSH_EVERY</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>100</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Líneas acumuladas antes de hacer flush.</td>
-                        <td>
-                          No afecta a cada request web; solo regula el collector
-                          externo cuando se capturan procesos CLI que escriben
-                          en
-                          <code>stdout</code>.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>LOG_RETENTION_WEEKS</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>12</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Semanas completas de logs que se conservan.</td>
-                        <td>
-                          Debe ser mayor que <code>0</code>; por defecto
-                          conserva la semana actual y las anteriores
-                          configuradas. También aplica a
-                          <code>app-gateway/var/log/develop</code> y
-                          <code>app-gateway/var/log/production</code>.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="3">
-                          <div class="guide-callout guide-callout--structured">
-                            <div class="guide-callout__header">
-                              <span class="guide-callout__eyebrow"
-                                >Salida de logs</span
-                              >
-                              <strong class="guide-callout__title">
-                                Gateway escribe JSON Lines por entorno.
-                              </strong>
-                            </div>
-                            <ul class="guide-key-grid guide-key-grid--extra">
-                              <li>
-                                <strong>Requests web</strong>
-                                <code
-                                  >app-gateway/var/log/{env}/&lt;semana&gt;/stdout.jsonl</code
+                    </div>
+                    <ul class="guide-rule-strip guide-rule-strip--compact">
+                      <li>
+                        <strong>Base versionable</strong>
+                        <code>services.json</code>
+                        <span>
+                          Guarda valores compartibles del cliente, como la URL
+                          local base o timeouts estándar.
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Override de entorno</strong>
+                        <code>.env</code>
+                        <span>
+                          Gana sobre <code>services.json</code> cuando la
+                          variable existe y no está vacía.
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Texto vacío</strong>
+                        <code>URI / BEARER</code>
+                        <span>
+                          Si la variable está vacía, el core conserva el valor
+                          leído desde <code>services.json</code>.
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Validación fuerte</strong>
+                        <code>TIMEOUT / TLS</code>
+                        <span>
+                          Los timeouts deben ser numéricos y mayores que
+                          <code>0</code>; TLS debe interpretarse como booleano.
+                        </span>
+                      </li>
+                    </ul>
+                    <p class="mt-3 mb-0">
+                      Si ni <code>services.json</code> ni
+                      <code>.env</code> entregan una <code>uri</code> usable,
+                      Gateway emite un fallo al crear la definición del
+                      servicio. Los demás campos tienen defaults del core:
+                      bearer vacío, timeout total <code>30.0</code>, timeout de
+                      conexión <code>10.0</code> y <code>verifyTls=false</code>.
+                    </p>
+                  </div>
+                </section>
+
+                <section
+                  id="env-logs"
+                  class="guide-subsection guide-subsection-anchor env-subsection"
+                >
+                  <h3>Logs</h3>
+                  <p>
+                    Los logs permiten reconstruir qué ocurrió cuando una
+                    petición falla, tarda demasiado o cruza varias dependencias.
+                    Esa capacidad de observar el sistema se denomina
+                    <em>observabilidad</em>. Estas variables deciden si Gateway
+                    registra cada petición, cuánto detalle conserva de las
+                    llamadas externas, cuándo descarga a disco la información de
+                    consola y durante cuántas semanas mantiene los archivos. La
+                    explicación de términos como telemetría, span, collector y
+                    retención vive en
+                    <a href="app-gateway.html#observability"
+                      >Observabilidad de Gateway</a
+                    >.
+                  </p>
+                  <div class="table-responsive env-table-wrap">
+                    <table
+                      class="table table-striped table-guide env-table align-middle"
+                    >
+                      <colgroup>
+                        <col class="w-30pct" />
+                        <col class="w-22pct" />
+                        <col class="w-48pct" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Valores</th>
+                          <th>Cómo configurarla</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>LOG_TELEMETRY_ENABLED</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>true</code></span
                                 >
-                                <span
-                                  >`develop` o `production` según el
-                                  entorno.</span
-                                >
-                              </li>
-                              <li>
-                                <strong>CLI</strong>
-                                <code>stdout</code>
-                                <span>Puede persistirse con el collector.</span>
-                              </li>
-                              <li>
-                                <strong>Collector</strong>
-                                <code
-                                  >tools/Observability/log-collector/collect.php</code
-                                >
-                                <span
-                                  >Guarda eventos emitidos desde consola.</span
-                                >
-                              </li>
-                              <li>
-                                <strong>Viewer</strong>
-                                <code>tools/Observability/log-viewer</code>
-                                <span
-                                  >Ruta de observabilidad permitida por
-                                  `.htaccess`.</span
-                                >
-                              </li>
-                            </ul>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr class="env-table__group">
-                        <td colspan="3">Sesión</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SESSION_PATH</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>sys_get_temp_dir()</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Ruta física donde PHP guarda sesiones.</td>
-                        <td>
-                          Para usar el temporal de PHP, la variable debe
-                          eliminarse en vez de dejarse vacía.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SESSION_TIME</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>10</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Minutos de sesión.</td>
-                        <td>
-                          Debe usarse un entero positivo. Gateway lo usa para
-                          calcular <code>expiresAtUnix</code> al crear o
-                          refrescar una tab. Surface no calcula este
-                          vencimiento: lo recibe en <code>X-REMAINING</code>.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SESSION_REFRESH_WINDOW</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>30</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Ventana de refresh de sesión, en segundos.</td>
-                        <td>
-                          Gateway solo extiende la tab session cuando faltan
-                          esos segundos o menos para expirar. Conviene que el
-                          aviso de Surface ocurra dentro de esta ventana.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SESSION_EXPIRY_ALERT</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default:
-                                <code>SESSION_REFRESH_WINDOW</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          Momento del warning de expiración que Surface
-                          convierte en modal.
-                        </td>
-                        <td>
-                          Vite lo expone en <code>__APP_ENV__</code>; debe ser
-                          menor o igual que <code>SESSION_REFRESH_WINDOW</code>.
-                          Si no se define, Surface usa la ventana de refresh
-                          como fallback.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SESSION_REFRESH_COOLDOWN</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>60</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Enfriamiento entre refreshes, en segundos.</td>
-                        <td>
-                          Es un freno de escritura: Gateway solo lo mira después
-                          de comprobar que la tab está dentro de
-                          <code>SESSION_REFRESH_WINDOW</code>. Con
-                          <code>SESSION_TIME=10</code> y ventana de
-                          <code>30</code> segundos, aporta poco en el flujo
-                          normal, pero protege contra requests repetidas,
-                          simultáneas o una ventana de refresh más amplia.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="env-var">
-                            <code>SESSION_CLEANUP_INTERVAL</code>
-                            <div class="env-var__meta">
-                              <span class="env-pill">Opcional</span>
-                              <span class="env-default"
-                                >Default: <code>600</code></span
-                              >
-                            </div>
-                          </div>
-                        </td>
-                        <td>Intervalo de limpieza de tabs expiradas.</td>
-                        <td>
-                          El bootstrap no recorre tabs expiradas en cada
-                          request. Cada sesión PHP ejecuta el barrido como
-                          máximo una vez por intervalo.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="3">
-                          <div class="guide-callout guide-callout--structured">
-                            <div class="guide-callout__header">
-                              <span class="guide-callout__eyebrow"
-                                >Tabs en sesión</span
-                              >
-                              <strong class="guide-callout__title">
-                                Cookie compartida, contexto por pestaña.
-                              </strong>
-                            </div>
-                            <ul class="guide-key-grid guide-key-grid--compact">
-                              <li>
-                                <strong>Header Surface</strong>
-                                <code>X-TAB-SESSION</code>
-                                <span>Identifica la pestaña activa.</span>
-                              </li>
-                              <li>
-                                <strong>Mapa Gateway</strong>
-                                <code>$_SESSION['tabs']</code>
-                                <span>Guarda entradas separadas por tab.</span>
-                              </li>
-                              <li>
-                                <strong>Limpieza</strong>
-                                <code>SESSION_CLEANUP_INTERVAL</code>
-                                <span
-                                  >Controla cuándo se remueven tabs
-                                  expiradas.</span
-                                >
-                              </li>
-                              <li>
-                                <strong>Refresh efectivo</strong>
-                                <code>SESSION_REFRESH_WINDOW + COOLDOWN</code>
-                                <span
-                                  >Debe estar cerca de vencer y fuera del
-                                  cooldown.</span
-                                >
-                              </li>
-                            </ul>
-                            <p>
-                              Guía rápida, leída como regla exacta: con
-                              <code>SESSION_TIME=10</code>, el login de las
-                              <code>12:00:00</code> crea una tab session cuyo
-                              <code>expiresAtUnix</code> apunta a
-                              <code>12:10:00</code>. Ese valor no se renueva en
-                              cada request autenticada. Gateway solo lo mueve
-                              cuando se cumplen dos puertas a la vez: faltan
-                              <code>SESSION_REFRESH_WINDOW</code> segundos o
-                              menos para vencer, y ya pasó más de
-                              <code>SESSION_REFRESH_COOLDOWN</code> segundos
-                              desde el último refresh real guardado en
-                              <code>refreshedAtUnix</code>.
-                            </p>
-                            <p>
-                              En este ejemplo, una request a las
-                              <code>12:09:35</code> todavía llega antes de
-                              vencer: faltan <code>25</code> segundos para
-                              <code>12:10:00</code>, así que está dentro de la
-                              ventana de <code>30</code> segundos. Además, el
-                              último refresh real fue el login de las
-                              <code>12:00:00</code>; pasaron
-                              <code>575</code> segundos, más que el cooldown de
-                              <code>60</code>. Por eso la request puede renovar
-                              la tab y el nuevo vencimiento queda en
-                              <code>12:19:35</code>. La extensión se calcula
-                              como <strong>ahora + SESSION_TIME</strong>, no
-                              como vencimiento anterior + SESSION_TIME.
-                            </p>
-                            <p>
-                              Si inmediatamente entra otra request a las
-                              <code>12:09:36</code>, no hay otra extensión.
-                              Después del refresh anterior la tab ya vence a las
-                              <code>12:19:35</code>, por lo que faltan casi
-                              <code>10</code> minutos y dejó de estar en la
-                              ventana final. Además, solo pasó
-                              <code>1</code> segundo desde
-                              <code>refreshedAtUnix=12:09:35</code>, así que el
-                              cooldown también sigue bloqueando una nueva
-                              escritura. La request puede responder
-                              correctamente y publicar un
-                              <code>X-REMAINING</code> actualizado, pero no debe
-                              mover otra vez <code>expiresAtUnix</code>.
-                            </p>
-                            <div
-                              class="guide-callout guide-callout--structured"
-                            >
-                              <div class="guide-callout__header">
-                                <span class="guide-callout__eyebrow"
-                                  >Cuándo sí importa el cooldown</span
-                                >
-                                <strong class="guide-callout__title">
-                                  Es una defensa contra renovaciones demasiado
-                                  frecuentes, no el reloj principal de la
-                                  sesión.
-                                </strong>
                               </div>
-                              <p>
-                                En la configuración típica de esta guía,
-                                <code>SESSION_TIME=10</code>,
-                                <code>SESSION_REFRESH_WINDOW=30</code> y
-                                <code>SESSION_REFRESH_COOLDOWN=60</code>, el
-                                cooldown casi nunca decide solo. Después de
-                                renovar, la tab vuelve a quedar a casi diez
-                                minutos de vencer, así que sale inmediatamente
-                                de la ventana de <code>30</code> segundos. En
-                                ese caso, la ventana ya bloquea la mayoría de
-                                renovaciones repetidas y el cooldown queda como
-                                cinturón de seguridad.
-                              </p>
-                              <ul
-                                class="guide-key-grid guide-key-grid--compact"
-                              >
-                                <li>
-                                  <strong>Requests simultáneas</strong>
-                                  <code>fragments / fetch</code>
-                                  <span>
-                                    Si varios fragments llegan justo dentro de
-                                    la ventana final, solo una request debería
-                                    renovar y las demás deberían reutilizar el
-                                    nuevo tiempo.
-                                  </span>
-                                </li>
-                                <li>
-                                  <strong>Ventana amplia</strong>
-                                  <code>SESSION_REFRESH_WINDOW=300</code>
-                                  <span>
-                                    Si permites renovar cuando faltan cinco
-                                    minutos, muchas requests normales caerán
-                                    dentro de la ventana; el cooldown separa las
-                                    escrituras reales.
-                                  </span>
-                                </li>
-                                <li>
-                                  <strong>Polling o autosave</strong>
-                                  <code>cada pocos segundos</code>
-                                  <span>
-                                    Una pantalla que consulta o guarda seguido
-                                    no debería convertir cada request cercana al
-                                    vencimiento en una escritura de sesión.
-                                  </span>
-                                </li>
-                                <li>
-                                  <strong>Sesiones cortas</strong>
-                                  <code>SESSION_TIME bajo</code>
-                                  <span>
-                                    Si la sesión dura poco y la ventana ocupa
-                                    una parte grande de esa duración, el
-                                    cooldown se vuelve más visible.
-                                  </span>
-                                </li>
-                              </ul>
-                              <p class="mb-0">
-                                Lectura simple: <code>SESSION_TIME</code> decide
-                                cuánto dura la sesión;
-                                <code>SESSION_REFRESH_WINDOW</code>
-                                decide cuándo se puede pedir una nueva; y
-                                <code>SESSION_REFRESH_COOLDOWN</code> evita
-                                pedir una nueva demasiadas veces seguidas.
-                              </p>
                             </div>
-                            <div class="table-responsive mt-3">
-                              <table
-                                class="table table-sm table-guide align-middle mb-0"
-                              >
-                                <thead>
-                                  <tr>
-                                    <th>Escenario de prueba</th>
-                                    <th>Explicación a detalle y paso a paso</th>
-                                    <th>Resultado esperado</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>
-                                      <code>12:00:00</code>, login con
-                                      <code>SESSION_TIME=10</code>.
-                                    </td>
-                                    <td>
-                                      Se emite metadata nueva:
-                                      <code>startedAtUnix</code>,
-                                      <code>refreshedAtUnix</code> y
-                                      <code>expiresAtUnix</code>.
-                                    </td>
-                                    <td>
-                                      <code>refreshedAtUnix=12:00:00</code> y
-                                      <code>expiresAtUnix=12:10:00</code>.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:08:00</code>, request
-                                      autenticada.
-                                    </td>
-                                    <td>
-                                      Faltan <code>120</code> segundos; todavía
-                                      es mayor que
-                                      <code>SESSION_REFRESH_WINDOW=30</code>.
-                                    </td>
-                                    <td>
-                                      No hay refresh. La tab sigue venciendo a
-                                      las
-                                      <code>12:10:00</code>.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:09:29</code>, borde antes de la
-                                      ventana.
-                                    </td>
-                                    <td>
-                                      Faltan <code>31</code> segundos, apenas
-                                      fuera de la ventana final.
-                                    </td>
-                                    <td>
-                                      No hay refresh. Sirve para probar el
-                                      límite exacto de la ventana.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:09:35</code>, primera request
-                                      dentro de la ventana.
-                                    </td>
-                                    <td>
-                                      Faltan <code>25</code> segundos y pasaron
-                                      <code>575</code> desde el último refresh
-                                      real.
-                                    </td>
-                                    <td>
-                                      Sí hay refresh. El nuevo
-                                      <code>expiresAtUnix</code> queda en
-                                      <code>12:19:35</code>.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:09:36</code>, doble click, fetch
-                                      repetido o fragment inmediato.
-                                    </td>
-                                    <td>
-                                      Tras el refresh anterior faltan
-                                      <code>599</code> segundos y solo pasó
-                                      <code>1</code> segundo de cooldown.
-                                    </td>
-                                    <td>
-                                      No hay nuevo refresh. La request puede ser
-                                      válida, pero no debe escribir otra
-                                      expiración.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:10:35</code>, exactamente
-                                      <code>60</code> segundos después.
-                                    </td>
-                                    <td>
-                                      El cooldown aún no pasa porque el código
-                                      exige
-                                      <code
-                                        >time() - refreshedAtUnix &gt; 60</code
-                                      >, no <code>&gt;= 60</code>.
-                                    </td>
-                                    <td>
-                                      No hay refresh. Además, todavía faltan
-                                      <code>540</code> segundos para
-                                      <code>12:19:35</code>.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:10:36</code>, cooldown ya
-                                      superado.
-                                    </td>
-                                    <td>
-                                      Pasaron más de <code>60</code> segundos,
-                                      pero faltan <code>539</code> segundos para
-                                      vencer.
-                                    </td>
-                                    <td>
-                                      No hay refresh porque la tab no está cerca
-                                      de expirar.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:19:04</code>, antes de la
-                                      siguiente ventana.
-                                    </td>
-                                    <td>
-                                      Faltan <code>31</code> segundos para
-                                      <code>12:19:35</code>.
-                                    </td>
-                                    <td>
-                                      No hay refresh. Sigue estando un segundo
-                                      fuera de la ventana permitida.
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <code>12:19:05</code>, próxima ventana
-                                      válida.
-                                    </td>
-                                    <td>
-                                      Faltan <code>30</code> segundos y el
-                                      cooldown quedó ampliamente superado.
-                                    </td>
-                                    <td>
-                                      Sí hay refresh. El nuevo vencimiento sería
-                                      <code>12:29:05</code>.
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
+                          </td>
+                          <td>
+                            Booleano. Acepta <code>true</code>, <code>1</code>,
+                            <code>on</code>, <code>yes</code>,
+                            <code>false</code>, <code>0</code>,
+                            <code>off</code> y <code>no</code>.
+                          </td>
+                          <td>
+                            Mantener en <code>true</code> para registrar
+                            observabilidad normal por request. Usar
+                            <code>false</code> solo cuando se quiera silenciar
+                            esa telemetría durante una ejecución local o un
+                            diagnóstico puntual.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>LOG_UPSTREAM_SPANS</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>auto</code></span
+                                >
+                              </div>
                             </div>
-                            <p class="mt-3 mb-0">
-                              La prueba mental queda así: fuera de ventana no se
-                              renueva; dentro de ventana pero en cooldown no se
-                              renueva; dentro de ventana y fuera de cooldown sí
-                              se renueva. Esa combinación evita escrituras
-                              repetidas de sesión por cada fetch, fragment o
-                              click duplicado.
-                            </p>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                          </td>
+                          <td>
+                            <code>auto</code> o booleano. <code>auto</code> lo
+                            activa en desarrollo y lo desactiva en producción.
+                          </td>
+                          <td>
+                            Mantener <code>auto</code> como valor normal.
+                            Cambiar a <code>true</code> para forzar detalle por
+                            llamada outbound, o a <code>false</code> para dejar
+                            solo el resumen upstream dentro de access/metrics.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>LOG_COLLECTOR_FLUSH_EVERY</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>100</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            Entero positivo. El valor esperado para el collector
+                            es <code>100</code> cuando no se configura otra
+                            cosa.
+                          </td>
+                          <td>
+                            Solo afecta al collector usado con salida CLI. Un
+                            valor bajo hace flush con más frecuencia; un valor
+                            alto agrupa más líneas antes de persistir.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>LOG_RETENTION_WEEKS</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>12</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            Entero mayor que <code>0</code>. El default de
+                            runtime es <code>12</code>.
+                          </td>
+                          <td>
+                            Define cuántas semanas completas se conservan al
+                            ejecutar <code>composer run logs:prune</code>. Con
+                            <code>1</code> se conserva solo la semana actual.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+
+                <section
+                  id="env-session"
+                  class="guide-subsection guide-subsection-anchor env-subsection"
+                >
+                  <h3>Sesión</h3>
+                  <p>
+                    La sesión conserva continuidad entre peticiones del mismo
+                    navegador. En este proyecto, una cookie identifica la sesión
+                    compartida y cada pestaña mantiene además su propio
+                    contexto. Estas variables deben leerse juntas porque deciden
+                    cuánto dura ese contexto, cuándo puede renovarse y cuándo se
+                    elimina después de expirar.
+                  </p>
+                  <div class="table-responsive env-table-wrap">
+                    <table
+                      class="table table-striped table-guide env-table align-middle"
+                    >
+                      <colgroup>
+                        <col class="w-30pct" />
+                        <col class="w-22pct" />
+                        <col class="w-48pct" />
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>Variable</th>
+                          <th>Qué controla</th>
+                          <th>Cómo decidir el valor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SESSION_PATH</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default:
+                                  <code>sys_get_temp_dir()</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Ruta física donde PHP guarda sesiones.</td>
+                          <td>
+                            Para usar el temporal de PHP, la variable debe
+                            eliminarse en vez de dejarse vacía.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SESSION_TIME</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>10</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Minutos de sesión.</td>
+                          <td>
+                            Debe usarse un entero positivo. Gateway lo usa para
+                            calcular <code>expiresAtUnix</code> al crear o
+                            refrescar una tab. Surface no calcula este
+                            vencimiento: lo recibe en <code>X-REMAINING</code>.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SESSION_REFRESH_WINDOW</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>30</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Ventana de refresh de sesión, en segundos.</td>
+                          <td>
+                            Gateway solo extiende la tab session cuando faltan
+                            esos segundos o menos para expirar. Debe ser mayor o
+                            igual que <code>SESSION_EXPIRY_ALERT</code> para que
+                            el aviso de Surface aparezca cuando Gateway ya puede
+                            renovar.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SESSION_EXPIRY_ALERT</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default:
+                                  <code>SESSION_REFRESH_WINDOW</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            Momento del warning de expiración que Surface
+                            convierte en modal.
+                          </td>
+                          <td>
+                            Vite lo expone en <code>__APP_ENV__</code>; debe ser
+                            menor o igual que
+                            <code>SESSION_REFRESH_WINDOW</code>. Si es mayor,
+                            Surface avisa antes de que Gateway permita
+                            refrescar; si es demasiado bajo, el usuario tendrá
+                            poco margen para actuar. Si no se define, Surface
+                            usa la ventana de refresh como fallback.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SESSION_REFRESH_COOLDOWN</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>60</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Enfriamiento entre refreshes, en segundos.</td>
+                          <td>
+                            Es un freno de escritura: Gateway solo lo mira
+                            después de comprobar que la tab está dentro de
+                            <code>SESSION_REFRESH_WINDOW</code>. No necesita ser
+                            menor que la ventana; puede ser mayor. Sí debe
+                            quedar por debajo de la vida total de la tab (<code
+                              >SESSION_TIME * 60</code
+                            >) para no impedir el refresh antes de expirar.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="env-var">
+                              <code>SESSION_CLEANUP_INTERVAL</code>
+                              <div class="env-var__meta">
+                                <span class="env-pill">Opcional</span>
+                                <span class="env-default"
+                                  >Default: <code>600</code></span
+                                >
+                              </div>
+                            </div>
+                          </td>
+                          <td>Intervalo de limpieza de tabs expiradas.</td>
+                          <td>
+                            El bootstrap no recorre tabs expiradas en cada
+                            request. Cada sesión PHP ejecuta el barrido como
+                            máximo una vez por intervalo.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div
+                    class="env-session-flow"
+                    aria-label="Relación de variables de sesión"
+                  >
+                    <ol>
+                      <li>
+                        <code>SESSION_TIME</code>
+                        <span>Define duración base.</span>
+                      </li>
+                      <li>
+                        <code>SESSION_REFRESH_WINDOW</code>
+                        <span>Abre la ventana final.</span>
+                      </li>
+                      <li>
+                        <code>SESSION_REFRESH_COOLDOWN</code>
+                        <span>Evita escrituras repetidas.</span>
+                      </li>
+                      <li>
+                        <code>SESSION_CLEANUP_INTERVAL</code>
+                        <span>Limpia tabs expiradas.</span>
+                      </li>
+                    </ol>
+                  </div>
+                  <p class="guide-crosslink">
+                    <em>
+                      Esta tabla solo resume cómo configurar la sesión. El
+                      refresh real, cooldown, casos de prueba y almacenamiento
+                      por pestaña se explican en
+                      <a href="app-gateway.html#security-session-refresh"
+                        >Gateway: refresh de sesión</a
+                      >
+                      y
+                      <a href="app-gateway.html#security-session-refresh-cases"
+                        >pruebas de refresh</a
+                      >. El transporte entre capas vive en
+                      <a href="bridge.html#session">Bridge: headers de sesión</a
+                      >, y la experiencia visible del contador en
+                      <a href="app-surface.html#session-runtime"
+                        >Surface: sesión runtime</a
+                      >.
+                    </em>
+                  </p>
+                </section>
               </div>
             </div>
           </section>
@@ -1341,11 +1318,11 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   La pregunta útil es:
                   <strong>¿en qué momento participa?</strong>
                   Algunas piezas corren mientras Gateway responde una request
-                  real. Otras solo existen cuando ejecutas un comando en
+                  real. Otras solo existen durante la ejecución de un comando en
                   consola. Otras compilan los archivos de Surface y desaparecen
                   antes de que el usuario abra la página. Otras no ejecutan
-                  nada: solo describen tipos para que TypeScript avise si estás
-                  usando mal una dependencia existente.
+                  nada: solo describen tipos para que TypeScript advierta el uso
+                  incorrecto de una dependencia existente.
                 </p>
 
                 <section
@@ -1353,52 +1330,119 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   class="guide-subsection guide-subsection-anchor"
                 >
                   <h3 class="h4 mt-4">Idea conceptual</h3>
-                  <div class="row g-3">
-                    <div class="col-md-6 col-xl-3">
-                      <div class="card h-100 concept-card">
-                        <div class="card-body">
-                          <h4 class="h5">Runtime</h4>
-                          <p class="mb-0">
+                  <div
+                    class="guide-requirements-panel"
+                    role="group"
+                    aria-label="Tipos de dependencias por momento de uso"
+                  >
+                    <div class="guide-requirements-panel__header">
+                      <span class="guide-requirements-panel__eyebrow">
+                        <i class="bi bi-box-seam" aria-hidden="true"></i>
+                        Lectura de paquetes
+                      </span>
+                      <p>
+                        Cada grupo responde a un momento distinto del ciclo:
+                        ejecución, compilación, mantenimiento o soporte de tipos
+                        para el editor.
+                      </p>
+                    </div>
+                    <ol
+                      class="guide-requirements-panel__nodes guide-requirements-panel__nodes--four"
+                    >
+                      <li
+                        class="guide-requirement-node guide-requirement-node--primary"
+                      >
+                        <span
+                          class="guide-requirement-node__icon"
+                          aria-hidden="true"
+                        >
+                          <i class="bi bi-code-square"></i>
+                        </span>
+                        <div class="guide-requirement-node__body">
+                          <span class="guide-requirement-node__role"
+                            >Ejecución</span
+                          >
+                          <h4>Runtime</h4>
+                          <p>
                             Lo que puede ejecutarse mientras la aplicación
                             atiende una request o mientras el navegador usa una
                             pantalla.
                           </p>
+                          <span class="guide-requirement-node__meta"
+                            >Request / navegador</span
+                          >
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                      <div class="card h-100 concept-card">
-                        <div class="card-body">
-                          <h4 class="h5">Build</h4>
-                          <p class="mb-0">
+                      </li>
+                      <li
+                        class="guide-requirement-node guide-requirement-node--companion"
+                      >
+                        <span
+                          class="guide-requirement-node__icon"
+                          aria-hidden="true"
+                        >
+                          <i class="bi bi-box-seam"></i>
+                        </span>
+                        <div class="guide-requirement-node__body">
+                          <span class="guide-requirement-node__role"
+                            >Compilación</span
+                          >
+                          <h4>Build</h4>
+                          <p>
                             Lo que transforma TypeScript, CSS y módulos en
                             archivos finales que Gateway puede publicar.
                           </p>
+                          <span class="guide-requirement-node__meta"
+                            >Vite / assets</span
+                          >
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                      <div class="card h-100 concept-card">
-                        <div class="card-body">
-                          <h4 class="h5">Tooling</h4>
-                          <p class="mb-0">
+                      </li>
+                      <li
+                        class="guide-requirement-node guide-requirement-node--support"
+                      >
+                        <span
+                          class="guide-requirement-node__icon"
+                          aria-hidden="true"
+                        >
+                          <i class="bi bi-terminal"></i>
+                        </span>
+                        <div class="guide-requirement-node__body">
+                          <span class="guide-requirement-node__role"
+                            >Mantenimiento</span
+                          >
+                          <h4>Tooling</h4>
+                          <p>
                             Herramientas para generar código, depurar, validar
                             tipos, limpiar cache o asistir al desarrollo.
                           </p>
+                          <span class="guide-requirement-node__meta"
+                            >CLI / soporte</span
+                          >
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3">
-                      <div class="card h-100 concept-card">
-                        <div class="card-body">
-                          <h4 class="h5">Tipos</h4>
-                          <p class="mb-0">
+                      </li>
+                      <li
+                        class="guide-requirement-node guide-requirement-node--primary"
+                      >
+                        <span
+                          class="guide-requirement-node__icon"
+                          aria-hidden="true"
+                        >
+                          <i class="bi bi-braces"></i>
+                        </span>
+                        <div class="guide-requirement-node__body">
+                          <span class="guide-requirement-node__role"
+                            >Editor</span
+                          >
+                          <h4>Tipos</h4>
+                          <p>
                             Paquetes que no agregan comportamiento; solo ayudan
                             a TypeScript a entender una dependencia existente.
                           </p>
+                          <span class="guide-requirement-node__meta"
+                            >TypeScript</span
+                          >
                         </div>
-                      </div>
-                    </div>
+                      </li>
+                    </ol>
                   </div>
 
                   <p class="mt-3">
@@ -1412,9 +1456,14 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
 
                   <div class="table-responsive">
                     <table class="table table-striped table-guide align-middle">
+                      <colgroup>
+                        <col class="w-24pct" />
+                        <col class="w-32pct" />
+                        <col class="w-44pct" />
+                      </colgroup>
                       <thead>
                         <tr>
-                          <th>Nombre del archivo</th>
+                          <th>Elemento</th>
                           <th>Explicación simple</th>
                           <th>En WPC</th>
                         </tr>
@@ -1427,9 +1476,9 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                             proyecto PHP.
                           </td>
                           <td>
-                            Vive en `app-gateway` y describe lo que Gateway
-                            necesita para arrancar, llamar servicios externos y
-                            ejecutar comandos.
+                            Vive en <code>app-gateway</code> y describe lo que
+                            Gateway necesita para arrancar, llamar servicios
+                            externos y ejecutar comandos.
                           </td>
                         </tr>
                         <tr>
@@ -1439,9 +1488,9 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                             frontend.
                           </td>
                           <td>
-                            Vive en `app-surface` y declara Vite, TypeScript,
-                            librerías UI, tipos y comandos como `npm run
-                            lite:build`.
+                            Vive en <code>app-surface</code> y declara Vite,
+                            TypeScript, librerías UI, tipos y comandos como
+                            <code>npm run lite:build</code>.
                           </td>
                         </tr>
                         <tr>
@@ -1454,9 +1503,7 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                         </tr>
                         <tr>
                           <td><code>node_modules/</code></td>
-                          <td>
-                            Carpeta donde npm instala paquetes JavaScript.
-                          </td>
+                          <td>Carpeta donde npm instala paquetes frontend.</td>
                           <td>
                             Surface la usa para compilar. El servidor final no
                             necesita esta carpeta si ya recibió los assets
@@ -1472,39 +1519,46 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   id="dependencies-flow"
                   class="guide-subsection guide-subsection-anchor"
                 >
-                  <h3 class="h4 mt-4">
-                    Flujo mental de instalación a ejecución
-                  </h3>
+                  <h3 class="h4 mt-4">Secuencia de instalación a ejecución</h3>
+                  <p>
+                    Esta secuencia muestra qué prepara cada comando y cuándo se
+                    utiliza su resultado. La idea sencilla es que instalar pone
+                    herramientas a disposición, compilar produce archivos
+                    publicables y ejecutar usa ambos resultados sin mezclar sus
+                    responsabilidades.
+                  </p>
                   <ol class="guide-checklist">
                     <li>
-                      <strong>Instalas Gateway:</strong>
-                      <code>composer install</code> lee `composer.json` y
-                      `composer.lock`, descarga paquetes PHP en `vendor/` y
-                      prepara el autoload.
+                      <strong>Instalación de Gateway:</strong>
+                      <code>composer install</code> lee
+                      <code>composer.json</code> y <code>composer.lock</code>,
+                      descarga paquetes PHP en <code>vendor/</code> y prepara el
+                      autoload.
                     </li>
                     <li>
-                      <strong>Instalas Surface:</strong>
-                      <code>npm install</code> lee `package.json` y
-                      `package-lock.json`, descarga paquetes en `node_modules/`
-                      y deja disponibles comandos como Vite, TypeScript y
-                      BrowserSync.
+                      <strong>Instalación de Surface:</strong>
+                      <code>npm install</code> lee <code>package.json</code> y
+                      <code>package-lock.json</code>, descarga paquetes en
+                      <code>node_modules/</code>
+                      y deja disponibles comandos como Vite y TypeScript.
                     </li>
                     <li>
-                      <strong>Compilas assets:</strong>
-                      <code>npm run lite:build</code> convierten el código de
-                      Surface en archivos CSS/JS y manifest dentro de
+                      <strong>Compilación de assets:</strong>
+                      <code>npm run lite:build</code> convierte el código de
+                      Surface en CSS, bundle de navegador y manifest dentro de
                       <code>app-gateway/{PUBLIC_PATH}/ui-assets</code>. Gateway
                       no ejecuta TypeScript; solo publica el resultado.
                     </li>
                     <li>
-                      <strong>Atiendes una request:</strong>
+                      <strong>Atención de una request:</strong>
                       Gateway usa dependencias PHP de runtime para cargar
-                      `.env`, construir contenedor, resolver rutas, renderizar
-                      HTML, llamar APIs externas o emitir JSON. Surface se monta
-                      sobre ese HTML con los assets ya publicados.
+                      <code>.env</code>, construir contenedor, resolver rutas,
+                      renderizar HTML, llamar APIs externas o emitir JSON.
+                      Surface se monta sobre ese HTML con los assets ya
+                      publicados.
                     </li>
                     <li>
-                      <strong>Generas o mantienes código:</strong>
+                      <strong>Generación o mantenimiento de código:</strong>
                       comandos como
                       <code>composer robo -- &lt;command&gt;</code>, dumps de
                       desarrollo y servidores auxiliares viven en dependencias
@@ -1527,9 +1581,14 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   </p>
                   <div class="table-responsive">
                     <table class="table table-striped table-guide align-middle">
+                      <colgroup>
+                        <col class="w-20pct" />
+                        <col class="w-40pct" />
+                        <col class="w-40pct" />
+                      </colgroup>
                       <thead>
                         <tr>
-                          <th>Grupo de dependencias</th>
+                          <th>Grupo</th>
                           <th>Lectura conceptual</th>
                           <th>Qué pasa si falta</th>
                         </tr>
@@ -1561,9 +1620,10 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                             o diagnóstico durante desarrollo.
                           </td>
                           <td>
-                            Pueden fallar `composer robo -- &lt;command&gt;`,
-                            dumps o tareas locales, pero una request web normal
-                            no debería depender de ellas.
+                            Pueden fallar
+                            <code>composer robo -- &lt;command&gt;</code>, dumps
+                            o tareas locales, pero una request web normal no
+                            debería depender de ellas.
                           </td>
                         </tr>
                         <tr class="table-guide__group">
@@ -1574,9 +1634,8 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                             <code>dependencies</code>
                           </td>
                           <td>
-                            Librerías JavaScript/CSS que Surface puede usar en
-                            código del navegador, adapters UI o assets
-                            publicados.
+                            Librerías frontend que Surface puede usar en código
+                            del navegador, adapters UI o assets publicados.
                           </td>
                           <td>
                             Puede fallar el bundle, una interacción UI, una
@@ -1594,9 +1653,9 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                             debe usarse una dependencia existente legacy.
                           </td>
                           <td>
-                            Puede fallar `npm run lite:build`, el typecheck o la
-                            experiencia del editor, aunque los assets ya
-                            generados puedan seguir sirviéndose.
+                            Puede fallar <code>npm run lite:build</code>, el
+                            typecheck o la experiencia del editor, aunque los
+                            assets ya generados puedan seguir sirviéndose.
                           </td>
                         </tr>
                       </tbody>
@@ -1613,7 +1672,7 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                         entorno.
                       </strong>
                     </div>
-                    <ul class="guide-key-grid guide-key-grid--compact">
+                    <ul class="guide-rule-strip guide-rule-strip--compact">
                       <li>
                         <strong>Dependencias directas</strong>
                         <span
@@ -1656,127 +1715,245 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                 >
                   <h3 class="h4 mt-4">Composer: Gateway y tooling PHP</h3>
                   <p>
-                    `app-gateway/composer.json` define el proyecto PHP. El
-                    autoload PSR-4 expone `App\\` hacia `app-gateway/app/` y
-                    `Tools\\` hacia `tools/`.
+                    Composer responde a una pregunta práctica: ¿qué necesita el
+                    lado PHP para funcionar y qué necesita únicamente para
+                    desarrollar o mantener el proyecto? Esa separación evita
+                    tratar una herramienta de consola como si fuera una
+                    dependencia obligatoria de cada petición web.
                   </p>
-                  <div class="table-responsive">
-                    <table class="table table-striped table-guide align-middle">
-                      <thead>
-                        <tr>
-                          <th>Paquete o dependencia</th>
-                          <th>Para qué sirve</th>
-                          <th>Detalle operativo</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="table-guide__group">
-                          <td colspan="3">require</td>
-                        </tr>
-                        <tr>
-                          <td><code>vlucas/phpdotenv</code></td>
-                          <td>Carga variables desde el `.env` raíz.</td>
-                          <td>
-                            Gateway lo usa durante bootstrap HTTP y CLI para
-                            leer modo de ejecución, rutas públicas, sesión,
-                            assets y overrides outbound. Es runtime porque el
-                            sistema necesita conocer el entorno antes de
-                            construir contenedor, rutas o clientes.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>symfony/dependency-injection</code></td>
-                          <td>
-                            Construye y compila el contenedor de servicios.
-                          </td>
-                          <td>
-                            Sostiene providers de `Core` y `Extension`,
-                            inyección de controllers, middleware, responses,
-                            clients outbound y servicios compartidos. No es una
-                            capa de negocio; es la infraestructura que evita
-                            instanciar dependencias a mano en cada request.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>symfony/config</code></td>
-                          <td>
-                            Da soporte a carga de configuración y cache
-                            compilado.
-                          </td>
-                          <td>
-                            Acompaña al contenedor con `FileLocator`,
-                            `ConfigCache` y piezas de carga PHP. En producción
-                            permite fallar claro si el cache requerido no existe
-                            o no está alineado con el filesystem real.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>guzzlehttp/guzzle</code></td>
-                          <td>
-                            Cliente HTTP concreto para integraciones outbound.
-                          </td>
-                          <td>
-                            Implementa la conversación técnica con APIs externas
-                            detrás de los contratos internos de HTTP. Los
-                            connectors no deben exponer Guzzle como regla de
-                            aplicación; lo consumen a través de infraestructura
-                            y devuelven resultados del proyecto.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>whichbrowser/parser</code></td>
-                          <td>
-                            Parsea `User-Agent` para auditoría de
-                            sesión/navegador.
-                          </td>
-                          <td>
-                            Ayuda a registrar contexto técnico del navegador sin
-                            meter parsing manual en controllers. Es runtime
-                            porque el dato se obtiene durante requests reales.
-                          </td>
-                        </tr>
-                        <tr class="table-guide__group">
-                          <td colspan="3">require-dev</td>
-                        </tr>
-                        <tr>
-                          <td><code>consolidation/robo</code></td>
-                          <td>Task runner de comandos `composer robo`.</td>
-                          <td>
-                            Ejecuta scaffolding, generación de contratos y
-                            tareas de mantenimiento. No participa en cada
-                            request web. En un servidor productivo normal puede
-                            omitirse con
-                            <code>composer install --no-dev</code> si no se
-                            ejecutan generadores allí.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>symfony/var-dumper</code></td>
-                          <td>
-                            Inspección legible de variables durante desarrollo.
-                          </td>
-                          <td>
-                            Alimenta herramientas de debug. Sirve para
-                            diagnosticar estructuras complejas sin convertir
-                            dumps en contrato público ni dejarlos como salida
-                            normal de aplicación.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>symfony/console</code></td>
-                          <td>
-                            Base CLI usada por Robo y comandos de soporte.
-                          </td>
-                          <td>
-                            La versión queda fijada para mantener compatible el
-                            runtime de consola con el bridge de deprecaciones
-                            usado por `composer robo`. Es tooling: si un flujo
-                            necesita estar disponible en runtime web, no debe
-                            depender de Console.
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <p>
+                    La respuesta técnica vive en
+                    <code>app-gateway/composer.json</code>. Además de declarar
+                    paquetes, su autoload PSR-4 relaciona <code>App\\</code> con
+                    <code>app-gateway/app/</code> y <code>Tools\\</code> con
+                    <code>tools/</code>.
+                  </p>
+
+                  <div class="dependency-lanes">
+                    <section
+                      class="dependency-lane"
+                      aria-labelledby="composer-require-title"
+                    >
+                      <div class="dependency-lane__header">
+                        <span class="dependency-lane__eyebrow">require</span>
+                        <h4
+                          id="composer-require-title"
+                          class="dependency-lane__title"
+                        >
+                          Runtime Gateway
+                        </h4>
+                        <p class="dependency-lane__summary">
+                          Paquetes que deben existir cuando Gateway atiende
+                          requests, ejecuta bootstrap o conversa con servicios
+                          externos.
+                        </p>
+                      </div>
+                      <ol class="dependency-lane__items">
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >vlucas/phpdotenv</code
+                            >
+                            <span class="dependency-package__version"
+                              >^5.6</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Entorno</span
+                            >
+                            <p class="dependency-package__use">
+                              Carga el archivo <code>.env</code> antes del
+                              bootstrap HTTP o CLI.
+                            </p>
+                            <p class="dependency-package__limit">
+                              No define rutas, contratos ni reglas de
+                              aplicación.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >symfony/dependency-injection</code
+                            >
+                            <span class="dependency-package__version"
+                              >^7.4</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Contenedor</span
+                            >
+                            <p class="dependency-package__use">
+                              Compone providers, controllers, middleware,
+                              responses y servicios compartidos.
+                            </p>
+                            <p class="dependency-package__limit">
+                              Es infraestructura; no expresa decisiones de
+                              negocio.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >symfony/config</code
+                            >
+                            <span class="dependency-package__version"
+                              >^7.4</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Configuración</span
+                            >
+                            <p class="dependency-package__use">
+                              Acompaña la carga PHP, localización de archivos y
+                              cache compilado.
+                            </p>
+                            <p class="dependency-package__limit">
+                              No reemplaza el estado real del filesystem ni la
+                              configuración ejecutable.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >guzzlehttp/guzzle</code
+                            >
+                            <span class="dependency-package__version"
+                              >^7.10</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >HTTP outbound</span
+                            >
+                            <p class="dependency-package__use">
+                              Ejecuta llamadas externas detrás de los contratos
+                              internos de integración.
+                            </p>
+                            <p class="dependency-package__limit">
+                              Los connectors devuelven resultados del proyecto,
+                              no objetos de Guzzle.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >whichbrowser/parser</code
+                            >
+                            <span class="dependency-package__version"
+                              >^2.1</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Auditoría</span
+                            >
+                            <p class="dependency-package__use">
+                              Parsea <code>User-Agent</code> para registrar
+                              contexto técnico de sesión y navegador.
+                            </p>
+                            <p class="dependency-package__limit">
+                              No participa en autorización, permisos ni
+                              decisiones de sesión.
+                            </p>
+                          </div>
+                        </li>
+                      </ol>
+                    </section>
+
+                    <section
+                      class="dependency-lane"
+                      aria-labelledby="composer-require-dev-title"
+                    >
+                      <div class="dependency-lane__header">
+                        <span class="dependency-lane__eyebrow"
+                          >require-dev</span
+                        >
+                        <h4
+                          id="composer-require-dev-title"
+                          class="dependency-lane__title"
+                        >
+                          Tooling PHP
+                        </h4>
+                        <p class="dependency-lane__summary">
+                          Paquetes necesarios para comandos, generación y
+                          diagnóstico local; pueden omitirse en instalaciones
+                          productivas que no ejecutan tooling.
+                        </p>
+                      </div>
+                      <ol class="dependency-lane__items">
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >consolidation/robo</code
+                            >
+                            <span class="dependency-package__version"
+                              >^5.1</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Task runner</span
+                            >
+                            <p class="dependency-package__use">
+                              Ejecuta scaffolding, contratos y mantenimiento
+                              mediante <code>composer robo</code>.
+                            </p>
+                            <p class="dependency-package__limit">
+                              No participa en cada request web del Gateway.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >symfony/var-dumper</code
+                            >
+                            <span class="dependency-package__version"
+                              >^7.4</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role">Debug</span>
+                            <p class="dependency-package__use">
+                              Inspecciona estructuras complejas durante
+                              desarrollo.
+                            </p>
+                            <p class="dependency-package__limit">
+                              No debe convertirse en contrato público ni salida
+                              normal de aplicación.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >symfony/console</code
+                            >
+                            <span class="dependency-package__version">7.4</span>
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Consola</span
+                            >
+                            <p class="dependency-package__use">
+                              Sostiene Robo y comandos de soporte ejecutados
+                              desde CLI.
+                            </p>
+                            <p class="dependency-package__limit">
+                              Un flujo requerido por runtime web no debe
+                              depender de Console.
+                            </p>
+                          </div>
+                        </li>
+                      </ol>
+                    </section>
                   </div>
                 </section>
 
@@ -1792,9 +1969,13 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   </p>
                   <div class="table-responsive">
                     <table class="table table-striped table-guide align-middle">
+                      <colgroup>
+                        <col class="w-20pct" />
+                        <col class="w-80pct" />
+                      </colgroup>
                       <thead>
                         <tr>
-                          <th>Comando literal en consola</th>
+                          <th>Comando</th>
                           <th>Cuándo usarlo</th>
                         </tr>
                       </thead>
@@ -1821,14 +2002,10 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                           </td>
                         </tr>
                         <tr>
-                          <td><code>composer robo</code></td>
-
+                          <td><code>composer robo -- &lt;command&gt;</code></td>
                           <td>
                             Expone los comandos documentados en
-                            <a href="tools.html">Herramientas</a>. Cuando pases
-                            opciones, usa
-                            <code>composer robo -- &lt;command&gt;</code>
-                            para que Composer no las consuma antes de Robo.
+                            <a href="tools.html">Herramientas</a>.
                           </td>
                         </tr>
                       </tbody>
@@ -1844,196 +2021,216 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                     npm: Surface, build y librerías del navegador
                   </h3>
                   <p>
-                    `app-surface/package.json` está marcado como `private` para
-                    evitar publicación accidental y usa `type: module` porque
-                    Vite, la config y el código TypeScript trabajan como módulos
-                    ES. Las dependencias de producción describen librerías que
-                    pueden llegar al navegador o a assets publicados; las de
-                    desarrollo describen herramientas que hacen posible
-                    compilar, tipar y servir Surface.
+                    npm reúne dos necesidades diferentes de Surface: librerías
+                    que pueden participar en la experiencia del navegador y
+                    herramientas que solo existen para compilar, validar o
+                    desarrollar. La forma de reconocerlas es preguntar si la
+                    pieza debe acompañar al código publicado o si termina su
+                    trabajo antes del despliegue.
                   </p>
-                  <div class="table-responsive">
-                    <table class="table table-striped table-guide align-middle">
-                      <thead>
-                        <tr>
-                          <th>Nombre de la dependencia</th>
-                          <th>Para qué sirve</th>
-                          <th>Detalle operativo</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="table-guide__group">
-                          <td colspan="3">dependencies</td>
-                        </tr>
-                        <tr>
-                          <td><code>bootstrap</code></td>
-                          <td>Base visual y JS de componentes Bootstrap.</td>
-                          <td>
-                            Los layouts SSR cargan Bootstrap compilado y los
-                            adapters de Surface leen `window.bootstrap` para
-                            modales, toasts y dropdowns. Se conserva como
-                            dependencia de runtime porque representa una
-                            librería UI del navegador, aunque no todos los
-                            módulos la importen directamente desde TypeScript.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>bootstrap-icons</code></td>
-                          <td>Fuente y clases de iconografía Bootstrap.</td>
-                          <td>
-                            Los layouts y estilos de workspace pueden depender
-                            de esa familia de iconos. Es visual, no lógica de
-                            negocio; si una pantalla usa iconos, debe tratarlos
-                            como assets de navegador.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>luxon</code></td>
-                          <td>Manejo de fechas en toolkit y adapters.</td>
-                          <td>
-                            `toolkit/shared/date.ts` y el adapter de
-                            `daterangepicker` usan `DateTime` para parsear,
-                            formatear y comparar fechas sin repartir
-                            conversiones manuales por cada integración.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>sweetalert2</code></td>
-                          <td>
-                            Alertas, confirmaciones, formularios y toasts UI.
-                          </td>
-                          <td>
-                            El adapter `toolkit/feedback/swal` lo carga de forma
-                            lazy con `import("sweetalert2")`. Eso lo mantiene
-                            como pieza de runtime, pero evita cargarlo antes de
-                            que una pantalla lo necesite.
-                          </td>
-                        </tr>
-                        <tr class="table-guide__group">
-                          <td colspan="3">devDependencies</td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/bootstrap</code></td>
-                          <td>Tipos TypeScript para la API de Bootstrap.</td>
-                          <td>
-                            Permite tipar constructores y métodos usados por
-                            adapters sin empaquetar código adicional. El paquete
-                            desaparece del runtime; solo informa al compilador.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/datatables.net</code></td>
-                          <td>Tipos para DataTables legacy.</td>
-                          <td>
-                            Surface puede inicializar wrappers sobre tablas ya
-                            renderizadas o plugins cargados por layout. Los
-                            tipos evitan `any` innecesario, pero no instalan el
-                            plugin en el navegador.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/daterangepicker</code></td>
-                          <td>Tipos para el plugin `daterangepicker`.</td>
-                          <td>
-                            Acompaña al adapter de fechas que valida la
-                            existencia del plugin jQuery antes de usarlo. El
-                            paquete solo describe cómo se usa la dependencia.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/jquery</code></td>
-                          <td>Tipos para `$` y plugins jQuery legacy.</td>
-                          <td>
-                            Vite marca `jquery` como externo en Rollup; eso
-                            significa que Surface espera el global cargado por
-                            el layout y no lo mete al bundle. Los tipos permiten
-                            compilar código que interactúa con ese global.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/luxon</code></td>
-                          <td>Tipos históricos para Luxon.</td>
-                          <td>
-                            Ayuda al compilador en integraciones que consumen
-                            `DateTime`. Aunque Luxon moderno ya publica tipos,
-                            mantener el paquete aquí no cambia el runtime; solo
-                            afecta validación TypeScript.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/moment</code></td>
-                          <td>
-                            Tipos para interoperar con plugins legacy basados en
-                            Moment.
-                          </td>
-                          <td>
-                            `daterangepicker` y ecosistemas heredados suelen
-                            exponer objetos Moment. El tipo evita perder
-                            contrato en adapters aunque la estrategia propia de
-                            Surface prefiera Luxon para lógica nueva.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/node</code></td>
-                          <td>Tipos de APIs Node usadas por config/build.</td>
-                          <td>
-                            `vite.config.ts` y `vite.config.constants.ts` usan
-                            rutas, records de entorno y tipos de build. Esto no
-                            llega al navegador; vive en el proceso Node que
-                            compila Surface.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>@types/select2</code></td>
-                          <td>Tipos para Select2.</td>
-                          <td>
-                            Permite tipar el adapter `toolkit/adapters/select2`
-                            y sus opciones sin convertir Select2 en dependencia
-                            empaquetada por Vite.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>browser-sync</code></td>
-                          <td>
-                            Servidor/proxy de apoyo para desarrollo local.
-                          </td>
-                          <td>
-                            Lo invoca el script `npm run serve`. Es útil para
-                            recarga, proxy o pruebas locales, pero no forma
-                            parte del bundle ni del servidor PHP.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>dotenv</code></td>
-                          <td>Lectura de variables durante tooling Node.</td>
-                          <td>
-                            Vite usa carga de entorno desde la raíz del
-                            workspace para construir `__APP_ENV__`, `outDir`,
-                            `assetBase`, sourcemaps y modo de build. No
-                            reemplaza a `vlucas/phpdotenv` en Gateway.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>typescript</code></td>
-                          <td>Typecheck y compilación TypeScript.</td>
-                          <td>
-                            Herramienta para validar tipos y compilar TypeScript
-                            a JavaScript durante el desarrollo y build.
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><code>vite</code></td>
-                          <td>Bundler y dev/build tool de Surface.</td>
-                          <td>
-                            Lee `vite.config.ts`, aplica alias `@`, inyecta
-                            `__APP_ENV__`, genera manifest y publica assets en
-                            `app-gateway/{PUBLIC_PATH}/ui-assets`. Es esencial
-                            para construir, pero el servidor final consume los
-                            archivos ya emitidos.
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <p>
+                    Esa separación se declara en
+                    <code>app-surface/package.json</code>, que está marcado como
+                    <code>private</code> para evitar publicación accidental y
+                    usa <code>type: module</code> porque Vite, la config y el
+                    código TypeScript trabajan como módulos ES. Las dependencias
+                    de producción describen librerías que pueden llegar al
+                    navegador o a assets publicados; las de desarrollo describen
+                    herramientas que hacen posible compilar, tipar y servir
+                    Surface.
+                  </p>
+                  <div class="dependency-lanes dependency-lanes--weighted">
+                    <section
+                      class="dependency-lane dependency-lane--primary"
+                      aria-labelledby="npm-runtime-title"
+                    >
+                      <div class="dependency-lane__header">
+                        <span class="dependency-lane__eyebrow"
+                          >dependencies</span
+                        >
+                        <h4
+                          id="npm-runtime-title"
+                          class="dependency-lane__title"
+                        >
+                          Runtime del navegador
+                        </h4>
+                        <p class="dependency-lane__summary">
+                          Librerías que Surface puede cargar en interacciones
+                          UI, adapters o assets publicados por Vite.
+                        </p>
+                      </div>
+                      <ol class="dependency-lane__items">
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >bootstrap</code
+                            >
+                            <span class="dependency-package__version"
+                              >^5.0.2</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >UI base</span
+                            >
+                            <p class="dependency-package__use">
+                              Los adapters leen <code>window.bootstrap</code>
+                              para modales, toasts y dropdowns.
+                            </p>
+                            <p class="dependency-package__limit">
+                              No todos los módulos lo importan desde TypeScript;
+                              el layout puede cargarlo como global.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >bootstrap-icons</code
+                            >
+                            <span class="dependency-package__version"
+                              >^1.13.1</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Iconografía</span
+                            >
+                            <p class="dependency-package__use">
+                              Los layouts y estilos de workspace pueden usar esa
+                              familia visual.
+                            </p>
+                            <p class="dependency-package__limit">
+                              Es asset de navegador, no lógica de negocio ni
+                              contrato Surface.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name">luxon</code>
+                            <span class="dependency-package__version"
+                              >^3.7.2</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role">Fechas</span>
+                            <p class="dependency-package__use">
+                              <code>toolkit/shared/date.ts</code> y adapters de
+                              fechas usan <code>DateTime</code>.
+                            </p>
+                            <p class="dependency-package__limit">
+                              Evita conversiones manuales repetidas; no define
+                              reglas de negocio.
+                            </p>
+                          </div>
+                        </li>
+                        <li class="dependency-package">
+                          <div class="dependency-package__head">
+                            <code class="dependency-package__name"
+                              >sweetalert2</code
+                            >
+                            <span class="dependency-package__version"
+                              >^11.26.17</span
+                            >
+                          </div>
+                          <div class="dependency-package__details">
+                            <span class="dependency-package__role"
+                              >Feedback UI</span
+                            >
+                            <p class="dependency-package__use">
+                              <code>toolkit/feedback/swal</code> lo carga de
+                              forma lazy para alertas, toasts y confirmaciones.
+                            </p>
+                            <p class="dependency-package__limit">
+                              Sigue siendo runtime, pero no se carga antes de
+                              que una pantalla lo necesite.
+                            </p>
+                          </div>
+                        </li>
+                      </ol>
+                    </section>
+
+                    <section
+                      class="dependency-support"
+                      aria-labelledby="npm-tooling-title"
+                    >
+                      <div class="dependency-lane__header">
+                        <span class="dependency-lane__eyebrow"
+                          >devDependencies</span
+                        >
+                        <h4
+                          id="npm-tooling-title"
+                          class="dependency-lane__title"
+                        >
+                          Soporte de build, tipos y desarrollo
+                        </h4>
+                        <p class="dependency-lane__summary">
+                          Paquetes que permiten compilar, tipar, leer entorno de
+                          build o describir librerías legacy; no deberían llegar
+                          como código adicional al navegador.
+                        </p>
+                      </div>
+                      <div class="dependency-support__groups">
+                        <article class="dependency-support__group">
+                          <h5>Tipos para UI y plugins legacy</h5>
+                          <p>
+                            Describen definiciones de tipos que Surface usa
+                            desde adapters, globals o plugins cargados por
+                            layout; no instalan esos plugins en el bundle.
+                          </p>
+                          <ul class="dependency-support__packages">
+                            <li>
+                              <code>@types/bootstrap</code><span>^5.2.10</span>
+                            </li>
+                            <li>
+                              <code>@types/datatables.net</code
+                              ><span>^1.10.28</span>
+                            </li>
+                            <li>
+                              <code>@types/daterangepicker</code
+                              ><span>^3.1.8</span>
+                            </li>
+                            <li>
+                              <code>@types/jquery</code><span>^3.5.33</span>
+                            </li>
+                            <li>
+                              <code>@types/select2</code><span>^4.0.63</span>
+                            </li>
+                          </ul>
+                        </article>
+                        <article class="dependency-support__group">
+                          <h5>Tipos de fecha y ecosistema heredado</h5>
+                          <p>
+                            Mantienen contratos de compilación para Luxon y para
+                            plugins que todavía exponen objetos Moment.
+                          </p>
+                          <ul class="dependency-support__packages">
+                            <li>
+                              <code>@types/luxon</code><span>^3.7.1</span>
+                            </li>
+                            <li>
+                              <code>@types/moment</code><span>^2.11.29</span>
+                            </li>
+                          </ul>
+                        </article>
+                        <article class="dependency-support__group">
+                          <h5>Build y entorno Node</h5>
+                          <p>
+                            Sostienen la config de Vite, lectura de variables,
+                            typecheck y publicación de assets hacia Gateway.
+                          </p>
+                          <ul class="dependency-support__packages">
+                            <li>
+                              <code>@types/node</code><span>^25.0.3</span>
+                            </li>
+                            <li><code>dotenv</code><span>^17.2.3</span></li>
+                            <li><code>typescript</code><span>~5.9.3</span></li>
+                            <li><code>vite</code><span>^7.2.4</span></li>
+                          </ul>
+                        </article>
+                      </div>
+                    </section>
                   </div>
                 </section>
 
@@ -2042,11 +2239,23 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   class="guide-subsection guide-subsection-anchor"
                 >
                   <h4 class="h5 mt-4">Scripts npm</h4>
+                  <p>
+                    Un script npm es un nombre corto para ejecutar una secuencia
+                    conocida sin recordar cada comando interno. Aquí la decisión
+                    es simple: <code>lite:build</code> prioriza rapidez durante
+                    el trabajo diario; <code>build</code> agrega la validación
+                    completa que se espera antes de cerrar un cambio.
+                  </p>
                   <div class="table-responsive">
                     <table class="table table-striped table-guide align-middle">
+                      <colgroup>
+                        <col class="w-24pct" />
+                        <col class="w-24pct" />
+                        <col class="w-52pct" />
+                      </colgroup>
                       <thead>
                         <tr>
-                          <th>Comando literal en consola</th>
+                          <th>Comando</th>
                           <th>Qué es lo que ejecuta</th>
                           <th>Uso esperado</th>
                         </tr>
@@ -2065,7 +2274,8 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                           <td><code>vite build --watch</code></td>
                           <td>
                             Watch rápido usado en onboarding: recompila assets
-                            al cambiar Surface sin ejecutar `tsc` en cada ciclo.
+                            al cambiar Surface sin ejecutar <code>tsc</code> en
+                            cada ciclo.
                           </td>
                         </tr>
                       </tbody>
@@ -2080,7 +2290,7 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                         toolchain.
                       </strong>
                     </div>
-                    <ul class="guide-key-grid guide-key-grid--compact">
+                    <ul class="guide-rule-strip guide-rule-strip--compact">
                       <li>
                         <strong>Servidor PHP</strong>
                         <span>Requiere dependencias Composer de runtime.</span>
@@ -2098,8 +2308,8 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                         <strong>Assets publicados</strong>
                         <code>node_modules</code>
                         <span
-                          >No se necesita en el servidor final si compilas
-                          antes.</span
+                          >No se necesita en el servidor final si la compilación
+                          se realiza antes.</span
                         >
                       </li>
                     </ul>
@@ -2113,13 +2323,24 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Validación inicial</h2>
+                <p>
+                  Esta comprobación confirma que la instalación mínima conecta
+                  ambos lados de la solución: Surface produjo assets y Gateway
+                  puede incluirlos dentro de un layout reconocible. No demuestra
+                  todavía que una feature completa funcione; solo descarta
+                  fallos básicos de preparación antes de continuar con la
+                  arquitectura.
+                </p>
                 <div class="card border-0 shadow-sm">
                   <div class="card-body">
                     <ul class="guide-checklist mb-0">
-                      <li>Los assets Vite cargan desde `ui-assets`.</li>
                       <li>
-                        El HTML del layout tiene `body#main-body-access` o
-                        `body#main-body-control`.
+                        Los assets Vite cargan desde <code>ui-assets</code>.
+                      </li>
+                      <li>
+                        El HTML del layout tiene
+                        <code>body#main-body-access</code> o
+                        <code>body#main-body-control</code>.
                       </li>
                     </ul>
                   </div>
@@ -2128,8 +2349,11 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                   <em>
                     Cuando una validación falle, la revisión continúa en
                     <a href="troubleshooting.html">Ayuda</a> o en los contratos
-                    de <a href="bridge.html#json">JSON envelope</a> y
-                    <a href="bridge.html#html">Contratos HTML</a>.
+                    de
+                    <a href="bridge.html#bridge-flow-search-items"
+                      >JSON envelope</a
+                    >
+                    y <a href="bridge.html#html">Contratos HTML</a>.
                   </em>
                 </p>
               </div>
@@ -2139,16 +2363,16 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
           <section id="next" class="guide-section">
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Recorrido de la guía</h2>
+                <h2>Ruta de lectura</h2>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <a class="guide-card-link" href="index.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Volver a: Inicio</h3>
+                          <h3 class="h5">Anterior: Inicio</h3>
                           <p class="mb-0">
                             Regresa al mapa general de la guía y al orden
-                            completo del recorrido.
+                            completo de la lectura.
                           </p>
                         </div>
                       </div>
@@ -2158,9 +2382,9 @@ API_&lt;PREFIX&gt;_VERIFY_TLS=false</code></pre>
                     <a class="guide-card-link" href="fundamentals.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Continuar con: Bases</h3>
+                          <h3 class="h5">Siguiente: Bases</h3>
                           <p class="mb-0">
-                            Modelo mental previo a cualquier cambio de código.
+                            Bases previas a cualquier cambio de código.
                           </p>
                         </div>
                       </div>

@@ -5,7 +5,7 @@
     scrollActiveMenuItemIntoView,
     scrollToGuideTarget,
   } = window.GuideDocs.anchors;
-  const { bootShikiCodeBlocks, enhanceInlineTerms, syncCodeBlockLanguages } =
+  const { bootShikiCodeBlocks, syncCodeBlockLanguages } =
     window.GuideDocs.content;
 
   function bootMarkdownViewer() {
@@ -15,11 +15,7 @@
     const title = document.querySelector("[data-markdown-title]");
     const sourceLink = document.querySelector("[data-markdown-source-link]");
     const buttons = document.querySelectorAll("[data-doc-source]");
-    const diagramList = document.querySelector(".diagram-list");
-    const diagramGroups = diagramList
-      ? [...diagramList.querySelectorAll(".diagram-list__group")]
-      : [];
-    const diagramGroupTabs = setupDiagramGroupTabs(diagramList, diagramGroups);
+    const diagramList = document.querySelector("#guide-nav");
 
     buttons.forEach((button) => {
       button.addEventListener("click", () => loadMarkdown(button));
@@ -32,7 +28,6 @@
       buttons[0];
     if (initial) {
       loadMarkdown(initial, {
-        openGroup: initial === initialFromHash,
         scrollToButton: initial === initialFromHash,
       });
     }
@@ -41,7 +36,7 @@
       const button = markdownButtonFromHash();
       if (!button) return;
 
-      loadMarkdown(button, { openGroup: true, scrollToButton: true });
+      loadMarkdown(button, { scrollToButton: true });
     });
 
     document.addEventListener("guide:themechange", () => {
@@ -54,14 +49,19 @@
       const label = button.textContent.trim();
       if (!source) return;
 
-      buttons.forEach((item) =>
-        item.classList.toggle("active", item === button),
-      );
-      activateDiagramGroup(button, diagramGroups, diagramGroupTabs, {
-        openGroup: Boolean(options.openGroup),
+      buttons.forEach((item) => {
+        item.classList.toggle(
+          "active",
+          item.getAttribute("data-doc-source") === source,
+        );
       });
+      syncDiagramNavigation(diagramList, source);
       if (options.scrollToButton) {
-        window.setTimeout(() => scrollToGuideTarget(button), 0);
+        const primaryButton = diagramButtonForSource(diagramList, source);
+        window.setTimeout(
+          () => scrollToGuideTarget(primaryButton ?? button),
+          0,
+        );
       }
       if (title) title.textContent = label;
       if (sourceLink) sourceLink.setAttribute("href", source);
@@ -78,9 +78,8 @@
         rewriteMarkdownLinks(viewer, source);
         await renderMermaid(viewer);
         await bootShikiCodeBlocks(viewer);
-        enhanceInlineTerms(viewer);
       } catch {
-        viewer.innerHTML = `<div class="guide-callout">No se pudo cargar el Markdown. Abre el archivo fuente desde el enlace superior.</div>`;
+        viewer.innerHTML = `<div class="guide-callout">No se pudo cargar el Markdown. El archivo fuente se puede abrir desde el enlace superior.</div>`;
       }
     }
 
@@ -91,71 +90,56 @@
       return target?.matches?.("[data-doc-source]") ? target : null;
     }
 
-    function setupDiagramGroupTabs(diagramList, groups) {
-      const tabs = new Map();
-      if (!diagramList || !groups.length) return tabs;
+    function syncDiagramNavigation(nav, source) {
+      if (!nav || !source) return;
 
-      const tabList = document.createElement("div");
-      tabList.className = "diagram-list__tabs";
-      tabList.setAttribute("role", "tablist");
-      tabList.setAttribute("aria-label", "Categorías de diagramas");
+      const primaryButton = diagramButtonForSource(nav, source);
+      const groupId = primaryButton?.dataset.guideNavTreeChild;
+      let activeMobileToggle = null;
 
-      groups.forEach((group) => {
-        const label = group.querySelector("h3")?.textContent?.trim();
-        const firstButton = group.querySelector("[data-doc-source]");
-        if (!label || !firstButton) return;
+      nav
+        .querySelectorAll(".guide-nav-link--has-children.is-child-active")
+        .forEach((parent) => parent.classList.remove("is-child-active"));
 
-        const tab = document.createElement("button");
-        tab.className = "diagram-list__tab";
-        tab.type = "button";
-        tab.textContent = label;
-        tab.setAttribute("role", "tab");
-        tab.setAttribute("aria-expanded", "false");
-        tab.addEventListener("click", () =>
-          toggleDiagramGroup(group, groups, tabs),
+      if (groupId) {
+        const parent = [...nav.children].find(
+          (item) => item.dataset?.guideNavTreeGroup === groupId,
         );
 
-        tabs.set(group, tab);
-        tabList.appendChild(tab);
+        parent?.classList.add("is-child-active", "is-expanded");
+        parent?.setAttribute("aria-expanded", "true");
+        [...nav.children]
+          .filter((item) => item.dataset?.guideNavTreeChild === groupId)
+          .forEach((child) => {
+            child.hidden = false;
+            child.classList.add("is-tree-visible");
+          });
+      }
+
+      nav.querySelectorAll(".guide-nav-mobile-dropdown").forEach((dropdown) => {
+        const hasActiveItem = [
+          ...dropdown.querySelectorAll("[data-doc-source]"),
+        ].some((item) => item.dataset.docSource === source);
+        const toggle = dropdown.querySelector(".guide-nav-mobile-toggle");
+
+        dropdown.classList.toggle("is-active", hasActiveItem);
+        toggle?.classList.toggle("active", hasActiveItem);
+        if (hasActiveItem) activeMobileToggle = toggle;
       });
 
-      if (!tabs.size) return tabs;
-
-      diagramList.classList.add("has-group-tabs");
-      diagramList.prepend(tabList);
-
-      return tabs;
+      if (activeMobileToggle || primaryButton) {
+        scrollActiveMenuItemIntoView(activeMobileToggle ?? primaryButton);
+      }
     }
 
-    function activateDiagramGroup(button, groups, tabs, options = {}) {
-      const activeGroup = button.closest(".diagram-list__group");
-      if (!activeGroup || !groups.length) return;
-
-      groups.forEach((group) => {
-        const isActive = group === activeGroup;
-        const isOpen = Boolean(options.openGroup && isActive);
-        const tab = tabs.get(group);
-
-        group.classList.toggle("is-active", isActive);
-        group.classList.toggle("is-open", isOpen);
-        tab?.classList.toggle("active", isActive);
-        tab?.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        tab?.setAttribute("aria-selected", isActive ? "true" : "false");
-        if (isActive && tab) scrollActiveMenuItemIntoView(tab);
-      });
-    }
-
-    function toggleDiagramGroup(activeGroup, groups, tabs) {
-      const shouldOpen = !activeGroup.classList.contains("is-open");
-
-      groups.forEach((group) => {
-        const isOpen = group === activeGroup && shouldOpen;
-        const tab = tabs.get(group);
-
-        group.classList.toggle("is-open", isOpen);
-        tab?.setAttribute("aria-expanded", isOpen ? "true" : "false");
-        if (isOpen && tab) scrollActiveMenuItemIntoView(tab);
-      });
+    function diagramButtonForSource(nav, source) {
+      return (
+        [...(nav?.children ?? [])].find(
+          (item) =>
+            item.matches?.("button.nav-link[data-doc-source]") &&
+            item.dataset.docSource === source,
+        ) ?? null
+      );
     }
   }
 

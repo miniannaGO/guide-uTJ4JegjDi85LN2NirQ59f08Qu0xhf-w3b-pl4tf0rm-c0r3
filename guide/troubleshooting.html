@@ -11,6 +11,7 @@
     />
     <script src="assets/js/theme.js"></script>
     <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/lib/css/bootstrap-icons-min.css" rel="stylesheet" />
     <link href="assets/css/guide.css" rel="stylesheet" />
   </head>
 
@@ -23,7 +24,7 @@
   >
     <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
       <div class="container-fluid px-3 px-lg-4">
-        <a class="navbar-brand fw-bold" href="index.html">
+        <a class="navbar-brand" href="index.html">
           <img
             class="navbar-brand__logo"
             src="assets/img/web-platform-core.svg"
@@ -64,7 +65,7 @@
               <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="recipes.html">Guías</a>
+              <a class="nav-link" href="recipes.html">Prácticas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="diagrams.html">Diagramas</a>
@@ -116,7 +117,7 @@
                   <a class="nav-link" href="#troubleshoot-observability"
                     >Observabilidad</a
                   >
-                  <a class="nav-link" href="#next">Recorrido</a>
+                  <a class="nav-link" href="#next">Ruta de lectura</a>
                 </nav>
               </div>
             </div>
@@ -130,38 +131,49 @@
           >
             <div class="card border-0 shadow-sm">
               <div class="card-body">
+                <h2 class="h4">Método de diagnóstico</h2>
+                <p>
+                  Diagnosticar consiste en encontrar la primera promesa que dejó
+                  de cumplirse, no en cambiar el archivo más cercano al síntoma.
+                  Primero se describe qué debía recibir el usuario o la capa
+                  siguiente; después se compara esa expectativa con la salida
+                  real y con la evidencia disponible.
+                </p>
+                <p>
+                  El fallo se debe leer en el mismo orden en que corre la
+                  solución: request HTTP, ruta, middleware, controller, use
+                  case, service/connector si existe, response y finalmente
+                  Surface. Si el error aparece al final, igual conviene
+                  confirmar que los pasos anteriores entregaron el contrato
+                  esperado.
+                </p>
+                <p>
+                  En cada paso se responde lo mismo: qué entró, qué debía salir,
+                  qué salió realmente y qué señal permite demostrarlo. La
+                  búsqueda termina en la primera diferencia comprobable. Solo
+                  entonces corresponde revisar la implementación responsable de
+                  esa frontera.
+                </p>
                 <p class="guide-crosslink">
                   <em>
-                    Para diagnosticar sin perder el mapa, cruza esta página con
-                    <a href="reference.html">Referencia</a>,
-                    <a href="bridge.html#json">JSON envelope</a>,
-                    <a href="bridge.html#assets">Assets Vite</a> y
+                    Para aplicar el método sin perder el mapa, se puede cruzar
+                    esta página con <a href="reference.html">Referencia</a>,
+                    <a href="bridge.html#bridge-flow-search-items"
+                      >JSON envelope</a
+                    >, <a href="bridge.html#assets">Assets Vite</a> y
                     <a href="app-surface.html#runtime"
                       >Runtime de pages y fragments</a
                     >.
                   </em>
                 </p>
-                <h2 class="h4">Método de diagnóstico</h2>
-                <p>
-                  Cuando algo falla, no debe modificarse código sin diagnóstico.
-                  Primero se debe ubicar qué contrato falló: ruta, HTML, JSON,
-                  sesión, assets, DI, outbound o montaje de Surface.
-                </p>
-                <p>
-                  Lee el fallo en el mismo orden en que corre la solución:
-                  request HTTP, ruta, middleware, controller, use case,
-                  service/connector si existe, response y finalmente Surface.
-                  Si el error aparece al final, igual conviene confirmar que los
-                  pasos anteriores entregaron el contrato esperado.
-                </p>
                 <p>
                   La pregunta inicial no es “¿qué archivo cambio?”, sino “¿qué
                   promesa se rompió?”. Si el navegador esperaba HTML y recibió
                   JSON, el problema está en el contrato de respuesta. Si Surface
-                  no monta, primero confirma que el HTML tenga el atributo
-                  correcto. Si el use case falla, revisa si el error nació por
-                  input, por estado de aplicación o por una dependencia externa.
-                  Esa disciplina evita arreglos al azar.
+                  no monta, primero se debe confirmar que el HTML tenga el
+                  atributo correcto. Si el use case falla, debe revisarse si el
+                  error nació por input, por estado de aplicación o por una
+                  dependencia externa. Esa disciplina evita arreglos al azar.
                 </p>
                 <ol class="guide-checklist">
                   <li>
@@ -192,7 +204,7 @@
                     <code>ConnectorResult</code>.
                   </li>
                   <li>
-                    Usar <code>X-Correlation-Id</code> para unir navegador, logs
+                    Usar <code>X-CORRELATION-ID</code> para unir navegador, logs
                     de Gateway y llamadas upstream.
                   </li>
                 </ol>
@@ -208,9 +220,11 @@
               <div class="card-body">
                 <h2>Entrada HTTP, controller y respuesta</h2>
                 <p>
-                  Empieza por la ruta, el controller y el contrato de salida: si
-                  esto falla, Surface o el use case reciben una respuesta
-                  equivocada.
+                  Esta frontera responde si el request llegó al destino correcto
+                  y si el destino produjo el tipo de respuesta prometido. Antes
+                  de revisar lógica interna, se confirman método, URL,
+                  parámetros, middleware, acción del controller, status y
+                  <code>Content-Type</code>.
                 </p>
                 <div class="row g-3">
                   <div class="col-md-6 col-xl-4">
@@ -224,7 +238,9 @@
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#routing">Routing</a>,
+                          <a href="app-gateway.html#gateway-flow-route"
+                            >Routing</a
+                          >,
                           <a href="app-gateway.html#routing-api"
                             >interfaz del router</a
                           >,
@@ -244,17 +260,19 @@
                       <div class="card-body">
                         <h2 class="h5">CSRF inválido</h2>
                         <p>
-                          Debe revisarse que la vista SSR renderice `_csrf`, que
-                          el formulario lo envíe y que el controller valide
-                          antes del use case. No lo debe confundirse con
-                          `X-TAB-SESSION`.
+                          Debe revisarse que la vista SSR renderice
+                          <code>_csrf</code>, que el formulario lo envíe y que
+                          el controller valide antes del use case. No lo debe
+                          confundirse con <code>X-TAB-SESSION</code>.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#security-session"
+                          <a href="app-gateway.html#security-session-contracts"
                             >seguridad y sesión</a
                           >,
-                          <a href="app-gateway.html#controllers">controllers</a>
+                          <a href="app-gateway.html#gateway-flow-controller"
+                            >controllers</a
+                          >
                           y <a href="app-surface.html#http">HTTP de Surface</a>.
                         </p>
                       </div>
@@ -267,15 +285,17 @@
                           HTML esperado pero llega JSON o layout
                         </h2>
                         <p>
-                          `serverClient.html(...)` lo tratará como contrato roto
-                          si llega JSON, redirect, layout completo, page de
-                          Surface o un fragment distinto al esperado. Deben
-                          revisarse controller, `renderFragmentView(...)` y la
-                          opción `expect`.
+                          <code>serverClient.html(...)</code> lo tratará como
+                          contrato roto si llega JSON, redirect, layout
+                          completo, page de Surface o un fragment distinto al
+                          esperado. Deben revisarse controller,
+                          <code>renderFragmentView(...)</code> y la opción
+                          <code>expect</code>.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#views">views y fragments</a
+                          <a href="app-gateway.html#gateway-flow-response"
+                            >views y fragments</a
                           >,
                           <a href="app-surface.html#http">serverClient.html</a>,
                           <a href="app-surface.html#content-mount"
@@ -291,18 +311,123 @@
                       <div class="card-body">
                         <h2 class="h5">JSON inválido</h2>
                         <p>
-                          El body debe tener `success` booleano. Deben revisarse
-                          `respondJson(...)`, `ApiResponse` y use case.
+                          El body debe tener <code>success</code> booleano.
+                          Deben revisarse <code>respondJson(...)</code>,
+                          <code>ApiResponse</code> y use case.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="bridge.html#json">JSON envelope</a>,
-                          <a href="app-gateway.html#controllers">respondJson</a
+                          <a href="bridge.html#bridge-flow-search-items"
+                            >JSON envelope</a
                           >,
-                          <a href="app-gateway.html#usecases">use cases</a>
+                          <a href="app-gateway.html#gateway-flow-controller"
+                            >respondJson</a
+                          >,
+                          <a href="app-gateway.html#gateway-flow-usecase"
+                            >use cases</a
+                          >
                           y
-                          <a href="app-surface.html#consume-gateway"
+                          <a href="app-surface.html#surface-flow-search-items"
                             >consumo desde Surface</a
+                          >.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">JSON del request llega vacío</h2>
+                        <p>
+                          Gateway solo decodifica body JSON cuando
+                          <code>Content-Type</code> declara
+                          <code>application/json</code>. Si el body no
+                          decodifica a array, <code>getJson(...)</code> verá
+                          fallbacks en vez de lanzar una excepción.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a
+                            href="app-gateway.html#controllers-request-interface"
+                            >request del controller</a
+                          >, <a href="app-surface.html#http">serverClient</a> y
+                          <a href="reference.html#http-headers">headers HTTP</a
+                          >.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Ruta existe, pero otro método falla</h2>
+                        <p>
+                          El router busca dentro del verbo HTTP recibido. Si el
+                          path existe en otro método, el comportamiento actual
+                          es ruta no encontrada; no hay una respuesta
+                          <code>405</code> separada.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="app-gateway.html#routing-api"
+                            >interfaz del router</a
+                          >,
+                          <a href="reference.html#errors-status"
+                            >errores y status</a
+                          >
+                          y
+                          <a href="tools.html#make-route-controller">rutas</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Error temprano de bootstrap</h2>
+                        <p>
+                          Si el contenedor, configuración o bootstrap fallan
+                          antes del lifecycle HTTP normal, Gateway intenta
+                          construir una request segura y presentar HTML o JSON.
+                          Si esa presentación también falla, responde con un
+                          fallback mínimo.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="app-gateway.html#errors"
+                            >fallback de errores</a
+                          >,
+                          <a href="app-gateway.html#production-cache"
+                            >caché de producción</a
+                          >
+                          y
+                          <a href="app-gateway.html#observability"
+                            >observabilidad</a
+                          >.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Error durante render o serialización</h2>
+                        <p>
+                          Si una view, response o serialización JSON falla, el
+                          handler central limpia buffers antes de presentar el
+                          error. Si el error presenter tampoco puede responder,
+                          la salida cae a JSON de error interno o texto
+                          <code>500</code>.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="app-gateway.html#errors">errores Gateway</a>,
+                          <a href="app-gateway.html#gateway-flow-response"
+                            >responses</a
+                          >
+                          y
+                          <a href="reference.html#diagnostic-signals"
+                            >señales de diagnóstico</a
                           >.
                         </p>
                       </div>
@@ -315,15 +440,15 @@
                           HTML vacío, layout o Content-Type raro
                         </h2>
                         <p>
-                          `serverClient.html(...)` exige HTML embebible. Debe
-                          revisarse que Gateway no devuelva JSON, body vacío,
-                          redirect, layout completo, page inesperada ni
-                          `Content-Type` incompatible desde el controller o el
-                          error presenter.
+                          <code>serverClient.html(...)</code> exige HTML
+                          embebible. Debe revisarse que Gateway no devuelva
+                          JSON, body vacío, redirect, layout completo, page
+                          inesperada ni <code>Content-Type</code> incompatible
+                          desde el controller o el error presenter.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#views"
+                          <a href="app-gateway.html#gateway-flow-response"
                             >views, JSON y assets</a
                           >,
                           <a href="app-gateway.html#errors">errores Gateway</a>
@@ -348,9 +473,11 @@
               <div class="card-body">
                 <h2>Use case, service y resultado</h2>
                 <p>
-                  Después de confirmar la entrada HTTP, revisa si la intención
-                  de aplicación conserva errores, parcialidad y significado de
-                  aplicación.
+                  Después de confirmar la entrada HTTP, se comprueba si la
+                  operación entendió la intención solicitada y conservó su
+                  resultado al coordinar otras piezas. Aquí importan los datos
+                  de entrada, el éxito, los errores y la parcialidad; todavía no
+                  corresponde discutir cómo se muestran en HTML o en Surface.
                 </p>
                 <div class="row g-3">
                   <div class="col-12">
@@ -358,16 +485,21 @@
                       <div class="card-body">
                         <h2 class="h5">Parcialidad no se muestra</h2>
                         <p>
-                          El envelope debe ser `success=true` con `errors.length
-                          > 0`. Debe revisarse `setPartialReporter(...)` en
-                          startup y que el use case no convierta una degradación
-                          en éxito limpio.
+                          El envelope debe ser <code>success=true</code> con
+                          <code>errors.length > 0</code>. Debe revisarse
+                          <code>setPartialReporter(...)</code> en startup y que
+                          el use case no convierta una degradación en éxito
+                          limpio.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="bridge.html#json">parcialidad JSON</a>,
-                          <a href="app-gateway.html#usecases">use cases</a>,
-                          <a href="app-gateway.html#services"
+                          <a href="bridge.html#bridge-flow-search-items"
+                            >parcialidad JSON</a
+                          >,
+                          <a href="app-gateway.html#gateway-flow-usecase"
+                            >use cases</a
+                          >,
+                          <a href="app-gateway.html#gateway-flow-services"
                             >services y connectors</a
                           >
                           y
@@ -389,9 +521,11 @@
               <div class="card-body">
                 <h2>Connector, service client y contratos externos</h2>
                 <p>
-                  Cuando la feature depende de un proveedor externo, sigue el
-                  rastro desde provider y alias hasta connector, client y DTO
-                  hidratado.
+                  Si la operación depende de otro sistema, se separa primero un
+                  fallo de construcción de un fallo de comunicación o de
+                  interpretación. El recorrido va desde provider y alias hacia
+                  connector, client y objeto de respuesta: cada paso debe
+                  recibir una forma conocida y devolver otra forma comprobable.
                 </p>
                 <div class="row g-3">
                   <div class="col-md-6 col-xl-4">
@@ -423,18 +557,19 @@
                       <div class="card-body">
                         <h2 class="h5">Alias de connector falla</h2>
                         <p>
-                          `ConnectorAliasRegistrar` espera un port
-                          `*ConnectorInterface` y una implementación única
-                          `*Connector` bajo `Infrastructure/Outbound/Connector`.
-                          Si hay cero o varias coincidencias, registra el alias
-                          explícitamente o corrige el nombre.
+                          <code>ConnectorAliasRegistrar</code> espera un port
+                          <code>*ConnectorInterface</code> y una implementación
+                          única <code>*Connector</code> bajo
+                          <code>Infrastructure/Outbound/Connector</code>. Si hay
+                          cero o varias coincidencias, el alias se debe
+                          registrar explícitamente o el nombre se debe corregir.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#services"
+                          <a href="app-gateway.html#gateway-flow-services"
                             >services y connectors</a
                           >,
-                          <a href="app-gateway.html#external-clients"
+                          <a href="app-gateway.html#external-clients-config"
                             >clients externos</a
                           >
                           y
@@ -450,22 +585,76 @@
                         <h2 class="h5">DTO externo no hidrata</h2>
                         <p>
                           Debe revisarse si el request implementa
-                          `EndpointRequest` o `EndpointListRequest` según la
-                          forma real. Si la API HTTP Externa devuelve objeto
-                          cuando se esperaba lista, `JsonServiceResponseMapper`
+                          <code>EndpointRequest</code> o
+                          <code>EndpointListRequest</code> según la forma real.
+                          Si la API HTTP Externa devuelve objeto cuando se
+                          esperaba lista, <code>JsonServiceResponseMapper</code>
                           debe fallar claro.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#external-clients"
+                          <a href="app-gateway.html#external-clients-config"
                             >API HTTP clients externos</a
                           >,
                           <a href="tools.html#http-contract-generator"
                             >http:contract</a
                           >
                           y
-                          <a href="app-gateway.html#services"
+                          <a href="app-gateway.html#gateway-flow-services"
                             >flujo ConnectorResult</a
+                          >.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Contrato outbound inválido</h2>
+                        <p>
+                          Si falta <code>#[Endpoint(...)]</code>, el path está
+                          vacío o <code>responseClass</code> no existe, el fallo
+                          debe aparecer antes de despachar la llamada externa.
+                          No debe resolverse en Surface ni esconderse como data
+                          vacía.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="app-gateway.html#external-clients-advanced"
+                            >funciones outbound</a
+                          >,
+                          <a href="reference.html#outbound-connectors"
+                            >referencia outbound</a
+                          >
+                          y
+                          <a href="tools.html#http-contract-generator"
+                            >http:contract</a
+                          >.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-xl-4">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Servicio externo no configura</h2>
+                        <p>
+                          Si falta la entrada en <code>services.json</code>, la
+                          URI queda vacía, un timeout no es numérico o TLS no se
+                          puede parsear como booleano, la definición del
+                          servicio falla antes del connector.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="getting-started.html#env-outbound"
+                            >variables outbound</a
+                          >,
+                          <a href="app-gateway.html#external-clients-config"
+                            >configurar el servicio</a
+                          >
+                          y
+                          <a href="reference.html#outbound-connectors"
+                            >outbound rápido</a
                           >.
                         </p>
                       </div>
@@ -478,15 +667,17 @@
 
           <section
             id="troubleshoot-surface"
-            class="guide-section troubleshooting-group troubleshooting-group--surface"
+            class="guide-section troubleshooting-group troubleshooting-group--frontend"
           >
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Surface: page, fragment y adapters</h2>
                 <p>
-                  Si Gateway ya respondió bien, valida el id declarativo, el
-                  registro de la integración, el montaje de fragments y la
-                  limpieza de adapters.
+                  Surface se revisa después de demostrar que Gateway entregó el
+                  HTML o JSON correcto. Entonces se valida que el DOM declare la
+                  integración esperada, que el registry la conozca, que el
+                  montaje encuentre su raíz y que eventos, fragments y adapters
+                  se limpien al desmontar.
                 </p>
                 <div class="row g-3">
                   <div class="col-md-6 col-xl-4">
@@ -494,8 +685,9 @@
                       <div class="card-body">
                         <h2 class="h5">No monta una page</h2>
                         <p>
-                          Validar `data-surface-page`, `integration.id`, layout
-                          correcto y registro en `uiIntegrationRegistry`.
+                          Validar <code>data-surface-page</code>,
+                          <code>integration.id</code>, layout correcto y
+                          registro en <code>uiIntegrationRegistry</code>.
                         </p>
                         <p class="small mb-0">
                           Ver:
@@ -518,10 +710,10 @@
                       <div class="card-body">
                         <h2 class="h5">Page registrada con otro id</h2>
                         <p>
-                          El valor de `data-surface-page` debe coincidir con
-                          `UiIntegration.id`. Si no coincide, el runtime avisa y
-                          no debe montar un módulo no correspondiente por
-                          accidente.
+                          El valor de <code>data-surface-page</code> debe
+                          coincidir con <code>UiIntegration.id</code>. Si no
+                          coincide, el runtime avisa y no debe montar un módulo
+                          no correspondiente por accidente.
                         </p>
                         <p class="small mb-0">
                           Ver:
@@ -532,7 +724,7 @@
                             >registro de integraciones</a
                           >
                           y
-                          <a href="app-gateway.html#views"
+                          <a href="app-gateway.html#gateway-flow-response"
                             >atributos SSR en Gateway</a
                           >.
                         </p>
@@ -544,9 +736,9 @@
                       <div class="card-body">
                         <h2 class="h5">No monta un fragment</h2>
                         <p>
-                          El fragment debe estar en `fragments` de la
+                          El fragment debe estar en <code>fragments</code> de la
                           integración propietaria. Si está en modal/toast, debe
-                          usarse `withContentMount`.
+                          usarse <code>withContentMount</code>.
                         </p>
                         <p class="small mb-0">
                           Ver:
@@ -554,7 +746,10 @@
                           <a href="app-surface.html#content-mount"
                             >content mount</a
                           >
-                          y <a href="app-gateway.html#views">fragments SSR</a>.
+                          y
+                          <a href="app-gateway.html#gateway-flow-response"
+                            >fragments SSR</a
+                          >.
                         </p>
                       </div>
                     </div>
@@ -564,9 +759,10 @@
                       <div class="card-body">
                         <h2 class="h5">Fragment en modal no monta</h2>
                         <p>
-                          El modal o toast debe usar `withContentMount(...)`.
-                          Confirmar que el HTML tenga `data-surface-fragment` y
-                          que el fragment esté registrado en la integración
+                          El modal o toast debe usar
+                          <code>withContentMount(...)</code>. Confirmar que el
+                          HTML tenga <code>data-surface-fragment</code> y que el
+                          fragment esté registrado en la integración
                           propietaria.
                         </p>
                         <p class="small mb-0">
@@ -578,7 +774,7 @@
                             >toolkit de feedback</a
                           >
                           y
-                          <a href="app-surface.html#consume-gateway"
+                          <a href="app-surface.html#surface-flow-search-items"
                             >consumo Gateway</a
                           >.
                         </p>
@@ -590,11 +786,12 @@
                       <div class="card-body">
                         <h2 class="h5">Estado externo sin destruir</h2>
                         <p>
-                          Debe revisarse que `unmount()` destruya o limpie
-                          cualquier plugin legacy, listener externo o estado
-                          fuera del binding antes de reemplazar HTML. El
+                          Debe revisarse que <code>unmount()</code> destruya o
+                          limpie cualquier plugin legacy, listener externo o
+                          estado fuera del binding antes de reemplazar HTML. El
                           problema no es tener otro archivo adapter, sino montar
-                          estado externo sin su `destroy` correspondiente.
+                          estado externo sin su
+                          <code>destroy</code> correspondiente.
                         </p>
                         <p class="small mb-0">
                           Ver:
@@ -623,9 +820,11 @@
               <div class="card-body">
                 <h2>Sesión, runtime y assets</h2>
                 <p>
-                  Estos fallos viven entre la sesión por pestaña, los headers
-                  compartidos y el build que deja disponible el código de
-                  Surface.
+                  Este grupo reúne síntomas parecidos con causas distintas. La
+                  sesión determina identidad y tiempo; los headers transportan
+                  esas señales; el runtime decide qué integración montar; los
+                  assets determinan si el código compilado llegó al navegador.
+                  Cada carril debe comprobarse por separado.
                 </p>
                 <div class="row g-3 align-items-start">
                   <div class="col-12">
@@ -637,18 +836,20 @@
                           solo suma tiempo cuando la tab está en ventana de
                           renovación y ya pasó el cooldown.
                         </p>
-                        <ul class="guide-key-grid guide-key-grid--compact">
+                        <ul class="guide-rule-strip guide-rule-strip--compact">
                           <li>
                             <strong>Respuesta</strong>
                             <code>X-REMAINING</code>
-                            <span>Confirma si el vencimiento cambió.</span>
+                            <span
+                              >Permite confirmar si el vencimiento cambió.</span
+                            >
                           </li>
                           <li>
                             <strong>Metadata</strong>
                             <code>tabs.{tabId}.metadata</code>
                             <span
-                              >Revisa expiración y último refresh de la
-                              tab.</span
+                              >Permite revisar la expiración y el último refresh
+                              de la tab.</span
                             >
                           </li>
                           <li>
@@ -663,22 +864,23 @@
                             <strong>Cooldown</strong>
                             <code>SESSION_REFRESH_COOLDOWN</code>
                             <span
-                              >Evita sumar tiempo en requests demasiado
+                              >Evita que se sume tiempo en requests demasiado
                               seguidas.</span
                             >
                           </li>
                         </ul>
                         <p class="small mt-3">
                           Ejemplo: si renovó a las 12:09:35 y se vuelve a pedir
-                          a las 12:09:36 con `SESSION_REFRESH_COOLDOWN=60`, es
-                          normal que no sume más tiempo.
+                          a las 12:09:36 con
+                          <code>SESSION_REFRESH_COOLDOWN=60</code>, es normal
+                          que no sume más tiempo.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#security-session"
+                          <a href="app-gateway.html#security-session-contracts"
                             >renovación en Gateway</a
                           >,
-                          <a href="app-surface.html#session-runtime"
+                          <a href="app-surface.html#session-runtime-pieces"
                             >contador en Surface</a
                           >
                           y
@@ -694,15 +896,17 @@
                       <div class="card-body">
                         <h2 class="h5">No carga manifest Vite</h2>
                         <p>
-                          En local debe ejecutarse `npm run lite:build` en
-                          `app-surface` y validarse `PUBLIC_PATH`. En producción
-                          debe usarse `npm run build`; el manifest es
+                          En local debe ejecutarse
+                          <code>npm run lite:build</code> en
+                          <code>app-surface</code> y validarse
+                          <code>PUBLIC_PATH</code>. En producción debe usarse
+                          <code>npm run build</code>; el manifest es
                           obligatorio.
                         </p>
                         <p class="small mb-0">
                           Ver:
                           <a href="app-surface.html#vite">Vite y estilos</a>,
-                          <a href="app-gateway.html#views"
+                          <a href="app-gateway.html#gateway-flow-response"
                             >helpers de assets Gateway</a
                           >
                           y <a href="bridge.html#assets">contrato de assets</a>.
@@ -716,9 +920,9 @@
                         <h2 class="h5">Falta una entrada del manifest</h2>
                         <p>
                           Si el manifest existe pero no contiene el entry
-                          esperado, deben revisarse `vite.config.ts`, el nombre
-                          de entrada y el build de Surface. En producción no
-                          debe haber fallback silencioso.
+                          esperado, deben revisarse <code>vite.config.ts</code>,
+                          el nombre de entrada y el build de Surface. En
+                          producción no debe haber fallback silencioso.
                         </p>
                         <p class="small mb-0">
                           Ver:
@@ -737,18 +941,43 @@
                       <div class="card-body">
                         <h2 class="h5">Sesión por pestaña falla</h2>
                         <p>
-                          Validar `ensureTabSession()`, header `X-TAB-SESSION` y
-                          estado de sesión PHP.
+                          Validar <code>ensureTabSession()</code>, header
+                          <code>X-TAB-SESSION</code> y estado de sesión PHP.
                         </p>
                         <p class="small mb-0">
                           Ver:
-                          <a href="app-gateway.html#security-session"
+                          <a href="app-gateway.html#security-session-contracts"
                             >sesión Gateway</a
                           >,
-                          <a href="app-surface.html#session-runtime"
+                          <a href="app-surface.html#session-runtime-pieces"
                             >sesión Surface</a
                           >
                           y <a href="app-surface.html#http">headers HTTP</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Refresh HTML pierde la tab activa</h2>
+                        <p>
+                          En una navegación HTML normal no viaja
+                          <code>X-TAB-SESSION</code>. Debe revisarse si Surface
+                          escribió la cookie técnica
+                          <code>X-TAB-SESSION-NAV</code>, si el evento
+                          <code>pagehide</code> o <code>beforeunload</code> pudo
+                          sincronizarla y si la URL heredada conserva un
+                          <code>_tab</code> que Surface debería limpiar.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="bridge.html#session">navegación HTML y tab</a
+                          >,
+                          <a href="app-surface.html#session-runtime-tabs"
+                            >tabs en Surface</a
+                          >
+                          y <a href="reference.html#http-headers">headers</a>.
                         </p>
                       </div>
                     </div>
@@ -766,18 +995,22 @@
               <div class="card-body">
                 <h2>Observabilidad y rastreo</h2>
                 <p>
-                  Cuando el síntoma cruza varias capas, usa correlation id para
-                  unir navegador, Gateway y llamadas upstream.
+                  Cuando un síntoma cruza varias capas, el correlation id
+                  permite reunir evidencia de una misma operación sin adivinar
+                  por hora, usuario o mensaje. Se toma desde la respuesta
+                  visible y se usa para localizar el recorrido correspondiente
+                  en Gateway y en llamadas upstream.
                 </p>
                 <div class="row g-3">
                   <div class="col-12">
                     <div class="card h-100">
                       <div class="card-body">
-                        <h2 class="h5">No puedo rastrear un fallo</h2>
+                        <h2 class="h5">No se puede rastrear un fallo</h2>
                         <p>
-                          Debe copiarse `X-Correlation-Id` desde la respuesta
-                          del navegador y usarse para ubicar logs de Gateway,
-                          response context y llamadas upstream relacionadas.
+                          Debe copiarse <code>X-CORRELATION-ID</code> desde la
+                          respuesta del navegador y usarse para ubicar logs de
+                          Gateway, response context y llamadas upstream
+                          relacionadas.
                         </p>
                         <p class="small mb-0">
                           Ver:
@@ -790,21 +1023,72 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">No aparecen logs por request</h2>
+                        <p>
+                          Debe revisarse <code>LOG_TELEMETRY_ENABLED</code>. Si
+                          está en <code>false</code>, Gateway no inicia
+                          telemetría normal por request y tampoco recolecta
+                          spans upstream; los fallos de bootstrap pueden seguir
+                          registrándose por su carril temprano.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="getting-started.html#env-logs"
+                            >variables de logs</a
+                          >,
+                          <a href="app-gateway.html#observability"
+                            >observabilidad Gateway</a
+                          >
+                          y
+                          <a href="reference.html#diagnostic-signals"
+                            >señales de diagnóstico</a
+                          >.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h2 class="h5">Respuesta parcial o degradada</h2>
+                        <p>
+                          Si la response tiene data usable, pero hubo errores
+                          operativos de upstream, se debe buscar
+                          <code>degraded_response</code> y
+                          <code>request_metrics</code>. La UI puede continuar,
+                          pero el flujo no debe cerrarse como éxito limpio.
+                        </p>
+                        <p class="small mb-0">
+                          Ver:
+                          <a href="app-gateway.html#observability"
+                            >eventos de observabilidad</a
+                          >, <a href="bridge.html#json">JSON envelope</a> y
+                          <a href="app-surface.html#http">partial reporter</a>.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <section id="next" class="guide-section">
+          <section
+            id="next"
+            class="guide-section troubleshooting-group troubleshooting-group--reading-path"
+          >
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Recorrido de la guía</h2>
+                <h2>Ruta de lectura</h2>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <a class="guide-card-link" href="reference.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Volver a: Referencia</h3>
+                          <h3 class="h5">Anterior: Referencia</h3>
                           <p class="mb-0">
                             Contrasta el diagnóstico con rutas, scripts,
                             contratos, headers y convenciones rápidas del

@@ -1,15 +1,19 @@
 (() => {
-  const { anchors, content, markdown, navigation, search } = window.GuideDocs;
+  const { anchors, content, markdown, navigation, search, startPanelLottie } =
+    window.GuideDocs;
 
   navigation.renderGlobalNavigation();
   search.bootGuideSearch();
   anchors.bootGuideNavMobileDropdowns();
+  anchors.bootGuideNavTree();
   anchors.syncGuideNavOverflow();
   anchors.bootGuideNavDragScroll();
+  anchors.bootGuideResponsiveScrollCues();
   anchors.bootGuideAnchorHighlights();
   anchors.bootGuideNavAnchors();
   anchors.bootGuideNavActiveState();
-  content.enhanceInlineTerms();
+  startPanelLottie.bootStartPanelLotties();
+  content.bootVocabularyTabs();
   content.syncCodeBlockLanguages();
   content.bootShikiCodeBlocks(document);
   markdown.bootMarkdownViewer();

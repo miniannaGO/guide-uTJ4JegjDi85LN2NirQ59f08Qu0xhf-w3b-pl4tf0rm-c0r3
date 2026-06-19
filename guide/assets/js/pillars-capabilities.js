@@ -23,7 +23,7 @@
     `${String(index + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
 
   const readAccent = (slide) =>
-    slide.style.getPropertyValue("--accent").trim() || "#78dce8";
+    getComputedStyle(slide).getPropertyValue("--accent").trim() || "var(--wpc)";
 
   const normalizeTheme = (theme) =>
     window.GuideThemeState?.normalizeTheme?.(theme) ||
@@ -175,10 +175,12 @@
   themeToggle?.addEventListener("click", () => {
     const currentTheme = readSharedTheme();
     setTheme(currentTheme === "light" ? "dark" : "light");
+    render(current);
   });
 
   document.addEventListener("guide:themechange", (event) => {
     syncPresentationTheme(event.detail?.theme);
+    render(current);
   });
 
   moduleStages.forEach((stage) => setModuleOpen(stage, false));

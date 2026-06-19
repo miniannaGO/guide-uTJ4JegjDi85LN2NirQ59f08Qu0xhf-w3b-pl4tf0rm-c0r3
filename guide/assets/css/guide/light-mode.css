@@ -1,108 +1,169 @@
-@media (max-width: 1199.98px) {
-  .navbar .guide-search-toggle,
-  .navbar .guide-theme-toggle {
-    width: 2.45rem;
-    justify-content: center;
-    margin-top: 0.7rem;
-  }
-
-  .guide-theme-nav {
-    display: none;
-  }
-
-  .guide-theme-mobile .guide-theme-toggle {
-    margin-top: 0;
-  }
-
-  .guide-theme-mobile .guide-theme-menu {
-    position: absolute !important;
-    right: 0;
-    left: auto;
-    width: 10.5rem;
-    margin: 0.45rem 0 0;
-    transform: none !important;
-  }
-
-  .navbar .guide-nav-link--ecosystem {
-    width: 100%;
-    margin: 0.38rem 0 0.1rem;
-    padding: 0.82rem 2em;
-    justify-content: flex-start;
-    color: color-mix(in srgb, var(--nav-color) 74%, #fcfcfa);
-    border: 0;
-    border-top: 1px solid color-mix(in srgb, var(--nav-color) 18%, transparent);
-    border-bottom: 1px solid
-      color-mix(in srgb, var(--nav-color) 12%, transparent);
-    background: linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--nav-color) 18%, transparent),
-      transparent 58%
-    );
-    text-decoration: none;
-    box-shadow: none;
-  }
-
-  .navbar .guide-nav-link--ecosystem::after {
-    display: inline-block;
-    margin-left: auto;
-    opacity: 0.78;
-  }
-
-  .guide-theme-menu {
-    position: static !important;
-    width: 100%;
-    margin: 0.45rem 0 0.75rem;
-    transform: none !important;
-  }
-}
-
 html[data-bs-theme="light"] {
   color-scheme: light;
   --guide-bg: #ffffff;
-  --guide-bg-soft: #f6f8fb;
   --guide-panel: #ffffff;
-  --guide-panel-soft: #e7eff6;
-  --guide-border: rgba(8, 120, 142, 0.36);
+  --guide-border: var(--page-border-support);
   --guide-border-soft: rgba(15, 23, 42, 0.2);
   --guide-text: #172033;
   --guide-muted: #475467;
-  --guide-accent: #b3261e;
-  --guide-accent-strong: #8f6b00;
-  --guide-accent-orange: #c4510f;
-  --guide-accent-green: #1f7a4d;
-  --guide-accent-blue: #08788e;
-  --guide-accent-purple: #5c45a5;
-  --guide-accent-sky: #2563b8;
-  --guide-tab-aux: color-mix(
-    in srgb,
-    var(--guide-muted) 58%,
-    var(--guide-accent-blue)
-  );
+  --guide-identity-index-primary: #087c82;
+  --guide-identity-index-companion: #5147c6;
+  --guide-identity-index-support: #627d91;
+  --guide-identity-getting-started-primary: #809210;
+  --guide-identity-getting-started-companion: #4d7d31;
+  --guide-identity-getting-started-support: #77815b;
+  --guide-identity-fundamentals-primary: #2e7194;
+  --guide-identity-fundamentals-companion: #6a4b95;
+  --guide-identity-fundamentals-support: #5c7654;
+  --guide-identity-gateway-primary: #a87800;
+  --guide-identity-gateway-companion: #b4561d;
+  --guide-identity-gateway-support: #877650;
+  --guide-identity-surface-primary: #238647;
+  --guide-identity-surface-companion: #138a75;
+  --guide-identity-surface-support: #6b9274;
+  --guide-identity-bridge-primary: #2b5ecc;
+  --guide-identity-bridge-companion: #5669b8;
+  --guide-identity-bridge-support: #697fa2;
+  --guide-identity-tools-primary: #654ab6;
+  --guide-identity-tools-companion: #9945be;
+  --guide-identity-tools-support: #756d93;
+  --guide-identity-recipes-primary: #b72c75;
+  --guide-identity-recipes-companion: #b83b58;
+  --guide-identity-recipes-support: #8f6f7d;
+  --guide-identity-consultation-primary: #93502e;
+  --guide-identity-consultation-companion: #896b20;
+  --guide-identity-consultation-support: #7d6a5c;
   --guide-scrollbar-track: #e8eef5;
   --guide-scrollbar-track-strong: #f8fbff;
   --guide-scrollbar-thumb: color-mix(
     in srgb,
-    var(--page-color) 42%,
+    var(--page-color-support) 38%,
     #a7b8c8
   );
   --guide-scrollbar-thumb-hover: color-mix(
     in srgb,
-    var(--page-color) 62%,
+    var(--page-color-companion) 54%,
     #7f95a8
   );
-  --guide-process-1: #4f6c98;
-  --guide-process-2: #735d94;
-  --guide-process-3: #866121;
-  --guide-process-4: #447a58;
-  --guide-process-5: #9d5146;
-  --guide-danger: #a51d43;
+  --guide-light-surface: #ffffff;
+  --guide-light-surface-soft: #f8fafc;
+  --guide-light-shadow: 0 0.28rem 0.72rem rgba(15, 23, 42, 0.055);
   --bs-body-bg: var(--guide-bg);
   --bs-body-color: var(--guide-text);
   --bs-secondary-color: var(--guide-muted);
   --bs-border-color: var(--guide-border-soft);
-  --bs-link-color: #056f83;
-  --bs-link-hover-color: #4f3f98;
-  --bs-code-color: #7d4a00;
+  --bs-link-color: var(--page-accent-secondary-text);
+  --bs-link-hover-color: var(--page-accent-primary-text);
+  --bs-code-color: var(--page-accent-secondary-text);
+  --page-gradient-soft: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color-companion) 8%, #ffffff),
+    color-mix(in srgb, var(--page-color-support) 6%, #ffffff)
+  );
+  --page-accent-primary-text: color-mix(
+    in srgb,
+    var(--page-color) 82%,
+    #172033
+  );
+  --page-accent-secondary-text: color-mix(
+    in srgb,
+    var(--page-color-companion) 78%,
+    #172033
+  );
+  --page-accent-support-text: color-mix(
+    in srgb,
+    var(--page-color-support) 72%,
+    #475467
+  );
+  --page-border-primary: color-mix(
+    in srgb,
+    var(--page-color) 42%,
+    rgba(15, 23, 42, 0.14)
+  );
+  --page-border-secondary: color-mix(
+    in srgb,
+    var(--page-color-companion) 28%,
+    rgba(15, 23, 42, 0.12)
+  );
+  --page-border-support: color-mix(
+    in srgb,
+    var(--page-color-support) 24%,
+    rgba(15, 23, 42, 0.1)
+  );
+  --page-surface-primary: color-mix(in srgb, var(--page-color) 7%, #ffffff);
+  --page-surface-secondary: color-mix(
+    in srgb,
+    var(--page-color-companion) 6%,
+    #ffffff
+  );
+  --page-surface-support: color-mix(
+    in srgb,
+    var(--page-color-support) 7.5%,
+    #ffffff
+  );
+  --page-gradient-balanced: linear-gradient(
+    135deg,
+    var(--page-surface-secondary),
+    var(--page-surface-support)
+  );
+}
+
+html[data-bs-theme="light"] body.guide-page--index,
+html[data-bs-theme="light"]:has(> body.guide-page--index) {
+  --page-color-companion-rgb: 81, 71, 198;
+  --page-color-support-rgb: 98, 125, 145;
+}
+
+html[data-bs-theme="light"] body.guide-page--getting-started,
+html[data-bs-theme="light"]:has(> body.guide-page--getting-started) {
+  --page-color-companion-rgb: 77, 125, 49;
+  --page-color-support-rgb: 119, 129, 91;
+}
+
+html[data-bs-theme="light"] body.guide-page--fundamentals,
+html[data-bs-theme="light"]:has(> body.guide-page--fundamentals) {
+  --page-color-companion-rgb: 106, 75, 149;
+  --page-color-support-rgb: 92, 118, 84;
+}
+
+html[data-bs-theme="light"] body.guide-page--app-gateway,
+html[data-bs-theme="light"]:has(> body.guide-page--app-gateway) {
+  --page-color-companion-rgb: 180, 86, 29;
+  --page-color-support-rgb: 135, 118, 80;
+}
+
+html[data-bs-theme="light"] body.guide-page--app-surface,
+html[data-bs-theme="light"]:has(> body.guide-page--app-surface) {
+  --page-color-companion-rgb: 19, 138, 117;
+  --page-color-support-rgb: 107, 146, 116;
+}
+
+html[data-bs-theme="light"] body.guide-page--bridge,
+html[data-bs-theme="light"]:has(> body.guide-page--bridge) {
+  --page-color-companion-rgb: 86, 105, 184;
+  --page-color-support-rgb: 105, 127, 162;
+}
+
+html[data-bs-theme="light"] body.guide-page--tools,
+html[data-bs-theme="light"]:has(> body.guide-page--tools) {
+  --page-color-companion-rgb: 153, 69, 190;
+  --page-color-support-rgb: 117, 109, 147;
+}
+
+html[data-bs-theme="light"] body.guide-page--recipes,
+html[data-bs-theme="light"]:has(> body.guide-page--recipes) {
+  --page-color-companion-rgb: 184, 59, 88;
+  --page-color-support-rgb: 143, 111, 125;
+}
+
+html[data-bs-theme="light"] body.guide-page--diagrams,
+html[data-bs-theme="light"] body.guide-page--reference,
+html[data-bs-theme="light"] body.guide-page--troubleshooting,
+html[data-bs-theme="light"]:has(> body.guide-page--diagrams),
+html[data-bs-theme="light"]:has(> body.guide-page--reference),
+html[data-bs-theme="light"]:has(> body.guide-page--troubleshooting) {
+  --page-color-companion-rgb: 137, 107, 32;
+  --page-color-support-rgb: 125, 106, 92;
 }
 
 html[data-bs-theme="light"] body {
@@ -115,7 +176,7 @@ html[data-bs-theme="light"] body[class*="guide-page--"] .navbar.bg-white {
   background: #ffffff !important;
   border-color: color-mix(
     in srgb,
-    var(--page-color) 24%,
+    var(--page-color-support) 24%,
     rgba(15, 23, 42, 0.08)
   ) !important;
   box-shadow:
@@ -139,10 +200,6 @@ html[data-bs-theme="light"] .navbar-brand,
 html[data-bs-theme="light"] .navbar-brand:hover,
 html[data-bs-theme="light"] .navbar-brand:focus-visible {
   color: #111827;
-}
-
-html[data-bs-theme="light"] .navbar-brand__logo {
-  filter: drop-shadow(0 0.22rem 0.28rem rgba(26, 37, 52, 0.16));
 }
 
 html[data-bs-theme="light"] .navbar .nav-link {
@@ -180,23 +237,19 @@ html[data-bs-theme="light"] .navbar .guide-nav-link--ecosystem:focus-visible {
 html[data-bs-theme="light"] .navbar .guide-search-toggle {
   border-color: color-mix(
     in srgb,
-    var(--guide-accent-blue) 28%,
+    var(--page-color-companion) 26%,
     rgba(15, 23, 42, 0.12)
   );
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--guide-accent-blue) 8%, #ffffff),
-    #ffffff
-  );
+  background: linear-gradient(180deg, var(--page-surface-secondary), #ffffff);
 }
 
 html[data-bs-theme="light"] .guide-search-toggle__icon {
-  color: color-mix(in srgb, var(--guide-accent-blue) 76%, #172033);
+  color: var(--page-accent-secondary-text);
 }
 
 html[data-bs-theme="light"] .guide-search-modal__content {
   color: var(--guide-text);
-  border-color: rgba(15, 23, 42, 0.14);
+  border-color: var(--page-border-support);
   background: #ffffff;
   box-shadow:
     0 1.8rem 4rem rgba(15, 23, 42, 0.2),
@@ -231,31 +284,27 @@ html[data-bs-theme="light"] .guide-search-input:focus {
   color: var(--guide-text);
   border-color: color-mix(
     in srgb,
-    var(--guide-accent-blue) 48%,
+    var(--page-color) 42%,
     rgba(15, 23, 42, 0.14)
   );
   background: #ffffff;
   box-shadow: 0 0 0 0.18rem
-    color-mix(in srgb, var(--guide-accent-blue) 16%, transparent);
+    color-mix(in srgb, var(--page-color) 18%, transparent);
 }
 
 html[data-bs-theme="light"] .guide-search-group {
-  border-color: rgba(15, 23, 42, 0.12);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--guide-accent-blue) 7%, #ffffff),
-    #ffffff 72%
-  );
+  border-color: var(--page-border-support);
+  background: linear-gradient(90deg, var(--page-surface-support), #ffffff 72%);
 }
 
 html[data-bs-theme="light"] .guide-search-group__title a {
-  color: color-mix(in srgb, var(--guide-accent-blue) 76%, #172033);
+  color: var(--page-accent-secondary-text);
 }
 
 html[data-bs-theme="light"] .guide-search-list a:hover,
 html[data-bs-theme="light"] .guide-search-list a:focus-visible {
   color: #172033;
-  background: color-mix(in srgb, var(--guide-accent-blue) 10%, #ffffff);
+  background: var(--page-surface-secondary);
 }
 
 html[data-bs-theme="light"] .guide-search-list small {
@@ -263,14 +312,66 @@ html[data-bs-theme="light"] .guide-search-list small {
 }
 
 html[data-bs-theme="light"] .navbar-toggler {
-  border-color: rgba(36, 140, 160, 0.28);
-  background: rgba(255, 255, 255, 0.74);
+  color: color-mix(in srgb, var(--page-color-companion) 76%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 30%,
+    rgba(15, 23, 42, 0.1)
+  );
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--page-color-companion) 8%, #ffffff),
+      #ffffff
+    ),
+    #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 0.36rem 0.84rem rgba(15, 23, 42, 0.08);
+}
+
+html[data-bs-theme="light"] .navbar-toggler::before {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color) 8%, transparent),
+    color-mix(in srgb, var(--page-color-companion) 10%, transparent)
+  );
+}
+
+html[data-bs-theme="light"] .navbar-toggler:hover,
+html[data-bs-theme="light"] .navbar-toggler:focus-visible,
+html[data-bs-theme="light"] .navbar-toggler[aria-expanded="true"] {
+  color: color-mix(in srgb, var(--page-color) 80%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 36%,
+    rgba(15, 23, 42, 0.14)
+  );
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--page-color) 10%, #ffffff),
+      #ffffff
+    ),
+    #ffffff;
+}
+
+html[data-bs-theme="light"] .navbar-toggler:focus {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 0 0 0.18rem color-mix(in srgb, var(--page-color) 18%, transparent);
+}
+
+html[data-bs-theme="light"] .navbar-toggler:focus:not(:focus-visible) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 0.36rem 0.84rem rgba(15, 23, 42, 0.08);
 }
 
 html[data-bs-theme="light"] .guide-theme-menu {
   border-color: color-mix(
     in srgb,
-    var(--guide-accent-purple) 34%,
+    var(--page-color-companion) 34%,
     rgba(15, 23, 42, 0.1)
   );
   background: linear-gradient(
@@ -287,23 +388,12 @@ html[data-bs-theme="light"] .guide-theme-menu .dropdown-item:hover,
 html[data-bs-theme="light"] .guide-theme-menu .dropdown-item:focus-visible,
 html[data-bs-theme="light"] .guide-theme-menu .dropdown-item.active {
   color: #111827;
-  background: color-mix(in srgb, var(--guide-accent-purple) 24%, transparent);
+  background: color-mix(in srgb, var(--page-color-companion) 24%, transparent);
 }
 
 html[data-bs-theme="light"] .guide-hero.text-white,
 html[data-bs-theme="light"] .guide-page-hero.text-white {
   color: var(--guide-text) !important;
-}
-
-html[data-bs-theme="light"] .guide-hero {
-  background:
-    url("../../img/web-platform-core.svg") right 8% center / min(34rem, 46vw)
-      no-repeat,
-    #ffffff;
-  border-bottom-color: var(--guide-border);
-  box-shadow:
-    inset 0 -1px 0 rgba(15, 23, 42, 0.12),
-    inset 0 -5rem 8rem rgba(15, 23, 42, 0.025);
 }
 
 html[data-bs-theme="light"] .guide-hero::before {
@@ -326,42 +416,208 @@ html[data-bs-theme="light"] .guide-page-hero .lead {
 html[data-bs-theme="light"] .guide-hero .badge.text-bg-light {
   color: #1c2430 !important;
   background:
-    linear-gradient(135deg, rgba(138, 82, 0, 0.15), transparent 58%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 15%, transparent),
+      transparent 58%
+    ),
     rgba(255, 255, 255, 0.86) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
     0 0.8rem 1.8rem rgba(15, 23, 42, 0.13);
 }
 
-html[data-bs-theme="light"] .guide-hero .card,
-html[data-bs-theme="light"] .guide-hero .card.bg-dark.text-white {
+html[data-bs-theme="light"] .guide-hero__scroll-cue {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 34%,
+    rgba(15, 23, 42, 0.14)
+  );
+  background:
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(255, 255, 255, 0.92),
+      transparent 36%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--page-color) 15%, transparent),
+      color-mix(in srgb, var(--page-color-companion) 9%, transparent) 58%,
+      color-mix(in srgb, var(--page-color-support) 12%, transparent)
+    ),
+    rgba(255, 255, 255, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -0.7rem 1rem rgba(15, 23, 42, 0.04),
+    0 0.86rem 1.9rem rgba(15, 23, 42, 0.15);
+}
+
+html[data-bs-theme="light"] .guide-hero__scroll-cue::before {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 26%,
+    rgba(15, 23, 42, 0.12)
+  );
+  box-shadow: 0 0 0 0.14rem
+    color-mix(in srgb, var(--page-color) 8%, transparent);
+}
+
+html[data-bs-theme="light"] .guide-hero__scroll-cue .bi {
+  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+  text-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-hero__scroll-cue:hover,
+html[data-bs-theme="light"] .guide-hero__scroll-cue:focus-visible {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 32%,
+    rgba(15, 23, 42, 0.16)
+  );
+  background:
+    radial-gradient(
+      circle at 50% 28%,
+      rgba(255, 255, 255, 0.98),
+      transparent 36%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--page-color) 19%, transparent),
+      color-mix(in srgb, var(--page-color-companion) 12%, transparent) 58%,
+      color-mix(in srgb, var(--page-color-support) 15%, transparent)
+    ),
+    rgba(255, 255, 255, 0.96);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -0.7rem 1rem rgba(15, 23, 42, 0.05),
+    0 0.96rem 2.05rem rgba(15, 23, 42, 0.18);
+}
+
+html[data-bs-theme="light"] .guide-hero__scroll-cue:hover .bi,
+html[data-bs-theme="light"] .guide-hero__scroll-cue:focus-visible .bi {
+  color: color-mix(in srgb, var(--page-color) 84%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-hero .card {
   color: var(--guide-text) !important;
   border-color: rgba(15, 23, 42, 0.18) !important;
+  background: var(--guide-light-surface) !important;
+  box-shadow: var(--guide-light-shadow) !important;
+}
+
+html[data-bs-theme="light"] .guide-start-panel {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-start-panel__eyebrow {
+  color: var(--page-accent-primary-text);
+}
+
+html[data-bs-theme="light"] .guide-start-panel h2 {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-start-panel__header p {
+  color: rgba(23, 32, 51, 0.74);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__route a {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--start-route-tone) 32%,
+    rgba(15, 23, 42, 0.13)
+  );
   background:
     linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(231, 239, 246, 0.96)
+      145deg,
+      color-mix(in srgb, var(--start-route-tone) 7%, transparent),
+      rgba(255, 255, 255, 0.82) 58%
     ),
-    rgba(255, 255, 255, 0.9) !important;
+    rgba(255, 255, 255, 0.72);
   box-shadow:
-    0 1.4rem 3rem rgba(15, 23, 42, 0.18),
-    0 0 2rem rgba(8, 120, 142, 0.13),
-    inset 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 0.62rem 1.25rem rgba(15, 23, 42, 0.08);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__route a:hover,
+html[data-bs-theme="light"] .guide-start-panel__route a:focus-visible {
+  color: #111827;
+  border-color: color-mix(
+    in srgb,
+    var(--start-route-tone) 50%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--start-route-tone) 10%, transparent),
+      rgba(255, 255, 255, 0.9) 58%
+    ),
+    rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 0.72rem 1.45rem rgba(15, 23, 42, 0.1);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__step,
+html[data-bs-theme="light"] .guide-start-panel__icon {
+  color: color-mix(in srgb, var(--start-route-tone) 74%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__icon {
+  background: color-mix(in srgb, var(--start-route-tone) 8%, #ffffff);
+  box-shadow: 0 0 0 1px
+    color-mix(in srgb, var(--start-route-tone) 20%, transparent);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__copy small {
+  color: rgba(23, 32, 51, 0.62);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__diagnostic {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 22%,
+    rgba(15, 23, 42, 0.13)
+  );
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color-companion) 9%, transparent),
+      color-mix(in srgb, var(--page-color) 7%, transparent)
+    ),
+    rgba(255, 255, 255, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 0.74rem 1.35rem rgba(15, 23, 42, 0.08);
+}
+
+html[data-bs-theme="light"] .guide-start-panel__diagnostic:hover,
+html[data-bs-theme="light"] .guide-start-panel__diagnostic:focus-visible {
+  color: #111827;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 34%,
+    rgba(15, 23, 42, 0.14)
+  );
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-color-companion) 12%, transparent),
+      color-mix(in srgb, var(--page-color) 9%, transparent)
+    ),
+    rgba(255, 255, 255, 0.86);
 }
 
 html[data-bs-theme="light"] .guide-hero .flow-rail li {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(221, 232, 240, 0.9)
-    ),
-    rgba(255, 255, 255, 0.9);
+  background: var(--guide-light-surface);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.78),
-    inset 3px 0 0 color-mix(in srgb, var(--rail-color) 64%, transparent),
-    0 0.4rem 1rem rgba(15, 23, 42, 0.12);
+    inset 3px 0 0 color-mix(in srgb, var(--rail-color) 42%, transparent),
+    var(--guide-light-shadow);
 }
 
 html[data-bs-theme="light"] .guide-hero .flow-rail li::before,
@@ -384,9 +640,7 @@ html[data-bs-theme="light"] .flow-rail li::before {
       color-mix(in srgb, var(--rail-color) 68%, #ffffff),
       var(--rail-color)
     );
-  box-shadow:
-    0 0 0 2px rgba(255, 255, 255, 0.96),
-    0 0 0 3px var(--rail-glow);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.96);
 }
 
 html[data-bs-theme="light"] .guide-hero .flow-rail li::before {
@@ -413,14 +667,14 @@ html[data-bs-theme="light"] .guide-hero .flow-rail li::before {
 html[data-bs-theme="light"] .guide-page-hero,
 html[data-bs-theme="light"] body[class*="guide-page--"] .guide-page-hero {
   background: #ffffff;
-  border-bottom-color: color-mix(in srgb, var(--page-color) 28%, transparent);
+  border-bottom-color: var(--page-border-secondary);
   box-shadow:
-    inset 0 -3px 0 color-mix(in srgb, var(--page-color) 22%, transparent),
+    inset 0 -3px 0 var(--page-border-primary),
     0 1.2rem 2.5rem rgba(15, 23, 42, 0.08);
 }
 
 html[data-bs-theme="light"] body[class*="guide-page--"] .guide-page-hero h1 {
-  text-shadow: 0 0 24px color-mix(in srgb, var(--page-color) 12%, transparent);
+  text-shadow: none;
 }
 
 html[data-bs-theme="light"] .guide-page-hero .breadcrumb {
@@ -437,59 +691,81 @@ html[data-bs-theme="light"] .guide-page-hero .breadcrumb-item.active {
 }
 
 html[data-bs-theme="light"] .card,
-html[data-bs-theme="light"] .accordion-item,
-html[data-bs-theme="light"] .list-group-item {
+html[data-bs-theme="light"] .accordion-item {
   color: var(--guide-text);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.99),
-    rgba(231, 239, 246, 0.98)
-  );
+  background: var(--guide-light-surface);
   border-color: var(--guide-border-soft);
+  box-shadow: var(--guide-light-shadow);
 }
 
-html[data-bs-theme="light"] .shadow,
 html[data-bs-theme="light"] .shadow-sm {
   box-shadow: 0 0.8rem 2rem rgba(15, 23, 42, 0.16) !important;
 }
 
+html[data-bs-theme="light"] .guide-section > .card,
+html[data-bs-theme="light"] .guide-section > .card.border-0 {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 html[data-bs-theme="light"] .guide-sidebar > .card,
 html[data-bs-theme="light"] body[class*="guide-page--"] .guide-sidebar > .card {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 8%, transparent),
-      color-mix(in srgb, var(--page-color-companion) 9%, transparent)
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.99),
-      rgba(221, 232, 240, 0.97)
-    ) !important;
-  box-shadow:
-    0 0.7rem 1.4rem rgba(15, 23, 42, 0.14),
-    0 0 0 1px color-mix(in srgb, var(--page-color) 16%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  background: var(--guide-light-surface) !important;
+  box-shadow: var(--guide-light-shadow) !important;
 }
 
 html[data-bs-theme="light"] .guide-nav .nav-link {
   color: var(--guide-muted);
 }
 
+html[data-bs-theme="light"] .guide-sidebar__tree-collapse {
+  background:
+    linear-gradient(
+      180deg,
+      var(--page-surface-secondary),
+      var(--page-surface-support)
+    ),
+    var(--guide-light-surface);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+html[data-bs-theme="light"] .guide-nav .guide-nav-link--flow::before {
+  box-shadow:
+    -0.18rem 0 0
+      color-mix(in srgb, var(--page-color-companion) 58%, transparent),
+    0.18rem 0 0 color-mix(in srgb, var(--page-color-support) 54%, transparent);
+}
+
+html[data-bs-theme="light"] .guide-nav .guide-nav-link--practice::before {
+  box-shadow: -0.04rem 0.04rem 0
+    color-mix(in srgb, var(--page-color-companion) 22%, transparent);
+}
+
 html[data-bs-theme="light"]
-  .guide-page--tools
-  .guide-nav
-  .guide-nav-link--section {
-  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+  body[class*="guide-page--"]
+  .guide-nav--tree
+  .guide-nav-link--has-children.is-child-active {
+  color: var(--page-accent-secondary-text);
+  border-left-color: var(--page-border-secondary);
+  background: var(--page-surface-secondary);
+}
+
+html[data-bs-theme="light"] .guide-nav .guide-nav-link--section {
+  color: var(--page-accent-support-text);
   border-left-color: transparent;
   background: transparent;
 }
 
-html[data-bs-theme="light"]
-  .guide-page--tools
-  .guide-nav
-  .guide-nav-link--section::before {
-  background: color-mix(in srgb, var(--page-color) 42%, transparent);
+html[data-bs-theme="light"] .guide-nav .guide-nav-link--section::before {
+  background:
+    radial-gradient(
+      circle at 34% 28%,
+      rgba(255, 255, 255, 0.78),
+      transparent 44%
+    ),
+    var(--page-surface-support);
+  box-shadow: 0 0 0 2px #f3f7fb;
 }
 
 html[data-bs-theme="light"] .guide-nav .nav-link:hover,
@@ -502,8 +778,8 @@ html[data-bs-theme="light"]
   body[class*="guide-page--"]
   .guide-nav
   .nav-link.active {
-  color: color-mix(in srgb, var(--page-color) 88%, #111827);
-  background: color-mix(in srgb, var(--page-color) 18%, transparent);
+  color: var(--page-accent-primary-text);
+  background: var(--page-surface-secondary);
 }
 
 html[data-bs-theme="light"]
@@ -513,62 +789,113 @@ html[data-bs-theme="light"]
   color: #111827;
 }
 
-html[data-bs-theme="light"] .guide-checklist li,
 html[data-bs-theme="light"] .guide-callout,
 html[data-bs-theme="light"] .guide-crosslink,
-html[data-bs-theme="light"] .flow-rail li,
 html[data-bs-theme="light"] .env-table-wrap {
   color: var(--guide-text);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 10%, transparent),
-      rgba(255, 255, 255, 0.78)
-    ),
-    rgba(255, 255, 255, 0.9);
+  background: var(--guide-light-surface);
   border-color: color-mix(
     in srgb,
-    var(--page-color) 28%,
+    var(--page-color-support) 24%,
     rgba(15, 23, 42, 0.18)
+  );
+}
+
+html[data-bs-theme="light"] .guide-checklist li {
+  color: var(--guide-text);
+}
+
+html[data-bs-theme="light"] .env-table-wrap {
+  border-top-color: transparent;
+  border-right: 0;
+  border-bottom-color: transparent;
+  border-left: 0;
+  border-radius: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    var(--guide-light-surface) 1.35rem,
+    var(--guide-light-surface) calc(100% - 1.35rem),
+    transparent 100%
   );
 }
 
 html[data-bs-theme="light"] .guide-crosslink {
   color: rgba(23, 32, 51, 0.82);
+  background: var(--page-surface-secondary);
 }
 
 html[data-bs-theme="light"] .guide-callout--structured {
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 28%,
-    rgba(15, 23, 42, 0.13)
-  );
-  border-left-color: color-mix(in srgb, var(--page-color) 68%, transparent);
-  background:
-    radial-gradient(
-      ellipse at 100% 0%,
-      color-mix(in srgb, var(--page-color) 10%, transparent),
-      transparent 18rem
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--page-color) 7%, transparent),
-      transparent 48%
-    ),
-    #ffffff;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0.65rem 1.25rem rgba(15, 23, 42, 0.08);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 html[data-bs-theme="light"] .guide-callout--structured p {
   color: rgba(23, 32, 51, 0.78);
 }
 
+html[data-bs-theme="light"] .guide-callout--responsibility-map {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"]
+  .guide-callout--responsibility-map
+  .guide-callout__eyebrow {
+  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+}
+
+html[data-bs-theme="light"]
+  .guide-callout--responsibility-map
+  .guide-callout__title {
+  color: color-mix(in srgb, var(--page-color) 74%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__layer::before {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--responsibility-tone) 28%, transparent),
+    rgba(255, 255, 255, 0.82),
+    transparent
+  );
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__badge {
+  color: color-mix(in srgb, var(--responsibility-tone) 72%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--responsibility-tone) 42%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__summary h3 {
+  color: color-mix(in srgb, var(--responsibility-tone) 74%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__paths li {
+  border-top-color: rgba(15, 23, 42, 0.09);
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__paths li:first-child {
+  border-top-color: transparent;
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__paths strong {
+  color: color-mix(in srgb, var(--responsibility-tone) 76%, #172033);
+}
+
 html[data-bs-theme="light"] .guide-callout__eyebrow,
-html[data-bs-theme="light"] .guide-key-grid strong,
+html[data-bs-theme="light"] .guide-rule-strip strong,
 html[data-bs-theme="light"] .guide-command-stack strong {
-  color: color-mix(in srgb, var(--page-color) 76%, #172033);
+  color: var(--page-accent-secondary-text);
 }
 
 html[data-bs-theme="light"] .guide-callout__title {
@@ -580,91 +907,252 @@ html[data-bs-theme="light"]
   > .card
   > .card-body
   > h2:first-child {
-  color: color-mix(in srgb, var(--page-color) 76%, #172033);
+  color: var(--page-accent-primary-text);
 }
 
-html[data-bs-theme="light"] .guide-subsection {
-  border-color: color-mix(
+html[data-bs-theme="light"] .guide-use-compass__list::before {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--page-color) 58%, rgba(15, 23, 42, 0.12)),
+    color-mix(in srgb, var(--page-color-companion) 48%, rgba(15, 23, 42, 0.1))
+      56%,
+    color-mix(in srgb, var(--page-color-support) 40%, rgba(15, 23, 42, 0.08))
+  );
+}
+
+html[data-bs-theme="light"] .guide-use-compass__item {
+  border-bottom-color: color-mix(
     in srgb,
-    var(--page-color) 24%,
+    var(--page-color-support) 20%,
     rgba(15, 23, 42, 0.1)
   );
-  border-left-color: color-mix(in srgb, var(--page-color) 74%, #d0d7e2);
+}
+
+html[data-bs-theme="light"] .guide-use-compass__item::before {
+  background: var(--guide-light-surface);
+}
+
+html[data-bs-theme="light"] .guide-use-compass__marker {
+  color: #ffffff;
   background:
     linear-gradient(
       135deg,
-      color-mix(in srgb, var(--page-color) 7%, transparent),
-      transparent 46%
+      color-mix(in srgb, var(--page-color) 82%, #111827),
+      var(--page-color)
     ),
-    rgba(255, 255, 255, 0.82);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.88),
-    0 0.45rem 1rem rgba(15, 23, 42, 0.07);
+    var(--page-color);
 }
 
-html[data-bs-theme="light"] .guide-subsection > h3:first-child,
-html[data-bs-theme="light"] .guide-subsection > h4:first-child {
-  color: color-mix(in srgb, var(--page-color) 74%, #172033);
-}
-
-html[data-bs-theme="light"] .guide-key-grid li {
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 24%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--page-color) 7%, transparent),
-      transparent 55%
-    ),
-    rgba(255, 255, 255, 0.78);
-}
-
-html[data-bs-theme="light"] .guide-key-grid span,
-html[data-bs-theme="light"] .guide-key-grid small {
-  color: rgba(23, 32, 51, 0.72);
-}
-
-html[data-bs-theme="light"] .guide-key-grid code {
+html[data-bs-theme="light"] .guide-use-compass__body h3 {
   color: color-mix(in srgb, var(--page-color) 72%, #172033);
-  background: transparent;
-  box-shadow: none;
 }
 
-html[data-bs-theme="light"] .guide-command-stack code {
-  color: #6f4200;
+html[data-bs-theme="light"] .guide-use-compass__body p {
+  color: #4f5f6f;
+}
+
+html[data-bs-theme="light"] .guide-use-compass__links a {
+  color: color-mix(in srgb, var(--page-color-companion) 82%, #172033);
   border-color: color-mix(
     in srgb,
-    var(--page-color) 22%,
+    var(--page-color-companion) 26%,
+    rgba(15, 23, 42, 0.1)
+  );
+  border-left-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 48%,
     rgba(15, 23, 42, 0.12)
   );
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--page-color) 8%, transparent),
-    rgba(255, 255, 255, 0.82)
+    color-mix(in srgb, var(--page-color-companion) 9%, #ffffff),
+    color-mix(in srgb, var(--page-color-support) 5%, #ffffff)
   );
+}
+
+html[data-bs-theme="light"] .guide-use-compass__links a::after {
+  color: color-mix(in srgb, var(--page-color-companion) 74%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 28%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    radial-gradient(
+      circle at 34% 28%,
+      rgba(255, 255, 255, 0.85),
+      transparent 0.42rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color-companion) 14%, #ffffff),
+      color-mix(in srgb, var(--page-color) 8%, #ffffff)
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.82),
+    0 0.3rem 0.68rem rgba(15, 23, 42, 0.12);
+}
+
+html[data-bs-theme="light"] .guide-use-compass__links a:hover,
+html[data-bs-theme="light"] .guide-use-compass__links a:focus-visible {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 40%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--page-color-companion) 14%, #ffffff),
+    color-mix(in srgb, var(--page-color) 7%, #ffffff)
+  );
+}
+
+html[data-bs-theme="light"] .guide-section--flow > .card {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-bs-theme="light"]
+  .guide-section--flow
+  > .card
+  > .card-body
+  > h2:first-child {
+  color: color-mix(in srgb, var(--page-color-companion) 74%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-subsection {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-callout--structured.guide-subsection--flow {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-subsection > h3:first-child,
+html[data-bs-theme="light"] .guide-subsection > h4:first-child {
+  color: var(--page-accent-secondary-text);
+}
+
+html[data-bs-theme="light"] .guide-rule-strip {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-support) 26%,
+    rgba(15, 23, 42, 0.12)
+  );
+}
+
+html[data-bs-theme="light"] .guide-rule-strip li {
+  border-block-end-color: color-mix(
+    in srgb,
+    var(--page-color-support) 18%,
+    rgba(15, 23, 42, 0.1)
+  );
+}
+
+html[data-bs-theme="light"] .guide-rule-strip span,
+html[data-bs-theme="light"] .guide-rule-strip small {
+  color: rgba(23, 32, 51, 0.72);
+}
+
+html[data-bs-theme="light"] .guide-rule-strip a:not(.btn) {
+  color: var(--page-accent-secondary-text);
+}
+
+html[data-bs-theme="light"] .guide-rule-strip a:not(.btn):hover,
+html[data-bs-theme="light"] .guide-rule-strip a:not(.btn):focus-visible {
+  color: #111827;
+}
+
+html[data-bs-theme="light"] .guide-signature-lane__eyebrow {
+  color: color-mix(in srgb, var(--signature-lane-color) 76%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-signature-lane__title {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-signature-lane__summary {
+  color: rgba(23, 32, 51, 0.72);
+}
+
+html[data-bs-theme="light"] .guide-signature-lane__summary code {
+  color: var(--page-accent-secondary-text);
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"]
+  .guide-signature-item__detail
+  dd:not(.guide-signature-item__example)
+  code {
+  color: var(--page-accent-secondary-text);
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-signature-item__signature pre,
+html[data-bs-theme="light"]
+  .guide-signature-item__signature
+  pre[class*="language-"] {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--signature-lane-color) 22%,
+    rgba(15, 23, 42, 0.12)
+  ) !important;
+  background: var(--guide-light-surface-soft) !important;
+  box-shadow: none !important;
+}
+
+html[data-bs-theme="light"] .guide-signature-item__signature code,
+html[data-bs-theme="light"]
+  .guide-signature-item__signature
+  code[class*="language-"] {
+  color: #172033;
+  background: transparent !important;
+}
+
+html[data-bs-theme="light"] .guide-signature-item__detail dd {
+  color: rgba(23, 32, 51, 0.76);
+}
+
+html[data-bs-theme="light"] .guide-command-stack code {
+  color: var(--page-accent-secondary-text);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-support) 22%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: var(--guide-light-surface-soft);
   box-shadow: none;
 }
 
 html[data-bs-theme="light"] .guide-mini-map li {
   border-color: color-mix(
     in srgb,
-    var(--card-color, var(--page-color)) 24%,
+    var(--card-color, var(--page-color-support)) 22%,
     rgba(15, 23, 42, 0.12)
   );
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--card-color, var(--page-color)) 8%, transparent),
-      transparent 58%
-    ),
-    rgba(255, 255, 255, 0.74);
+  background: var(--guide-light-surface-soft);
+}
+
+html[data-bs-theme="light"] .guide-mini-map--compact > li {
+  border: 0;
+  background: transparent;
 }
 
 html[data-bs-theme="light"] .guide-mini-map strong {
-  color: color-mix(in srgb, var(--card-color, var(--page-color)) 76%, #172033);
+  color: color-mix(
+    in srgb,
+    var(--card-color, var(--page-color-companion)) 72%,
+    #172033
+  );
 }
 
 html[data-bs-theme="light"] .guide-mini-map span,
@@ -674,12 +1162,34 @@ html[data-bs-theme="light"] .guide-mini-map code {
   box-shadow: none;
 }
 
-html[data-bs-theme="light"] .guide-crosslink a {
-  color: color-mix(in srgb, var(--page-color) 72%, #1c2430);
+html[data-bs-theme="light"] .guide-mini-map .guide-mini-map__tag,
+html[data-bs-theme="light"] .guide-rule-strip .guide-rule-strip__chip {
+  color: rgba(23, 32, 51, 0.78);
+  border-color: color-mix(
+    in srgb,
+    var(--card-color, var(--page-color-support)) 20%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(
+    in srgb,
+    var(--card-color, var(--page-color-support)) 6%,
+    rgba(255, 255, 255, 0.84)
+  );
+}
+
+html[data-bs-theme="light"] .guide-crosslink a,
+html[data-bs-theme="light"] .guide-section .card-body p a:not(.btn) {
+  color: var(--page-accent-secondary-text);
 }
 
 html[data-bs-theme="light"] .guide-crosslink a:hover,
-html[data-bs-theme="light"] .guide-crosslink a:focus-visible {
+html[data-bs-theme="light"] .guide-crosslink a:focus-visible,
+html[data-bs-theme="light"] .guide-section .card-body p a:not(.btn):hover,
+html[data-bs-theme="light"]
+  .guide-section
+  .card-body
+  p
+  a:not(.btn):focus-visible {
   color: #111827;
 }
 
@@ -690,8 +1200,8 @@ html[data-bs-theme="light"]
   .card-body
   > ul
   a:not(.btn) {
-  color: color-mix(in srgb, var(--page-color) 72%, #1c2430);
-  border-bottom-color: color-mix(in srgb, var(--page-color) 34%, transparent);
+  color: var(--page-accent-secondary-text);
+  border-bottom-color: var(--page-border-secondary);
 }
 
 html[data-bs-theme="light"]
@@ -709,19 +1219,31 @@ html[data-bs-theme="light"]
   > ul
   a:not(.btn):focus-visible {
   color: #111827;
-  border-bottom-color: color-mix(in srgb, var(--page-color) 72%, transparent);
+  border-bottom-color: var(--page-border-primary);
 }
 
 html[data-bs-theme="light"] :not(pre) > code {
-  color: #6f4200;
-  background: rgba(138, 82, 0, 0.072);
-  box-shadow: inset 0 -1px 0 rgba(138, 82, 0, 0.16);
+  color: var(--page-accent-secondary-text);
 }
 
-html[data-bs-theme="light"] .guide-key-grid code,
-html[data-bs-theme="light"] .guide-callout--structured .guide-key-grid code {
-  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+html[data-bs-theme="light"] .guide-rule-strip > li > code {
+  color: var(--page-accent-secondary-text);
   background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-responsibility-map__paths li code {
+  color: rgba(23, 32, 51, 0.78);
+  border-color: color-mix(
+    in srgb,
+    var(--responsibility-tone) 22%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(
+    in srgb,
+    var(--responsibility-tone) 6%,
+    rgba(255, 255, 255, 0.84)
+  );
   box-shadow: none;
 }
 
@@ -735,32 +1257,29 @@ html[data-bs-theme="light"]
   .guide-callout--structured
   .guide-command-stack
   code {
-  color: #6f4200;
+  color: var(--page-accent-secondary-text);
   border-color: color-mix(
     in srgb,
-    var(--page-color) 22%,
+    var(--page-color-support) 22%,
     rgba(15, 23, 42, 0.12)
   );
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--page-color) 8%, transparent),
-    rgba(255, 255, 255, 0.82)
-  );
+  background: var(--guide-light-surface-soft);
   box-shadow: none;
 }
 
-html[data-bs-theme="light"] .guide-term {
-  color: color-mix(in srgb, var(--page-color) 42%, var(--guide-text));
+html[data-bs-theme="light"] .guided-put .guide-term {
+  color: var(--page-accent-support-text);
   box-shadow: inset 0 -1px 0
-    rgb(from color-mix(in srgb, var(--page-color) 85%, black) r g b / 0.1);
+    rgb(
+      from color-mix(in srgb, var(--page-color-support) 82%, black) r g b / 0.1
+    );
   background: rgb(
-    from color-mix(in srgb, var(--page-color) 85%, black) r g b / 0.1
+    from color-mix(in srgb, var(--page-color-support) 82%, black) r g b / 0.1
   );
 }
 
-html[data-bs-theme="light"] .guide-hero code,
-html[data-bs-theme="light"] .guide-hero .guide-term {
-  color: var(--guide-accent-strong);
+html[data-bs-theme="light"] .guide-hero code {
+  color: var(--page-accent-primary-text);
   background: transparent;
   border: 0;
   border-radius: 0;
@@ -770,25 +1289,305 @@ html[data-bs-theme="light"] .guide-hero .guide-term {
 
 html[data-bs-theme="light"] .table-guide {
   --bs-table-color: var(--guide-text);
-  --bs-table-striped-bg: rgba(8, 120, 142, 0.1);
   --bs-table-striped-color: var(--guide-text);
   --bs-table-border-color: var(--guide-border-soft);
 }
 
 html[data-bs-theme="light"] .table-guide thead th,
 html[data-bs-theme="light"] .markdown-viewer th {
-  color: color-mix(in srgb, var(--page-color) 74%, #111827);
-  background: color-mix(in srgb, var(--page-color) 18%, #ffffff);
+  color: var(--page-accent-secondary-text);
+  background: var(--guide-table-head-bg);
 }
 
+html[data-bs-theme="light"] .table-guide > :not(caption) > * > *,
+html[data-bs-theme="light"] .env-table > :not(caption) > * > *,
 html[data-bs-theme="light"] .env-table thead th,
-html[data-bs-theme="light"] .env-table__group td {
-  color: color-mix(in srgb, var(--page-color) 62%, #1c2430);
+html[data-bs-theme="light"] .markdown-viewer th,
+html[data-bs-theme="light"] .markdown-viewer td {
+  border-bottom-color: transparent;
+  border-bottom-width: 0;
+}
+
+html[data-bs-theme="light"] .table-guide thead th:first-child,
+html[data-bs-theme="light"] .env-table thead th:first-child,
+html[data-bs-theme="light"] .markdown-viewer th:first-child {
+  border-bottom-color: transparent;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--page-color) 10%, rgba(255, 255, 255, 0.72)),
-    rgba(255, 255, 255, 0.72)
+    transparent 0,
+    var(--guide-table-head-bg) var(--guide-table-edge-fade),
+    var(--guide-table-head-bg)
+  );
+}
+
+html[data-bs-theme="light"] .table-guide thead th:last-child,
+html[data-bs-theme="light"] .env-table thead th:last-child,
+html[data-bs-theme="light"] .markdown-viewer th:last-child {
+  border-bottom-color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--guide-table-head-bg),
+    var(--guide-table-head-bg) calc(100% - var(--guide-table-edge-fade)),
+    transparent 100%
+  );
+}
+
+html[data-bs-theme="light"] .table-guide__group td {
+  color: var(--page-accent-support-text);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    var(--page-surface-support) 1.35rem,
+    color-mix(in srgb, var(--page-color-companion) 5%, #ffffff) 48%,
+    transparent 100%
   ) !important;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .capability-metro {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-support) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2.55rem,
+      rgba(15, 23, 42, 0.035) 2.59rem,
+      transparent 2.63rem
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 4.5rem,
+      rgba(15, 23, 42, 0.026) 4.54rem,
+      transparent 4.58rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 5%, #ffffff),
+      color-mix(in srgb, var(--page-color-support) 4%, #ffffff) 50%,
+      color-mix(in srgb, var(--page-color-companion) 4%, #ffffff)
+    ),
+    var(--guide-light-surface);
+  box-shadow: var(--guide-light-shadow);
+}
+
+html[data-bs-theme="light"] .capability-metro__legend-item {
+  color: color-mix(in srgb, var(--metro-line-color) 74%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--metro-line-color) 28%,
+    rgba(15, 23, 42, 0.1)
+  );
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--metro-line-color) 8%, #ffffff),
+      #ffffff
+    ),
+    var(--guide-light-surface-soft);
+}
+
+html[data-bs-theme="light"] .capability-metro__line-code {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--metro-line-color) 82%, #111827),
+      var(--metro-line-color)
+    ),
+    var(--metro-line-color);
+}
+
+html[data-bs-theme="light"] .capability-metro__line-head h3 {
+  color: color-mix(in srgb, var(--metro-line-color) 70%, #172033);
+}
+
+html[data-bs-theme="light"] .capability-metro__line-head p,
+html[data-bs-theme="light"] .capability-station__body p {
+  color: #4f5f6f;
+}
+
+html[data-bs-theme="light"] .capability-station__body {
+  border-color: color-mix(
+    in srgb,
+    var(--metro-line-color) 18%,
+    rgba(15, 23, 42, 0.1)
+  );
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--metro-line-color) 6%, #ffffff),
+      #ffffff 58%
+    ),
+    var(--guide-light-surface);
+}
+
+html[data-bs-theme="light"] .capability-station__flow div {
+  border-left-color: color-mix(
+    in srgb,
+    var(--metro-line-color) 40%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(
+    in srgb,
+    var(--metro-line-color) 6%,
+    var(--guide-light-surface-soft)
+  );
+}
+
+html[data-bs-theme="light"] .capability-station__flow dt {
+  color: color-mix(in srgb, var(--metro-line-color) 74%, #172033);
+}
+
+html[data-bs-theme="light"] .capability-station__flow dd {
+  color: var(--page-accent-support-text);
+}
+
+html[data-bs-theme="light"] .capability-station__body a {
+  color: color-mix(in srgb, var(--metro-line-color) 80%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--metro-line-color) 28%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(
+    in srgb,
+    var(--metro-line-color) 8%,
+    var(--guide-light-surface)
+  );
+}
+
+html[data-bs-theme="light"] .capability-station__body a::after {
+  color: color-mix(in srgb, var(--metro-line-color) 74%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--metro-line-color) 28%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    radial-gradient(
+      circle at 34% 28%,
+      rgba(255, 255, 255, 0.82),
+      transparent 0.4rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--metro-line-color) 14%, #ffffff),
+      color-mix(in srgb, var(--page-color) 7%, #ffffff)
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.78),
+    0 0.28rem 0.62rem rgba(15, 23, 42, 0.12);
+}
+
+html[data-bs-theme="light"] .capability-station__body a:hover,
+html[data-bs-theme="light"] .capability-station__body a:focus-visible {
+  color: #172033;
+  border-color: color-mix(
+    in srgb,
+    var(--metro-line-color) 46%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(
+    in srgb,
+    var(--metro-line-color) 14%,
+    var(--guide-light-surface)
+  );
+}
+
+html[data-bs-theme="light"] .env-table thead th {
+  color: var(--page-accent-support-text);
+  background: var(--guide-table-head-bg) !important;
+}
+
+html[data-bs-theme="light"] .env-table thead th:first-child {
+  border-bottom-color: transparent;
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    var(--guide-table-head-bg) var(--guide-table-edge-fade),
+    var(--guide-table-head-bg)
+  ) !important;
+}
+
+html[data-bs-theme="light"] .env-table thead th:last-child {
+  border-bottom-color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--guide-table-head-bg),
+    var(--guide-table-head-bg) calc(100% - var(--guide-table-edge-fade)),
+    transparent 100%
+  ) !important;
+}
+
+html[data-bs-theme="light"] .env-session-flow {
+  border-color: var(--page-border-support);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 4.4rem,
+      rgba(15, 23, 42, 0.018) 4.44rem,
+      transparent 4.48rem
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--page-color) 6%, #ffffff),
+      color-mix(in srgb, var(--page-color-support) 5%, #ffffff) 52%,
+      color-mix(in srgb, var(--page-color-companion) 5%, #ffffff)
+    );
+}
+
+html[data-bs-theme="light"] .env-subsection--minimum {
+  background: transparent;
+}
+
+html[data-bs-theme="light"] .guide-minimum-point {
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-support) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: rgba(255, 255, 255, 0.7);
+}
+
+html[data-bs-theme="light"] .guide-minimum-point i {
+  color: color-mix(in srgb, var(--page-color) 72%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(in srgb, var(--page-color) 9%, #ffffff);
+}
+
+html[data-bs-theme="light"] .guide-minimum-point strong {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-minimum-point span,
+html[data-bs-theme="light"] .guide-minimum-note {
+  color: rgba(23, 32, 51, 0.68);
+}
+
+html[data-bs-theme="light"] .guide-minimum-point__label {
+  color: color-mix(in srgb, var(--page-color-support) 82%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-minimum-point__value {
+  color: rgba(23, 32, 51, 0.7);
+}
+
+html[data-bs-theme="light"] .env-session-flow li::before {
+  border-color: color-mix(in srgb, var(--page-color-companion) 68%, #172033);
+  background: #ffffff;
 }
 
 html[data-bs-theme="light"] .markdown-viewer table {
@@ -804,14 +1603,6 @@ html[data-bs-theme="light"] .mermaid-zoom__viewport {
 
 html[data-bs-theme="light"] .markdown-viewer pre code {
   color: var(--guide-text);
-}
-
-html[data-bs-theme="light"] .diagram-list::-webkit-scrollbar-track {
-  background: rgba(238, 243, 247, 0.82);
-}
-
-html[data-bs-theme="light"] .diagram-list::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--diagram-menu-color) 36%, #c7d7df);
 }
 
 html[data-bs-theme="light"]
@@ -832,56 +1623,8 @@ html[data-bs-theme="light"]
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-html[data-bs-theme="light"] .guide-hero .guide-action-btn {
-  text-shadow: none;
-}
-
-html[data-bs-theme="light"] .guide-action-btn--start {
-  color: #22170a;
-  border-color: rgba(178, 119, 20, 0.2) !important;
-  background: linear-gradient(135deg, #ffe58a 0%, #e9ac3f 100%), #e9ac3f;
-  box-shadow:
-    0 1rem 1.95rem rgba(15, 23, 42, 0.16),
-    0 0.3rem 0.82rem rgba(138, 82, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.42);
-}
-
-html[data-bs-theme="light"] .guide-action-btn--guides {
-  color: #172033;
-  border-color: rgba(36, 140, 160, 0.18) !important;
-  background: linear-gradient(135deg, #ffffff 0%, #dce7ed 100%), #dce7ed;
-  box-shadow:
-    0 0.95rem 1.8rem rgba(15, 23, 42, 0.14),
-    0 0.3rem 0.82rem rgba(36, 140, 160, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.78);
-}
-
-html[data-bs-theme="light"] .guide-action-btn--impact {
-  color: #241116;
-  border-color: rgba(183, 73, 75, 0.2) !important;
-  background: linear-gradient(135deg, #ffb98f 0%, #d95272 100%), #d95272;
-  box-shadow:
-    0 1rem 1.95rem rgba(15, 23, 42, 0.16),
-    0 0.3rem 0.82rem rgba(180, 35, 82, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.28);
-}
-
-html[data-bs-theme="light"] .guide-action-btn--start:hover,
-html[data-bs-theme="light"] .guide-action-btn--start:focus-visible,
-html[data-bs-theme="light"] .guide-action-btn--impact:hover,
-html[data-bs-theme="light"] .guide-action-btn--impact:focus-visible,
-html[data-bs-theme="light"] .guide-action-btn--guides:hover,
-html[data-bs-theme="light"] .guide-action-btn--guides:focus-visible {
-  color: #111827;
-  border-color: rgba(15, 23, 42, 0.24) !important;
-  box-shadow:
-    0 1.18rem 2.1rem rgba(15, 23, 42, 0.2),
-    0 0.34rem 0.9rem rgba(255, 255, 255, 0.72),
-    inset 0 1px 0 rgba(255, 255, 255, 0.58);
-}
-
 html[data-bs-theme="light"] .code-card {
-  border-color: rgba(8, 120, 142, 0.28);
+  border-color: var(--page-border-support);
   background: #f8fbff;
   box-shadow:
     0 0.85rem 1.8rem rgba(15, 23, 42, 0.14),
@@ -889,11 +1632,30 @@ html[data-bs-theme="light"] .code-card {
 }
 
 html[data-bs-theme="light"] .code-card__bar {
-  color: #12313d;
+  color: var(--page-accent-support-text);
   background:
-    linear-gradient(90deg, rgba(8, 120, 142, 0.15), rgba(180, 35, 82, 0.11)),
+    linear-gradient(
+      90deg,
+      var(--page-surface-support),
+      var(--page-surface-secondary)
+    ),
     #e5eef6;
-  border-bottom-color: rgba(8, 120, 142, 0.22);
+  border-bottom-color: var(--page-border-support);
+}
+
+html[data-bs-theme="light"] .code-card__bar .btn-outline-light {
+  color: var(--page-accent-secondary-text);
+  border-color: var(--page-border-secondary);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+html[data-bs-theme="light"] .code-card__bar .btn-outline-light:hover,
+html[data-bs-theme="light"] .code-card__bar .btn-outline-light:focus-visible {
+  color: var(--page-accent-primary-text);
+  border-color: var(--page-border-primary);
+  background: var(--page-surface-primary);
+  box-shadow: 0 0 0 0.16rem
+    color-mix(in srgb, var(--page-color) 18%, transparent);
 }
 
 html[data-bs-theme="light"] .code-card pre,
@@ -964,282 +1726,65 @@ html[data-bs-theme="light"] .env-default code {
   padding: 0;
 }
 
-html[data-bs-theme="light"] .process-map::before {
-  opacity: 0.86;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.7);
-}
-
-html[data-bs-theme="light"] .process-stage__marker {
-  color: #ffffff;
-  box-shadow:
-    0 0 0 5px #f3f7fb,
-    0 0 0 7px color-mix(in srgb, var(--process-color) 40%, transparent),
-    0 0.45rem 1rem rgba(15, 23, 42, 0.15);
-}
-
-html[data-bs-theme="light"] .process-stage__body {
-  border-color: color-mix(
+html[data-bs-theme="light"] .guide-quick-grid {
+  --quick-divider: color-mix(
     in srgb,
-    var(--process-color) 34%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--process-color) 15%, transparent),
-      transparent 46%
-    ),
-    linear-gradient(180deg, #ffffff, #e8f0f6);
-  box-shadow:
-    inset 4px 0 0 color-mix(in srgb, var(--process-color) 52%, transparent),
-    0 0.55rem 1.15rem rgba(15, 23, 42, 0.1);
-}
-
-html[data-bs-theme="light"] .process-stage__body p {
-  color: #4f5f6f;
-}
-
-html[data-bs-theme="light"] .process-chips li {
-  color: color-mix(in srgb, var(--process-color) 72%, #172033);
-  border-color: color-mix(
-    in srgb,
-    var(--process-color) 28%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--process-color) 12%, transparent),
-      transparent 50%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.96),
-      rgba(242, 247, 251, 0.94)
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0.42rem 0.86rem rgba(15, 23, 42, 0.08);
-}
-
-html[data-bs-theme="light"] .process-chips li::before {
-  color: color-mix(in srgb, var(--process-color) 72%, #172033);
-  border-color: color-mix(
-    in srgb,
-    var(--process-color) 34%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--process-color) 16%, #ffffff),
-    rgba(255, 255, 255, 0.84)
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 0.72rem color-mix(in srgb, var(--process-color) 12%, transparent);
-}
-
-html[data-bs-theme="light"] .ownership-pane,
-html[data-bs-theme="light"] .ownership-bridge {
-  border-color: rgba(15, 23, 42, 0.18);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.98),
-    rgba(229, 238, 246, 0.95)
-  );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0.65rem 1.25rem rgba(15, 23, 42, 0.11);
-}
-
-html[data-bs-theme="light"] .ownership-pane__label {
-  color: #ffffff;
-  box-shadow: 0 0.35rem 0.85rem rgba(15, 23, 42, 0.14);
-}
-
-html[data-bs-theme="light"] .ownership-pane li {
-  border-left-color: color-mix(
-    in srgb,
-    var(--page-color) 45%,
-    rgba(15, 23, 42, 0.16)
+    var(--page-color-support) 22%,
+    rgba(15, 23, 42, 0.1)
   );
 }
 
-html[data-bs-theme="light"] .ownership-bridge span {
-  color: #526173;
-}
-
-html[data-bs-theme="light"] .ownership-bridge strong {
-  color: #7d4a00;
-}
-
-html[data-bs-theme="light"] .guide-quick-item,
-html[data-bs-theme="light"] .file-map li {
-  border-color: rgba(15, 23, 42, 0.16);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--page-color) 8%, #ffffff),
-    #eef4f8
-  );
-  box-shadow: inset 3px 0 0
-    color-mix(in srgb, var(--page-color) 38%, transparent);
-}
-
-html[data-bs-theme="light"] .guide-quick-item h3 {
-  color: #7d4a00;
-}
-
-html[data-bs-theme="light"] .path-aliases {
-  border-color: rgba(8, 120, 142, 0.26);
-  background:
-    linear-gradient(135deg, rgba(8, 120, 142, 0.1), transparent 42%), #f6f9fc;
-  box-shadow: 0 0.7rem 1.35rem rgba(15, 23, 42, 0.1);
-}
-
-html[data-bs-theme="light"] .path-aliases__title {
-  color: #056f83;
-}
-
-html[data-bs-theme="light"] .path-aliases__note,
-html[data-bs-theme="light"] .path-aliases__grid dd {
-  color: #526173;
-}
-
-html[data-bs-theme="light"] .path-aliases__grid div {
-  border-color: rgba(15, 23, 42, 0.14);
-  background: linear-gradient(180deg, #ffffff, #edf4f8);
-}
-
-html[data-bs-theme="light"] .path-aliases__grid dt {
-  color: #7d4a00;
-}
-
-html[data-bs-theme="light"] .file-flow__item {
-  border-color: color-mix(
-    in srgb,
-    var(--file-flow-color) 34%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--file-flow-color) 13%, transparent),
-      transparent 38%
-    ),
-    linear-gradient(180deg, #ffffff, #e8f0f6);
-  box-shadow:
-    inset 4px 0 0 color-mix(in srgb, var(--file-flow-color) 46%, transparent),
-    0 0.6rem 1.2rem rgba(15, 23, 42, 0.1);
-}
-
-html[data-bs-theme="light"] .file-flow__marker {
-  color: #ffffff;
-  background: color-mix(in srgb, var(--file-flow-color) 88%, #172033);
-  box-shadow:
-    0 0 0 4px #f3f7fb,
-    0 0.55rem 1rem color-mix(in srgb, var(--file-flow-color) 24%, transparent);
-}
-
-html[data-bs-theme="light"] .file-flow__eyebrow,
-html[data-bs-theme="light"] .file-flow__path {
-  color: color-mix(in srgb, var(--file-flow-color) 82%, #172033);
-}
-
-html[data-bs-theme="light"] .file-flow__path {
-  border-color: color-mix(
-    in srgb,
-    var(--file-flow-color) 62%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--file-flow-color) 13%, #ffffff),
-    rgba(255, 255, 255, 0.72) 78%
-  );
+html[data-bs-theme="light"] .guide-quick-item {
+  background: transparent;
   box-shadow: none;
 }
 
-html[data-bs-theme="light"] .file-flow__body p {
-  color: #4f5f6f;
+html[data-bs-theme="light"] .guide-quick-item h3 {
+  color: color-mix(in srgb, var(--quick-tone) 72%, #172033);
 }
 
-html[data-bs-theme="light"] .file-flow__handoff {
-  border-color: color-mix(
-    in srgb,
-    var(--file-flow-color) 28%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background: #f8fbff;
-}
-
-html[data-bs-theme="light"] .file-flow__tool,
 html[data-bs-theme="light"] .guided-tool {
-  border-color: color-mix(
-    in srgb,
-    var(--file-flow-color, var(--page-color)) 24%,
-    rgba(15, 23, 42, 0.12)
-  );
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--file-flow-color, var(--page-color)) 10%, #ffffff),
-    #f8fbff 68%
-  );
+  background: none;
+  box-shadow: none;
 }
 
-html[data-bs-theme="light"] .file-flow__tool strong,
-html[data-bs-theme="light"] .guided-tool strong,
-html[data-bs-theme="light"] .file-flow__tool a,
+html[data-bs-theme="light"] .guided-tool strong {
+  color: color-mix(in srgb, var(--page-color-support) 64%, #475467);
+}
+
 html[data-bs-theme="light"] .guided-tool a {
-  color: color-mix(
-    in srgb,
-    var(--file-flow-color, var(--page-color)) 74%,
-    #172033
-  );
+  color: color-mix(in srgb, var(--page-color-companion) 70%, #172033);
 }
 
-html[data-bs-theme="light"] .file-flow__tool a:hover,
-html[data-bs-theme="light"] .file-flow__tool a:focus-visible,
 html[data-bs-theme="light"] .guided-tool a:hover,
 html[data-bs-theme="light"] .guided-tool a:focus-visible {
   color: #111827;
 }
 
-html[data-bs-theme="light"] body:not(.guide-page--tools) .file-flow__tool,
-html[data-bs-theme="light"] body:not(.guide-page--tools) .guided-tool {
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--file-flow-color, var(--page-color)) 7%, #ffffff),
-    #f8fbff 70%
-  );
-}
-
-html[data-bs-theme="light"]
-  body:not(.guide-page--tools)
-  .file-flow__tool
-  strong,
-html[data-bs-theme="light"]
-  body:not(.guide-page--tools)
-  .guided-tool
-  strong {
-  color: color-mix(
-    in srgb,
-    var(--file-flow-color, var(--page-color)) 58%,
-    #475467
-  );
-}
-
 html[data-bs-theme="light"] .guided-recipe {
-  border-color: rgba(138, 82, 0, 0.28);
-  background:
-    linear-gradient(135deg, rgba(138, 82, 0, 0.11), transparent 34%),
-    linear-gradient(180deg, #ffffff, #edf3f8);
-  box-shadow:
-    0 1rem 2rem rgba(15, 23, 42, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-support) 24%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: var(--guide-light-surface);
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guided-recipe.guide-subsection--practice {
+  border-left-color: var(--page-border-secondary);
+  background: var(--guide-light-surface);
+}
+
+html[data-bs-theme="light"]
+  .guided-recipe.guide-subsection.guide-subsection--practice {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 html[data-bs-theme="light"] .guided-recipe__eyebrow {
-  color: #7d4a00;
+  color: var(--page-accent-secondary-text);
 }
 
 html[data-bs-theme="light"] .guided-recipe__head p,
@@ -1248,59 +1793,78 @@ html[data-bs-theme="light"] .guided-put {
   color: #4f5f6f;
 }
 
-html[data-bs-theme="light"] .guided-step {
-  border-color: rgba(15, 23, 42, 0.16);
-  background: linear-gradient(180deg, #ffffff, #eef4f8);
-  box-shadow: 0 0.45rem 1rem rgba(15, 23, 42, 0.08);
-}
-
-html[data-bs-theme="light"] .guided-step::before {
-  color: #ffffff;
-  background: #a51d43;
-  box-shadow:
-    0 0 0 4px rgba(165, 29, 67, 0.12),
-    0 0.45rem 1rem rgba(165, 29, 67, 0.18);
-}
-
-html[data-bs-theme="light"] .guided-field {
-  border-color: rgba(15, 23, 42, 0.14);
-  background: #f7fbfe;
-}
-
-html[data-bs-theme="light"] .guided-file {
-  color: #056f83;
-  border-color: rgba(8, 120, 142, 0.42);
-  background: linear-gradient(
-    90deg,
-    rgba(8, 120, 142, 0.12),
-    rgba(255, 255, 255, 0.72) 78%
+html[data-bs-theme="light"] .guided-steps {
+  --guide-step-border: color-mix(
+    in srgb,
+    var(--page-color-support) 34%,
+    rgba(15, 23, 42, 0.12)
   );
+}
+
+html[data-bs-theme="light"] .guided-step {
+  border: 0;
+  background: none;
   box-shadow: none;
 }
 
+html[data-bs-theme="light"] .guided-step + .guided-step {
+  border-top: 1px solid var(--guide-step-border);
+}
+
+html[data-bs-theme="light"] .guided-step::before {
+  color: var(--page-accent-primary-text);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 42%,
+    rgba(15, 23, 42, 0.16)
+  );
+  background: color-mix(in srgb, var(--page-color) 8%, transparent);
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guided-step__body pre,
+html[data-bs-theme="light"] .guided-step__body pre[class*="language-"],
+html[data-bs-theme="light"] .guided-field pre,
+html[data-bs-theme="light"] .guided-field pre[class*="language-"] {
+  color: #172033;
+  border-color: var(--page-border-support) !important;
+  background: var(--guide-light-surface-soft) !important;
+  box-shadow: none !important;
+}
+
+html[data-bs-theme="light"] .guided-step__body pre code,
+html[data-bs-theme="light"] .guided-step__body pre code[class*="language-"],
+html[data-bs-theme="light"] .guided-field pre code,
+html[data-bs-theme="light"] .guided-field pre code[class*="language-"] {
+  color: #172033;
+  background: transparent !important;
+}
+
 html[data-bs-theme="light"] .guided-next {
-  color: #327a3d;
   background: transparent;
 }
 
-html[data-bs-theme="light"] .guided-put .guide-term,
-html[data-bs-theme="light"] .guided-result .guide-term {
-  color: color-mix(in srgb, var(--page-color) 42%, var(--guide-text));
+html[data-bs-theme="light"] .guide-checklist li::before {
+  color: color-mix(in srgb, var(--checklist-tone) 68%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--checklist-tone) 42%,
+    rgba(15, 23, 42, 0.14)
+  );
+  background:
+    radial-gradient(circle at 50% 50%, currentColor 0 42%, transparent 43%),
+    var(--guide-light-surface);
 }
 
-html[data-bs-theme="light"] .guide-checklist li::before {
-  background: #327a3d;
-  box-shadow:
-    0 0 0 3px #ffffff,
-    0 0 0 5px rgba(50, 122, 61, 0.22);
+html[data-bs-theme="light"] .guide-checklist li::after {
+  background: color-mix(in srgb, var(--checklist-tone) 20%, transparent);
 }
 
 html[data-bs-theme="light"] ol.guide-checklist > li::before {
-  color: #ffffff;
-  background: #5c45a5;
-  box-shadow:
-    0 0 0 3px #ffffff,
-    0 0 0 5px rgba(92, 69, 165, 0.2);
+  color: var(--guide-light-surface);
+  background:
+    radial-gradient(circle at 50% 50%, currentColor 0 42%, transparent 43%),
+    color-mix(in srgb, var(--checklist-tone) 68%, #172033);
 }
 
 @media (min-width: 1600px) {
@@ -1311,62 +1875,21 @@ html[data-bs-theme="light"] ol.guide-checklist > li::before {
   }
 }
 
-html[data-bs-theme="light"] .flow-rail li,
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .flow-rail:not(.flow-rail--spectrum)
-  li,
-html[data-bs-theme="light"] .flow-rail--spectrum li {
+html[data-bs-theme="light"] .flow-rail li {
   color: #172033;
   border-color: color-mix(
     in srgb,
-    var(--rail-color) 38%,
+    var(--page-color-support) 34%,
     rgba(15, 23, 42, 0.16)
   );
-  background:
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--rail-color) 18%, transparent),
-      transparent 34%
-    ),
-    linear-gradient(180deg, #ffffff 0%, #edf4f8 100%);
+  background: var(--guide-light-surface);
   box-shadow:
-    inset 3px 0 0 color-mix(in srgb, var(--rail-color) 84%, #172033),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    0 0.45rem 0.95rem rgba(15, 23, 42, 0.11),
-    0 0 0 1px rgba(255, 255, 255, 0.7);
+    inset 3px 0 0
+      color-mix(in srgb, var(--page-color-companion) 38%, transparent),
+    var(--guide-light-shadow);
 }
 
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .flow-rail:not(.flow-rail--spectrum)
-  li {
-  --rail-color: var(--page-color);
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 42%,
-    rgba(15, 23, 42, 0.16)
-  );
-  background:
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--page-color) 19%, transparent),
-      transparent 38%
-    ),
-    linear-gradient(180deg, #ffffff 0%, #eaf2f7 100%);
-  box-shadow:
-    inset 3px 0 0 color-mix(in srgb, var(--page-color) 88%, #172033),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    0 0.5rem 1rem rgba(15, 23, 42, 0.12),
-    0 0 0 1px rgba(255, 255, 255, 0.72);
-}
-
-html[data-bs-theme="light"] .flow-rail li::before,
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .flow-rail:not(.flow-rail--spectrum)
-  li::before,
-html[data-bs-theme="light"] .flow-rail--spectrum li::before {
+html[data-bs-theme="light"] .flow-rail li::before {
   border-color: color-mix(in srgb, var(--rail-color) 62%, #ffffff);
   background:
     radial-gradient(
@@ -1397,36 +1920,444 @@ html[data-bs-theme="light"] .flow-rail li > a:focus-visible {
   color: color-mix(in srgb, var(--rail-color) 84%, #172033);
 }
 
-html[data-bs-theme="light"] .concept-card {
+html[data-bs-theme="light"] .guide-quick-item .flow-rail li {
+  --rail-color: var(--quick-tone);
+
+  color: #475467;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-quick-item .flow-rail li::before {
+  color: color-mix(in srgb, var(--quick-tone) 72%, #172033);
   border-color: color-mix(
     in srgb,
-    var(--card-color) 46%,
-    rgba(15, 23, 42, 0.15)
+    var(--quick-tone) 42%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"]
+  .guide-quick-item
+  .flow-rail
+  li:not(:last-child)::after {
+  background: color-mix(in srgb, var(--quick-tone) 24%, transparent);
+}
+
+html[data-bs-theme="light"] .guide-requirements-panel__eyebrow {
+  color: color-mix(in srgb, var(--page-color-companion) 82%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-companion) 28%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(in srgb, var(--page-color-companion) 9%, #ffffff);
+}
+
+html[data-bs-theme="light"] .guide-requirement-node {
+  border-color: color-mix(
+    in srgb,
+    var(--requirement-color) 30%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--requirement-color) 8%, #ffffff),
+      color-mix(in srgb, var(--page-color-support) 4%, #ffffff) 64%,
+      #ffffff
+    ),
+    #ffffff;
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-requirement-node__icon {
+  color: color-mix(in srgb, var(--requirement-color) 88%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--requirement-color) 38%,
+    rgba(15, 23, 42, 0.12)
   );
   background:
     radial-gradient(
-      ellipse at 96% 0%,
-      color-mix(in srgb, var(--card-color) 12%, transparent) 0%,
-      color-mix(in srgb, var(--card-color) 6%, transparent) 42%,
-      transparent 78%
+      circle,
+      color-mix(in srgb, var(--requirement-color) 12%, transparent),
+      transparent 64%
     ),
+    rgba(255, 255, 255, 0.78);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.82);
+}
+
+html[data-bs-theme="light"] .guide-requirement-node__role {
+  color: color-mix(in srgb, var(--requirement-color) 84%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-requirement-node__meta {
+  color: color-mix(in srgb, var(--requirement-color) 86%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--requirement-color) 30%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(in srgb, var(--requirement-color) 9%, #ffffff);
+}
+
+html[data-bs-theme="light"] .guide-flow-strip {
+  border-color: color-mix(
+    in srgb,
+    var(--flow-strip-support) 32%,
+    rgba(15, 23, 42, 0.14)
+  );
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--flow-strip-secondary) 4%, #ffffff),
+      color-mix(in srgb, var(--flow-strip-support) 4%, #ffffff)
+    ),
+    var(--guide-light-surface);
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-flow-strip::before {
+  display: none;
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__track::before {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--flow-strip-support) 28%, transparent),
+    color-mix(in srgb, var(--flow-strip-color) 76%, #ffffff),
+    color-mix(in srgb, var(--flow-strip-color) 86%, #172033) 52%,
+    color-mix(in srgb, var(--flow-strip-secondary) 26%, transparent)
+  );
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__eyebrow {
+  color: color-mix(in srgb, var(--flow-strip-secondary) 76%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__marker {
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--flow-strip-color) 72%, #ffffff),
+    color-mix(in srgb, var(--flow-strip-color) 90%, #172033)
+  );
+  box-shadow:
+    0 0 0 4px #ffffff,
+    0 0 0 5px color-mix(in srgb, var(--flow-strip-color) 20%, transparent);
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__step a {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__step a:hover,
+html[data-bs-theme="light"] .guide-flow-strip__step a:focus-visible {
+  color: color-mix(in srgb, var(--flow-strip-color) 82%, #172033);
+}
+
+html[data-bs-theme="light"]
+  .guide-flow-strip__step--optional
+  .guide-flow-strip__marker {
+  border: var(--flow-strip-secondary);
+  background: var(--flow-strip-secondary);
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__step small,
+html[data-bs-theme="light"] .guide-flow-strip__summary {
+  color: #526173;
+}
+
+html[data-bs-theme="light"] .guide-flow-strip__step--optional small {
+  color: color-mix(in srgb, var(--flow-strip-support) 78%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-capability-group {
+  border-block-start-color: color-mix(
+    in srgb,
+    var(--capability-group-color) 24%,
+    rgba(15, 23, 42, 0.08)
+  );
+}
+
+html[data-bs-theme="light"] .guide-capability-group:last-child {
+  border-block-end-color: color-mix(
+    in srgb,
+    var(--capability-group-color) 18%,
+    rgba(15, 23, 42, 0.08)
+  );
+}
+
+html[data-bs-theme="light"] .guide-capability-group__header h3 {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-capability-group__header p:last-child {
+  color: #475467;
+}
+
+html[data-bs-theme="light"] .guide-capability-group__eyebrow {
+  color: color-mix(in srgb, var(--capability-group-color) 82%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-capability-board__legend {
+  border-block-color: color-mix(
+    in srgb,
+    var(--page-color-support) 16%,
+    rgba(15, 23, 42, 0.08)
+  );
+  background: color-mix(in srgb, var(--page-color) 3%, #ffffff);
+}
+
+html[data-bs-theme="light"] .guide-capability-board__legend-item {
+  color: color-mix(in srgb, var(--capability-legend-color) 82%, #172033);
+}
+
+html[data-bs-theme="light"] .guide-capability-board__legend-item > span {
+  border-color: color-mix(
+    in srgb,
+    var(--capability-legend-color) 32%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(in srgb, var(--capability-legend-color) 5%, #ffffff);
+}
+
+html[data-bs-theme="light"]
+  .guide-capability-board__legend-item--result
+  > span {
+  color: #ffffff;
+  border-color: color-mix(in srgb, var(--page-color) 30%, #172033);
+  background: #172033;
+}
+
+html[data-bs-theme="light"] .guide-capability-card {
+  --capability-neutral: var(--page-color-support);
+  --capability-neutral-rgb: var(--page-color-support-rgb);
+  --capability-secondary: var(--page-color-companion);
+  --capability-secondary-rgb: var(--page-color-companion-rgb);
+  border-block-start-color: color-mix(
+    in srgb,
+    var(--capability-color) 16%,
+    rgba(15, 23, 42, 0.08)
+  );
+}
+
+html[data-bs-theme="light"] .guide-capability-card::before {
+  display: none;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__icon {
+  color: color-mix(
+    in srgb,
+    var(--capability-color) 80%,
+    var(--capability-neutral)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--capability-color) 38%,
+    rgba(15, 23, 42, 0.12)
+  );
+  background: color-mix(
+    in srgb,
+    var(--capability-color) 6%,
+    var(--guide-light-surface-soft)
+  );
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__eyebrow {
+  color: color-mix(
+    in srgb,
+    var(--capability-color) 82%,
+    var(--capability-neutral)
+  );
+}
+
+html[data-bs-theme="light"] .guide-capability-card__header h4 {
+  color: #172033;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__marker {
+  color: color-mix(in srgb, var(--capability-step-color) 82%, #172033);
+  border-color: color-mix(in srgb, var(--capability-step-color) 42%, #ffffff);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.94);
+}
+
+html[data-bs-theme="light"] .guide-capability-card__flow::before {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--capability-color) 54%, rgba(255, 255, 255, 0.34)),
+    rgba(var(--capability-neutral-rgb), 0.24) 52%,
+    rgba(var(--capability-secondary-rgb), 0.2)
+  );
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__step--extension > div {
+  border-color: rgba(var(--capability-neutral-rgb), 0.24);
+  border-left-color: rgba(var(--capability-neutral-rgb), 0.32);
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__step--surface > div {
+  border-color: rgba(var(--capability-secondary-rgb), 0.24);
+  border-left-color: rgba(var(--capability-secondary-rgb), 0.3);
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__flow div::before {
+  opacity: 0.5;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__flow p {
+  color: #475467;
+}
+
+html[data-bs-theme="light"] .guide-capability-card__flow code {
+  color: color-mix(in srgb, var(--capability-color) 68%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--capability-color) 20%,
+    rgba(var(--capability-neutral-rgb), 0.22)
+  );
+  background: color-mix(
+    in srgb,
+    var(--capability-color) 7%,
+    rgba(var(--capability-neutral-rgb), 0.09)
+  );
+}
+
+html[data-bs-theme="light"] .guide-capability-card__step--extension code {
+  color: color-mix(in srgb, var(--capability-neutral) 78%, #172033);
+  border-color: rgba(var(--capability-neutral-rgb), 0.24);
+  background: rgba(var(--capability-neutral-rgb), 0.075);
+}
+
+html[data-bs-theme="light"] .guide-capability-card__step--surface code {
+  color: color-mix(in srgb, var(--capability-secondary) 78%, #172033);
+  border-color: rgba(var(--capability-secondary-rgb), 0.24);
+  background: rgba(var(--capability-secondary-rgb), 0.075);
+}
+
+html[data-bs-theme="light"]
+  .guide-capability-card__step--result
+  .guide-capability-card__marker {
+  color: #ffffff;
+  border-color: color-mix(in srgb, var(--capability-color) 30%, #172033);
+  background: #172033;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.94);
+}
+
+html[data-bs-theme="light"] .guide-capability-card__step--result > div {
+  border-color: color-mix(
+    in srgb,
+    var(--capability-color) 22%,
+    rgba(var(--capability-neutral-rgb), 0.22)
+  );
+  border-left-color: color-mix(
+    in srgb,
+    var(--capability-color) 38%,
+    transparent
+  );
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .extension-fs-flow {
+  --fs-neutral: var(--page-color-support);
+  --fs-secondary: var(--page-color-companion);
+}
+
+html[data-bs-theme="light"] .extension-fs-step__marker span {
+  background: transparent;
+  color: color-mix(in srgb, var(--fs-color) 72%, #172033);
+  border-color: color-mix(in srgb, var(--fs-color) 42%, rgba(15, 23, 42, 0.12));
+  box-shadow:
+    0 0 0 0.3rem color-mix(in srgb, var(--fs-color) 7%, transparent),
+    0 0.72rem 1.32rem rgba(15, 23, 42, 0.14),
+    inset 0 0 0 0.34rem rgba(255, 255, 255, 0.72);
+  text-shadow: none;
+}
+
+html[data-bs-theme="light"] .extension-fs-step__marker small {
+  color: color-mix(in srgb, var(--fs-color) 72%, #172033);
+}
+
+html[data-bs-theme="light"] .extension-fs-step__body {
+  border-top-color: color-mix(
+    in srgb,
+    var(--fs-color) 16%,
+    rgba(15, 23, 42, 0.1)
+  );
+}
+
+html[data-bs-theme="light"] .extension-fs-step__body::before {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--fs-color) 28%, transparent),
+    rgba(255, 255, 255, 0.82),
+    transparent
+  );
+}
+
+html[data-bs-theme="light"] .extension-fs-step__header h3 {
+  color: color-mix(in srgb, var(--fs-color) 74%, #172033);
+}
+
+html[data-bs-theme="light"] .extension-fs-step__header p,
+html[data-bs-theme="light"] .extension-fs-path dd {
+  color: #475467;
+}
+
+html[data-bs-theme="light"] .extension-fs-path {
+  border-top-color: rgba(15, 23, 42, 0.09);
+}
+
+html[data-bs-theme="light"] .extension-fs-path:first-child {
+  border-top-color: transparent;
+}
+
+html[data-bs-theme="light"] .extension-fs-path dt {
+  color: color-mix(in srgb, var(--fs-color) 76%, #172033);
+}
+
+html[data-bs-theme="light"] .extension-fs-path dd code {
+  color: rgba(23, 32, 51, 0.78);
+  border-color: color-mix(in srgb, var(--fs-color) 22%, rgba(15, 23, 42, 0.12));
+  background: color-mix(in srgb, var(--fs-color) 6%, rgba(255, 255, 255, 0.84));
+  box-shadow: none;
+}
+
+html[data-bs-theme="light"] .concept-card {
+  border-color: color-mix(
+    in srgb,
+    var(--card-support) 34%,
+    rgba(15, 23, 42, 0.15)
+  );
+  background:
     linear-gradient(
       135deg,
-      color-mix(in srgb, var(--card-color) 8%, transparent) 0%,
-      color-mix(in srgb, var(--card-color) 3%, transparent) 48%,
+      color-mix(in srgb, var(--card-secondary) 6%, transparent) 0%,
+      color-mix(in srgb, var(--card-secondary) 3%, transparent) 48%,
       transparent 84%
     ),
     linear-gradient(
       180deg,
       #ffffff 0%,
-      color-mix(in srgb, var(--card-color) 3%, #fbfdff) 58%,
+      color-mix(in srgb, var(--card-support) 3%, #fbfdff) 58%,
       #edf4f8 100%
     ),
     #ffffff;
   box-shadow:
     0 0.8rem 1.5rem rgba(15, 23, 42, 0.11),
-    inset 0.12rem 0 0 color-mix(in srgb, var(--card-color) 34%, transparent),
-    inset 0.42rem 0 1.2rem color-mix(in srgb, var(--card-color) 6%, transparent),
+    inset 0.12rem 0 0 color-mix(in srgb, var(--card-color) 30%, transparent),
+    inset 0.42rem 0 1.2rem
+      color-mix(in srgb, var(--card-secondary) 5%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
@@ -1471,93 +2402,14 @@ html[data-bs-theme="light"] .guide-card-link:hover .concept-card,
 html[data-bs-theme="light"] .guide-card-link:focus-visible .concept-card {
   border-color: color-mix(
     in srgb,
-    var(--card-color) 56%,
+    var(--card-color) 46%,
     rgba(15, 23, 42, 0.12)
   );
   box-shadow:
     0 1rem 1.9rem rgba(15, 23, 42, 0.15),
-    0 0 1.25rem color-mix(in srgb, var(--card-color) 18%, transparent),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-html[data-bs-theme="light"] {
-  --guide-bg-soft: #f8fafc;
-  --guide-panel-soft: #f3f4f6;
-  --guide-border: rgba(15, 23, 42, 0.16);
-  --guide-border-soft: rgba(15, 23, 42, 0.12);
-}
-
-html[data-bs-theme="light"] .card,
-html[data-bs-theme="light"] .accordion-item,
-html[data-bs-theme="light"] .list-group-item,
-html[data-bs-theme="light"] .concept-card,
-html[data-bs-theme="light"] .guide-hero .card,
-html[data-bs-theme="light"] .guide-hero .card.bg-dark.text-white {
-  border-color: rgba(15, 23, 42, 0.13) !important;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
-  box-shadow:
-    0 0.75rem 1.55rem rgba(15, 23, 42, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
-}
-
-html[data-bs-theme="light"] .card-body {
-  background: transparent;
-}
-
-html[data-bs-theme="light"] .concept-card {
-  border-color: color-mix(
-    in srgb,
-    var(--card-color) 42%,
-    rgba(15, 23, 42, 0.14)
-  ) !important;
-  background:
-    radial-gradient(
-      ellipse at 96% 0%,
-      color-mix(in srgb, var(--card-color) 12%, transparent) 0%,
-      color-mix(in srgb, var(--card-color) 6%, transparent) 42%,
-      transparent 78%
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--card-color) 8%, transparent) 0%,
-      color-mix(in srgb, var(--card-color) 3%, transparent) 48%,
-      transparent 84%
-    ),
-    linear-gradient(
-      180deg,
-      #ffffff 0%,
-      color-mix(in srgb, var(--card-color) 2%, #fbfdff) 58%,
-      #f8fafc 100%
-    ) !important;
-  box-shadow:
-    inset 0.12rem 0 0 color-mix(in srgb, var(--card-color) 34%, transparent),
-    inset 0.42rem 0 1.2rem color-mix(in srgb, var(--card-color) 6%, transparent),
-    0 0.75rem 1.55rem rgba(15, 23, 42, 0.1),
-    0 0 1.15rem color-mix(in srgb, var(--card-color) 12%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
-}
-
-html[data-bs-theme="light"] .guide-card-link:hover .concept-card,
-html[data-bs-theme="light"] .guide-card-link:focus-visible .concept-card {
-  border-color: color-mix(
-    in srgb,
-    var(--card-color) 58%,
-    rgba(15, 23, 42, 0.12)
-  ) !important;
-  box-shadow:
-    inset 0.12rem 0 0 color-mix(in srgb, var(--card-color) 44%, transparent),
-    inset 0.42rem 0 1.2rem color-mix(in srgb, var(--card-color) 9%, transparent),
-    0 1rem 1.9rem rgba(15, 23, 42, 0.15),
-    0 0 1.3rem color-mix(in srgb, var(--card-color) 18%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
-}
-
-html[data-bs-theme="light"]
-  .guide-page--fundamentals
-  #mental-model
-  .row
-  > [class*="col-"]
-  > .card:not(.concept-card),
 html[data-bs-theme="light"]
   .guide-page--troubleshooting
   .troubleshooting-group
@@ -1567,451 +2419,145 @@ html[data-bs-theme="light"]
     var(--support-card-color) 30%,
     rgba(15, 23, 42, 0.13)
   ) !important;
-  background:
-    radial-gradient(
-      ellipse at 96% 0%,
-      color-mix(in srgb, var(--support-card-color) 10%, transparent) 0%,
-      color-mix(in srgb, var(--support-card-color) 5%, transparent) 44%,
-      transparent 80%
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--support-card-color) 7%, transparent) 0%,
-      color-mix(in srgb, var(--support-card-color) 3%, transparent) 50%,
-      transparent 86%
-    ),
-    linear-gradient(
-      180deg,
-      #ffffff 0%,
-      color-mix(in srgb, var(--support-card-color) 2%, #fbfdff) 60%,
-      #f8fafc 100%
-    ) !important;
-  box-shadow:
-    inset 0.1rem 0 0
-      color-mix(in srgb, var(--support-card-color) 25%, transparent),
-    inset 0.36rem 0 1rem
-      color-mix(in srgb, var(--support-card-color) 5%, transparent),
-    0 0.75rem 1.5rem rgba(15, 23, 42, 0.09),
-    0 0 1.05rem color-mix(in srgb, var(--support-card-color) 8%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.96) !important;
+  background: var(--guide-light-surface) !important;
+  box-shadow: var(--guide-light-shadow) !important;
 }
 
-html[data-bs-theme="light"]
-  .guide-page--fundamentals
-  #mental-model
-  .row
-  > [class*="col-"]
-  > .card:not(.concept-card)::before,
-html[data-bs-theme="light"]
-  .guide-page--troubleshooting
-  .troubleshooting-group
-  .card:not(.concept-card)::before {
-  opacity: 0.5;
-}
-
-html[data-bs-theme="light"]
-  .guide-page--fundamentals
-  #mental-model
-  .card-body
-  > h3,
-html[data-bs-theme="light"]
-  .guide-page--troubleshooting
-  .troubleshooting-group
-  > h2,
-html[data-bs-theme="light"]
-  .guide-page--troubleshooting
-  .troubleshooting-group
-  .card-body
-  > h2 {
-  color: color-mix(in srgb, var(--support-card-color) 58%, #172033);
-}
-
-html[data-bs-theme="light"]
-  .guide-page--troubleshooting
-  .troubleshooting-group
-  .row
-  .card:not(.concept-card)
-  .card-body
-  a:not(.btn):not(.guide-card-link) {
-  color: color-mix(in srgb, var(--support-card-color) 72%, #172033);
-  border-bottom-color: color-mix(
+html[data-bs-theme="light"] #tools-workflows {
+  --bs-accordion-btn-color: color-mix(
     in srgb,
-    var(--support-card-color) 34%,
-    transparent
+    var(--workflow-accordion-color) 76%,
+    #172033
   );
-}
-
-html[data-bs-theme="light"]
-  .guide-page--troubleshooting
-  .troubleshooting-group
-  .row
-  .card:not(.concept-card)
-  .card-body
-  a:not(.btn):not(.guide-card-link):hover,
-html[data-bs-theme="light"]
-  .guide-page--troubleshooting
-  .troubleshooting-group
-  .row
-  .card:not(.concept-card)
-  .card-body
-  a:not(.btn):not(.guide-card-link):focus-visible {
-  color: #111827;
-  border-bottom-color: color-mix(
-    in srgb,
-    var(--support-card-color) 72%,
-    transparent
-  );
-  text-shadow: none;
-}
-
-html[data-bs-theme="light"] .guide-sidebar > .card::before,
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .guide-sidebar
-  > .card::before {
-  opacity: 0.58;
-}
-
-html[data-bs-theme="light"] .guide-page-hero,
-html[data-bs-theme="light"] body[class*="guide-page--"] .guide-page-hero {
-  background:
-    radial-gradient(
-      circle at 88% 6%,
-      color-mix(in srgb, var(--page-color) 18%, transparent),
-      transparent 22rem
-    ),
-    radial-gradient(
-      circle at 12% 100%,
-      color-mix(in srgb, var(--page-color-companion) 12%, transparent),
-      transparent 18rem
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--page-color) 8%, #ffffff) 0%,
-      #ffffff 48%,
-      color-mix(in srgb, var(--page-color-companion) 6%, #ffffff) 100%
-    ) !important;
-  border-bottom-color: color-mix(
-    in srgb,
-    var(--page-color) 34%,
-    rgba(15, 23, 42, 0.12)
-  );
-  box-shadow:
-    inset 0 -3px 0 color-mix(in srgb, var(--page-color) 34%, transparent),
-    0 1.1rem 2.2rem rgba(15, 23, 42, 0.075);
-}
-
-html[data-bs-theme="light"] body[class*="guide-page--"] .guide-page-hero h1 {
-  text-shadow: 0 0 26px color-mix(in srgb, var(--page-color) 16%, transparent);
-}
-
-html[data-bs-theme="light"] .guide-sidebar > .card,
-html[data-bs-theme="light"] body[class*="guide-page--"] .guide-sidebar > .card {
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 26%,
-    rgba(15, 23, 42, 0.12)
-  ) !important;
-  background:
-    radial-gradient(
-      circle at 94% 0%,
-      color-mix(in srgb, var(--page-color) 22%, transparent),
-      transparent 13rem
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 10%, #ffffff) 0%,
-      color-mix(in srgb, var(--page-color-companion) 7%, #f8fafc) 100%
-    ) !important;
-  box-shadow:
-    0 0.75rem 1.55rem rgba(15, 23, 42, 0.11),
-    0 0 0 1px color-mix(in srgb, var(--page-color) 14%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
-}
-
-html[data-bs-theme="light"] .guide-sidebar .card-body > h2,
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .guide-sidebar
-  .card-body
-  > h2 {
-  color: color-mix(in srgb, var(--page-color) 74%, #172033) !important;
-}
-
-html[data-bs-theme="light"] .guide-nav .nav-link {
-  color: color-mix(in srgb, var(--page-color) 28%, #475467);
-}
-
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .guide-nav
-  .nav-link:hover,
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .guide-nav
-  .nav-link.active {
-  color: color-mix(in srgb, var(--page-color) 78%, #172033);
-  background: color-mix(in srgb, var(--page-color) 14%, #ffffff);
-}
-
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .guide-nav
-  .nav-link.active {
-  border-left-color: color-mix(in srgb, var(--page-color) 82%, transparent);
-  box-shadow: inset 3px 0 0
-    color-mix(in srgb, var(--page-color) 72%, transparent);
-}
-
-html[data-bs-theme="light"] .table-guide {
-  --bs-table-bg: #ffffff;
-  --bs-table-color: var(--guide-text);
-  --bs-table-striped-bg: #f7f8fa;
-  --bs-table-striped-color: var(--guide-text);
-  --bs-table-hover-bg: #f2f4f7;
-  --bs-table-border-color: rgba(15, 23, 42, 0.12);
-  background: #ffffff;
-}
-
-html[data-bs-theme="light"] .table-guide thead th,
-html[data-bs-theme="light"] .markdown-viewer th,
-html[data-bs-theme="light"] .env-table thead th {
-  color: #253044;
-  border-bottom-color: color-mix(
-    in srgb,
-    var(--page-color) 26%,
-    rgba(15, 23, 42, 0.16)
-  );
-  background: #f1f3f5 !important;
-  box-shadow: inset 0 -2px 0
-    color-mix(in srgb, var(--page-color) 24%, transparent);
-}
-
-html[data-bs-theme="light"] .table-guide__group td {
-  color: #253044;
-  border-top-color: rgba(15, 23, 42, 0.12);
-  border-bottom-color: rgba(15, 23, 42, 0.1);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--guide-accent-strong) 8%, #f1f3f5),
-    #f1f3f5 42%,
-    #ffffff
-  ) !important;
-  box-shadow:
-    inset 4px 0 0
-      color-mix(in srgb, var(--guide-accent-strong) 44%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.86);
-}
-
-html[data-bs-theme="light"] .table-guide a:not(.btn) {
-  color: color-mix(in srgb, var(--page-color) 72%, #1c2430);
-  border-bottom-color: color-mix(in srgb, var(--page-color) 34%, transparent);
-}
-
-html[data-bs-theme="light"] .table-guide a:not(.btn):hover,
-html[data-bs-theme="light"] .table-guide a:not(.btn):focus-visible {
-  color: #111827;
-  border-bottom-color: color-mix(in srgb, var(--page-color) 72%, transparent);
-}
-
-html[data-bs-theme="light"] .env-table__group td {
-  color: #253044;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--page-color) 7%, #f1f3f5),
-    #f1f3f5 42%,
-    #ffffff
-  ) !important;
-  border-top-color: rgba(15, 23, 42, 0.12);
-  border-bottom-color: rgba(15, 23, 42, 0.1);
-}
-
-html[data-bs-theme="light"] .guide-checklist li,
-html[data-bs-theme="light"] .guide-callout,
-html[data-bs-theme="light"] .guide-crosslink,
-html[data-bs-theme="light"] .env-table-wrap,
-html[data-bs-theme="light"] .guide-quick-item,
-html[data-bs-theme="light"] .file-map li,
-html[data-bs-theme="light"] .path-aliases,
-html[data-bs-theme="light"] .path-aliases__grid div,
-html[data-bs-theme="light"] .guided-recipe,
-html[data-bs-theme="light"] .guided-step,
-html[data-bs-theme="light"] .guided-field,
-html[data-bs-theme="light"] .file-flow__item,
-html[data-bs-theme="light"] .file-flow__handoff,
-html[data-bs-theme="light"] .ownership-pane,
-html[data-bs-theme="light"] .ownership-bridge,
-html[data-bs-theme="light"] .process-stage__body {
-  border-color: rgba(15, 23, 42, 0.13);
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  box-shadow:
-    inset 3px 0 0 color-mix(in srgb, var(--page-color) 30%, transparent),
-    0 0.45rem 1rem rgba(15, 23, 42, 0.075);
-}
-
-html[data-bs-theme="light"] .process-stage__body {
-  box-shadow:
-    inset 4px 0 0 color-mix(in srgb, var(--process-color) 38%, transparent),
-    0 0.45rem 1rem rgba(15, 23, 42, 0.075);
-}
-
-html[data-bs-theme="light"] .file-flow__item,
-html[data-bs-theme="light"] .file-flow__handoff {
-  box-shadow:
-    inset 4px 0 0 color-mix(in srgb, var(--file-flow-color) 36%, transparent),
-    0 0.45rem 1rem rgba(15, 23, 42, 0.075);
-}
-
-html[data-bs-theme="light"] .flow-rail li,
-html[data-bs-theme="light"]
-  body[class*="guide-page--"]
-  .flow-rail:not(.flow-rail--spectrum)
-  li,
-html[data-bs-theme="light"] .flow-rail--spectrum li {
-  border-color: rgba(15, 23, 42, 0.13);
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  box-shadow:
-    inset 3px 0 0 color-mix(in srgb, var(--rail-color) 54%, transparent),
-    0 0.4rem 0.85rem rgba(15, 23, 42, 0.075);
-}
-
-html[data-bs-theme="light"] .code-card,
-html[data-bs-theme="light"] .markdown-viewer pre,
-html[data-bs-theme="light"] .markdown-viewer .mermaid,
-html[data-bs-theme="light"] .mermaid-zoom__viewport {
-  border-color: rgba(15, 23, 42, 0.13);
-  background: #ffffff;
-}
-
-html[data-bs-theme="light"] .code-card__bar,
-html[data-bs-theme="light"] .mermaid-zoom__toolbar {
-  color: #253044;
-  background: #f1f3f5;
-  border-bottom-color: rgba(15, 23, 42, 0.12);
-}
-
-html[data-bs-theme="light"] .code-card pre,
-html[data-bs-theme="light"] .code-card pre[class*="language-"],
-html[data-bs-theme="light"] .file-flow__snippet {
-  background: #f8fafc !important;
-}
-
-html[data-bs-theme="light"] .env-default {
-  background: #f7f8fa;
-  border-color: rgba(15, 23, 42, 0.12);
-}
-
-html[data-bs-theme="light"] .guide-callout--structured {
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 28%,
-    rgba(15, 23, 42, 0.13)
-  );
-  border-left-color: color-mix(in srgb, var(--page-color) 68%, transparent);
-  background:
-    radial-gradient(
-      ellipse at 100% 0%,
-      color-mix(in srgb, var(--page-color) 10%, transparent),
-      transparent 18rem
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--page-color) 7%, transparent),
-      transparent 48%
-    ),
-    #ffffff;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0.65rem 1.25rem rgba(15, 23, 42, 0.08);
-}
-
-html[data-bs-theme="light"] .guide-page--tools #tools-workflows {
-  --bs-accordion-btn-color: color-mix(in srgb, var(--page-color) 76%, #172033);
   --bs-accordion-active-color: #172033;
 }
 
-html[data-bs-theme="light"]
-  .guide-page--tools
-  #tools-workflows
-  .accordion-item {
-  border-color: color-mix(
-    in srgb,
-    var(--page-color) 34%,
-    rgba(15, 23, 42, 0.12)
-  ) !important;
-  background:
-    radial-gradient(
-      circle at 100% 0%,
-      color-mix(in srgb, var(--page-color) 14%, transparent),
-      transparent 18rem
-    ),
-    linear-gradient(180deg, #ffffff 0%, #f3f6fb 100%) !important;
+html[data-bs-theme="light"] #tools-workflows .accordion-item {
+  background: var(--guide-light-surface) !important;
   box-shadow:
-    inset 0.14rem 0 0 color-mix(in srgb, var(--page-color) 42%, transparent),
-    0 0.75rem 1.55rem rgba(15, 23, 42, 0.1),
-    0 0 1.1rem color-mix(in srgb, var(--page-color) 10%, transparent) !important;
+    inset 0.14rem 0 0
+      color-mix(in srgb, var(--workflow-accordion-color) 30%, transparent),
+    var(--guide-light-shadow) !important;
 }
 
-html[data-bs-theme="light"]
-  .guide-page--tools
-  #tools-workflows
-  .accordion-button {
-  color: color-mix(in srgb, var(--page-color) 76%, #172033);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--page-color) 12%, transparent),
-    rgba(255, 255, 255, 0.68) 52%,
-    transparent
-  );
+html[data-bs-theme="light"] #tools-workflows .accordion-button,
+html[data-bs-theme="light"] #tools-workflows .accordion-button:hover,
+html[data-bs-theme="light"] #tools-workflows .accordion-button:not(.collapsed) {
+  color: color-mix(in srgb, var(--workflow-accordion-color) 76%, #172033);
+  background: var(--guide-light-surface-soft);
+  box-shadow: none;
 }
 
-html[data-bs-theme="light"]
-  .guide-page--tools
-  #tools-workflows
-  .accordion-button:hover {
-  color: color-mix(in srgb, var(--page-color) 86%, #111827);
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--page-color) 18%, transparent),
-    rgba(255, 255, 255, 0.8) 56%,
-    transparent
-  );
+html[data-bs-theme="light"] #tools-workflows .accordion-body {
+  background: var(--guide-light-surface);
 }
 
-html[data-bs-theme="light"]
-  .guide-page--tools
-  #tools-workflows
-  .accordion-button:not(.collapsed) {
-  color: #172033;
-  background:
-    radial-gradient(
-      circle at 100% 0%,
-      color-mix(in srgb, var(--page-color) 22%, transparent),
-      transparent 18rem
-    ),
-    linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--page-color) 22%, transparent),
-      rgba(255, 255, 255, 0.78) 58%,
-      transparent
+@media (max-width: 1199.98px) {
+  html[data-bs-theme="light"] .navbar .guide-nav-link--ecosystem {
+    color: color-mix(in srgb, var(--nav-color) 76%, #172033);
+    border-color: color-mix(
+      in srgb,
+      var(--nav-color) 26%,
+      rgba(15, 23, 42, 0.11)
     );
-  box-shadow:
-    inset 0 -1px 0 color-mix(in srgb, var(--page-color) 24%, transparent),
-    0 0.55rem 1.1rem color-mix(in srgb, var(--page-color) 10%, transparent);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--nav-color) 10%, #ffffff),
+      #ffffff
+    );
+    box-shadow:
+      inset 3px 0 0 color-mix(in srgb, var(--nav-color) 54%, transparent),
+      0 0.45rem 0.9rem rgba(15, 23, 42, 0.075);
+    text-decoration: none;
+  }
+
+  html[data-bs-theme="light"] .navbar .guide-nav-link--ecosystem:hover,
+  html[data-bs-theme="light"] .navbar .guide-nav-link--ecosystem:focus-visible {
+    color: color-mix(in srgb, var(--nav-color) 88%, #111827);
+    border-color: color-mix(
+      in srgb,
+      var(--nav-color) 36%,
+      rgba(15, 23, 42, 0.14)
+    );
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--nav-color) 15%, #ffffff),
+      #ffffff
+    );
+    box-shadow:
+      inset 3px 0 0 color-mix(in srgb, var(--nav-color) 66%, transparent),
+      0 0.52rem 1rem rgba(15, 23, 42, 0.09);
+  }
 }
 
-html[data-bs-theme="light"]
-  .guide-page--tools
-  #tools-workflows
-  .accordion-body {
-  border-top-color: color-mix(in srgb, var(--page-color) 24%, transparent);
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--page-color) 7%, transparent),
-    transparent
-  );
+@media (max-width: 991.98px) {
+  html[data-bs-theme="light"] .guide-nav .nav-link {
+    border-color: rgba(15, 23, 42, 0.12);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    color: var(--page-accent-support-text);
+  }
+
+  html[data-bs-theme="light"] .guide-nav .nav-link:hover,
+  html[data-bs-theme="light"] .guide-nav .nav-link.active,
+  html[data-bs-theme="light"]
+    body[class*="guide-page--"]
+    .guide-nav
+    .nav-link:hover,
+  html[data-bs-theme="light"]
+    body[class*="guide-page--"]
+    .guide-nav
+    .nav-link.active {
+    color: var(--page-accent-primary-text);
+    border-color: color-mix(
+      in srgb,
+      var(--page-color-companion) 30%,
+      rgba(15, 23, 42, 0.12)
+    );
+    background: linear-gradient(180deg, var(--page-surface-secondary), #ffffff);
+    box-shadow:
+      inset 0 -2px 0 var(--page-border-primary),
+      0 0.35rem 0.72rem rgba(15, 23, 42, 0.075);
+  }
+
+  html[data-bs-theme="light"] .guide-nav-mobile-menu {
+    border-color: color-mix(
+      in srgb,
+      var(--page-color-support) 24%,
+      rgba(15, 23, 42, 0.14)
+    );
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.16);
+  }
+
+  html[data-bs-theme="light"] .guide-nav-mobile-menu .dropdown-item {
+    color: #253044;
+  }
+
+  html[data-bs-theme="light"] .guide-nav-mobile-menu .dropdown-item:hover,
+  html[data-bs-theme="light"]
+    .guide-nav-mobile-menu
+    .dropdown-item:focus-visible,
+  html[data-bs-theme="light"] .guide-nav-mobile-menu .dropdown-item.active {
+    color: var(--page-accent-secondary-text);
+    background: var(--page-surface-secondary);
+  }
 }
 
-html[data-bs-theme="light"] .guided-step__body pre {
-  background: transparent !important;
+@media (max-width: 991.98px) and (hover: hover) and (pointer: fine) {
+  html[data-bs-theme="light"] .guide-nav .nav-link:hover,
+  html[data-bs-theme="light"]
+    body[class*="guide-page--"]
+    .guide-nav
+    .nav-link:hover {
+    color: var(--page-accent-primary-text);
+    border-color: color-mix(
+      in srgb,
+      var(--page-color-companion) 30%,
+      rgba(15, 23, 42, 0.12)
+    );
+    background: linear-gradient(180deg, var(--page-surface-secondary), #ffffff);
+    box-shadow:
+      inset 0 -2px 0 var(--page-border-primary),
+      0 0.32rem 0.68rem rgba(15, 23, 42, 0.07);
+  }
 }

@@ -1,62 +1,251 @@
 :root {
-  --guide-sidebar-width: 280px;
   --guide-bg: #19181a;
-  --guide-bg-soft: #221f22;
   --guide-panel: #2d2a2e;
-  --guide-panel-soft: #403e41;
-  --guide-border: rgba(120, 220, 232, 0.2);
+  --guide-border: var(--page-border-support);
   --guide-border-soft: rgba(255, 255, 255, 0.1);
   --guide-text: #fcfcfa;
   --guide-muted: #939293;
-  --guide-accent: #ff6188;
-  --guide-accent-strong: #ffd866;
-  --guide-accent-orange: #fc9867;
-  --guide-accent-green: #a9dc76;
-  --guide-accent-blue: #78dce8;
-  --guide-accent-purple: #ab9df2;
-  --guide-accent-sky: #7db7ff;
-  --guide-tab-1: var(--guide-accent);
-  --guide-tab-2: var(--guide-accent-orange);
-  --guide-tab-3: var(--guide-accent-strong);
-  --guide-tab-4: var(--guide-accent-green);
-  --guide-tab-5: var(--guide-accent-blue);
-  --guide-tab-6: var(--guide-accent-purple);
-  --guide-tab-7: var(--guide-accent-sky);
-  --guide-tab-aux: color-mix(
-    in srgb,
-    var(--guide-muted) 58%,
-    var(--guide-accent-blue)
-  );
-  --guide-tab-8: var(--guide-tab-aux);
-  --guide-tab-9: var(--guide-tab-aux);
-  --guide-tab-10: var(--guide-tab-aux);
+  --guide-identity-index-primary: #45d6c8;
+  --guide-identity-index-companion: #8a7cff;
+  --guide-identity-index-support: #8fa8b8;
+  --guide-identity-getting-started-primary: #d4d957;
+  --guide-identity-getting-started-companion: #74b65d;
+  --guide-identity-getting-started-support: #a7ae78;
+  --guide-identity-fundamentals-primary: #7fb9d9;
+  --guide-identity-fundamentals-companion: #b297d8;
+  --guide-identity-fundamentals-support: #8fab87;
+  --guide-identity-gateway-primary: #f2c14e;
+  --guide-identity-gateway-companion: #d06a3d;
+  --guide-identity-gateway-support: #aa9772;
+  --guide-identity-surface-primary: #61d177;
+  --guide-identity-surface-companion: #2bc4a7;
+  --guide-identity-surface-support: #8abca0;
+  --guide-identity-bridge-primary: #4c72e8;
+  --guide-identity-bridge-companion: #7c8de0;
+  --guide-identity-bridge-support: #889bc8;
+  --guide-identity-tools-primary: #a48af0;
+  --guide-identity-tools-companion: #d58af0;
+  --guide-identity-tools-support: #a59ab8;
+  --guide-identity-recipes-primary: #e75899;
+  --guide-identity-recipes-companion: #f06b88;
+  --guide-identity-recipes-support: #ba9baa;
+  --guide-identity-consultation-primary: #c9825a;
+  --guide-identity-consultation-companion: #c9a85e;
+  --guide-identity-consultation-support: #a98b78;
+  --guide-tab-1: var(--guide-identity-getting-started-primary);
+  --guide-tab-2: var(--guide-identity-fundamentals-primary);
+  --guide-tab-3: var(--guide-identity-gateway-primary);
+  --guide-tab-4: var(--guide-identity-surface-primary);
+  --guide-tab-5: var(--guide-identity-bridge-primary);
+  --guide-tab-6: var(--guide-identity-tools-primary);
+  --guide-tab-7: var(--guide-identity-recipes-primary);
+  --guide-tab-8: var(--guide-identity-consultation-primary);
+  --guide-tab-9: var(--guide-identity-consultation-primary);
+  --guide-tab-10: var(--guide-identity-consultation-primary);
   --guide-scrollbar-track: rgba(25, 24, 26, 0.72);
   --guide-scrollbar-track-strong: rgba(34, 31, 34, 0.96);
   --guide-scrollbar-thumb: color-mix(
     in srgb,
-    var(--page-color) 54%,
+    var(--page-color-support) 46%,
     rgba(252, 252, 250, 0.26)
   );
   --guide-scrollbar-thumb-hover: color-mix(
     in srgb,
-    var(--page-color) 72%,
+    var(--page-color-companion) 62%,
     rgba(252, 252, 250, 0.36)
   );
-  --guide-process-1: #91a4c2;
-  --guide-process-2: #ad9bbd;
-  --guide-process-3: #c0a16d;
-  --guide-process-4: #87a891;
-  --guide-process-5: #bd8f86;
-  --page-color: var(--guide-tab-5);
-  --page-color-companion: var(--guide-tab-6);
-  --guide-danger: #ff6188;
+  --page-color: var(--guide-identity-index-primary);
+  --page-color-companion: var(--guide-identity-index-companion);
+  --page-color-companion-rgb: 138, 124, 255;
+  --page-color-support: var(--guide-identity-index-support);
+  --page-color-support-rgb: 143, 168, 184;
+  --page-gradient-soft: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color-companion) 9%, transparent),
+    color-mix(in srgb, var(--page-color-support) 6%, transparent)
+  );
+  --page-gradient-strong: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color) 82%, #fcfcfa),
+    var(--page-color-companion)
+  );
+  --page-accent-primary-text: color-mix(
+    in srgb,
+    var(--page-color) 78%,
+    #fcfcfa
+  );
+  --page-accent-secondary-text: color-mix(
+    in srgb,
+    var(--page-color-companion) 76%,
+    #fcfcfa
+  );
+  --page-accent-support-text: color-mix(
+    in srgb,
+    var(--page-color-support) 68%,
+    #fcfcfa
+  );
+  --page-border-primary: color-mix(in srgb, var(--page-color) 46%, transparent);
+  --page-border-secondary: color-mix(
+    in srgb,
+    var(--page-color-companion) 28%,
+    rgba(255, 255, 255, 0.08)
+  );
+  --page-border-support: color-mix(
+    in srgb,
+    var(--page-color-support) 22%,
+    rgba(255, 255, 255, 0.08)
+  );
+  --page-surface-primary: color-mix(in srgb, var(--page-color) 7%, transparent);
+  --page-surface-secondary: color-mix(
+    in srgb,
+    var(--page-color-companion) 6%,
+    transparent
+  );
+  --page-surface-support: color-mix(
+    in srgb,
+    var(--page-color-support) 7.5%,
+    transparent
+  );
+  --page-gradient-balanced: linear-gradient(
+    135deg,
+    var(--page-surface-secondary),
+    var(--page-surface-support)
+  );
   --bs-body-bg: var(--guide-bg);
   --bs-body-color: var(--guide-text);
   --bs-secondary-color: var(--guide-muted);
   --bs-border-color: var(--guide-border-soft);
-  --bs-link-color: var(--guide-accent-blue);
-  --bs-link-hover-color: var(--guide-accent-purple);
-  --bs-code-color: var(--guide-accent-strong);
+  --bs-link-color: var(--page-color);
+  --bs-link-hover-color: var(--page-color-companion);
+  --bs-code-color: var(--page-accent-secondary-text);
+}
+
+.guide-page--index,
+html:has(> body.guide-page--index) {
+  --page-color: var(--guide-identity-index-primary);
+  --page-color-companion: var(--guide-identity-index-companion);
+  --page-color-companion-rgb: 138, 124, 255;
+  --page-color-support: var(--guide-identity-index-support);
+  --page-color-support-rgb: 143, 168, 184;
+}
+
+.guide-page--getting-started,
+html:has(> body.guide-page--getting-started) {
+  --page-color: var(--guide-identity-getting-started-primary);
+  --page-color-companion: var(--guide-identity-getting-started-companion);
+  --page-color-companion-rgb: 116, 182, 93;
+  --page-color-support: var(--guide-identity-getting-started-support);
+  --page-color-support-rgb: 167, 174, 120;
+}
+
+.guide-page--fundamentals,
+html:has(> body.guide-page--fundamentals) {
+  --page-color: var(--guide-identity-fundamentals-primary);
+  --page-color-companion: var(--guide-identity-fundamentals-companion);
+  --page-color-companion-rgb: 178, 151, 216;
+  --page-color-support: var(--guide-identity-fundamentals-support);
+  --page-color-support-rgb: 143, 171, 135;
+}
+
+.guide-page--app-gateway,
+html:has(> body.guide-page--app-gateway) {
+  --page-color: var(--guide-identity-gateway-primary);
+  --page-color-companion: var(--guide-identity-gateway-companion);
+  --page-color-companion-rgb: 208, 106, 61;
+  --page-color-support: var(--guide-identity-gateway-support);
+  --page-color-support-rgb: 170, 151, 114;
+}
+
+.guide-page--app-surface,
+html:has(> body.guide-page--app-surface) {
+  --page-color: var(--guide-identity-surface-primary);
+  --page-color-companion: var(--guide-identity-surface-companion);
+  --page-color-companion-rgb: 43, 196, 167;
+  --page-color-support: var(--guide-identity-surface-support);
+  --page-color-support-rgb: 138, 188, 160;
+}
+
+.guide-page--bridge,
+html:has(> body.guide-page--bridge) {
+  --page-color: var(--guide-identity-bridge-primary);
+  --page-color-companion: var(--guide-identity-bridge-companion);
+  --page-color-companion-rgb: 124, 141, 224;
+  --page-color-support: var(--guide-identity-bridge-support);
+  --page-color-support-rgb: 136, 155, 200;
+}
+
+.guide-page--tools,
+html:has(> body.guide-page--tools) {
+  --page-color: var(--guide-identity-tools-primary);
+  --page-color-companion: var(--guide-identity-tools-companion);
+  --page-color-companion-rgb: 213, 138, 240;
+  --page-color-support: var(--guide-identity-tools-support);
+  --page-color-support-rgb: 165, 154, 184;
+}
+
+.guide-page--recipes,
+html:has(> body.guide-page--recipes) {
+  --page-color: var(--guide-identity-recipes-primary);
+  --page-color-companion: var(--guide-identity-recipes-companion);
+  --page-color-companion-rgb: 240, 107, 136;
+  --page-color-support: var(--guide-identity-recipes-support);
+  --page-color-support-rgb: 186, 155, 170;
+}
+
+.guide-page--diagrams,
+.guide-page--reference,
+.guide-page--troubleshooting,
+html:has(> body.guide-page--diagrams),
+html:has(> body.guide-page--reference),
+html:has(> body.guide-page--troubleshooting) {
+  --page-color: var(--guide-identity-consultation-primary);
+  --page-color-companion: var(--guide-identity-consultation-companion);
+  --page-color-companion-rgb: 201, 168, 94;
+  --page-color-support: var(--guide-identity-consultation-support);
+  --page-color-support-rgb: 169, 139, 120;
+}
+
+html:not([data-bs-theme="light"]) body.guide-page--getting-started,
+html:not([data-bs-theme="light"]) body.guide-page--fundamentals,
+html:not([data-bs-theme="light"]) body.guide-page--app-surface,
+html:not([data-bs-theme="light"]) body.guide-page--tools,
+html:not([data-bs-theme="light"]) body.guide-page--recipes,
+html:not([data-bs-theme="light"]):has(> body.guide-page--getting-started),
+html:not([data-bs-theme="light"]):has(> body.guide-page--fundamentals),
+html:not([data-bs-theme="light"]):has(> body.guide-page--app-surface),
+html:not([data-bs-theme="light"]):has(> body.guide-page--tools),
+html:not([data-bs-theme="light"]):has(> body.guide-page--recipes) {
+  --page-gradient-soft: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color-companion) 12%, transparent),
+    color-mix(in srgb, var(--page-color-support) 9%, transparent) 58%,
+    color-mix(in srgb, var(--page-color) 5%, transparent)
+  );
+  --page-gradient-balanced: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color-companion) 8%, transparent),
+    color-mix(in srgb, var(--page-color-support) 8%, transparent)
+  );
+  --page-border-secondary: color-mix(
+    in srgb,
+    var(--page-color-companion) 34%,
+    rgba(255, 255, 255, 0.08)
+  );
+  --page-border-support: color-mix(
+    in srgb,
+    var(--page-color-support) 28%,
+    rgba(255, 255, 255, 0.08)
+  );
+  --page-surface-secondary: color-mix(
+    in srgb,
+    var(--page-color-companion) 8%,
+    transparent
+  );
+  --page-surface-support: color-mix(
+    in srgb,
+    var(--page-color-support) 7%,
+    transparent
+  );
 }
 
 html {
@@ -75,11 +264,7 @@ body::-webkit-scrollbar {
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
   background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--page-color) 9%, transparent),
-      transparent 36%
-    ),
+    linear-gradient(180deg, var(--page-surface-support), transparent 36%),
     var(--guide-scrollbar-track);
 }
 
@@ -88,37 +273,24 @@ body::-webkit-scrollbar-thumb {
   min-height: 3rem;
   border: 3px solid var(--guide-scrollbar-track-strong);
   border-radius: 999px;
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--guide-scrollbar-thumb) 78%, #fcfcfa),
-      var(--guide-scrollbar-thumb)
-    );
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--guide-scrollbar-thumb) 78%, #fcfcfa),
+    var(--guide-scrollbar-thumb)
+  );
 }
 
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--guide-scrollbar-thumb-hover) 82%, #fcfcfa),
-      var(--guide-scrollbar-thumb-hover)
-    );
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--guide-scrollbar-thumb-hover) 82%, #fcfcfa),
+    var(--guide-scrollbar-thumb-hover)
+  );
 }
 
 body {
-  background:
-    radial-gradient(
-      circle at 12% 4rem,
-      rgba(255, 97, 136, 0.14),
-      transparent 27rem
-    ),
-    radial-gradient(
-      circle at 94% 18rem,
-      rgba(120, 220, 232, 0.1),
-      transparent 24rem
-    ),
-    linear-gradient(180deg, #221f22 0%, #19181a 36rem);
+  background: linear-gradient(180deg, #221f22 0%, #19181a 36rem);
   color: var(--guide-text);
 }
 
@@ -127,16 +299,24 @@ body {
 }
 
 .navbar.bg-white {
+  --guide-navbar-height: 3.45rem;
+  --bs-navbar-padding-y: 0;
   position: sticky;
+  min-height: var(--guide-navbar-height);
+  padding-block: 0;
   background:
     linear-gradient(
       90deg,
-      rgba(255, 97, 136, 0.12),
-      rgba(120, 220, 232, 0.09) 46%,
-      rgba(171, 157, 242, 0.09)
+      color-mix(in srgb, var(--page-color-support) 9%, transparent),
+      color-mix(in srgb, var(--page-color-support) 9%, transparent) 46%,
+      color-mix(in srgb, var(--page-color-companion) 9%, transparent)
     ),
     rgba(25, 24, 26, 0.9) !important;
-  border-color: rgba(120, 220, 232, 0.16) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--page-color-support) 18%,
+    transparent
+  ) !important;
   box-shadow:
     0 1rem 2.4rem rgba(0, 0, 0, 0.32),
     inset 0 -1px 0 rgba(252, 252, 250, 0.04);
@@ -159,11 +339,9 @@ footer.bg-white {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--guide-accent),
-    var(--guide-accent-orange),
-    var(--guide-accent-green),
-    var(--guide-accent-blue),
-    var(--guide-accent-purple),
+    var(--page-color),
+    var(--page-color-companion),
+    var(--page-color-support),
     transparent
   );
   opacity: 0.72;
@@ -171,21 +349,10 @@ footer.bg-white {
 }
 
 body[class*="guide-page--"] .navbar.bg-white {
-  background:
-    radial-gradient(
-      circle at 18% 0,
-      color-mix(in srgb, var(--page-color) 14%, transparent),
-      transparent 17rem
-    ),
-    radial-gradient(
-      circle at 86% 0,
-      color-mix(in srgb, var(--page-color-companion) 10%, transparent),
-      transparent 18rem
-    ),
-    rgba(25, 24, 26, 0.92) !important;
+  background: rgba(25, 24, 26, 0.92) !important;
   border-color: color-mix(
     in srgb,
-    var(--page-color) 26%,
+    var(--page-color-companion) 22%,
     transparent
   ) !important;
 }
@@ -194,8 +361,9 @@ body[class*="guide-page--"] .navbar.bg-white::after {
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in srgb, var(--page-color) 86%, transparent),
-    color-mix(in srgb, var(--page-color-companion) 68%, transparent),
+    color-mix(in srgb, var(--page-color) 76%, transparent),
+    color-mix(in srgb, var(--page-color-companion) 62%, transparent),
+    color-mix(in srgb, var(--page-color-support) 44%, transparent),
     transparent
   );
   opacity: 0.86;
@@ -203,6 +371,8 @@ body[class*="guide-page--"] .navbar.bg-white::after {
 
 .navbar .container-fluid {
   gap: 0.85rem;
+  min-height: var(--guide-navbar-height);
+  align-items: center;
 }
 
 .navbar-brand {
@@ -219,7 +389,6 @@ body[class*="guide-page--"] .navbar.bg-white::after {
   height: 2.15rem;
   flex: 0 0 auto;
   object-fit: contain;
-  filter: drop-shadow(0 0.25rem 0.34rem rgba(0, 0, 0, 0.22));
 }
 
 .navbar-brand__text {
@@ -241,7 +410,7 @@ body[class*="guide-page--"] .navbar.bg-white::after {
 }
 
 .navbar .nav-link {
-  --nav-color: var(--guide-accent-blue);
+  --nav-color: var(--page-color);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -268,7 +437,7 @@ body[class*="guide-page--"] .navbar.bg-white::after {
   flex: 0 0 auto;
   border-radius: 999px;
   background: var(--nav-color);
-  box-shadow: 0 0 0.78rem color-mix(in srgb, var(--nav-color) 34%, transparent);
+  box-shadow: none;
   opacity: 0.78;
   transition:
     opacity 0.15s ease,
@@ -336,20 +505,40 @@ body[class*="guide-page--"] .navbar.bg-white::after {
   --nav-color: var(--guide-tab-10);
 }
 
-.navbar .nav-item .nav-link.guide-nav-link--bridge {
-  --nav-color: var(--guide-tab-5);
+.navbar .nav-item .nav-link.guide-nav-link--tone-progress {
+  --nav-color: var(--guide-identity-getting-started-primary);
 }
 
-.navbar .nav-item .nav-link.guide-nav-link--tools {
-  --nav-color: var(--guide-tab-6);
+.navbar .nav-item .nav-link.guide-nav-link--tone-structure {
+  --nav-color: var(--guide-identity-fundamentals-primary);
 }
 
-.navbar .nav-item .nav-link.guide-nav-link--recipes {
-  --nav-color: var(--guide-tab-7);
+.navbar .nav-item .nav-link.guide-nav-link--tone-operation {
+  --nav-color: var(--guide-identity-gateway-primary);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--tone-activation {
+  --nav-color: var(--guide-identity-surface-primary);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--tone-connection {
+  --nav-color: var(--guide-identity-bridge-primary);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--tone-tooling {
+  --nav-color: var(--guide-identity-tools-primary);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--tone-practice {
+  --nav-color: var(--guide-identity-recipes-primary);
+}
+
+.navbar .nav-item .nav-link.guide-nav-link--tone-support {
+  --nav-color: var(--guide-identity-consultation-primary);
 }
 
 .navbar .guide-nav-link--ecosystem {
-  --nav-color: var(--guide-accent-strong);
+  --nav-color: var(--guide-identity-consultation-companion);
   color: color-mix(in srgb, var(--nav-color) 58%, #fcfcfa);
   font-weight: 900;
 }
@@ -371,7 +560,7 @@ body[class*="guide-page--"] .navbar.bg-white::after {
 .navbar .nav-link:hover,
 .navbar .nav-link:focus-visible {
   color: #fff;
-  text-shadow: 0 0 14px color-mix(in srgb, var(--nav-color) 36%, transparent);
+  text-shadow: none;
 }
 
 .navbar .nav-link:hover::before,
@@ -393,7 +582,7 @@ body[class*="guide-page--"] .navbar.bg-white::after {
 
 .navbar .nav-link.active {
   color: #fff;
-  text-shadow: 0 0 16px color-mix(in srgb, var(--nav-color) 44%, transparent);
+  text-shadow: none;
 }
 
 .navbar .nav-link.active::before {
@@ -407,15 +596,273 @@ body[class*="guide-page--"] .navbar.bg-white::after {
 }
 
 .navbar-toggler {
-  border-color: rgba(120, 220, 232, 0.28);
-  border-radius: 0.85rem;
-  background: rgba(25, 24, 26, 0.55);
+  --guide-toggler-ease: cubic-bezier(0.2, 0.9, 0.22, 1);
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 2.45rem;
+  height: 2.45rem;
+  flex: 0 0 2.45rem;
+  min-width: 2.45rem;
+  padding: 0;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--page-color-companion) 82%, #fcfcfa);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--page-color-companion) 34%,
+      rgba(255, 255, 255, 0.1)
+    );
+  border-radius: 0.72rem;
+  line-height: 1;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--page-color-companion) 12%, transparent),
+      rgba(255, 255, 255, 0.022)
+    ),
+    rgba(25, 24, 26, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0.42rem 0.9rem rgba(0, 0, 0, 0.18);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.navbar-toggler::before {
+  content: "";
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 0.48rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--page-color) 10%, transparent),
+    color-mix(in srgb, var(--page-color-companion) 14%, transparent)
+  );
+  opacity: 0.78;
+  transform: scale(0.9);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.navbar-toggler-icon {
+  position: relative;
+  z-index: 1;
+  width: 1.14rem;
+  height: 0.17rem;
+  border-radius: 999px;
+  background-color: transparent;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: background-size 0.16s ease;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: "";
+  position: absolute;
+  height: 0.17rem;
+  background: currentColor;
+  transform: translateX(0) rotate(0deg);
+  transform-origin: center;
+  transition:
+    top 0.2s var(--guide-toggler-ease),
+    right 0.2s var(--guide-toggler-ease),
+    left 0.2s var(--guide-toggler-ease),
+    width 0.2s var(--guide-toggler-ease),
+    transform 0.2s var(--guide-toggler-ease);
+}
+
+.navbar-toggler-icon::before {
+  top: -0.34rem;
+  left: 0.09rem;
+  width: 0.96rem;
+  border-radius: 999px 999px 0.48rem 0.48rem / 999px 999px 0.36rem 0.36rem;
+}
+
+.navbar-toggler-icon::after {
+  top: 0.32rem;
+  left: 0.09rem;
+  width: 0.96rem;
+  border-radius: 0.48rem 0.48rem 999px 999px / 0.36rem 0.36rem 999px 999px;
+}
+
+.navbar-toggler:hover,
+.navbar-toggler:focus-visible,
+.navbar-toggler[aria-expanded="true"] {
+  color: color-mix(in srgb, var(--page-color) 82%, #fcfcfa);
+  border-color: color-mix(
+    in srgb,
+    var(--page-color) 42%,
+    rgba(255, 255, 255, 0.14)
+  );
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--page-color) 14%, transparent),
+      color-mix(in srgb, var(--page-color-companion) 7%, transparent)
+    ),
+    rgba(25, 24, 26, 0.68);
+}
+
+.navbar-toggler:hover::before,
+.navbar-toggler:focus-visible::before,
+.navbar-toggler[aria-expanded="true"]::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  background-size: 0 100%;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before,
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+  top: 0;
+  left: 50%;
+  right: auto;
+  width: 1.2rem;
+  border-radius: 999px;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+  transform: translateX(-50%) rotate(42deg);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+  transform: translateX(-50%) rotate(-42deg);
 }
 
 .navbar-toggler:focus {
-  box-shadow: 0 0 0 0.2rem rgba(120, 220, 232, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 0.18rem
+      color-mix(in srgb, var(--page-color-companion) 22%, transparent);
+}
+
+.navbar-toggler:focus:not(:focus-visible) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0.42rem 0.9rem rgba(0, 0, 0, 0.18);
 }
 
 .navbar .navbar-collapse.collapsing {
   transition-duration: 0.1s;
+}
+
+@media (min-width: 1200px) {
+  .navbar.bg-white::after {
+    display: none;
+  }
+
+  .navbar .navbar-nav {
+    flex-wrap: nowrap;
+    gap: 0.12rem;
+    padding: 0.16rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .navbar .nav-link {
+    min-height: 2.46rem;
+    gap: 0;
+    padding: 0.56rem 0.54rem;
+    border: 1px solid transparent;
+    border-radius: 0.34rem;
+    color: color-mix(in srgb, var(--nav-color) 16%, rgba(252, 252, 250, 0.8));
+    font-size: 0.72rem;
+    text-shadow: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .navbar .nav-link::before,
+  .navbar .nav-link::after {
+    display: none;
+  }
+
+  .navbar .nav-link:hover,
+  .navbar .nav-link:focus-visible {
+    color: #fff;
+    border-color: color-mix(
+      in srgb,
+      var(--nav-color) 28%,
+      rgba(255, 255, 255, 0.08)
+    );
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--nav-color) 10%, transparent),
+        rgba(255, 255, 255, 0.035)
+      ),
+      rgba(255, 255, 255, 0.018);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0.5rem 1rem rgba(0, 0, 0, 0.14);
+    text-shadow: none;
+    transform: translateY(-1px);
+  }
+
+  .navbar .nav-link.active {
+    color: #fff;
+    border-color: color-mix(
+      in srgb,
+      var(--nav-color) 42%,
+      rgba(255, 255, 255, 0.1)
+    );
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--nav-color) 18%, transparent),
+        color-mix(in srgb, var(--nav-color) 6%, transparent)
+      ),
+      rgba(255, 255, 255, 0.04);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0.65rem 1.4rem rgba(0, 0, 0, 0.18);
+    text-shadow: none;
+  }
+
+  .navbar .guide-nav-link--ecosystem {
+    margin-left: 0.18rem;
+    padding-right: 0.58rem;
+    padding-left: 0.7rem;
+    color: color-mix(in srgb, var(--nav-color) 76%, #fcfcfa);
+    border-color: transparent;
+    border-radius: 0.34rem;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--nav-color) 28%, transparent) 0 2px,
+      transparent 2px
+    );
+    box-shadow: none;
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--nav-color) 46%,
+      transparent
+    );
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.34em;
+  }
+
+  .navbar .guide-nav-link--ecosystem::after {
+    display: inline-block;
+  }
+
+  .navbar .nav-link:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--nav-color) 46%, transparent);
+    outline-offset: 0.18rem;
+  }
 }

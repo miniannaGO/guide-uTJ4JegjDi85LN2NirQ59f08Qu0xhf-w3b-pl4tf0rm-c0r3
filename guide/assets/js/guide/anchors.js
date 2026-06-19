@@ -4,6 +4,8 @@
   let pendingGuideAnchorHighlightTimeout = 0;
   let activeGuideAnchorHighlightSurface = null;
   let activeGuideAnchorHighlightTimeout = 0;
+  let activeGuideScrollAnimationFrame = 0;
+  let lockedGuideNavActiveHref = "";
 
   function bootGuideNavDragScroll() {
     document.querySelectorAll(".guide-sidebar .guide-nav").forEach((nav) => {
@@ -113,9 +115,7 @@
 
     nav.dataset.guideMobileDropdownsReady = "true";
 
-    const links = [...nav.children].filter((item) =>
-      item.matches?.("a.nav-link[href^='#']"),
-    );
+    const links = guideNavDirectItems(nav);
     let dropdownIndex = 0;
 
     for (let index = 0; index < links.length; index++) {
@@ -186,7 +186,6 @@
 
     menu.className = "dropdown-menu guide-nav-mobile-menu";
     menu.setAttribute("aria-labelledby", toggleId);
-    menu.append(renderGuideNavMobileItem(parent, true));
     children.forEach((child) => menu.append(renderGuideNavMobileItem(child)));
 
     dropdown.append(toggle, menu);
@@ -202,17 +201,283 @@
 
   function renderGuideNavMobileItem(sourceLink, isParent = false) {
     const item = document.createElement("li");
-    const link = document.createElement("a");
+    const isDocumentButton = sourceLink.matches?.(
+      "button.nav-link[data-doc-source]",
+    );
+    const link = document.createElement(isDocumentButton ? "button" : "a");
 
     link.className = isParent
       ? "dropdown-item guide-nav-mobile-item guide-nav-mobile-item--parent"
       : "dropdown-item guide-nav-mobile-item";
-    link.href = sourceLink.getAttribute("href") ?? "#";
+    if (isDocumentButton) {
+      link.type = "button";
+      link.dataset.docSource = sourceLink.dataset.docSource;
+    } else {
+      link.href = sourceLink.getAttribute("href") ?? "#";
+    }
     link.textContent = sourceLink.textContent.trim();
     link.dataset.guideNavMobileItem = "true";
+    link.classList.toggle("active", sourceLink.classList.contains("active"));
     item.append(link);
 
     return item;
+  }
+
+  function bootGuideNavTree() {
+    const nav = document.querySelector("#guide-nav");
+    if (!nav || nav.dataset.guideTreeReady === "true") return;
+
+    const groups = guideNavTreeGroups(nav);
+    if (!groups.length) return;
+
+    nav.dataset.guideTreeReady = "true";
+    nav.classList.add("guide-nav--tree");
+    bootGuideNavTreeControls(nav);
+
+    groups.forEach(({ parent, children }, index) => {
+      const groupId = `guide-nav-tree-${index + 1}`;
+
+      parent.classList.add("guide-nav-link--has-children");
+      parent.dataset.guideNavTreeGroup = groupId;
+      parent.setAttribute("aria-expanded", "false");
+      parent.addEventListener(
+        "click",
+        (event) => {
+          if (!isGuideNavTreeDesktop()) return;
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          toggleGuideNavTreeGroup(nav, parent);
+        },
+        { capture: true },
+      );
+
+      children.forEach((child) => {
+        child.dataset.guideNavTreeChild = groupId;
+        child.hidden = true;
+      });
+    });
+
+    syncGuideNavTreeActive(nav, window.location.hash);
+  }
+
+  function guideNavTreeGroups(nav) {
+    const links = guideNavDirectItems(nav);
+    const groups = [];
+
+    for (let index = 0; index < links.length; index++) {
+      const parent = links[index];
+      if (parent.classList.contains("guide-nav-link--subsection")) continue;
+
+      const children = [];
+      let nextIndex = index + 1;
+
+      while (
+        nextIndex < links.length &&
+        links[nextIndex].classList.contains("guide-nav-link--subsection")
+      ) {
+        children.push(links[nextIndex]);
+        nextIndex++;
+      }
+
+      if (children.length) groups.push({ parent, children });
+      index = nextIndex - 1;
+    }
+
+    return groups;
+  }
+
+  function toggleGuideNavTreeGroup(nav, parent) {
+    const isExpanded = parent.getAttribute("aria-expanded") === "true";
+    setGuideNavTreeGroupExpanded(nav, parent, !isExpanded);
+  }
+
+  function setGuideNavTreeGroupExpanded(nav, parent, isExpanded) {
+    if (!nav?.classList.contains("guide-nav--tree")) return;
+    if (!isGuideNavTreeDesktop()) return;
+
+    const groupId = parent?.dataset.guideNavTreeGroup ?? "";
+    if (!groupId) return;
+
+    parent.classList.toggle("is-expanded", isExpanded);
+    parent.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+
+    nav
+      .querySelectorAll(
+        ".guide-nav-link--subsection[data-guide-nav-tree-child]",
+      )
+      .forEach((child) => {
+        if (child.dataset.guideNavTreeChild !== groupId) return;
+
+        child.hidden = !isExpanded;
+        child.classList.toggle("is-tree-visible", isExpanded);
+      });
+    syncGuideNavTreeControlState(nav);
+  }
+
+  function collapseGuideNavTreeGroups(nav) {
+    if (!nav?.classList.contains("guide-nav--tree")) return;
+    if (!isGuideNavTreeDesktop()) return;
+
+    nav.querySelectorAll(".guide-nav-link--has-children").forEach((parent) => {
+      parent.classList.remove("is-expanded");
+      parent.setAttribute("aria-expanded", "false");
+    });
+
+    nav
+      .querySelectorAll(
+        ".guide-nav-link--subsection[data-guide-nav-tree-child]",
+      )
+      .forEach((child) => {
+        child.hidden = true;
+        child.classList.remove("is-tree-visible");
+      });
+    syncGuideNavTreeControlState(nav);
+  }
+
+  function bootGuideNavTreeControls(nav) {
+    if (nav.dataset.guideTreeControlsReady === "true") return;
+
+    const body = nav.closest(".card-body");
+    if (!body) return;
+
+    nav.dataset.guideTreeControlsReady = "true";
+    body.classList.add("guide-sidebar__body--tree-tools");
+
+    const button = document.createElement("button");
+    const icon = document.createElement("i");
+
+    button.type = "button";
+    button.className = "guide-sidebar__tree-collapse";
+    button.title = "Colapsar menús padres";
+    button.setAttribute("aria-label", "Colapsar menús padres");
+
+    icon.className = "bi bi-chevron-bar-contract";
+    icon.setAttribute("aria-hidden", "true");
+    button.append(icon);
+
+    button.addEventListener("click", () => collapseGuideNavTreeGroups(nav));
+    body.insertBefore(button, nav);
+    syncGuideNavTreeControlState(nav);
+  }
+
+  function syncGuideNavTreeControlState(nav) {
+    const button = nav
+      ?.closest(".card-body")
+      ?.querySelector(".guide-sidebar__tree-collapse");
+    if (!button) return;
+
+    button.disabled = ![
+      ...nav.querySelectorAll(".guide-nav-link--has-children"),
+    ].some((parent) => parent.getAttribute("aria-expanded") === "true");
+  }
+
+  function syncGuideNavTreeActive(nav, href) {
+    if (!href || !nav?.classList.contains("guide-nav--tree")) return;
+    if (!isGuideNavTreeDesktop()) return;
+
+    const activeLink = guideNavDirectLinkForHref(nav, href);
+    if (!activeLink) return;
+
+    const parent = activeLink.classList.contains("guide-nav-link--subsection")
+      ? guideNavTreeParentForChild(nav, activeLink)
+      : activeLink.classList.contains("guide-nav-link--has-children")
+        ? activeLink
+        : null;
+    if (!parent) return;
+
+    setGuideNavTreeGroupExpanded(nav, parent, true);
+  }
+
+  function isGuideNavTreeDesktop() {
+    return window.matchMedia("(min-width: 992px)").matches;
+  }
+
+  function guideNavTreeParentForChild(nav, child) {
+    const groupId = child?.dataset.guideNavTreeChild;
+    if (!groupId) return null;
+
+    return (
+      [...nav.querySelectorAll(".guide-nav-link--has-children")].find(
+        (parent) => parent.dataset.guideNavTreeGroup === groupId,
+      ) ?? null
+    );
+  }
+
+  function guideNavDirectLinkForHref(nav, href) {
+    if (!href) return null;
+
+    return (
+      guideNavDirectLinks(nav).find(
+        (link) => link.getAttribute("href") === href,
+      ) ?? null
+    );
+  }
+
+  function guideNavDirectLinks(nav) {
+    return [...nav.children].filter((item) =>
+      item.matches?.("a.nav-link[href^='#']"),
+    );
+  }
+
+  function guideNavDirectItems(nav) {
+    return [...nav.children].filter((item) =>
+      item.matches?.(
+        "a.nav-link[href^='#'], button.nav-link:not(.guide-nav-mobile-toggle)",
+      ),
+    );
+  }
+
+  function bootGuideResponsiveScrollCues() {
+    if (
+      document.documentElement.dataset.guideResponsiveScrollCuesReady === "true"
+    )
+      return;
+
+    document.documentElement.dataset.guideResponsiveScrollCuesReady = "true";
+
+    document.addEventListener(
+      "click",
+      (event) => {
+        const link = event.target?.closest?.(
+          "a[data-guide-scroll-target-stacked]",
+        );
+        if (!link) return;
+        if (!window.matchMedia("(max-width: 1199.98px)").matches) return;
+
+        const target = guideElementFromSelector(
+          link.getAttribute("data-guide-scroll-target-stacked"),
+        );
+        if (!target) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        scrollToGuideStackedTarget(target);
+      },
+      { capture: true },
+    );
+  }
+
+  function guideElementFromSelector(selector) {
+    if (!selector) return null;
+
+    try {
+      return document.querySelector(selector);
+    } catch {
+      return null;
+    }
+  }
+
+  function scrollToGuideStackedTarget(target) {
+    const navbar = document.querySelector(".navbar.sticky-top");
+    const navbarHeight = navbar?.getBoundingClientRect().height ?? 0;
+    const gap = window.matchMedia("(max-width: 575.98px)").matches ? 14 : 18;
+    const top = Math.max(
+      0,
+      target.getBoundingClientRect().top + window.scrollY - navbarHeight - gap,
+    );
+
+    scrollGuideWindowTo(top);
   }
 
   function bootGuideAnchorHighlights() {
@@ -226,6 +491,7 @@
       (event) => {
         const link = event.target?.closest?.("a[href]");
         if (!link) return;
+        if (isGuideNavTreeParentLink(link)) return;
 
         const url = localGuideAnchorUrl(link);
         if (!url) return;
@@ -435,17 +701,32 @@
           const target = targetId ? document.getElementById(targetId) : null;
 
           if (!hash || !target) return;
+          if (isGuideNavTreeParentLink(link)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return;
+          }
 
           event.preventDefault();
           event.stopImmediatePropagation();
-          setGuideNavActive(guidePrimaryNavLink(nav, link));
+          setGuideNavActive(guidePrimaryNavLink(nav, link), {
+            syncTree: isGuideNavTreeDesktop(),
+          });
           closeGuideNavMobileDropdown(link);
-          scrollToGuideTarget(target);
+          scrollToGuideTarget(target, hash);
           history.pushState(null, "", hash);
         },
         { capture: true },
       );
     });
+  }
+
+  function isGuideNavTreeParentLink(link) {
+    return (
+      link?.closest?.("#guide-nav") &&
+      link.classList.contains("guide-nav-link--has-children") &&
+      !link.classList.contains("guide-nav-mobile-item")
+    );
   }
 
   function bootGuideNavActiveState() {
@@ -466,7 +747,16 @@
     let ticking = false;
     const sync = () => {
       ticking = false;
-      setGuideNavActive(resolveGuideNavActiveEntry(entries)?.link);
+      const lockedLink = lockedGuideNavActiveHref
+        ? guideNavDirectLinkForHref(nav, lockedGuideNavActiveHref)
+        : null;
+
+      setGuideNavActive(
+        lockedLink ?? resolveGuideNavActiveEntry(entries)?.link,
+        {
+          syncTree: false,
+        },
+      );
     };
     const schedule = () => {
       if (ticking) return;
@@ -515,7 +805,9 @@
       return rect.top <= topEdge && rect.bottom > topEdge;
     });
 
-    if (visibleAtTop) return visibleAtTop;
+    if (visibleAtTop) {
+      return resolveGuideNavTreeContinuityEntry(entries, visibleAtTop, topEdge);
+    }
     if (visibleEntries.length) return visibleEntries[0];
 
     return (
@@ -527,7 +819,27 @@
     );
   }
 
-  function setGuideNavActive(activeLink) {
+  function resolveGuideNavTreeContinuityEntry(entries, activeEntry, topEdge) {
+    const parent = activeEntry.link.classList.contains(
+      "guide-nav-link--has-children",
+    )
+      ? activeEntry.link
+      : null;
+    const groupId = parent?.dataset.guideNavTreeGroup ?? "";
+    if (!groupId) return activeEntry;
+
+    return (
+      [...entries]
+        .reverse()
+        .find(
+          ({ link, section }) =>
+            link.dataset.guideNavTreeChild === groupId &&
+            section.getBoundingClientRect().top <= topEdge,
+        ) ?? activeEntry
+    );
+  }
+
+  function setGuideNavActive(activeLink, options = {}) {
     if (!activeLink) return;
 
     const nav = activeLink.closest("#guide-nav");
@@ -543,6 +855,9 @@
         link.removeAttribute("aria-current");
       });
     nav
+      .querySelectorAll(".guide-nav-link--has-children.is-child-active")
+      .forEach((link) => link.classList.remove("is-child-active"));
+    nav
       .querySelectorAll(".guide-nav-mobile-dropdown.is-active")
       .forEach((dropdown) => dropdown.classList.remove("is-active"));
 
@@ -551,9 +866,21 @@
       link.setAttribute("aria-current", "location");
     });
     syncGuideNavMobileDropdownActive(nav, href);
+    if (options.syncTree !== false) {
+      syncGuideNavTreeActive(nav, href);
+    }
+    syncGuideNavTreeParentActive(nav, activeLink);
     scrollActiveMenuItemIntoView(
       guideNavMobileScrollTarget(nav, activeLink, href),
     );
+  }
+
+  function syncGuideNavTreeParentActive(nav, activeLink) {
+    const link = guidePrimaryNavLink(nav, activeLink);
+    if (!link.classList.contains("guide-nav-link--subsection")) return;
+
+    const parent = guideNavTreeParentForChild(nav, link);
+    parent?.classList.add("is-child-active");
   }
 
   function guidePrimaryNavLink(nav, link) {
@@ -624,7 +951,8 @@
   }
 
   function positionGuideNavMobileDropdown(dropdown) {
-    if (!dropdown || !window.matchMedia("(max-width: 991.98px)").matches) return;
+    if (!dropdown || !window.matchMedia("(max-width: 991.98px)").matches)
+      return;
 
     const toggle = dropdown.querySelector(".guide-nav-mobile-toggle");
     const menu = dropdown.querySelector(".guide-nav-mobile-menu");
@@ -664,7 +992,7 @@
   function scrollActiveMenuItemIntoView(item) {
     if (!window.matchMedia("(max-width: 991.98px)").matches) return;
 
-    const scroller = item.closest(".guide-nav, .diagram-list__tabs");
+    const scroller = item.closest(".guide-nav");
     if (!scroller || scroller.scrollWidth <= scroller.clientWidth + 1) return;
 
     const itemRect = item.getBoundingClientRect();
@@ -682,14 +1010,69 @@
     });
   }
 
-  function scrollToGuideTarget(target) {
+  function scrollToGuideTarget(target, lockedHref = "") {
     const top = Math.max(
       0,
       target.getBoundingClientRect().top + window.scrollY - guideAnchorOffset(),
     );
-    const behavior = guidePrefersReducedMotion() ? "auto" : "smooth";
 
-    window.scrollTo({ top, behavior });
+    scrollGuideWindowTo(top, lockedHref);
+  }
+
+  function scrollGuideWindowTo(top, lockedHref = "") {
+    if (activeGuideScrollAnimationFrame) {
+      window.cancelAnimationFrame(activeGuideScrollAnimationFrame);
+      activeGuideScrollAnimationFrame = 0;
+    }
+    lockedGuideNavActiveHref = lockedHref;
+
+    if (guidePrefersReducedMotion()) {
+      window.scrollTo({ top, behavior: "auto" });
+      releaseGuideNavScrollLock(lockedHref);
+      return;
+    }
+
+    const start = window.scrollY;
+    const distance = top - start;
+
+    if (Math.abs(distance) < 2) {
+      window.scrollTo({ top, behavior: "auto" });
+      releaseGuideNavScrollLock(lockedHref);
+      return;
+    }
+
+    const duration = Math.min(210, Math.max(80, Math.abs(distance) / 20));
+    const startedAt = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      window.scrollTo(0, start + distance * eased);
+
+      if (progress < 1) {
+        activeGuideScrollAnimationFrame = window.requestAnimationFrame(step);
+        return;
+      }
+
+      activeGuideScrollAnimationFrame = 0;
+      window.scrollTo({ top, behavior: "auto" });
+      releaseGuideNavScrollLock(lockedHref);
+    };
+
+    activeGuideScrollAnimationFrame = window.requestAnimationFrame(step);
+  }
+
+  function releaseGuideNavScrollLock(lockedHref) {
+    if (!lockedHref || lockedGuideNavActiveHref !== lockedHref) return;
+
+    const nav = document.querySelector("#guide-nav");
+    const finalLink = nav ? guideNavDirectLinkForHref(nav, lockedHref) : null;
+
+    lockedGuideNavActiveHref = "";
+    if (!finalLink) return;
+
+    setGuideNavActive(finalLink, { syncTree: false });
   }
 
   function guideAnchorOffset() {
@@ -719,6 +1102,8 @@
     bootGuideNavDragScroll,
     syncGuideNavOverflow,
     bootGuideNavMobileDropdowns,
+    bootGuideNavTree,
+    bootGuideResponsiveScrollCues,
     bootGuideAnchorHighlights,
     bootGuideNavAnchors,
     bootGuideNavActiveState,

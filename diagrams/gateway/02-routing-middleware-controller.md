@@ -30,7 +30,7 @@ flowchart LR
 
   ControllerApi --> Response["HttpResponseInterface"]
 
-  AppController -. "error de presentación/request" .-> ControllerAbort["ControllerException<br/>ManualControllerException<br/>TabSessionRequired"]
+  AppController -. "fallo controlado de presentación/request" .-> ControllerAbort["ControllerFailure<br/>ControllerAbort<br/>TabSessionRequired"]
   ControllerAbort --> Response
 
   classDef route fill:#082F49,stroke:#38BDF8,stroke-width:2px,color:#E0F2FE;
@@ -52,7 +52,7 @@ flowchart LR
 - Middleware corta o deja pasar request, pero no ejecuta casos de uso.
 - Controller adapta input HTTP y decide tipo de salida.
 - Los mensajes flash se escriben/consumen desde `AppController`; no pertenecen al use case.
-- Los errores de controller son de presentación o request imposible antes del use case.
+- Los fallos controlados de controller viven en `Presentation/Http/Failure` y pertenecen a presentación o request imposible antes del use case.
 
 ## Navegación
 

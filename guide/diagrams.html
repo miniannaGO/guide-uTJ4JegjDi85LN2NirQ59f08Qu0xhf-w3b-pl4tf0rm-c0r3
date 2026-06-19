@@ -11,13 +11,14 @@
     />
     <script src="assets/js/theme.js"></script>
     <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/lib/css/bootstrap-icons-min.css" rel="stylesheet" />
     <link href="assets/css/guide.css" rel="stylesheet" />
   </head>
 
   <body class="guide-page--diagrams">
     <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
       <div class="container-fluid px-3 px-lg-4">
-        <a class="navbar-brand fw-bold" href="index.html">
+        <a class="navbar-brand" href="index.html">
           <img
             class="navbar-brand__logo"
             src="assets/img/web-platform-core.svg"
@@ -58,7 +59,7 @@
               <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="recipes.html">Guías</a>
+              <a class="nav-link" href="recipes.html">Prácticas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="diagrams.html">Diagramas</a>
@@ -86,8 +87,8 @@
         </nav>
         <h1 class="display-6 fw-bold">Diagramas del sistema</h1>
         <p class="lead mb-0">
-          Visor Markdown/Mermaid para recorrer los diagramas de arquitectura y
-          flujo de datos desde la guía.
+          Mapas visuales para ubicar responsabilidades, recorridos y fronteras
+          antes de profundizar en una explicación o en el código.
         </p>
       </div>
     </header>
@@ -95,189 +96,177 @@
     <div class="container-fluid guide-shell px-3 px-lg-4 py-4">
       <div class="row g-4">
         <aside class="col-lg-3 col-xl-2 px-0 pt-3">
-          <div class="guide-sidebar guide-sidebar--diagrams position-sticky">
-            <div class="card border-0 shadow-sm diagram-browser">
+          <div id="diagram-list" class="guide-sidebar position-sticky">
+            <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2 class="h6 text-uppercase text-secondary">
-                  Explorar diagramas
-                </h2>
+                <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
                 <nav
-                  id="diagram-list"
-                  class="diagram-list guide-nav nav nav-pills flex-column"
+                  id="guide-nav"
+                  class="guide-nav nav nav-pills flex-column"
                   aria-label="Diagramas disponibles"
                 >
-                  <div class="diagram-list__group">
-                    <h3>General</h3>
-                    <button
-                      class="nav-link active"
-                      type="button"
-                      data-doc-source="../diagrams/README.md"
-                    >
-                      Índice general
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/00-system-context.md"
-                    >
-                      Contexto completo
-                    </button>
-                  </div>
+                  <button class="nav-link" type="button">General</button>
+                  <button
+                    class="nav-link guide-nav-link--subsection active"
+                    type="button"
+                    data-doc-source="../diagrams/README.md"
+                  >
+                    Índice general
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/00-system-context.md"
+                  >
+                    Contexto completo
+                  </button>
 
-                  <div class="diagram-list__group">
-                    <h3>Gateway</h3>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/README.md"
-                    >
-                      Índice gateway
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/01-runtime-bootstrap-http.md"
-                    >
-                      Runtime, bootstrap y HTTP
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/02-routing-middleware-controller.md"
-                    >
-                      Routing, middleware y controller
-                    </button>
-                    <button
-                      id="diagram-gateway-usecases-results-errors"
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/03-usecases-results-errors.md"
-                    >
-                      Use cases, resultados y errores
-                    </button>
-                    <button
-                      id="diagram-gateway-outbound-services-connectors"
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/04-outbound-services-connectors.md"
-                    >
-                      Outbound, services y connectors
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/05-views-json-assets.md"
-                    >
-                      Views, JSON y assets
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/gateway/06-di-observability-headers.md"
-                    >
-                      DI, observabilidad y headers
-                    </button>
-                  </div>
+                  <button class="nav-link" type="button">Gateway</button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/README.md"
+                  >
+                    Índice gateway
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/01-runtime-bootstrap-http.md"
+                  >
+                    Runtime, bootstrap y HTTP
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/02-routing-middleware-controller.md"
+                  >
+                    Routing, middleware y controller
+                  </button>
+                  <button
+                    id="diagram-gateway-usecases-results-errors"
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/03-usecases-results-errors.md"
+                  >
+                    Use cases, resultados y errores
+                  </button>
+                  <button
+                    id="diagram-gateway-outbound-services-connectors"
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/04-outbound-services-connectors.md"
+                  >
+                    Outbound, services y connectors
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/05-views-json-assets.md"
+                  >
+                    Views y respuestas HTTP
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/gateway/06-di-observability-headers.md"
+                  >
+                    DI, observabilidad y headers
+                  </button>
 
-                  <div class="diagram-list__group">
-                    <h3>Surface</h3>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/surface/README.md"
-                    >
-                      Índice surface
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/surface/01-startup-layouts.md"
-                    >
-                      Startup y layouts
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/surface/02-runtime-pages-fragments-bindings.md"
-                    >
-                      Runtime, pages y fragments
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/surface/03-http-session-errors.md"
-                    >
-                      HTTP, sesión y errores
-                    </button>
-                    <button
-                      id="diagram-surface-workspace-toolkit-adapters"
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/surface/04-workspace-toolkit-adapters.md"
-                    >
-                      Workspace, toolkit y adapters
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/surface/05-vite-styles-assets.md"
-                    >
-                      Vite, estilos y assets
-                    </button>
-                  </div>
+                  <button class="nav-link" type="button">Surface</button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/surface/README.md"
+                  >
+                    Índice surface
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/surface/01-startup-layouts.md"
+                  >
+                    Startup y layouts
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/surface/02-runtime-pages-fragments-bindings.md"
+                  >
+                    Runtime, pages y fragments
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/surface/03-http-session-errors.md"
+                  >
+                    HTTP, sesión y errores
+                  </button>
+                  <button
+                    id="diagram-surface-workspace-toolkit-adapters"
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/surface/04-workspace-toolkit-adapters.md"
+                  >
+                    Workspace, toolkit y adapters
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/surface/05-vite-styles-assets.md"
+                  >
+                    Vite, estilos y assets
+                  </button>
 
-                  <div class="diagram-list__group">
-                    <h3>Bridge</h3>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/bridge/README.md"
-                    >
-                      Índice bridge
-                    </button>
-                    <button
-                      id="diagram-bridge-ssr-progressive-enhancement"
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/bridge/01-ssr-progressive-enhancement.md"
-                    >
-                      SSR y Progressive Enhancement
-                    </button>
-                    <button
-                      id="diagram-bridge-fragments-dynamic-content"
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/bridge/02-fragments-dynamic-content.md"
-                    >
-                      Fragments y contenido dinámico
-                    </button>
-                    <button
-                      id="diagram-bridge-json-session-assets-contracts"
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/bridge/03-json-session-assets-contracts.md"
-                    >
-                      JSON, sesión y assets
-                    </button>
-                  </div>
+                  <button class="nav-link" type="button">Bridge</button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/bridge/README.md"
+                  >
+                    Índice bridge
+                  </button>
+                  <button
+                    id="diagram-bridge-ssr-progressive-enhancement"
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/bridge/01-ssr-progressive-enhancement.md"
+                  >
+                    SSR y Progressive Enhancement
+                  </button>
+                  <button
+                    id="diagram-bridge-fragments-dynamic-content"
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/bridge/02-fragments-dynamic-content.md"
+                  >
+                    Fragments y contenido dinámico
+                  </button>
+                  <button
+                    id="diagram-bridge-json-session-assets-contracts"
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/bridge/03-json-session-assets-contracts.md"
+                  >
+                    JSON, sesión y assets
+                  </button>
 
-                  <div class="diagram-list__group">
-                    <h3>Herramientas</h3>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/tools/README.md"
-                    >
-                      Índice de herramientas
-                    </button>
-                    <button
-                      class="nav-link"
-                      type="button"
-                      data-doc-source="../diagrams/tools/01-robo-tools-commands.md"
-                    >
-                      Robo, scaffolding y contratos
-                    </button>
-                  </div>
+                  <button class="nav-link" type="button">Herramientas</button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/tools/README.md"
+                  >
+                    Índice de herramientas
+                  </button>
+                  <button
+                    class="nav-link guide-nav-link--subsection"
+                    type="button"
+                    data-doc-source="../diagrams/tools/01-robo-tools-commands.md"
+                  >
+                    Robo, scaffolding y contratos
+                  </button>
                 </nav>
               </div>
             </div>
@@ -294,23 +283,16 @@
                   <div>
                     <h2 class="h4 mb-1" data-markdown-title>Índice general</h2>
                     <p class="text-secondary">
-                      El contenido se lee desde los Markdown de la guía.
+                      El visor presenta las fuentes Markdown/Mermaid disponibles
+                      sin convertirlas en una fuente de verdad independiente.
                     </p>
                     <p>
                       Los diagramas sirven como mapa visual para no perder el
-                      orden del sistema. Úsalos para ubicar piezas, pero valida
-                      el detalle en las páginas de Gateway, Surface, Bridge o
-                      en el código real.
-                    </p>
-                    <p class="guide-crosslink">
-                      <em>
-                        Cuando un diagrama derive en una capa concreta, la
-                        lectura debe continuar en
-                        <a href="app-gateway.html#overview">Gateway</a>,
-                        <a href="app-surface.html#overview">Surface</a> o
-                        <a href="bridge.html#ssr">Bridge</a> para leerlo con
-                        ejemplos.
-                      </em>
+                      orden del sistema. Se deben usar para ubicar piezas, pero
+                      el detalle se debe validar en
+                      <a href="app-gateway.html#overview">Gateway</a>,
+                      <a href="app-surface.html#overview">Surface</a>,
+                      <a href="bridge.html#ssr">Bridge</a> o en el código real.
                     </p>
                   </div>
                   <a
@@ -357,7 +339,7 @@
                       <h3 class="h5">Observabilidad</h3>
                       <p class="mb-0">
                         Cruza DI, headers y telemetría para rastrear errores con
-                        <code>X-Correlation-Id</code>.
+                        <code>X-CORRELATION-ID</code>.
                       </p>
                     </div>
                   </div>
@@ -411,8 +393,9 @@
                     <div class="card-body">
                       <h3 class="h5">Comandos Robo</h3>
                       <p class="mb-0">
-                        Mapa de `make:*`, `http:contract`, `surface:contract` y
-                        los archivos que cada generador toca.
+                        Mapa de <code>make:*</code>, <code>http:contract</code>,
+                        <code>surface:contract</code> y los archivos que cada
+                        generador toca.
                       </p>
                     </div>
                   </div>
@@ -422,15 +405,15 @@
           </section>
 
           <section id="next" class="guide-section">
-            <h2>Recorrido de la guía</h2>
+            <h2>Ruta de lectura</h2>
             <div class="row g-3">
               <div class="col-md-6">
                 <a class="guide-card-link" href="recipes.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <h3 class="h5">Volver a: Guías prácticas</h3>
+                      <h3 class="h5">Anterior: Prácticas</h3>
                       <p class="mb-0">
-                        Retoma las recetas para convertir los flujos en cambios
+                        Las recetas permiten convertir los flujos en cambios
                         concretos.
                       </p>
                     </div>
@@ -441,10 +424,10 @@
                 <a class="guide-card-link" href="reference.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <h3 class="h5">Continuar con: Referencia</h3>
+                      <h3 class="h5">Siguiente: Referencia</h3>
                       <p class="mb-0">
-                        Convierte los diagramas en listas rápidas de contratos,
-                        rutas, scripts y carpetas del proyecto.
+                        La referencia convierte los diagramas en listas rápidas
+                        de contratos, rutas, scripts y carpetas del proyecto.
                       </p>
                     </div>
                   </div>

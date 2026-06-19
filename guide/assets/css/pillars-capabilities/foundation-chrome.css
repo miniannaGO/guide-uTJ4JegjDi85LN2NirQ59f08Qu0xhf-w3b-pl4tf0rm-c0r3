@@ -1,0 +1,292 @@
+:root {
+  color-scheme: dark;
+  --bg: #08090d;
+  --bg-2: #11131a;
+  --panel: rgba(16, 19, 27, 0.76);
+  --panel-strong: rgba(24, 28, 39, 0.92);
+  --text: #f6f7fb;
+  --muted: #aeb5c6;
+  --line: rgba(255, 255, 255, 0.12);
+  --wpc: #45d6c8;
+  --wpc-companion: #8a7cff;
+  --wpc-support: #8fa8b8;
+  --gateway: #f2c14e;
+  --gateway-companion: #d06a3d;
+  --gateway-support: #aa9772;
+  --surface: #61d177;
+  --surface-companion: #2bc4a7;
+  --surface-support: #8abca0;
+  --recipes: #e75899;
+  --recipes-companion: #f06b88;
+  --recipes-support: #ba9baa;
+  --guide: var(--recipes);
+  --guide-companion: var(--recipes-companion);
+  --guide-support: var(--recipes-support);
+  --tools: #a48af0;
+  --tools-companion: #d58af0;
+  --tools-support: #a59ab8;
+  --accent: var(--wpc);
+  --accent-companion: var(--wpc-companion);
+  --accent-support: var(--wpc-support);
+  --ease: cubic-bezier(0.2, 0.78, 0.22, 1);
+  --font:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+:root[data-bs-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f8ff;
+  --bg-2: #e8eef9;
+  --panel: rgba(255, 255, 255, 0.74);
+  --panel-strong: rgba(255, 255, 255, 0.92);
+  --text: #101828;
+  --muted: #5e6a7f;
+  --line: rgba(30, 41, 59, 0.14);
+  --wpc: #087c82;
+  --wpc-companion: #5147c6;
+  --wpc-support: #627d91;
+  --gateway: #a87800;
+  --gateway-companion: #b4561d;
+  --gateway-support: #877650;
+  --surface: #238647;
+  --surface-companion: #138a75;
+  --surface-support: #6b9274;
+  --recipes: #b72c75;
+  --recipes-companion: #b83b58;
+  --recipes-support: #8f6f7d;
+  --guide: var(--recipes);
+  --guide-companion: var(--recipes-companion);
+  --guide-support: var(--recipes-support);
+  --tools: #654ab6;
+  --tools-companion: #9945be;
+  --tools-support: #756d93;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(
+      circle at 14% 16%,
+      color-mix(in srgb, var(--wpc) 18%, transparent),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      color-mix(in srgb, var(--tools) 16%, transparent),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      color-mix(in srgb, var(--gateway) 8%, transparent),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #07080c 0%, #11131a 54%, #07080c 100%);
+  font-family: var(--font);
+  transition:
+    color 0.28s ease,
+    background 0.28s ease;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.038) 1px, transparent 1px);
+  background-size: 72px 72px;
+  content: "";
+  mask-image: radial-gradient(circle at center, black, transparent 74%);
+}
+
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0 44%,
+      rgba(255, 255, 255, 0.05) 45%,
+      transparent 47%
+    ),
+    radial-gradient(circle at 50% 50%, transparent, rgba(0, 0, 0, 0.42));
+  content: "";
+  pointer-events: none;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.presentation-shell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 660px;
+  overflow: hidden;
+}
+
+.deck-chrome,
+.deck-controls {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  left: clamp(1rem, 3vw, 2rem);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.deck-chrome {
+  top: clamp(1rem, 2.4vw, 1.7rem);
+}
+
+.brand-mark,
+.deck-meta,
+.deck-status,
+.deck-button,
+.progress-track,
+.theme-toggle {
+  pointer-events: auto;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 2.65rem;
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--wpc) 28%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--wpc) 16%, transparent),
+      color-mix(in srgb, var(--wpc-companion) 8%, transparent)
+    ),
+    rgba(8, 9, 13, 0.74);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0.8rem 2rem rgba(0, 0, 0, 0.24),
+    0 0 2.4rem color-mix(in srgb, var(--wpc) 12%, transparent);
+  font-size: 0.9rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.deck-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.65rem, 1.5vw, 1rem);
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  padding: 0;
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--wpc) 24%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--gateway) 14%, transparent),
+      color-mix(in srgb, var(--wpc) 8%, transparent)
+    ),
+    rgba(8, 9, 13, 0.74);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0.8rem 2rem rgba(0, 0, 0, 0.2),
+    0 0 2rem color-mix(in srgb, var(--gateway) 10%, transparent);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: color-mix(in srgb, var(--accent) 80%, #ffffff);
+  border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+  transform: translateY(-2px);
+}
+
+.theme-toggle__icon {
+  position: absolute;
+  width: 1.15rem;
+  height: 1.15rem;
+  opacity: 0;
+  stroke-width: 2.2;
+  transform: scale(0.72) rotate(-18deg);
+  transition:
+    opacity 0.18s ease,
+    transform 0.24s var(--ease);
+}
+
+.theme-toggle__icon--light {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+:root[data-bs-theme="light"] .theme-toggle__icon--light {
+  opacity: 0;
+  transform: scale(0.72) rotate(18deg);
+}
+
+:root[data-bs-theme="light"] .theme-toggle__icon--dark {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.deck-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: min(21rem, 48vw);
+  justify-content: flex-end;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.deck-status__label {
+  color: color-mix(in srgb, var(--accent) 78%, #ffffff);
+}
+
+.deck-status__counter {
+  color: rgba(246, 247, 251, 0.76);
+}

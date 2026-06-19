@@ -1,0 +1,359 @@
+:root[data-bs-theme="light"] body {
+  background:
+    radial-gradient(
+      circle at 14% 16%,
+      color-mix(in srgb, var(--wpc) 26%, transparent),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      color-mix(in srgb, var(--tools) 22%, transparent),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      color-mix(in srgb, var(--gateway) 18%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(135deg, #f7faff 0%, #e9eff9 55%, #f8fbff 100%);
+}
+
+:root[data-bs-theme="light"] body::before {
+  background-image:
+    linear-gradient(rgba(29, 41, 63, 0.058) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 41, 63, 0.058) 1px, transparent 1px);
+}
+
+:root[data-bs-theme="light"] body::after {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0 44%,
+      rgba(255, 255, 255, 0.52) 45%,
+      transparent 47%
+    ),
+    radial-gradient(circle at 50% 50%, transparent, rgba(142, 157, 184, 0.28));
+}
+
+:root[data-bs-theme="light"] .brand-mark,
+:root[data-bs-theme="light"] .deck-button,
+:root[data-bs-theme="light"] .theme-toggle {
+  color: var(--text);
+  border-color: rgba(36, 48, 73, 0.14);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(255, 255, 255, 0.62)
+    ),
+    color-mix(in srgb, var(--accent) 8%, rgba(255, 255, 255, 0.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.75rem 1.8rem rgba(45, 57, 82, 0.13),
+    0 0 1.9rem color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+:root[data-bs-theme="light"] .deck-button:hover,
+:root[data-bs-theme="light"] .deck-button:focus-visible,
+:root[data-bs-theme="light"] .theme-toggle:hover,
+:root[data-bs-theme="light"] .theme-toggle:focus-visible {
+  color: color-mix(in srgb, var(--accent) 64%, #1a2435);
+  border-color: color-mix(in srgb, var(--accent) 42%, rgba(36, 48, 73, 0.18));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98),
+    color-mix(in srgb, var(--accent) 12%, rgba(255, 255, 255, 0.74))
+  );
+}
+
+:root[data-bs-theme="light"] .deck-status {
+  color: var(--muted);
+}
+
+:root[data-bs-theme="light"] .deck-status__label,
+:root[data-bs-theme="light"] .eyebrow {
+  color: color-mix(in srgb, var(--accent) 66%, #1f2937);
+}
+
+:root[data-bs-theme="light"] .deck-status__counter {
+  color: rgba(31, 41, 55, 0.7);
+}
+
+:root[data-bs-theme="light"] .cover-subtitle,
+:root[data-bs-theme="light"] .pillar-role {
+  color: rgba(31, 41, 55, 0.72);
+}
+
+:root[data-bs-theme="light"] .slide-heading h2,
+:root[data-bs-theme="light"] .pillar-copy h2 {
+  color: color-mix(in srgb, var(--accent) 50%, #172033);
+  text-shadow: 0 0 1.7rem color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+:root[data-bs-theme="light"] .slide__ambient::before {
+  opacity: 0.46;
+  filter: blur(78px);
+}
+
+:root[data-bs-theme="light"] .slide__ambient::after {
+  background: rgba(57, 117, 184, 0.1);
+  opacity: 0.48;
+}
+
+:root[data-bs-theme="light"] .orbit {
+  border-color: rgba(27, 43, 68, 0.16);
+  box-shadow: inset 0 0 3rem color-mix(in srgb, var(--wpc) 16%, transparent);
+}
+
+:root[data-bs-theme="light"] .closed-box,
+:root[data-bs-theme="light"] .benefit-grid li,
+:root[data-bs-theme="light"] .module-box__payload,
+:root[data-bs-theme="light"] .closing-pill {
+  color: rgba(19, 28, 45, 0.88);
+  border-color: color-mix(in srgb, var(--accent) 30%, rgba(31, 41, 55, 0.14));
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 13%, rgba(255, 255, 255, 0.7)),
+      rgba(255, 255, 255, 0.86)
+    ),
+    rgba(255, 255, 255, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 1.1rem 2.6rem rgba(50, 63, 91, 0.13),
+    0 0 1.7rem color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+:root[data-bs-theme="light"] .closed-box {
+  border-color: color-mix(in srgb, var(--box-color) 36%, rgba(31, 41, 55, 0.1));
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--box-color) 16%, rgba(255, 255, 255, 0.86)),
+      rgba(255, 255, 255, 0.62) 52%
+    ),
+    rgba(255, 255, 255, 0.74);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    inset 0 -18px 26px rgba(45, 57, 82, 0.05),
+    0 1.4rem 2.7rem rgba(51, 65, 92, 0.14),
+    0 0 2rem color-mix(in srgb, var(--box-color) 14%, transparent);
+}
+
+:root[data-bs-theme="light"] .closed-box::before {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--box-color) 28%, rgba(255, 255, 255, 0.86)),
+    rgba(255, 255, 255, 0.28)
+  );
+}
+
+:root[data-bs-theme="light"] .closed-box small {
+  color: color-mix(in srgb, var(--box-color) 62%, #1f2937);
+}
+
+:root[data-bs-theme="light"] .benefit-grid li::before {
+  opacity: 0.78;
+}
+
+:root[data-bs-theme="light"] .benefit-icon {
+  color: color-mix(in srgb, var(--accent) 70%, #1f2937);
+  border-color: color-mix(in srgb, var(--accent) 36%, rgba(31, 41, 55, 0.12));
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.94),
+    color-mix(in srgb, var(--accent) 14%, rgba(255, 255, 255, 0.78))
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.65rem 1.2rem rgba(53, 67, 94, 0.12),
+    0 0 1.2rem color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+:root[data-bs-theme="light"] .module-box::before {
+  border-color: color-mix(in srgb, var(--accent) 32%, rgba(31, 41, 55, 0.1));
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 12%, rgba(255, 255, 255, 0.9)),
+      rgba(236, 242, 250, 0.86)
+    ),
+    rgba(236, 242, 250, 0.86);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 1.4rem 2.7rem rgba(50, 63, 91, 0.12);
+  opacity: 0.78;
+}
+
+:root[data-bs-theme="light"] .module-box__front,
+:root[data-bs-theme="light"] .module-box__back,
+:root[data-bs-theme="light"] .module-box__left,
+:root[data-bs-theme="light"] .module-box__right,
+:root[data-bs-theme="light"] .module-box__lid {
+  --box-tone-soft: color-mix(in srgb, var(--accent) 46%, #edf3fb);
+  --box-tone-mid: color-mix(
+    in oklch,
+    var(--accent) 76%,
+    oklch(from var(--accent) calc(l * 0.64) calc(c * 0.88) h)
+  );
+  --box-tone-deep: oklch(from var(--accent) calc(l * 0.58) calc(c * 0.82) h);
+  border-color: color-mix(in srgb, var(--accent) 58%, rgba(31, 41, 55, 0.34));
+  background:
+    linear-gradient(
+      135deg,
+      var(--box-tone-soft),
+      var(--box-tone-mid) 58%,
+      var(--box-tone-deep)
+    ),
+    var(--box-tone-mid);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 -26px 38px rgba(37, 49, 74, 0.28),
+    0 1.3rem 2.7rem rgba(37, 49, 74, 0.24),
+    0 0 1.8rem color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+:root[data-bs-theme="light"] .module-box__back {
+  opacity: 0.82;
+}
+
+:root[data-bs-theme="light"] .module-box__lid {
+  --lid-tone-soft: color-mix(in srgb, var(--accent) 56%, #edf3fb);
+  --lid-tone-mid: color-mix(
+    in oklch,
+    var(--accent) 78%,
+    oklch(from var(--accent) calc(l * 0.6) calc(c * 0.9) h)
+  );
+  --lid-tone-deep: oklch(from var(--accent) calc(l * 0.52) calc(c * 0.88) h);
+  background:
+    linear-gradient(
+      135deg,
+      var(--lid-tone-soft),
+      var(--lid-tone-mid) 56%,
+      var(--lid-tone-deep)
+    ),
+    var(--lid-tone-mid);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -30px 42px rgba(37, 49, 74, 0.3),
+    0 1.35rem 2.7rem rgba(37, 49, 74, 0.25),
+    0 0 1.8rem color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+:root[data-bs-theme="light"] .module-box__front span,
+:root[data-bs-theme="light"] .module-box__payload span {
+  color: color-mix(in srgb, var(--accent) 58%, #172033);
+}
+
+:root[data-bs-theme="light"] .module-box__front span {
+  color: color-mix(in srgb, var(--accent) 32%, #101828);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75),
+    0 0 1rem color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+:root[data-bs-theme="light"] .module-box__payload small {
+  color: rgba(31, 41, 55, 0.68);
+}
+
+:root[data-bs-theme="light"] .module-status,
+:root[data-bs-theme="light"] .module-toggle {
+  color: color-mix(in srgb, var(--accent) 64%, #172033);
+  border-color: color-mix(in srgb, var(--accent) 36%, rgba(31, 41, 55, 0.14));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 10%, rgba(255, 255, 255, 0.84)),
+    rgba(255, 255, 255, 0.86)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 0.8rem 1.5rem rgba(50, 63, 91, 0.12),
+    0 0 1.3rem color-mix(in srgb, var(--accent) 13%, transparent);
+}
+
+:root[data-bs-theme="light"] .module-toggle:hover,
+:root[data-bs-theme="light"] .module-toggle:focus-visible,
+:root[data-bs-theme="light"] .module-stage.is-open .module-toggle {
+  color: color-mix(in srgb, var(--accent) 72%, #101828);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98),
+    color-mix(in srgb, var(--accent) 14%, rgba(255, 255, 255, 0.78))
+  );
+}
+
+:root[data-bs-theme="light"] .closing-system::before {
+  border-color: rgba(31, 41, 55, 0.14);
+  box-shadow:
+    inset 0 0 5rem color-mix(in srgb, var(--wpc) 12%, transparent),
+    0 0 4rem color-mix(in srgb, var(--wpc) 14%, transparent);
+}
+
+:root[data-bs-theme="light"] .closing-system::after {
+  border-color: rgba(31, 41, 55, 0.18);
+}
+
+:root[data-bs-theme="light"] .closing-pill {
+  color: color-mix(in srgb, var(--pill-color) 58%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--pill-color) 36%,
+    rgba(31, 41, 55, 0.12)
+  );
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--pill-color) 15%, rgba(255, 255, 255, 0.86)),
+    rgba(255, 255, 255, 0.86)
+  );
+}
+
+:root[data-bs-theme="light"] .closing-pill__icon {
+  color: color-mix(in srgb, var(--pill-color) 70%, #172033);
+  border-color: color-mix(
+    in srgb,
+    var(--pill-color) 40%,
+    rgba(31, 41, 55, 0.14)
+  );
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.96),
+    color-mix(in srgb, var(--pill-color) 16%, rgba(255, 255, 255, 0.76))
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 0.65rem 1.3rem rgba(50, 63, 91, 0.12),
+    0 0 1.4rem color-mix(in srgb, var(--pill-color) 16%, transparent);
+}
+
+:root[data-bs-theme="light"] .closing-bondades-link {
+  color: color-mix(in srgb, var(--accent) 62%, #172033);
+  border-color: color-mix(in srgb, var(--accent) 36%, rgba(31, 41, 55, 0.16));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    color-mix(in srgb, var(--accent) 15%, rgba(255, 255, 255, 0.76))
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.85rem 1.7rem rgba(50, 63, 91, 0.13),
+    0 0 1.4rem color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+:root[data-bs-theme="light"] .closing-bondades-link:hover,
+:root[data-bs-theme="light"] .closing-bondades-link:focus-visible {
+  color: color-mix(in srgb, var(--accent) 72%, #101828);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.98),
+    color-mix(in srgb, var(--accent) 20%, rgba(255, 255, 255, 0.78))
+  );
+}
+
+:root[data-bs-theme="light"] .deck-button:disabled {
+  color: rgba(31, 41, 55, 0.26);
+}
+
+:root[data-bs-theme="light"] .progress-track {
+  background: rgba(31, 41, 55, 0.12);
+  box-shadow: inset 0 1px 2px rgba(31, 41, 55, 0.12);
+}

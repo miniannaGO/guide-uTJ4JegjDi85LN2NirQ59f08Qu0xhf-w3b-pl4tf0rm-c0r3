@@ -1,0 +1,160 @@
+.pillar-layout {
+  grid-template-columns: minmax(0, 0.86fr) minmax(26rem, 1fr);
+}
+
+.pillar-copy {
+  --copy-x: 0;
+  transform: translate(var(--copy-x), 1rem);
+}
+
+.slide--long-title .pillar-copy {
+  --copy-x: clamp(-3rem, -4vw, -1.25rem);
+}
+
+.slide.is-active .pillar-copy {
+  animation: content-rise 0.7s var(--ease) 0.12s both;
+}
+
+.pillar-copy h2 {
+  color: color-mix(in srgb, var(--accent) 32%, #ffffff);
+  text-shadow: 0 0 2rem color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.pillar-title {
+  display: grid;
+  justify-items: start;
+  max-width: 8ch;
+  text-align: left;
+}
+
+.pillar-title span {
+  display: block;
+}
+
+.pillar-title--guide {
+  font-size: clamp(3rem, 6.2vw, 5.8rem);
+}
+
+.pillar-title--tools {
+  max-width: none;
+  font-size: clamp(2.65rem, 5vw, 4.7rem);
+  white-space: nowrap;
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  max-width: 34rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.benefit-grid li {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 4.4rem;
+  padding: 0.85rem 1rem 0.85rem 0.85rem;
+  overflow: hidden;
+  color: rgba(246, 247, 251, 0.88);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: 0.95rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      rgba(255, 255, 255, 0.025)
+    ),
+    rgba(16, 19, 27, 0.66);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1rem 2rem rgba(0, 0, 0, 0.16);
+  font-size: clamp(0.98rem, 1.3vw, 1.14rem);
+  font-weight: 760;
+  opacity: 0;
+  transform: translateY(0.8rem);
+}
+
+.benefit-grid li::before {
+  position: absolute;
+  top: 50%;
+  left: -1.55rem;
+  width: 5.4rem;
+  height: 5.4rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 34%, transparent),
+    transparent 68%
+  );
+  content: "";
+  opacity: 0.68;
+  transform: translateY(-50%);
+}
+
+.benefit-icon,
+.closing-pill__icon {
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: color-mix(in srgb, var(--accent) 84%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--accent) 22%, transparent),
+      rgba(255, 255, 255, 0.06)
+    ),
+    rgba(7, 10, 16, 0.76);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0.65rem 1.35rem rgba(0, 0, 0, 0.2),
+    0 0 1.4rem color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.benefit-icon {
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 0.82rem;
+}
+
+.benefit-icon svg,
+.closing-pill__icon svg {
+  width: 1.18rem;
+  height: 1.18rem;
+  stroke-width: 2.25;
+  filter: drop-shadow(
+    0 0 0.45rem color-mix(in srgb, var(--accent) 48%, transparent)
+  );
+}
+
+.benefit-label {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.slide.is-active .benefit-grid li {
+  animation: reveal-chip 0.58s var(--ease) both;
+}
+
+.slide.is-active .benefit-grid li:nth-child(1) {
+  animation-delay: 1.15s;
+}
+
+.slide.is-active .benefit-grid li:nth-child(2) {
+  animation-delay: 1.38s;
+}
+
+.slide.is-active .benefit-grid li:nth-child(3) {
+  animation-delay: 1.61s;
+}
+
+.slide.is-active .benefit-grid li:nth-child(4) {
+  animation-delay: 1.84s;
+}

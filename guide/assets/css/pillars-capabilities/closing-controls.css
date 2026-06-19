@@ -1,0 +1,266 @@
+.closing-layout {
+  justify-items: center;
+  text-align: center;
+}
+
+.closing-layout .slide-heading {
+  margin-bottom: clamp(1rem, 3vw, 2.5rem);
+  text-align: center;
+}
+
+.closing-layout h2 {
+  max-width: 13ch;
+  margin-inline: auto;
+}
+
+.closing-system {
+  position: relative;
+  display: grid;
+  width: min(62rem, 100%);
+  min-height: clamp(24rem, 50vw, 34rem);
+  place-items: center;
+}
+
+.closing-system::before,
+.closing-system::after {
+  position: absolute;
+  border-radius: 999px;
+  content: "";
+}
+
+.closing-system::before {
+  width: min(44rem, 78vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 0 5rem color-mix(in srgb, var(--wpc) 6%, transparent),
+    0 0 5rem color-mix(in srgb, var(--wpc) 8%, transparent);
+}
+
+.closing-system::after {
+  width: min(32rem, 62vw);
+  aspect-ratio: 1;
+  border: 1px dashed rgba(255, 255, 255, 0.18);
+}
+
+.closing-core {
+  position: relative;
+  z-index: 2;
+  width: clamp(8.5rem, 16vw, 13rem);
+  aspect-ratio: 1;
+  border-radius: 2rem;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
+
+.closing-pill {
+  --pill-color: var(--wpc);
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  min-width: clamp(10rem, 18vw, 15rem);
+  min-height: 4.3rem;
+  padding: 1rem 1.2rem;
+  color: color-mix(in srgb, var(--pill-color) 45%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--pill-color) 42%, transparent);
+  border-radius: 1.1rem;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--pill-color) 14%, transparent),
+      rgba(255, 255, 255, 0.035)
+    ),
+    rgba(12, 14, 21, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 1.2rem 2.6rem rgba(0, 0, 0, 0.24),
+    0 0 2rem color-mix(in srgb, var(--pill-color) 12%, transparent);
+  font-weight: 850;
+  opacity: 0;
+  transform: translateY(1rem) scale(0.96);
+}
+
+.closing-pill__icon {
+  width: 2.15rem;
+  height: 2.15rem;
+  color: color-mix(in srgb, var(--pill-color) 84%, #ffffff);
+  border-color: color-mix(in srgb, var(--pill-color) 44%, transparent);
+  border-radius: 0.74rem;
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--pill-color) 24%, transparent),
+      rgba(255, 255, 255, 0.07)
+    ),
+    rgba(7, 10, 16, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0.65rem 1.35rem rgba(0, 0, 0, 0.22),
+    0 0 1.5rem color-mix(in srgb, var(--pill-color) 18%, transparent);
+}
+
+.closing-pill__icon svg {
+  filter: drop-shadow(
+    0 0 0.45rem color-mix(in srgb, var(--pill-color) 48%, transparent)
+  );
+}
+
+.closing-pill span:last-child {
+  min-width: 0;
+}
+
+.slide.is-active .closing-pill {
+  animation: reveal-chip 0.68s var(--ease) both;
+}
+
+.closing-bondades-link {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.05rem;
+  margin-top: clamp(0.4rem, 1.5vw, 1rem);
+  padding: 0.8rem 1.15rem;
+  color: color-mix(in srgb, var(--accent) 78%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      rgba(255, 255, 255, 0.045)
+    ),
+    rgba(10, 12, 18, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0.9rem 1.9rem rgba(0, 0, 0, 0.22),
+    0 0 1.6rem color-mix(in srgb, var(--accent) 12%, transparent);
+  font-size: 0.9rem;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(1rem) scale(0.96);
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.closing-bondades-link svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke-width: 2.3;
+}
+
+.closing-bondades-link:hover,
+.closing-bondades-link:focus-visible {
+  color: #ffffff;
+  border-color: color-mix(in srgb, var(--accent) 58%, transparent);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent) 18%, transparent),
+      rgba(255, 255, 255, 0.06)
+    ),
+    rgba(14, 17, 25, 0.92);
+  transform: translateY(-2px);
+}
+
+.slide.is-active .closing-bondades-link {
+  animation: reveal-chip 0.68s var(--ease) 1.48s both;
+}
+
+.closing-pill--gateway {
+  --pill-color: var(--gateway);
+  top: 7%;
+  left: 10%;
+  animation-delay: 0.6s !important;
+}
+
+.closing-pill--surface {
+  --pill-color: var(--surface);
+  top: 7%;
+  right: 10%;
+  animation-delay: 0.82s !important;
+}
+
+.closing-pill--guide {
+  --pill-color: var(--guide);
+  bottom: 10%;
+  left: 6%;
+  animation-delay: 1.04s !important;
+}
+
+.closing-pill--tools {
+  --pill-color: var(--tools);
+  right: 6%;
+  bottom: 10%;
+  animation-delay: 1.26s !important;
+}
+
+.deck-controls {
+  bottom: clamp(1rem, 2.8vw, 2rem);
+  gap: 1rem;
+}
+
+.deck-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(12, 14, 21, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0.8rem 1.6rem rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.deck-button:hover,
+.deck-button:focus-visible {
+  color: color-mix(in srgb, var(--accent) 80%, #ffffff);
+  border-color: color-mix(in srgb, var(--accent) 46%, transparent);
+  background: rgba(18, 21, 30, 0.9);
+  transform: translateY(-2px);
+}
+
+.deck-button:disabled {
+  color: rgba(246, 247, 251, 0.28);
+  cursor: default;
+  transform: none;
+}
+
+.progress-track {
+  flex: 1;
+  height: 0.34rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.11);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.progress-track span {
+  display: block;
+  width: 14.285%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--wpc), var(--accent));
+  box-shadow: 0 0 1.2rem color-mix(in srgb, var(--accent) 42%, transparent);
+  transition:
+    width 0.44s var(--ease),
+    background 0.44s ease;
+}

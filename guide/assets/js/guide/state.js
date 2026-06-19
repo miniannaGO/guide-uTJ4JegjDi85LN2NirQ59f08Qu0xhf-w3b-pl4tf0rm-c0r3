@@ -11,21 +11,26 @@
     ["diagrams.html", "Diagramas"],
     ["reference.html", "Referencia"],
     ["troubleshooting.html", "Ayuda"],
-    ["pillars-capabilities.html", "Capacidades"],
+    ["bondades.html", "Capacidades"],
   ];
 
   const guideNavigationAccentClasses = {
-    "bridge.html": "guide-nav-link--bridge",
-    "tools.html": "guide-nav-link--tools",
-    "recipes.html": "guide-nav-link--recipes",
-    "pillars-capabilities.html": "guide-nav-link--ecosystem",
+    "getting-started.html": "guide-nav-link--tone-progress",
+    "fundamentals.html": "guide-nav-link--tone-structure",
+    "app-gateway.html": "guide-nav-link--tone-operation",
+    "app-surface.html": "guide-nav-link--tone-activation",
+    "bridge.html": "guide-nav-link--tone-connection",
+    "tools.html": "guide-nav-link--tone-tooling",
+    "recipes.html": "guide-nav-link--tone-practice",
+    "diagrams.html": "guide-nav-link--tone-support",
+    "reference.html": "guide-nav-link--tone-support",
+    "troubleshooting.html": "guide-nav-link--tone-support",
+    "bondades.html": "guide-nav-link--ecosystem",
   };
 
   const guideSearchPages = [
     ["index.html", "Inicio"],
-    ...guideNavigationItems.filter(
-      ([href]) => href !== "pillars-capabilities.html",
-    ),
+    ...guideNavigationItems.filter(([href]) => href !== "bondades.html"),
   ];
 
   const guideSearchAliases = {

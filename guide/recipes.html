@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Guías paso a paso | Web Platform Core Guía</title>
+    <title>Prácticas | Web Platform Core Guía</title>
     <link
       rel="icon"
       type="image/svg+xml"
@@ -11,6 +11,7 @@
     />
     <script src="assets/js/theme.js"></script>
     <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/lib/css/bootstrap-icons-min.css" rel="stylesheet" />
     <link href="assets/css/guide.css" rel="stylesheet" />
   </head>
 
@@ -23,7 +24,7 @@
   >
     <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
       <div class="container-fluid px-3 px-lg-4">
-        <a class="navbar-brand fw-bold" href="index.html">
+        <a class="navbar-brand" href="index.html">
           <img
             class="navbar-brand__logo"
             src="assets/img/web-platform-core.svg"
@@ -64,7 +65,7 @@
               <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="recipes.html">Guías</a>
+              <a class="nav-link" href="recipes.html">Prácticas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="diagrams.html">Diagramas</a>
@@ -86,14 +87,14 @@
           <ol class="breadcrumb mb-3">
             <li class="breadcrumb-item"><a href="index.html">Guía</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              Guías paso a paso
+              Prácticas
             </li>
           </ol>
         </nav>
-        <h1 class="display-6 fw-bold">Guías paso a paso</h1>
+        <h1 class="display-6 fw-bold">Prácticas</h1>
         <p class="lead mb-0">
-          Escenarios frecuentes para crear features completas sin alterar
-          contratos gateway/surface.
+          Recorridos completos para resolver tareas frecuentes y comprobar el
+          resultado sin romper los acuerdos entre Gateway y Surface.
         </p>
       </div>
     </header>
@@ -121,7 +122,7 @@
                   <a class="nav-link" href="#flash-message">Mensaje flash</a>
                   <a class="nav-link" href="#route-cache">Route cache</a>
                   <a class="nav-link" href="#trace-error">Trazar error</a>
-                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                  <a class="nav-link" href="#next">Ruta de lectura</a>
                 </nav>
               </div>
             </div>
@@ -132,7 +133,7 @@
           <section id="how-to-use" class="guide-section">
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Cómo usar estas guías</h2>
+                <h2>Cómo usar estas prácticas</h2>
                 <p>
                   Cada receta es una ruta de construcción. Primero se presenta
                   el resumen del escenario para identificar el contrato
@@ -140,23 +141,29 @@
                   de verificación son obligatorios porque ahí suelen aparecer
                   los errores de bridge. El orden baja desde Gateway hacia
                   Surface: ruta, controller, salida HTML/JSON, outbound cuando
-                  exista, integración UI, sesión, assets y diagnóstico.
-                  Cuando una receta muestre un comando
-                  <code>composer robo --</code>, léelo como apoyo para crear el
-                  esqueleto: la explicación del flujo y la responsabilidad de
-                  cada archivo siguen siendo la parte principal.
+                  exista, integración UI, sesión, assets y diagnóstico. Cuando
+                  una receta muestre un comando
+                  <code>composer robo --</code>, se debe interpretar como apoyo
+                  para crear el esqueleto: la explicación del flujo y la
+                  responsabilidad de cada archivo siguen siendo la parte
+                  principal.
                 </p>
                 <p>
                   La forma correcta de usar una receta es leerla como una lista
                   de decisiones, no como una secuencia ciega de copiado. Antes
-                  de crear un archivo, identifica qué problema resuelve; antes de
-                  usar un comando, confirma qué artefactos va a tocar; y antes
-                  de dar por terminado el cambio, valida el contrato visible:
-                  HTML montable, JSON con envelope, sesión vigente, assets
-                  publicados o error trazable.
+                  de crear un archivo, se debe identificar qué problema
+                  resuelve; antes de usar un comando, se debe confirmar qué
+                  artefactos va a tocar; y antes de dar por terminado el cambio,
+                  se debe validar el contrato visible: HTML montable, JSON con
+                  envelope, sesión vigente, assets publicados o error trazable.
                 </p>
                 <div class="table-responsive">
                   <table class="table table-striped table-guide align-middle">
+                    <colgroup>
+                      <col class="w-28pct" />
+                      <col class="w-28pct" />
+                      <col class="w-44pct" />
+                    </colgroup>
                     <thead>
                       <tr>
                         <th>Objetivo</th>
@@ -169,7 +176,10 @@
                         <td>Crear una pantalla navegable</td>
                         <td><a href="#page">Página SSR</a></td>
                         <td>
-                          <a href="app-gateway.html#views">Gateway views</a> y
+                          <a href="app-gateway.html#gateway-flow-response"
+                            >Gateway views</a
+                          >
+                          y
                           <a href="app-surface.html#runtime">runtime Surface</a
                           >.
                         </td>
@@ -188,15 +198,20 @@
                         <td>Enviar o consultar datos</td>
                         <td><a href="#json">Endpoint JSON</a></td>
                         <td>
-                          <a href="bridge.html#json">envelope JSON</a> y
-                          <a href="app-gateway.html#usecases">use cases</a>.
+                          <a href="bridge.html#bridge-flow-search-items"
+                            >envelope JSON</a
+                          >
+                          y
+                          <a href="app-gateway.html#gateway-flow-usecase"
+                            >use cases</a
+                          >.
                         </td>
                       </tr>
                       <tr>
                         <td>Conectar un proveedor externo</td>
                         <td><a href="#outbound">Servicio externo</a></td>
                         <td>
-                          <a href="app-gateway.html#external-clients"
+                          <a href="app-gateway.html#external-clients-config"
                             >outbound</a
                           >
                           y
@@ -223,10 +238,22 @@
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Crear una página SSR con comportamiento UI</h2>
+                <p>
+                  Esta práctica sirve cuando una URL debe entregar HTML útil
+                  desde el primer render y, además, activar una interacción en
+                  el navegador. Se reconoce porque la página debe seguir siendo
+                  comprensible sin ejecutar TypeScript; Surface añade el
+                  comportamiento, pero no reemplaza el contenido base.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     Antes de crear archivos, debe revisarse cómo se conectan
-                    <a href="app-gateway.html#controllers">Controllers</a>,
+                    <a href="app-gateway.html#gateway-flow-controller"
+                      >Controllers</a
+                    >,
+                    <a href="app-gateway.html#views-data-envelope"
+                      >datos disponibles en la vista</a
+                    >,
                     <a href="app-surface.html#runtime"
                       >Runtime de pages y fragments</a
                     >
@@ -235,9 +262,9 @@
                 </p>
                 <ol class="guide-checklist">
                   <li>
-                    Define primero la ruta, el controller, la vista SSR y el id
+                    Definir primero la ruta, el controller, la vista SSR y el id
                     Surface que conectará el HTML con la integración. Como ayuda
-                    para crear ese esqueleto inicial puedes usar
+                    para crear ese esqueleto inicial se puede usar
                     <code
                       >composer robo -- make:integration-page &lt;feature&gt;
                       --id=&lt;data-surface-page&gt;
@@ -252,30 +279,38 @@
                   </li>
                   <li>
                     Agregar o ubicar la ruta en
-                    `Extension/Presentation/Http/Routing`.
+                    <code>Extension/Presentation/Http/Routing</code>.
                   </li>
                   <li>
                     Crear el método en controller y usar
-                    `renderControlView(...)` o `renderAccessView(...)`.
-                  </li>
-                  <li>Crear la vista `.page.php` en `resources/views`.</li>
-                  <li>
-                    Cuando necesite JS, debe declararse
-                    `data-surface-page="feature-id"`.
+                    <code>renderControlView(...)</code> o
+                    <code>renderAccessView(...)</code>.
                   </li>
                   <li>
-                    Crear `workspace/integrations/feature/integration.ts`.
-                  </li>
-                  <li>Crear `page.ts` con `UiBinding` o `mount(...)`.</li>
-                  <li>
-                    Registra la integración en
-                    `workspace/integrations/registry.ts`.
+                    Crear la vista <code>.page.php</code> en
+                    <code>resources/views</code>.
                   </li>
                   <li>
-                    Ejecutar `npm run lite:build` para compilar assets en modo
-                    watch local. Ese script ejecuta
-                    <code>vite build --watch</code>; para validación completa
-                    usa <code>npm run build</code>.
+                    Cuando necesite comportamiento Surface, debe declararse
+                    <code>data-surface-page="feature-id"</code>.
+                  </li>
+                  <li>
+                    Crear
+                    <code>workspace/integrations/feature/integration.ts</code>.
+                  </li>
+                  <li>
+                    Crear <code>page.ts</code> con <code>UiBinding</code> o
+                    <code>mount(...)</code>.
+                  </li>
+                  <li>
+                    Registrar la integración en
+                    <code>workspace/integrations/registry.ts</code>.
+                  </li>
+                  <li>
+                    Ejecutar <code>npm run lite:build</code> para compilar
+                    assets en modo watch local. Ese script ejecuta
+                    <code>vite build --watch</code>; para una validación
+                    completa se debe usar <code>npm run build</code>.
                   </li>
                 </ol>
                 <div class="code-card">
@@ -289,11 +324,10 @@
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-page-scaffold" class="language-bash">composer robo -- make:integration-page &lt;feature&gt; --id=&lt;data-surface-page&gt; --layout=control|access
-composer robo -- make:integration-page demo-items --id=demo-items --layout=control
+                  <pre><code id="rc-page-scaffold" class="language-bash">/raiz-del-proyecto/app-gateway&gt; composer robo -- make:integration-page &lt;feature&gt; --id=&lt;data-surface-page&gt; --layout=control|access
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:integration-page demo-items --id=demo-items --layout=control
 
-cd app-surface
-npm run lite:build</code></pre>
+/raiz-del-proyecto/app-surface&gt; npm run lite:build</code></pre>
                 </div>
                 <div class="code-card">
                   <div class="code-card__bar">
@@ -306,20 +340,33 @@ npm run lite:build</code></pre>
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-page-html" class="language-markup">&lt;div class="row" data-surface-page="demo-items"&gt;
+                  <pre><code id="rc-page-html" class="language-php">&lt;?php
+use App\Core\View\ViewData;
+use App\Extension\Application\ReadModel\DemoItems\DemoItemsPageOutput;
+
+/** @var ViewData&lt;DemoItemsPageOutput&gt; $viewModel */
+if (!$viewModel-&gt;data instanceof DemoItemsPageOutput) {
+  return;
+}
+$page = $viewModel-&gt;data;
+?&gt;
+&lt;div class="row" data-surface-page="demo-items"&gt;
+  &lt;h1&gt;&lt;?= e($page-&gt;title) ?&gt;&lt;/h1&gt;
   &lt;button id="btn-search" type="button" class="btn btn-primary"&gt;Buscar elementos&lt;/button&gt;
   &lt;div id="item-search-result"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Página SSR generada, archivo por archivo</h3>
                     <p>
                       La página necesita un puente claro entre Gateway y
-                      Surface. Robo puede crear el esqueleto base; si decides
-                      hacerlo a mano, estos son los artefactos mínimos y el
-                      código esperado.
+                      Surface. Robo puede crear el esqueleto base; si se decide
+                      implementarlo de forma manual, estos son los artefactos
+                      mínimos y el código esperado.
                     </p>
                   </div>
                   <ol class="guided-steps">
@@ -356,10 +403,15 @@ npm run lite:build</code></pre>
                     </li>
                     <li class="guided-step">
                       <div class="guided-step__body">
-                        <h4 class="guided-step__title">Controller y vista</h4>
+                        <h4 class="guided-step__title">
+                          ReadModel y controller
+                        </h4>
                         <div class="guided-field-grid">
                           <div class="guided-field">
-                            <span>Archivo</span>
+                            <span>Archivos</span>
+                            <code class="guided-file"
+                              >@extension/Application/ReadModel/DemoItems/DemoItemsPageOutput.php</code
+                            >
                             <code class="guided-file"
                               >@extension/Presentation/Http/Controller/DemoItemsController.php</code
                             >
@@ -379,15 +431,35 @@ npm run lite:build</code></pre>
                           <div class="guided-field">
                             <span>Código</span>
                             <div class="guided-put">
-                              <pre><code class="language-php">final class DemoItemsController extends AppController
+                              <pre><code class="language-php">namespace App\Extension\Application\ReadModel\DemoItems;
+
+final class DemoItemsPageOutput
+{
+  public function __construct(public readonly string $title)
+  {
+  }
+}</code></pre>
+                              <pre><code class="language-php">use App\Extension\Application\ReadModel\DemoItems\DemoItemsPageOutput;
+
+final class DemoItemsController extends AppController
 {
   public function index(): HttpResponseInterface
   {
-    return $this->renderControlView('demo-items/index.page', fn(): array => [
-      'title' => 'Demo items',
-    ]);
+    return $this->renderControlView(
+      'demo-items/index.page',
+      fn(): DemoItemsPageOutput => new DemoItemsPageOutput('Demo items'),
+    );
   }
 }</code></pre>
+                            </div>
+                          </div>
+                          <div class="guided-field">
+                            <span>Resultado</span>
+                            <div class="guided-result">
+                              El controller entrega un objeto tipado. Si luego
+                              un use case produce esos datos, puede retornar el
+                              mismo <code>DemoItemsPageOutput</code> sin agregar
+                              otro DTO de presentación.
                             </div>
                           </div>
                         </div>
@@ -418,8 +490,18 @@ npm run lite:build</code></pre>
                           <div class="guided-field">
                             <span>Código</span>
                             <div class="guided-put">
-                              <pre><code class="language-html">&lt;section data-surface-page="demo-items"&gt;
-  &lt;h1&gt;&lt;?= e($title ?? 'Demo items') ?&gt;&lt;/h1&gt;
+                              <pre><code class="language-php">&lt;?php
+use App\Core\View\ViewData;
+use App\Extension\Application\ReadModel\DemoItems\DemoItemsPageOutput;
+
+/** @var ViewData&lt;DemoItemsPageOutput&gt; $viewModel */
+if (!$viewModel-&gt;data instanceof DemoItemsPageOutput) {
+  return;
+}
+$page = $viewModel-&gt;data;
+?&gt;
+&lt;section data-surface-page="demo-items"&gt;
+  &lt;h1&gt;&lt;?= e($page-&gt;title) ?&gt;&lt;/h1&gt;
   &lt;form data-demo-items-search&gt;
     &lt;input name="query" type="search" autocomplete="off" /&gt;
     &lt;button type="submit"&gt;Buscar&lt;/button&gt;
@@ -528,7 +610,7 @@ export default class DemoItemsPageBinding extends UiBinding {
                       La página SSR necesita el mismo puente mínimo.
                     </strong>
                   </div>
-                  <ul class="guide-key-grid guide-key-grid--compact">
+                  <ul class="guide-rule-strip guide-rule-strip--compact">
                     <li>
                       <strong>Gateway</strong>
                       <span>Ruta, controller y view SSR.</span>
@@ -545,7 +627,7 @@ export default class DemoItemsPageBinding extends UiBinding {
                     </li>
                     <li>
                       <strong>Assets</strong>
-                      <span>Ejecuta build o watch de Surface.</span>
+                      <span>Se debe ejecutar build o watch de Surface.</span>
                     </li>
                   </ul>
                 </div>
@@ -558,7 +640,7 @@ export default class DemoItemsPageBinding extends UiBinding {
                       El comando se detiene ante una integración ya existente.
                     </strong>
                   </div>
-                  <ul class="guide-key-grid guide-key-grid--compact">
+                  <ul class="guide-rule-strip guide-rule-strip--compact">
                     <li>
                       <strong>No modifica</strong>
                       <code
@@ -588,9 +670,17 @@ export default class DemoItemsPageBinding extends UiBinding {
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Crear un fragment dinámico</h2>
+                <p>
+                  Un fragment permite actualizar una parte concreta de la
+                  interfaz sin volver a construir la página completa. Conviene
+                  usarlo cuando Gateway puede producir por sí mismo el HTML de
+                  esa región y Surface solo necesita solicitarlo, insertarlo y,
+                  si corresponde, activar su comportamiento.
+                </p>
                 <p class="guide-crosslink">
                   <em>
-                    Los fragments son un contrato compartido: amplía en
+                    Los fragments son un contrato compartido cuyo contexto se
+                    amplía en
                     <a href="bridge.html#html">Contratos HTML</a> y
                     <a href="app-surface.html#runtime"
                       >Runtime de pages y fragments</a
@@ -600,9 +690,9 @@ export default class DemoItemsPageBinding extends UiBinding {
                 <ol class="guide-checklist">
                   <li>
                     Si el fragment ya pertenece a una integración Surface
-                    existente y solo falta el binding, define primero el HTML
-                    del fragment, el id declarativo y cómo se insertará desde
-                    Surface. Como ayuda para el esqueleto puedes usar
+                    existente y solo falta el binding, primero se deben definir
+                    el HTML del fragment, el id declarativo y cómo se insertará
+                    desde Surface. Como ayuda para el esqueleto se puede usar
                     <code
                       >composer robo -- make:fragment &lt;feature&gt;
                       &lt;fragment&gt; --id=&lt;data-surface-fragment&gt;</code
@@ -610,18 +700,23 @@ export default class DemoItemsPageBinding extends UiBinding {
                     registra el loader en <code>integration.ts</code> y alinea
                     el sufijo del archivo con el id cuando hay duplicados.
                   </li>
-                  <li>Declara ruta de fragment bajo el grupo correcto.</li>
-                  <li>El controller responde `renderFragmentView(...)`.</li>
-                  <li>La vista `.fragment.php` devuelve HTML real.</li>
+                  <li>Declarar la ruta de fragment bajo el grupo correcto.</li>
                   <li>
-                    Cuando necesite JS, debe usarse
-                    `data-surface-fragment="fragment-id"`.
+                    El controller responde <code>renderFragmentView(...)</code>.
                   </li>
-                  <li>Registra el fragment en la integración propietaria.</li>
                   <li>
-                    Desde surface inserta el HTML con `serverClient.html(...)`;
-                    si el fragment es montable, declara el `fragmentId` esperado
-                    con `expect`.
+                    La vista <code>.fragment.php</code> devuelve HTML real.
+                  </li>
+                  <li>
+                    Cuando necesite comportamiento Surface, debe usarse
+                    <code>data-surface-fragment="fragment-id"</code>.
+                  </li>
+                  <li>Registrar el fragment en la integración propietaria.</li>
+                  <li>
+                    Desde surface inserta el HTML con
+                    <code>serverClient.html(...)</code>; si el fragment es
+                    montable, se debe declarar el
+                    <code>fragmentId</code> esperado con <code>expect</code>.
                   </li>
                 </ol>
                 <div class="code-card">
@@ -635,8 +730,8 @@ export default class DemoItemsPageBinding extends UiBinding {
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-fragment-scaffold" class="language-bash">composer robo -- make:fragment &lt;feature&gt; &lt;fragment&gt; --id=&lt;data-surface-fragment&gt;
-composer robo -- make:fragment demo-items summary --id=demo-items-summary</code></pre>
+                  <pre><code id="rc-fragment-scaffold" class="language-bash">/raiz-del-proyecto/app-gateway&gt; composer robo -- make:fragment &lt;feature&gt; &lt;fragment&gt; --id=&lt;data-surface-fragment&gt;
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:fragment demo-items summary --id=demo-items-summary</code></pre>
                 </div>
                 <div class="code-card">
                   <div class="code-card__bar">
@@ -649,16 +744,36 @@ composer robo -- make:fragment demo-items summary --id=demo-items-summary</code>
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-fragment-php" class="language-php">$router->get('/items/summary', [ItemController::class, 'summary']);
-public function summary(): HttpResponseInterface
+                  <pre><code id="rc-fragment-php" class="language-php">namespace App\Extension\Application\ReadModel\Items;
+
+final class ItemSummaryOutput
 {
-  return $this->renderFragmentView('items/summary.fragment', fn(): array => [
-    'title' => 'Resumen',
-  ]);
+  public function __construct(public readonly string $title)
+  {
+  }
 }
 
+$router->get('/items/summary', [ItemController::class, 'summary']);
+public function summary(): HttpResponseInterface
+{
+  return $this->renderFragmentView(
+    'items/summary.fragment',
+    fn(): ItemSummaryOutput => new ItemSummaryOutput('Resumen'),
+  );
+}
+
+&lt;?php
+use App\Core\View\ViewData;
+use App\Extension\Application\ReadModel\Items\ItemSummaryOutput;
+
+/** @var ViewData&lt;ItemSummaryOutput&gt; $viewModel */
+if (!$viewModel-&gt;data instanceof ItemSummaryOutput) {
+  return;
+}
+$summary = $viewModel-&gt;data;
+?&gt;
 &lt;section data-surface-fragment="item-summary"&gt;
-  &lt;h2&gt;&lt;?= e($title) ?&gt;&lt;/h2&gt;
+  &lt;h2&gt;&lt;?= e($summary-&gt;title) ?&gt;&lt;/h2&gt;
 &lt;/section&gt;</code></pre>
                 </div>
                 <div class="code-card">
@@ -704,9 +819,11 @@ export default class ItemsPageBinding extends UiBinding {
   }
 }</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Fragment SSR con binding Surface</h3>
                     <p>
                       La parte HTML la crea Gateway; el binding de fragment lo
@@ -894,35 +1011,52 @@ export default class DemoItemsPageBinding extends UiBinding {
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Crear un endpoint JSON</h2>
+                <p>
+                  Esta práctica se aplica cuando el consumidor necesita datos y
+                  no una vista HTML. El objetivo es ofrecer una respuesta
+                  estable que permita reconocer éxito, error y contenido sin
+                  exponer detalles internos de la operación que la produjo.
+                </p>
                 <p class="guide-crosslink">
                   <em>
-                    Para entender qué debe devolver este endpoint, consulta
-                    <a href="bridge.html#json">JSON envelope</a> y
-                    <a href="app-surface.html#http">HTTP, sesión y errores UI</a
+                    Para entender qué debe devolver este endpoint, se debe
+                    consultar
+                    <a href="bridge.html#bridge-flow-search-items"
+                      >JSON envelope</a
+                    >
+                    y
+                    <a href="app-surface.html#http">Infraestructura HTTP</a
                     >.
                   </em>
                 </p>
                 <ol class="guide-checklist">
-                  <li>Declara ruta.</li>
+                  <li>Declarar la ruta.</li>
                   <li>Controller prepara input y llama use case.</li>
-                  <li>Use case retorna `UseCaseResult`.</li>
-                  <li>Controller responde con `respondJson(...)`.</li>
+                  <li>Use case retorna <code>UseCaseResult</code>.</li>
                   <li>
-                    En Surface, declara las firmas visibles del endpoint Gateway
-                    en `workspace/integrations/&lt;feature&gt;/contracts.ts`.
+                    Controller responde con <code>respondJson(...)</code>.
                   </li>
                   <li>
-                    `api.ts` importa esas firmas y tipa `serverClient.data(...)`
-                    o `serverClient.json(...)`.
+                    En Surface, declarar las firmas visibles del endpoint
+                    Gateway en
+                    <code
+                      >workspace/integrations/&lt;feature&gt;/contracts.ts</code
+                    >.
                   </li>
                   <li>
-                    `actions.ts` arma el request tipado desde valores recibidos
-                    de `page.ts` o del fragment. `page.ts` debe quedarse leyendo
-                    DOM y llamando acciones.
+                    <code>api.ts</code> importa esas firmas y tipa
+                    <code>serverClient.data(...)</code> o
+                    <code>serverClient.json(...)</code>.
                   </li>
                   <li>
-                    Surface consume con `serverClient.json(...)` o
-                    `serverClient.data(...)`.
+                    <code>actions.ts</code> arma el request tipado desde valores
+                    recibidos de <code>page.ts</code> o del fragment.
+                    <code>page.ts</code> debe quedarse leyendo DOM y llamando
+                    acciones.
+                  </li>
+                  <li>
+                    Surface consume con <code>serverClient.json(...)</code> o
+                    <code>serverClient.data(...)</code>.
                   </li>
                 </ol>
                 <div class="code-card">
@@ -936,11 +1070,11 @@ export default class DemoItemsPageBinding extends UiBinding {
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-json-api-scaffold" class="language-bash">composer robo -- make:integration-api-data &lt;feature&gt; &lt;nameFunction&gt; &lt;method&gt; &lt;path&gt; --controller-name=&lt;ControllerName&gt;
-composer robo -- make:integration-api-data items searchItems post /items/search --controller-name=Items
+                  <pre><code id="rc-json-api-scaffold" class="language-bash">/raiz-del-proyecto/app-gateway&gt; composer robo -- make:integration-api-data &lt;feature&gt; &lt;nameFunction&gt; &lt;method&gt; &lt;path&gt; --controller-name=&lt;ControllerName&gt;
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:integration-api-data items searchItems post /items/search --controller-name=Items
 
-composer robo -- make:integration-api-json items inspectItems get /items/inspect --controller-name=Items
-composer robo -- make:integration-api-html items fetchPanel get /items/panel --controller-name=Items</code></pre>
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:integration-api-json items inspectItems get /items/inspect --controller-name=Items
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:integration-api-html items fetchPanel get /items/panel --controller-name=Items</code></pre>
                 </div>
                 <div class="guide-callout guide-callout--structured">
                   <div class="guide-callout__header">
@@ -951,7 +1085,7 @@ composer robo -- make:integration-api-html items fetchPanel get /items/panel --c
                       Los comandos amplían una integración Surface existente.
                     </strong>
                   </div>
-                  <ul class="guide-key-grid guide-key-grid--compact">
+                  <ul class="guide-rule-strip guide-rule-strip--compact">
                     <li>
                       <strong>Precondición</strong>
                       <code>workspace/integrations/&lt;feature&gt;</code>
@@ -1052,9 +1186,11 @@ export function searchItems(request: SearchItemsRequest) {
   });
 }</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Endpoint JSON consumido por Surface</h3>
                     <p>
                       El contrato HTTP, el controller y la función Surface se
@@ -1307,11 +1443,20 @@ export default class ItemsPageBinding extends UiBinding {
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Consumir un servicio externo</h2>
+                <p>
+                  Esta práctica permite pedir información o ejecutar una acción
+                  en otro sistema sin repartir detalles del proveedor por la
+                  aplicación. Se necesita cuando una operación depende de una
+                  API externa y debe conservar un límite claro entre la decisión
+                  de aplicación, el contrato de integración y el transporte
+                  HTTP.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     Esta receta cruza hacia un backend proveedor o API HTTP
-                    externa, que sirve como dependencia outbound: amplía en
-                    <a href="app-gateway.html#external-clients"
+                    externa, que sirve como dependencia outbound. El contexto se
+                    amplía en
+                    <a href="app-gateway.html#external-clients-config"
                       >API HTTP clients externos</a
                     >,
                     <a href="bridge.html#external-flow"
@@ -1323,19 +1468,28 @@ export default class ItemsPageBinding extends UiBinding {
                   </em>
                 </p>
                 <ol class="guide-checklist">
-                  <li>Revisar `app-gateway/services.json`.</li>
+                  <li>Revisar <code>app-gateway/services.json</code>.</li>
                   <li>
-                    Agregar overrides `API_&lt;SERVICIO&gt;_*` si hace falta.
-                  </li>
-                  <li>Crear o generar DTO en `Contract/Outbound`.</li>
-                  <li>
-                    Crear o generar request con `#[Endpoint]` bajo
-                    `Infrastructure/Outbound/Client/&lt;Servicio&gt;/Request`.
+                    Agregar overrides <code>API_&lt;SERVICIO&gt;_*</code> si
+                    hace falta.
                   </li>
                   <li>
-                    Implementa connector en `Infrastructure/Outbound/Connector`.
+                    Crear o generar DTO en <code>Contract/Outbound</code>.
                   </li>
-                  <li>Definir o reutilizar un port en `Application/Port`.</li>
+                  <li>
+                    Crear o generar request con <code>#[Endpoint]</code> bajo
+                    <code
+                      >Infrastructure/Outbound/Client/&lt;Servicio&gt;/Request</code
+                    >.
+                  </li>
+                  <li>
+                    Implementar el connector en
+                    <code>Infrastructure/Outbound/Connector</code>.
+                  </li>
+                  <li>
+                    Definir o reutilizar un port en
+                    <code>Application/Port</code>.
+                  </li>
                   <li>Consumir desde use case simple o service robusto.</li>
                 </ol>
                 <div class="code-card">
@@ -1349,21 +1503,23 @@ export default class ItemsPageBinding extends UiBinding {
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-outbound-tools" class="language-bash">composer robo -- make:service-client &lt;serviceClientName&gt;
-composer robo -- make:service-client ExternalApi
+                  <pre><code id="rc-outbound-tools" class="language-bash">/raiz-del-proyecto/app-gateway&gt; composer robo -- make:service-client &lt;serviceClientName&gt;
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:service-client ExternalApi
 
-composer robo http:contract &lt;RequestSignature&gt; &lt;ResponseSignature&gt; &lt;swaggerPath&gt;
-composer robo http:contract GetExternalItemRequest GetExternalItemResponse ../tools/HttpContractGenerator/Specs/external-api.json
+/raiz-del-proyecto/app-gateway&gt; composer robo http:contract &lt;RequestSignature&gt; &lt;ResponseSignature&gt; &lt;swaggerPath&gt;
+/raiz-del-proyecto/app-gateway&gt; composer robo http:contract GetExternalItemRequest GetExternalItemResponse ../tools/HttpContractGenerator/Specs/external-api.json
 
-composer robo -- make:connector &lt;connectorName&gt;
-composer robo -- make:connector ExternalItem
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:connector &lt;connectorName&gt;
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:connector ExternalItem
 
-composer robo -- make:service &lt;serviceName&gt; --use-case=&lt;useCaseName&gt;
-composer robo -- make:service ExternalItem --use-case=GetExternalItem</code></pre>
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:service &lt;serviceName&gt; --use-case=&lt;useCaseName&gt;
+/raiz-del-proyecto/app-gateway&gt; composer robo -- make:service ExternalItem --use-case=GetExternalItem</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Proveedor externo conectado al caso de uso</h3>
                     <p>
                       El scaffolding crea esqueletos. El código final debe
@@ -1592,18 +1748,26 @@ final class ExternalItemConnector implements ExternalItemConnectorInterface
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Agregar un provider o resolver DI</h2>
+                <p>
+                  El registro manual de una dependencia solo hace falta cuando
+                  el contenedor no puede decidir por sí mismo qué implementación
+                  construir o qué configuración entregar. Antes de agregar un
+                  provider, se debe comprobar si la convención existente ya
+                  resuelve la clase; el provider cubre una excepción explícita,
+                  no una ceremonia obligatoria.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     Antes de un registro manual, se debe revisar
                     <a href="app-gateway.html#bootstrap-di">Bootstrap y DI</a> y
-                    confirma si autowiring o
+                    debe confirmarse si autowiring o
                     <code>ConnectorAliasRegistrar</code>
                     ya resuelven la clase.
                   </em>
                 </p>
                 <ol class="guide-checklist">
                   <li>
-                    Ubica si la pieza pertenece a <code>Core</code> o
+                    Ubicar si la pieza pertenece a <code>Core</code> o
                     <code>Extension</code>.
                   </li>
                   <li>
@@ -1615,11 +1779,11 @@ final class ExternalItemConnector implements ExternalItemConnectorInterface
                     <code>AppProvider.php</code>.
                   </li>
                   <li>
-                    Para ports/connectors, primero intenta la convención
+                    Para ports/connectors, primero debe intentarse la convención
                     <code>*ConnectorInterface</code> → <code>*Connector</code>.
                   </li>
                   <li>
-                    Registra manualmente solo si hay alias, runtime concreto o
+                    Registrar manualmente solo si hay alias, runtime concreto o
                     adapter externo.
                   </li>
                   <li>
@@ -1635,6 +1799,13 @@ final class ExternalItemConnector implements ExternalItemConnectorInterface
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Agregar una integración UI</h2>
+                <p>
+                  Una integración UI reúne el comportamiento que pertenece a una
+                  página o región SSR identificable. Se crea cuando el HTML ya
+                  existe y necesita eventos, consultas o estado temporal en el
+                  navegador, con una forma igualmente clara de liberar esos
+                  recursos al abandonar la vista.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     Cuando se requiera lifecycle, limpieza o adapters, la
@@ -1648,34 +1819,40 @@ final class ExternalItemConnector implements ExternalItemConnectorInterface
                 </p>
                 <ol class="guide-checklist">
                   <li>
-                    Crear carpeta en `workspace/integrations/&lt;feature&gt;`.
+                    Crear carpeta en
+                    <code>workspace/integrations/&lt;feature&gt;</code>.
                   </li>
                   <li>
-                    Definir `integration.ts` con `id`, `layout`, `page.load` y
-                    fragments.
+                    Definir <code>integration.ts</code> con <code>id</code>,
+                    <code>layout</code>, <code>page.load</code> y fragments.
                   </li>
                   <li>
-                    Crear `page.ts` con `UiBinding` cuando se requiera
-                    lifecycle.
+                    Crear <code>page.ts</code> con <code>UiBinding</code> cuando
+                    se requiera lifecycle.
                   </li>
                   <li>
-                    Crear `contracts.ts` cuando haya payloads o responses JSON
-                    de Gateway visibles para Surface.
+                    Crear <code>contracts.ts</code> cuando haya payloads o
+                    responses JSON de Gateway visibles para Surface.
                   </li>
                   <li>
-                    Centraliza llamadas en `api.ts` y usa tipos de
-                    `contracts.ts`.
+                    Centralizar llamadas en <code>api.ts</code> y usar tipos de
+                    <code>contracts.ts</code>.
                   </li>
                   <li>
-                    Centraliza intención UI en `actions.ts`: recibe valores de
-                    `page.ts`, arma requests tipados y coordina feedback.
+                    Centralizar intención UI en <code>actions.ts</code>: recibe
+                    valores de <code>page.ts</code>, arma requests tipados y
+                    coordina feedback.
                   </li>
-                  <li>Centraliza adapters repetidos en `controls.ts`.</li>
-                  <li>Registra la integración en `registry.ts`.</li>
+                  <li>
+                    Centralizar adapters repetidos en <code>controls.ts</code>.
+                  </li>
+                  <li>Registrar la integración en <code>registry.ts</code>.</li>
                 </ol>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Integración UI conectada a una página SSR</h3>
                     <p>
                       Una integración UI nace desde HTML renderizado por Gateway
@@ -1693,10 +1870,13 @@ final class ExternalItemConnector implements ExternalItemConnectorInterface
                           <div class="guided-field">
                             <span>Archivos</span>
                             <code class="guided-file"
-                              >@extension/Presentation/Http/Routing/ExtensionRouteRegister.php</code
+                              >@extension/Application/ReadModel/Reports/ReportsPageOutput.php</code
                             >
                             <code class="guided-file"
                               >@extension/Presentation/Http/Controller/ReportsController.php</code
+                            >
+                            <code class="guided-file"
+                              >@extension/Presentation/Http/Routing/ExtensionRouteRegister.php</code
                             >
                             <code class="guided-file"
                               >@views/reports/index.page.php</code
@@ -1717,18 +1897,39 @@ final class ExternalItemConnector implements ExternalItemConnectorInterface
                           <div class="guided-field">
                             <span>Código</span>
                             <div class="guided-put">
-                              <pre><code class="language-php">$router->get('/reports/index', [ReportsController::class, 'index']);
+                              <pre><code class="language-php">namespace App\Extension\Application\ReadModel\Reports;
+
+final class ReportsPageOutput
+{
+  public function __construct(public readonly string $title)
+  {
+  }
+}</code></pre>
+                              <pre><code class="language-php">use App\Extension\Application\ReadModel\Reports\ReportsPageOutput;
+
+$router->get('/reports/index', [ReportsController::class, 'index']);
 final class ReportsController extends AppController
 {
   public function index(): HttpResponseInterface
   {
-    return $this->renderControlView('reports/index.page', fn(): array => [
-      'title' => 'Reportes',
-    ]);
+    return $this->renderControlView(
+      'reports/index.page',
+      fn(): ReportsPageOutput => new ReportsPageOutput('Reportes'),
+    );
   }
 }</code></pre>
-                              <pre><code class="language-html">&lt;section data-surface-page="reports-panel"&gt;
-  &lt;h1&gt;&lt;?= e($title ?? 'Reportes') ?&gt;&lt;/h1&gt;
+                              <pre><code class="language-php">&lt;?php
+use App\Core\View\ViewData;
+use App\Extension\Application\ReadModel\Reports\ReportsPageOutput;
+
+/** @var ViewData&lt;ReportsPageOutput&gt; $viewModel */
+if (!$viewModel-&gt;data instanceof ReportsPageOutput) {
+  return;
+}
+$page = $viewModel-&gt;data;
+?&gt;
+&lt;section data-surface-page="reports-panel"&gt;
+  &lt;h1&gt;&lt;?= e($page-&gt;title) ?&gt;&lt;/h1&gt;
 
   &lt;form data-reports-filter&gt;
     &lt;input name="query" type="search" autocomplete="off" /&gt;
@@ -1767,7 +1968,7 @@ final class ReportsController extends AppController
                             </div>
                           </div>
                           <div class="guided-field">
-                            <span>Agrega fragments</span>
+                            <span>Fragments</span>
                             <div class="guided-tool">
                               <a href="tools.html#make-fragment">
                                 <code
@@ -2001,6 +2202,13 @@ export const uiIntegrationRegistry = {
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Montar HTML remoto dentro de modal o toast</h2>
+                <p>
+                  Esta práctica se necesita cuando una respuesta HTML llega
+                  después del render inicial y se inserta en un contenedor
+                  temporal. Insertar el marcado no basta: también se deben
+                  activar los bindings Surface que contenga y desmontarlos antes
+                  de reemplazar o retirar ese contenido.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     La mecánica completa está en
@@ -2018,16 +2226,17 @@ export const uiIntegrationRegistry = {
                     Cuando el fragment tenga comportamiento, debe agregarse
                     <code>data-surface-fragment</code>.
                   </li>
-                  <li>Registra ese fragment en la integración propietaria.</li>
+                  <li>Registrar ese fragment en la integración propietaria.</li>
                   <li>
-                    En el binding, usa
+                    En el binding, usar
                     <code>simpleModal.withContentMount(this.contentMount)</code>
                     o <code>toastAdapter.withContentMount(...)</code>.
                   </li>
                   <li>
-                    Si necesitas <code>showRemote</code>, importa modal o toast
-                    desde <code>@/platform/infrastructure/feedback</code> y
-                    declara <code>expect</code> si el contenido trae fragment
+                    Cuando se requiera <code>showRemote</code>, importar modal o
+                    toast desde
+                    <code>@/platform/infrastructure/feedback</code> y declarar
+                    <code>expect</code> si el contenido trae un fragment
                     montable.
                   </li>
                   <li>
@@ -2066,15 +2275,17 @@ export default class ItemsPageBinding extends UiBinding {
   }
 }</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>HTML remoto montado dentro de modal</h3>
                     <p>
                       El modal solo recibe HTML. Si ese HTML trae
                       <code>data-surface-fragment</code>,
                       <code>contentMount</code>
-                      monta y desmonta el binding por ti.
+                      monta y desmonta el binding automáticamente.
                     </p>
                   </div>
                   <ol class="guided-steps">
@@ -2087,10 +2298,13 @@ export default class ItemsPageBinding extends UiBinding {
                           <div class="guided-field">
                             <span>Archivos</span>
                             <code class="guided-file"
-                              >@extension/Presentation/Http/Routing/ExtensionRouteRegister.php</code
+                              >@extension/Application/ReadModel/Reports/ReportsPreviewOutput.php</code
                             >
                             <code class="guided-file"
                               >@extension/Presentation/Http/Controller/ReportsController.php</code
+                            >
+                            <code class="guided-file"
+                              >@extension/Presentation/Http/Routing/ExtensionRouteRegister.php</code
                             >
                           </div>
                           <div class="guided-field">
@@ -2108,13 +2322,26 @@ export default class ItemsPageBinding extends UiBinding {
                           <div class="guided-field">
                             <span>Código</span>
                             <div class="guided-put">
-                              <pre><code class="language-php">$router->get('/reports/preview', [ReportsController::class, 'previewReport']);
+                              <pre><code class="language-php">namespace App\Extension\Application\ReadModel\Reports;
+
+final class ReportsPreviewOutput
+{
+  /** @param list&lt;string&gt; $items */
+  public function __construct(
+    public readonly string $title,
+    public readonly array $items,
+  ) {
+  }
+}</code></pre>
+                              <pre><code class="language-php">use App\Extension\Application\ReadModel\Reports\ReportsPreviewOutput;
+
+$router->get('/reports/preview', [ReportsController::class, 'previewReport']);
 public function previewReport(): HttpResponseInterface
 {
-  return $this->renderFragmentView('reports/preview.fragment', fn(): array => [
-    'title' => 'Vista previa',
-    'items' => [],
-  ]);
+  return $this->renderFragmentView(
+    'reports/preview.fragment',
+    fn(): ReportsPreviewOutput => new ReportsPreviewOutput('Vista previa', []),
+  );
 }</code></pre>
                             </div>
                           </div>
@@ -2146,14 +2373,24 @@ public function previewReport(): HttpResponseInterface
                           <div class="guided-field">
                             <span>Código</span>
                             <div class="guided-put">
-                              <pre><code class="language-html">&lt;article data-surface-fragment="reports-preview"&gt;
+                              <pre><code class="language-php">&lt;?php
+use App\Core\View\ViewData;
+use App\Extension\Application\ReadModel\Reports\ReportsPreviewOutput;
+
+/** @var ViewData&lt;ReportsPreviewOutput&gt; $viewModel */
+if (!$viewModel-&gt;data instanceof ReportsPreviewOutput) {
+  return;
+}
+$preview = $viewModel-&gt;data;
+?&gt;
+&lt;article data-surface-fragment="reports-preview"&gt;
   &lt;header&gt;
-    &lt;h2&gt;&lt;?= e($title ?? 'Vista previa') ?&gt;&lt;/h2&gt;
+    &lt;h2&gt;&lt;?= e($preview-&gt;title) ?&gt;&lt;/h2&gt;
   &lt;/header&gt;
 
   &lt;ul data-preview-list&gt;
-    &lt;?php foreach (($items ?? []) as $item): ?&gt;
-      &lt;li&gt;&lt;?= e((string) $item) ?&gt;&lt;/li&gt;
+    &lt;?php foreach ($preview-&gt;items as $item): ?&gt;
+      &lt;li&gt;&lt;?= e($item) ?&gt;&lt;/li&gt;
     &lt;?php endforeach; ?&gt;
   &lt;/ul&gt;
 
@@ -2274,19 +2511,19 @@ export default class ReportsPageBinding extends UiBinding {
               <div class="card-body">
                 <h2>Montar un adapter UI</h2>
                 <p>
-                  Los adapters deben consumirse desde `toolkit` y destruirse
-                  durante el desmontaje. No se debe acceder a globals legacy
-                  directamente cuando existe un adapter.
+                  Un adapter encapsula una librería visual para que el resto de
+                  Surface no dependa de sus variables globales ni de su forma
+                  particular de inicialización. Se usa cuando un componente de
+                  terceros necesita preparación y limpieza; si solo hay DOM y
+                  eventos propios, una integración normal suele ser suficiente.
                 </p>
-                <p class="guide-crosslink">
-                  <em>
-                    La regla de limpieza se explica en
-                    <a href="app-surface.html#bindings">Bindings y lifecycle</a>
-                    y el catálogo de helpers en
-                    <a href="app-surface.html#toolkit"
-                      >Toolkit, adapters y feedback</a
-                    >.
-                  </em>
+                <p>
+                  Los adapters deben consumirse desde el
+                  <a href="app-surface.html#toolkit">toolkit de Surface</a>
+                  y destruirse durante el desmontaje definido por
+                  <a href="app-surface.html#bindings">bindings y lifecycle</a>.
+                  No se debe acceder a globals legacy directamente cuando existe
+                  un adapter.
                 </p>
                 <div class="code-card">
                   <div class="code-card__bar">
@@ -2315,10 +2552,12 @@ export default class ReportsPageBinding extends UiBinding {
   }
 }</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
-                    <h3>Adapter opt-in con limpieza explícita</h3>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
+                    <h3>Adapter bajo demanda con limpieza explícita</h3>
                     <p>
                       El adapter vive en <code>toolkit</code>, pero lo monta una
                       integración concreta. El runtime no debe cargar plugins
@@ -2453,11 +2692,18 @@ export default class ReportsPageBinding extends UiBinding {
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Validar CSRF y tab session</h2>
+                <p>
+                  Aquí se comprueban dos preguntas distintas: si una operación
+                  sensible proviene de una página legítima y a qué pestaña
+                  pertenece su contexto temporal. CSRF responde la primera; tab
+                  session responde la segunda. Ambas señales pueden viajar en el
+                  mismo request, pero no son intercambiables.
+                </p>
                 <p class="guide-crosslink">
                   <em>
-                    Amplía la frontera entre ambos lados en
+                    La frontera entre ambos lados se amplía en
                     <a href="bridge.html#security">CSRF y tab session</a> y
-                    <a href="app-gateway.html#security-session"
+                    <a href="app-gateway.html#security-session-contracts"
                       >Seguridad, CSRF y sesión</a
                     >.
                   </em>
@@ -2487,9 +2733,11 @@ export default class ReportsPageBinding extends UiBinding {
                     sincronizar expiración.
                   </li>
                 </ol>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Formulario protegido por CSRF y tab session</h3>
                     <p>
                       CSRF corta intentos inválidos; tab session separa el
@@ -2629,30 +2877,42 @@ if (idTab) {
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Mostrar un mensaje flash</h2>
+                <p>
+                  Un mensaje flash comunica una confirmación o advertencia una
+                  sola vez, normalmente después de una redirección. Se reconoce
+                  porque el mensaje debe sobrevivir al request que lo crea,
+                  aparecer en el siguiente y desaparecer al consumirse, sin
+                  filtrarse a otras pestañas.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     La API vive en
-                    <a href="app-gateway.html#controllers">Controllers</a> y el
-                    storage por pestaña se explica en
-                    <a href="app-gateway.html#security-session"
+                    <a href="app-gateway.html#gateway-flow-controller"
+                      >Controllers</a
+                    >, el envelope que recibe la vista se explica en
+                    <a href="app-gateway.html#views-data-envelope"
+                      >datos en la vista</a
+                    >
+                    y el storage por pestaña se explica en
+                    <a href="app-gateway.html#security-session-contracts"
                       >Seguridad, CSRF y sesión</a
                     >.
                   </em>
                 </p>
                 <ol class="guide-checklist">
-                  <li>Ejecuta la acción de aplicación desde el controller.</li>
+                  <li>Ejecutar la acción de aplicación desde el controller.</li>
                   <li>
-                    Si la acción termina bien y vas a redirigir, llama
+                    Si la acción termina bien y se va a redirigir, llamar
                     <code>flashMessage(...)</code>.
                   </li>
                   <li>
-                    En la vista destino, pasa
+                    En la vista destino, pasar
                     <code>pullFlashMessages()</code> como data para renderizar
                     los avisos.
                   </li>
                   <li>
-                    No leas <code>$_SESSION</code> desde la view ni desde
-                    Surface.
+                    No se debe leer <code>$_SESSION</code> desde la view ni
+                    desde Surface.
                   </li>
                 </ol>
                 <div class="code-card">
@@ -2666,7 +2926,9 @@ if (idTab) {
                       Copiar
                     </button>
                   </div>
-                  <pre><code id="rc-flash-message" class="language-php">public function store(): HttpResponseInterface
+                  <pre><code id="rc-flash-message" class="language-php">use App\Extension\Presentation\Http\Session\FlashMessageType;
+
+public function store(): HttpResponseInterface
 {
   $input = new SaveItemInput(
     name: (string) $this->request->getPost('name', '')
@@ -2675,7 +2937,10 @@ if (idTab) {
   $result = $this->saveItem->execute($input);
 
   if ($result->success) {
-    $this->flashMessage('success', 'Elemento guardado correctamente');
+    $this->flashMessage(
+      FlashMessageType::SUCCESS,
+      'Elemento guardado correctamente',
+    );
     return $this->redirectTo('/items');
   }
 
@@ -2690,9 +2955,11 @@ public function index(): HttpResponseInterface
   );
 }</code></pre>
                 </div>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>
                       Acción POST que deja mensaje para la siguiente vista
                     </h3>
@@ -2732,7 +2999,9 @@ public function index(): HttpResponseInterface
                           <div class="guided-field">
                             <span>Código</span>
                             <div class="guided-put">
-                              <pre><code class="language-php">$router->post('/items/store', [ItemsController::class, 'store']);
+                              <pre><code class="language-php">use App\Extension\Presentation\Http\Session\FlashMessageType;
+
+$router->post('/items/store', [ItemsController::class, 'store']);
     
 public function store(): HttpResponseInterface
 {
@@ -2741,7 +3010,10 @@ public function store(): HttpResponseInterface
   ));
 
   if ($result->success) {
-    $this->flashMessage('success', 'Elemento guardado correctamente');
+    $this->flashMessage(
+      FlashMessageType::SUCCESS,
+      'Elemento guardado correctamente',
+    );
     return $this->redirectTo('/items');
   }
 
@@ -2787,11 +3059,39 @@ public function store(): HttpResponseInterface
     'flashMessages' => $this->pullFlashMessages(),
   ]);
 }</code></pre>
-                              <pre><code class="language-php">&lt;?php foreach (($flashMessages ?? []) as $flash): ?&gt;
-  &lt;div class="alert alert-&lt;?= e($flash['type'] ?? 'info', 'attr') ?&gt;"&gt;
+                              <pre><code class="language-php">&lt;?php
+use App\Core\View\ViewData;
+use App\Extension\Presentation\Http\Session\FlashMessageType;
+/** @var ViewData&lt;array{flashMessages: list&lt;array{type: FlashMessageType, message: string}&gt;}&gt; $viewModel */
+$data = is_array($viewModel-&gt;data) ? $viewModel-&gt;data : [];
+$flashMessages = is_array($data['flashMessages'] ?? null)
+  ? $data['flashMessages']
+  : [];
+?&gt;
+&lt;?php foreach ($flashMessages as $flash): ?&gt;
+  &lt;?php
+  $alertClass = match ($flash['type']) {
+    FlashMessageType::SUCCESS =&gt; 'alert-success',
+    FlashMessageType::INFO =&gt; 'alert-info',
+    FlashMessageType::WARNING =&gt; 'alert-warning',
+    FlashMessageType::ERROR =&gt; 'alert-danger',
+  };
+  ?&gt;
+  &lt;div class="alert &lt;?= e($alertClass, 'attr') ?&gt;"&gt;
     &lt;?= e($flash['message'] ?? '') ?&gt;
   &lt;/div&gt;
 &lt;?php endforeach; ?&gt;</code></pre>
+                            </div>
+                          </div>
+                          <div class="guided-field">
+                            <span>Decisión de tipado</span>
+                            <div class="guided-result">
+                              Aquí se conserva el array shape porque describe el
+                              resultado local de
+                              <code>pullFlashMessages()</code>. Si esta página
+                              reuniera además datos estables de aplicación, esos
+                              datos sí podrían viajar en un ReadModel
+                              <code>*Output</code>.
                             </div>
                           </div>
                         </div>
@@ -2807,6 +3107,14 @@ public function store(): HttpResponseInterface
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Diagnosticar route cache</h2>
+                <p>
+                  En producción, el mapa de rutas puede prepararse antes de
+                  atender requests para evitar descubrimiento repetido. Si una
+                  ruta nueva funciona en desarrollo pero no aparece en el
+                  entorno desplegado, primero se debe comprobar si ese mapa fue
+                  regenerado, si puede leerse y si contiene la definición
+                  esperada.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     El ciclo está explicado en
@@ -2838,13 +3146,16 @@ public function store(): HttpResponseInterface
                     <code>#[FromRoute(...)]</code>.
                   </li>
                 </ol>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Ruta nueva que sí llega al cache de producción</h3>
                     <p>
-                      Primero confirma que la ruta existe en el registro real;
-                      después recalienta los artefactos de producción.
+                      Primero se debe confirmar que la ruta existe en el
+                      registro real; después se deben recalentar los artefactos
+                      de producción.
                     </p>
                   </div>
                   <ol class="guided-steps">
@@ -2903,15 +3214,17 @@ final class HealthController extends AppController
                             <span>Comando</span>
                             <div class="guided-tool">
                               <a href="app-gateway.html#production-cache">
-                                <code>cd app-gateway</code>
-                                <code>composer run build:prod</code>
+                                <code
+                                  >/raiz-del-proyecto/app-gateway&gt; composer
+                                  run build:prod</code
+                                >
                               </a>
                             </div>
                           </div>
                           <div class="guided-field">
                             <span>Verificación</span>
                             <div class="guided-put">
-                              <pre><code class="language-bash">curl -i http://localhost/health/ping
+                              <pre><code class="language-bash">/cualquier/ruta&gt; curl -i http://localhost/health/ping
     
 # Esperado:
 # HTTP/1.1 200 OK
@@ -2931,6 +3244,13 @@ final class HealthController extends AppController
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Trazar un error con correlation id</h2>
+                <p>
+                  Un correlation id es una etiqueta compartida por los registros
+                  de una misma operación. Sirve para pasar de un error visible a
+                  evidencia concreta: se toma el identificador de la respuesta y
+                  se sigue por Gateway y, cuando exista, por la llamada al
+                  proveedor externo.
+                </p>
                 <p class="guide-crosslink">
                   <em>
                     La relación entre errores y headers se explica en
@@ -2943,10 +3263,10 @@ final class HealthController extends AppController
                 </p>
                 <ol class="guide-checklist">
                   <li>
-                    Busca <code>X-Correlation-Id</code> en la respuesta del
+                    Buscar <code>X-CORRELATION-ID</code> en la respuesta del
                     navegador.
                   </li>
-                  <li>Ubica el registro relacionado en logs de Gateway.</li>
+                  <li>Ubicar el registro relacionado en logs de Gateway.</li>
                   <li>
                     Revisar el status HTTP y el envelope si la respuesta fue
                     JSON.
@@ -2956,13 +3276,16 @@ final class HealthController extends AppController
                     registrado.
                   </li>
                   <li>
-                    Si Surface lanzó <code>HttpContractError</code>, compara
-                    <code>Accept</code>, <code>Content-Type</code> y body.
+                    Si Surface lanzó <code>HttpContractError</code>, se deben
+                    comparar <code>Accept</code>, <code>Content-Type</code> y
+                    body.
                   </li>
                 </ol>
-                <div class="guided-recipe">
+                <div
+                  class="guided-recipe guide-subsection guide-subsection--practice"
+                >
                   <div class="guided-recipe__head">
-                    <span class="guided-recipe__eyebrow">Flujo completo</span>
+                    <span class="guided-recipe__eyebrow">Práctica</span>
                     <h3>Error trazado desde navegador hasta Gateway</h3>
                     <p>
                       La misma correlación debe verse en headers, logs y
@@ -2992,7 +3315,7 @@ final class HealthController extends AppController
                             <span>Señal esperada</span>
                             <div class="guided-put">
                               <pre><code class="language-http">HTTP/1.1 500 Internal Server Error
-X-Correlation-Id: 4e4d5f4bb6f64d76a6d5dbd5b0f6d7e1
+X-CORRELATION-ID: 4e4d5f4bb6f64d76a6d5dbd5b0f6d7e1
 Content-Type: application/json</code></pre>
                             </div>
                           </div>
@@ -3002,7 +3325,7 @@ Content-Type: application/json</code></pre>
                     <li class="guided-step">
                       <div class="guided-step__body">
                         <h4 class="guided-step__title">
-                          Ubica el evento en logs
+                          Ubicar el evento en logs
                         </h4>
                         <div class="guided-field-grid">
                           <div class="guided-field">
@@ -3071,16 +3394,16 @@ try {
           <section id="next" class="guide-section">
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Recorrido de la guía</h2>
+                <h2>Ruta de lectura</h2>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <a class="guide-card-link" href="tools.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Volver a: Herramientas</h3>
+                          <h3 class="h5">Anterior: Herramientas</h3>
                           <p class="mb-0">
-                            Revisa los comandos y automatizaciones disponibles
-                            antes de aplicar una receta.
+                            Esta lectura reúne los comandos y automatizaciones
+                            disponibles antes de aplicar una receta.
                           </p>
                         </div>
                       </div>
@@ -3090,7 +3413,7 @@ try {
                     <a class="guide-card-link" href="diagrams.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Continuar con: Diagramas</h3>
+                          <h3 class="h5">Siguiente: Diagramas</h3>
                           <p class="mb-0">
                             Los mapas validan si una receta encaja con el flujo
                             real del sistema antes de modificar más capas.

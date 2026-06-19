@@ -11,6 +11,7 @@
     />
     <script src="assets/js/theme.js"></script>
     <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/lib/css/bootstrap-icons-min.css" rel="stylesheet" />
     <link href="assets/css/guide.css" rel="stylesheet" />
   </head>
 
@@ -23,7 +24,7 @@
   >
     <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
       <div class="container-fluid px-3 px-lg-4">
-        <a class="navbar-brand fw-bold" href="index.html">
+        <a class="navbar-brand" href="index.html">
           <img
             class="navbar-brand__logo"
             src="assets/img/web-platform-core.svg"
@@ -64,7 +65,7 @@
               <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="recipes.html">Guías</a>
+              <a class="nav-link" href="recipes.html">Prácticas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="diagrams.html">Diagramas</a>
@@ -90,7 +91,7 @@
         </nav>
         <h1 class="display-6 fw-bold">Bases</h1>
         <p class="lead mb-0">
-          El mapa mental para leer el proyecto sin convertir cada cambio en una
+          Las bases para leer el proyecto sin convertir cada cambio en una
           expedición completa.
         </p>
       </div>
@@ -104,13 +105,14 @@
               <div class="card-body">
                 <h2 class="h6 text-uppercase text-secondary">En esta página</h2>
                 <nav id="guide-nav" class="guide-nav nav nav-pills flex-column">
-                  <a class="nav-link" href="#vocabulary">Vocabulario mínimo</a>
-                  <a class="nav-link" href="#mental-model">Modelo mental</a>
+                  <a class="nav-link" href="#vocabulary">Vocabulario</a>
+                  <a class="nav-link" href="#project-model"
+                    >Modelo del proyecto</a
+                  >
                   <a class="nav-link" href="#context">Contextos</a>
-                  <a class="nav-link" href="#ownership">Ownership</a>
                   <a class="nav-link" href="#reading">Cómo leer cambios</a>
                   <a class="nav-link" href="#flow">Flujo completo</a>
-                  <a class="nav-link" href="#next">Recorrido de la guía</a>
+                  <a class="nav-link" href="#next">Ruta de lectura</a>
                 </nav>
               </div>
             </div>
@@ -121,169 +123,2700 @@
           <section id="vocabulary" class="guide-section">
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Vocabulario mínimo</h2>
+                <h2>Vocabulario</h2>
                 <p>
                   Antes de leer Gateway, Surface o Bridge, conviene fijar estos
                   términos. La guía los repite con frecuencia porque son los
                   contratos conceptuales de la solución. Cuando un término
-                  aparezca más adelante, esta tabla funciona como referencia
+                  aparezca más adelante, este glosario funciona como referencia
                   base.
                 </p>
-                <div class="table-responsive">
-                  <table class="table table-striped table-guide align-middle">
-                    <thead>
-                      <tr>
-                        <th>Término</th>
-                        <th>Qué significa aquí</th>
-                        <th>Dónde se profundiza</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>Gateway</code></td>
-                        <td>
-                          Backend PHP que recibe HTTP, ejecuta intención de
-                          aplicación y entrega HTML, JSON, redirects, headers o
-                          errores.
-                        </td>
-                        <td>
-                          <a href="app-gateway.html#gateway-first-read"
-                            >Gateway</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Surface</code></td>
-                        <td>
-                          Frontend TypeScript que activa comportamiento sobre
-                          HTML SSR. No es SPA y no decide negocio.
-                        </td>
-                        <td>
-                          <a href="app-surface.html#surface-first-read"
-                            >Surface</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Bridge</code></td>
-                        <td>
-                          Conjunto de contratos entre Gateway y Surface: HTML,
-                          <code>data-surface-*</code>, envelope JSON, headers,
-                          sesión y assets.
-                        </td>
-                        <td>
-                          <a href="bridge.html#bridge-first-read">Bridge</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Core</code></td>
-                        <td>
-                          Mini-framework interno de Gateway: routing, HTTP,
-                          views, resultados, errores, outbound, DI y lifecycle.
-                        </td>
-                        <td>
-                          <a href="app-gateway.html#core-extension"
-                            >Core / Extension</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Extension</code></td>
-                        <td>
-                          Aplicación concreta que consume Core: routes,
-                          controllers, use cases, services, ports, connectors y
-                          views.
-                        </td>
-                        <td>
-                          <a href="app-gateway.html#gateway-capabilities"
-                            >Capacidades Gateway</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Use case</code></td>
-                        <td>
-                          Intención de aplicación. Decide si algo termina en
-                          éxito, parcialidad o fallo, sin conocer HTML ni
-                          transporte externo.
-                        </td>
-                        <td>
-                          <a href="app-gateway.html#usecases">Use cases</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Service</code></td>
-                        <td>
-                          Composición opcional dentro de Extension. Solo existe
-                          si coordina varias fuentes, fallback o transformación
-                          real.
-                        </td>
-                        <td>
-                          <a href="app-gateway.html#services"
-                            >Services y connectors</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Connector</code></td>
-                        <td>
-                          Adaptador hacia una dependencia externa. Devuelve
-                          <code>ConnectorResult</code>, no HTML ni JSON final.
-                        </td>
-                        <td>
-                          <a href="app-gateway.html#external-clients"
-                            >Outbound</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Envelope JSON</code></td>
-                        <td>
-                          Forma estándar de las respuestas JSON:
-                          <code>success</code>, <code>data</code>,
-                          <code>message</code>, <code>errors</code> y
-                          <code>errorMeta</code>.
-                        </td>
-                        <td><a href="bridge.html#json">JSON envelope</a></td>
-                      </tr>
-                      <tr>
-                        <td><code>Page</code></td>
-                        <td>
-                          View SSR navegable. Si trae
-                          <code>data-surface-page</code>, Surface puede activar
-                          un binding.
-                        </td>
-                        <td><a href="bridge.html#html">Contratos HTML</a></td>
-                      </tr>
-                      <tr>
-                        <td><code>Fragment</code></td>
-                        <td>
-                          HTML parcial que Gateway renderiza y Surface puede
-                          pedir, insertar y montar.
-                        </td>
-                        <td>
-                          <a href="app-surface.html#content-mount"
-                            >Content mount</a
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>Binding</code></td>
-                        <td>
-                          Clase o función de Surface que escucha eventos, llama
-                          Gateway, inicializa adapters y registra cleanup.
-                        </td>
-                        <td>
-                          <a href="app-surface.html#bindings">Bindings</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div
+                  class="vocabulary-map"
+                  data-vocabulary-default="foundation"
+                  data-vocabulary-tabs
+                >
+                  <ol
+                    class="vocabulary-flow"
+                    role="tablist"
+                    aria-label="Momentos del vocabulario"
+                    aria-orientation="horizontal"
+                  >
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--foundation"
+                    >
+                      <button
+                        id="vocabulary-tab-foundation"
+                        type="button"
+                        class="vocabulary-flow__tab is-active"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="vocabulary-stage-foundation"
+                        data-vocabulary-tab="foundation"
+                      >
+                        <span>
+                          <strong>Base</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--entry"
+                    >
+                      <button
+                        id="vocabulary-tab-entry"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-entry"
+                        data-vocabulary-tab="entry"
+                      >
+                        <span>
+                          <i
+                            class="bi bi-box-arrow-in-right vocabulary-flow__icon"
+                            aria-hidden="true"
+                          ></i>
+                          <strong>HTTP</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--application"
+                    >
+                      <button
+                        id="vocabulary-tab-application"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-application"
+                        data-vocabulary-tab="application"
+                      >
+                        <span>
+                          <strong>Aplicación</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--outbound"
+                    >
+                      <button
+                        id="vocabulary-tab-outbound"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-outbound"
+                        data-vocabulary-tab="outbound"
+                      >
+                        <span>
+                          <i
+                            class="bi bi-box-arrow-up-right vocabulary-flow__icon"
+                            aria-hidden="true"
+                          ></i>
+                          <strong>Integración</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--response"
+                    >
+                      <button
+                        id="vocabulary-tab-response"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-response"
+                        data-vocabulary-tab="response"
+                      >
+                        <span>
+                          <i
+                            class="bi bi-box-arrow-right vocabulary-flow__icon"
+                            aria-hidden="true"
+                          ></i>
+                          <strong>Gateway</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--bridge"
+                    >
+                      <button
+                        id="vocabulary-tab-bridge"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-bridge"
+                        data-vocabulary-tab="bridge"
+                      >
+                        <span>
+                          <strong>Bridge</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--surface"
+                    >
+                      <button
+                        id="vocabulary-tab-surface"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-surface"
+                        data-vocabulary-tab="surface"
+                      >
+                        <span>
+                          <strong>Surface</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--security"
+                    >
+                      <button
+                        id="vocabulary-tab-security"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-security"
+                        data-vocabulary-tab="security"
+                      >
+                        <span>
+                          <strong>Seguridad</strong>
+                        </span>
+                      </button>
+                    </li>
+                    <li
+                      class="vocabulary-flow__step vocabulary-flow__step--operations"
+                    >
+                      <button
+                        id="vocabulary-tab-operations"
+                        type="button"
+                        class="vocabulary-flow__tab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="vocabulary-stage-operations"
+                        data-vocabulary-tab="operations"
+                      >
+                        <span>
+                          <strong>Tools</strong>
+                        </span>
+                      </button>
+                    </li>
+                  </ol>
+                </div>
+                <div
+                  id="vocabulary-panels"
+                  class="vocabulary-panels"
+                  data-vocabulary-panels
+                >
+                  <section
+                    id="vocabulary-stage-foundation"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--foundation"
+                    data-vocabulary-stage="foundation"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-foundation"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Base mental antes de abrir archivos</strong>
+                          <small>
+                            Estos términos no dependen de una línea de
+                            ejecución: ordenan cómo pensar límites, capas,
+                            ownership y datos antes de tocar una feature.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>contexto</span>
+                          <span>límite</span>
+                          <span>contrato</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Contexto y contrato
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Ideas para decidir responsabilidad, límite y forma
+                            visible antes de abrir archivos.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Contexto</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Agrupación de código que responde al mismo tipo de
+                              responsabilidad. Sirve para decidir dónde colocar
+                              una regla antes de abrir archivos.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a class="vocabulary-term__link" href="#context"
+                                >Contextos y límites</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Límite</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Punto hasta donde una capa puede decidir. Al
+                              cruzarlo, debe entregar una forma explícita:
+                              input, resultado, HTML, JSON, header, port o tipo
+                              TS.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#ownership"
+                                >Responsabilidades</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Responsabilidad</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Trabajo que una pieza puede hacer y trabajo que
+                              debe evitar. Es la pregunta que separa controller,
+                              use case, service, connector, view y binding.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="index.html#capability-matrix"
+                                >Mapa inicial</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Contrato visible</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Forma estable que una capa entrega a otra: una
+                              firma pública, un envelope, un atributo HTML, un
+                              header o un tipo local. No equivale a exponer
+                              internals.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="reference.html#quick-contracts"
+                                >Contratos rápidos</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Datos que cruzan el flujo</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Objetos que pasan entre capas con responsabilidad
+                              clara: input de aplicación, read model, DTO
+                              externo,
+                              <code>ConnectorResult</code>,
+                              <code>UseCaseResult</code> o
+                              <code>ViewData</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#extension-filesystem"
+                                >Filesystem de Extension</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Superficies del sistema
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Nombres grandes que ubican dónde vive cada decisión
+                            dentro de la solución.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Gateway</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Backend PHP que recibe HTTP, ejecuta intención de
+                              aplicación y entrega HTML, JSON, redirects,
+                              headers o errores.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-first-read"
+                                >Gateway</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Core</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Mini-framework interno de Gateway: bootstrap, DI,
+                              routing, HTTP, views, resultados, errores,
+                              outbound, observabilidad y lifecycle.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#core-extension"
+                                >Core / Extension</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Mecanismo transversal</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Pieza común que Core ofrece para reducir
+                              duplicación: contenedor, router, response, manejo
+                              de errores, cliente outbound, view layer o
+                              telemetría.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#core-extension"
+                                >Core / Extension</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Extension</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Aplicación concreta que consume Core: routes,
+                              controllers, use cases, services, ports,
+                              connectors, session, failures, responses y views.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#extension-filesystem"
+                                >Filesystem de Extension</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Capas y fronteras
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Zonas donde el flujo entra, sale o cambia de
+                            responsabilidad técnica.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Aplicación</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Contexto donde se expresa la intención del
+                              sistema: use cases, services, ports, read models,
+                              session de aplicación y fallos de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases"
+                                >Use cases</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Presentación HTTP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Capa de Extension que entiende request y response:
+                              routing, middleware, controller, fallos de
+                              presentación, responses y navegación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#controllers"
+                                >Controllers</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Frontera HTTP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Límite donde datos de transporte se interpretan y
+                              se convierten en input de aplicación o en una
+                              response segura. No debe filtrarse
+                              <code>HttpRequest</code> al use case.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-flow-controller"
+                                >Controller</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Entrada HTTP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Método, URL, ruta, query string, body, headers,
+                              files, sesión, CSRF y tab recibidos antes de
+                              traducirlos a términos de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#http-lifecycle"
+                                >Ciclo HTTP</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Salida controlada</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Respuesta emitida por Gateway con status, headers
+                              y body coherentes: HTML, JSON, redirect, fragment
+                              o error presentado de forma segura.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#views"
+                                >Views y respuestas HTTP</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Infraestructura</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Adaptadores técnicos que hablan con servicios,
+                              sesión, runtime o transporte. Traduce detalles de
+                              implementación hacia contratos consumibles por
+                              aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#external-clients"
+                                >Outbound</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Dominio local</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Conceptos propios de la aplicación. No representa
+                              DTOs externos, payloads HTTP, estructuras de la
+                              vista ni respuestas del proveedor.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#extension-filesystem"
+                                >Datos que cruzan el flujo</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-entry"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--entry"
+                    data-vocabulary-stage="entry"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-entry"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Arranque y entrada HTTP</strong>
+                          <small>
+                            Gateway prepara el runtime, abre la ruta y convierte
+                            transporte HTTP en una acción concreta de
+                            presentación.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>bootstrap</span>
+                          <span>routing</span>
+                          <span>controller</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">Arranque</h4>
+                          <p class="vocabulary-term-group__summary">
+                            Piezas que preparan configuración, contenedor y
+                            dependencias antes de atender una ruta.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Bootstrap</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Arranque de Gateway: carga entorno, construye el
+                              contenedor, prepara providers y deja listo el
+                              ciclo HTTP antes de ejecutar una feature.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#bootstrap-di"
+                                >Bootstrap y DI</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>DI</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Inyección de dependencias. Permite que una clase
+                              declare lo que necesita sin construir manualmente
+                              clients, connectors, use cases o servicios
+                              concretos.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#bootstrap-di"
+                                >Bootstrap y DI</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Provider</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Archivo que registra servicios, aliases o
+                              configuración en el contenedor. Solo se toca
+                              cuando existe una frontera real que debe
+                              inyectarse.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="recipes.html#provider-di"
+                                >Provider o resolver DI</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Entrada HTTP
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Elementos que reciben la petición, atraviesan
+                            middleware y llegan a la acción.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Routing</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Declaración de método, path, controller/action,
+                              grupos y middleware. Abre la entrada HTTP; no
+                              contiene lógica de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#routing"
+                                >Routing</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Middleware</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Regla transversal de request o response, como
+                              autenticación, tab session, CSRF, refresh o
+                              headers. Corre antes o alrededor del controller.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#middlewares"
+                                >Middlewares</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Controller</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Adaptador entre HTTP y aplicación. Lee request,
+                              valida precondiciones de presentación, crea input,
+                              invoca use cases y elige la salida.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#controllers"
+                                >Controllers</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Action</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Método público del controller que atiende una
+                              ruta. Debe terminar con una response HTTP y no
+                              acumular toda la operación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-flow-controller"
+                                >Action del controller</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-application"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--application"
+                    data-vocabulary-stage="application"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-application"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Intención de aplicación y decisión</strong>
+                          <small>
+                            El request ya está traducido: el use case decide
+                            resultado, parcialidad, fallos y composición interna
+                            sin conocer HTML.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>input</span>
+                          <span>use case</span>
+                          <span>fallos</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Intención
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Entrada y ejecución principal del caso de uso desde
+                            la capa de aplicación.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Input de aplicación</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Datos ya interpretados desde HTTP u otra entrada y
+                              nombrados con sentido para el use case. Puede ser
+                              un valor simple, value object, command o input
+                              explícito.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-application-input"
+                                >Input y use case</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Use case</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Intención de aplicación. Decide si algo termina en
+                              éxito, parcialidad o fallo, sin conocer HTML ni
+                              transporte externo.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-flow-usecase"
+                                >Use cases</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>run(...)</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Carril local del use case. Envuelve reglas o datos
+                              ya disponibles y normaliza valores o fallos
+                              controlados en
+                              <code>UseCaseResult</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-lanes"
+                                >Carriles internos</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Carriles de decisión
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Formas de pedir datos obligatorios, opcionales o
+                            compuestos sin mezclar responsabilidades.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>takeOrAbort(...)</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Carril simple para una dependencia obligatoria
+                              directa. Toma data de
+                              <code>ConnectorResult</code> o corta con fallo
+                              bloqueante.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-lanes"
+                                >Carriles internos</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>runConnectorFlow(...)</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Carril robusto para composición, varias fuentes,
+                              fallback, opcionales o parcialidad. Dentro se usan
+                              dependencias requeridas u opcionales.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-lanes"
+                                >Carril robusto</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ConnectorFlowInterface</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Flow que acumula resultados de connectors y
+                              conserva qué fallos bloquean y cuáles degradan. No
+                              crea errores nuevos sin venir de un connector.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-lanes"
+                                >Flow de connectors</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>required(...)</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Dependencia requerida dentro del flow. Si falla,
+                              el resultado completo deja de ser válido y el use
+                              case termina como fallo bloqueante.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-lanes"
+                                >Requerido</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>optional(...)</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Dependencia opcional dentro del flow. Si falla, se
+                              usa fallback, se conserva el error y el resultado
+                              puede seguir siendo usable.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-lanes"
+                                >Opcional</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Parcialidad</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Éxito con data usable y errores secundarios
+                              visibles. En JSON aparece como
+                              <code>success=true</code> con
+                              <code>errors</code> no vacío.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#json"
+                                >Envelope JSON</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Fallo y diagnóstico
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Vocabulario para distinguir cortes esperados,
+                            errores técnicos y origen del problema.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Fallo bloqueante</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Estado donde no hay resultado válido para
+                              continuar. Suele producir
+                              <code>success=false</code> y un status HTTP acorde
+                              al tipo de error.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#errors"
+                                >Errores y resultados</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Fallo controlado</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Corte esperado del flujo con mensaje y
+                              clasificación. En Extension vive como fallo de
+                              presentación, aplicación o base compartida.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#errors"
+                                >Taxonomía de error</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Fallo de presentación</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Corte propio de controller/request: entrada HTTP
+                              inválida, tab requerida, CSRF o precondición de
+                              presentación antes del use case.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#extension-filesystem"
+                                >Presentación HTTP</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Fallo de aplicación</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Corte propio de la intención: input de aplicación
+                              inválido, transición no permitida o estado
+                              inconsistente del caso de uso.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-output"
+                                >Salida del use case</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ErrorKind</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Tipo de error que orienta el status HTTP:
+                              validación, autenticación, conflicto, dependencia
+                              no disponible o inesperado.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="reference.html#errors-status"
+                                >Errores y status</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ErrorOrigin</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Origen del fallo para diagnóstico: framework,
+                              aplicación, upstream o transporte. Ayuda a ubicar
+                              la frontera que falló.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#errors"
+                                >Taxonomía de error</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Error técnico</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Excepción o fallo inesperado del runtime,
+                              transporte, serialización, render o bootstrap. Se
+                              registra y se presenta de forma segura.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="troubleshooting.html#diagnostic-method"
+                                >Diagnóstico</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-outbound"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--outbound"
+                    data-vocabulary-stage="outbound"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-outbound"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Composición e integración externa</strong>
+                          <small>
+                            Cuando la intención necesita dependencias, esta
+                            familia separa composición local, ports, connectors,
+                            clients y contratos outbound.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>service</span>
+                          <span>connector</span>
+                          <span>proveedor</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Composición
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Piezas de aplicación que coordinan integración sin
+                            hablar directamente con transporte externo.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Service</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Composición opcional dentro de Extension. Solo
+                              existe si coordina varias fuentes, fallback,
+                              parcialidad o transformación real.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-flow-services"
+                                >Services y connectors</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Port</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Interfaz que nombra lo que la aplicación necesita
+                              sin conocer infraestructura. Para outbound se
+                              expresa como
+                              <code>*ConnectorInterface</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-flow-services"
+                                >Port y connector</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Connector
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Adaptación de resultados externos hacia contratos
+                            internos de integración.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Connector</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Adaptador hacia una dependencia externa. Devuelve
+                              <code>ConnectorResult</code>, no HTML, JSON final
+                              ni <code>UseCaseResult</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#external-clients-client-connector"
+                                >Client y connector</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ConnectorResult</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Resultado normalizado de integración que el use
+                              case o flow puede interpretar. Pertenece al límite
+                              entre connector e intención de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="reference.html#outbound-connectors"
+                                >Outbound y connectors</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Outbound</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Flujo que sale de Gateway hacia un servicio
+                              externo: configuración, request, client, mapeo de
+                              respuesta, connector y consumo desde aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#external-clients"
+                                >API HTTP clients externos</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Cliente y contrato externo
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Piezas que conocen el proveedor, el request saliente
+                            y los DTOs generados.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Proveedor externo</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Sistema fuera de la aplicación. Sus URLs,
+                              credenciales, payloads y errores se protegen
+                              detrás de Gateway y no se exponen a Surface.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#external-flow"
+                                >Flujo externo</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Service client</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Client HTTP concreto para un servicio externo.
+                              Ejecuta transporte, bearer, timeouts, TLS, mapeo
+                              base e hidratación técnica.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#external-clients-client-connector"
+                                >Service client</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Request outbound</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Clase que declara método, path, payload, content
+                              type, bearer, timeout y response class para una
+                              llamada HTTP externa.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#external-clients-contracts"
+                                >Request externo</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>DTO externo</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Forma recibida desde un proveedor externo. Se
+                              mantiene en <code>Contract/Outbound</code> y no
+                              debe convertirse en modelo de dominio por
+                              coincidencia de campos.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#external-clients-contracts"
+                                >Contratos externos</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Contrato outbound</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Acuerdo PHP hacia un proveedor externo: request,
+                              response DTO, mapeo y payload. Lo genera o
+                              mantiene Gateway; Surface no lo consume
+                              directamente.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="tools.html#http-contract-generator"
+                                >http:contract</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-response"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--response"
+                    data-vocabulary-stage="response"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-response"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Resultado y salida Gateway</strong>
+                          <small>
+                            La aplicación devuelve una forma consumible y
+                            Gateway la presenta como JSON, HTML, fragment,
+                            redirect, layout o navegación.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>resultado</span>
+                          <span>view</span>
+                          <span>layout</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Resultado de aplicación
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Formas de entregar éxito, datos y envelope desde
+                            Gateway hacia HTTP o Surface.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>UseCaseResult</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Resultado de aplicación que conserva
+                              <code>success</code>, <code>data</code>, errores,
+                              mensaje público y tipo de fallo. Lo adaptan
+                              controllers y responses.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#usecases-output"
+                                >Salida del use case</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ReadModel / Output</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Salida tipada para casos de uso, vistas o
+                              responses. Describe el resultado estable de una
+                              operación sin duplicarse solo por llegar a HTML.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#views-data-envelope"
+                                >Datos en la vista</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Response HTTP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Objeto que estabiliza status, headers, body y
+                              emisión. Adapta resultados ya decididos; no
+                              reinterpreta reglas de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#gateway-flow-response"
+                                >Salida JSON</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ApiResponse</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Response JSON de Gateway que convierte resultados
+                              en envelope estable para Surface. Conserva éxito,
+                              parcialidad, fallos y metadata permitida.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#json"
+                                >Envelope JSON</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Envelope JSON</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Forma estándar de las respuestas JSON:
+                              <code>success</code>, <code>data</code>,
+                              <code>message</code>, <code>code</code>,
+                              <code>errors</code> y <code>errorMeta</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#bridge-flow-search-items"
+                                >JSON envelope</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            HTML y navegación
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Vocabulario de render SSR, layout, datos de vista y
+                            fragmentos reutilizables.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>ViewData</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Envelope interno disponible como
+                              <code>$viewModel</code> en pages, fragments y
+                              parciales PHP. Expone data, éxito, mensaje,
+                              errores y environment.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#views-data-envelope"
+                                >ViewData</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Helper de view</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Función disponible dentro de views SSR para
+                              escapar salida, resolver URLs, incluir assets o
+                              leer señales preparadas por Gateway. No debe
+                              esconder reglas de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#views"
+                                >Helpers disponibles en views</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Page</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              View SSR navegable. Si trae
+                              <code>data-surface-page</code>, Surface puede
+                              activar una integración de página.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#html"
+                                >Contratos HTML</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Layout</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Estructura SSR que envuelve una page y define zona
+                              visual, menú, assets y hooks globales. El layout
+                              no decide permisos ni reglas de negocio.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#startup"
+                                >Startup y layouts</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Navegación HTML</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Cambio de documento completo producido por
+                              enlaces, redirects o formularios SSR. Puede usar
+                              cookies técnicas de tab; no equivale a una llamada
+                              de
+                              <code>serverClient</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#session"
+                                >Navegación HTML y tab</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Fragment</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              HTML parcial que Gateway renderiza y Surface puede
+                              pedir, insertar y montar sin recibir un layout
+                              completo.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#content-mount"
+                                >Content mount</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-bridge"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--bridge"
+                    data-vocabulary-stage="bridge"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-bridge"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Bridge y contrato compartido</strong>
+                          <small>
+                            Gateway entrega marcas y envelopes que Surface puede
+                            reconocer sin adivinar si recibió page, fragment,
+                            JSON o HTML embebible.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>HTML</span>
+                          <span>JSON</span>
+                          <span>montaje</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Contrato HTML
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Marcas SSR que Surface reconoce para activar páginas
+                            o fragmentos.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Contrato HTML</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Marca acordada entre Gateway y Surface. Gateway
+                              entrega un root identificable y Surface monta el
+                              módulo cuyo id coincide.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#html"
+                                >Contratos HTML</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>HTML embebible</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Fragment o partial que puede insertarse dentro de
+                              otro DOM. No debe ser JSON accidental, redirect,
+                              layout completo ni page inesperada.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#http"
+                                >serverClient.html</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>data-surface-page</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Atributo SSR que declara una raíz de página
+                              activable. Su valor debe coincidir con
+                              <code>UiIntegration.id</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#runtime"
+                                >Runtime de pages</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>data-surface-fragment</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Atributo SSR que declara un fragment montable. Su
+                              valor debe existir en el registry de fragments de
+                              la integración propietaria.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#runtime"
+                                >Runtime de fragments</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Puente de activación
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Nombre de la relación entre HTML emitido por Gateway
+                            y comportamiento montado por Surface.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Bridge</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Conjunto de contratos entre Gateway y Surface:
+                              HTML,
+                              <code>data-surface-&lt;element&gt;</code>,
+                              envelope JSON, headers, sesión, errores y assets.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#bridge-first-read"
+                                >Bridge</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-surface"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--surface"
+                    data-vocabulary-stage="surface"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-surface"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Activación Surface y experiencia UI</strong>
+                          <small>
+                            Surface toma el HTML SSR, monta integraciones,
+                            ejecuta bindings, consume Gateway y normaliza
+                            feedback o errores visibles.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>runtime</span>
+                          <span>binding</span>
+                          <span>feedback</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Plataforma y workspace
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Zonas del frontend progresivo donde se ubican
+                            infraestructura común e integraciones UI.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Surface</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Frontend TypeScript que activa comportamiento
+                              sobre HTML SSR. No es SPA, no decide negocio y no
+                              consume proveedores externos directamente.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#surface-first-read"
+                                >Surface</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Platform</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Zona de Surface para startup, runtime,
+                              infraestructura HTTP, sesión, config y errores UI.
+                              Conecta piezas globales sin contener lógica de
+                              feature.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#surface-filesystem"
+                                >Filesystem de Surface</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Workspace</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Zona de Surface donde viven integraciones UI
+                              concretas, actions, llamadas a Gateway, bindings,
+                              fragments y estilos de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#workspace"
+                                >Workspace integrations</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Workspace integration</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Carpeta de una feature Surface. Reúne cómo se
+                              reconoce el HTML, qué eventos escucha, qué datos
+                              pide y qué fragments monta.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#workspace"
+                                >Workspace integrations</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>integration.ts</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Registro local de una integración. Declara id,
+                              layout, loader lazy de page y loaders de
+                              fragments.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#runtime-api"
+                                >Interfaz runtime</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>registry.ts</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Lista global de integraciones UI que el runtime
+                              puede montar cuando encuentra
+                              <code>data-surface-page</code>
+                              en el HTML.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#runtime"
+                                >Runtime de pages</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Runtime y montaje
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Piezas que arrancan, montan, desmontan y conectan
+                            bindings con HTML existente.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Runtime Surface</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Mecanismo que descubre HTML declarativo, carga
+                              módulos montables, evita doble montaje y limpia
+                              pages o fragments al desmontar.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#runtime"
+                                >Runtime</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Startup Surface</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Arranque del frontend: resuelve layout, carga
+                              estilos por layout, configura errores, partial
+                              reporter, sesión y montaje inicial.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#startup"
+                                >Startup y layouts</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Binding</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Clase o función de Surface que escucha eventos,
+                              llama Gateway, inicializa adapters, actualiza DOM
+                              y registra cleanup.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#bindings"
+                                >Bindings</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>UiBinding</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Base recomendada para bindings con lifecycle,
+                              helpers DOM root-scoped y limpieza ordenada. No
+                              debe contener reglas de aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#bindings"
+                                >UiBinding</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Lifecycle</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Secuencia de montaje, uso y desmontaje. En Gateway
+                              describe el recorrido de request; en Surface,
+                              listeners, adapters y cleanup de UI.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#bindings"
+                                >Bindings y lifecycle</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>MountContext</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Contexto que recibe un módulo Surface al montar:
+                              integración actual, registry de fragments y
+                              <code>mountContent</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#runtime-api"
+                                >Interfaz runtime</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Content mount</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Montaje de fragments dentro de HTML insertado
+                              fuera del root normal, como un modal o toast con
+                              contenido SSR remoto.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#content-mount"
+                                >Content mount</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Consumo y toolkit
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Helpers, contratos y feedback usados por
+                            integraciones UI al hablar con Gateway.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>serverClient</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Cliente HTTP de Surface para endpoints Gateway.
+                              Valida envelope JSON, HTML embebible, headers de
+                              sesión y errores UI.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#http"
+                                >HTTP de Surface</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>contracts.ts</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Firmas TypeScript de request y response visibles
+                              para Surface desde una ruta Gateway. No debe
+                              nombrar DTOs externos como si fueran del
+                              proveedor.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#consume-gateway-contracts"
+                                >Contratos Surface</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>api.ts</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Funciones pequeñas que llaman Gateway con
+                              <code>serverClient</code>, método, ruta, params,
+                              body y tipos de <code>contracts.ts</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#consume-gateway"
+                                >Consumir Gateway</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>actions.ts</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Acciones UI que reciben valores semánticos del
+                              binding, arman requests tipados y coordinan
+                              llamadas a Gateway más feedback. No son services
+                              de dominio.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#workspace"
+                                >Responsabilidades Surface</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Toolkit</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Helpers y adapters técnicos reutilizables de
+                              Surface: DOM, feedback, modal, toast, Swal y
+                              wrappers de librerías. Se importa solo cuando hace
+                              falta.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#toolkit"
+                                >Toolkit y adapters</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Adapter UI</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Wrapper técnico para una librería visual o plugin.
+                              Debe validar globals requeridos, exponer cleanup y
+                              no decidir negocio.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="reference.html#surface-toolkit"
+                                >Surface toolkit</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Feedback UI</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Presentación de estados visibles en Surface:
+                              modal, toast, Swal, errores accionables, errores
+                              de sesión o fallos fatales.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#http"
+                                >Errores UI</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Error UI</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Error normalizado por Surface para decidir cómo
+                              avisar al usuario: acción corregible, sesión
+                              vencida, fallo fatal o contrato HTTP inválido.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#http"
+                                >Cómo se convierten errores en UI</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Contrato de error HTTP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Acuerdo entre Gateway y Surface para que status,
+                              envelope, headers y HTML inválido produzcan el
+                              tipo de error correcto sin duplicar decisiones en
+                              frontend.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#error-contracts"
+                                >Contratos de error</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-security"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--security"
+                    data-vocabulary-stage="security"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-security"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Sesión, seguridad y continuidad</strong>
+                          <small>
+                            Estos términos acompañan varias fases: protegen
+                            acciones, conservan contexto por pestaña y
+                            transportan señales entre Gateway y Surface.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>sesión</span>
+                          <span>CSRF</span>
+                          <span>headers</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Sesión e identidad
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Estado de usuario, autenticación y continuidad por
+                            pestaña.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Sesión PHP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Estado backend compartido por el navegador.
+                              Gateway lo abre de forma controlada y conserva
+                              autenticación, tabs y mensajes temporales.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#security-session"
+                                >Seguridad y sesión</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Autenticación</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Validación de identidad antes de permitir una
+                              acción o pantalla protegida. Se apoya en sesión,
+                              pero no reemplaza autorización, CSRF ni tab
+                              session.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#security-session"
+                                >Seguridad y sesión</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Tab session</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Contexto por pestaña dentro de una sesión PHP.
+                              Surface transporta el id y Gateway valida
+                              expiración, refresh y permisos.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#session"
+                                >Headers de sesión</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Protección y señales HTTP
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Controles y mensajes que viajan con requests o
+                            responses para sostener seguridad.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>CSRF</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Protección contra envíos falsificados en
+                              formularios o comandos SSR. No reemplaza tab
+                              session ni autorización.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#security-session"
+                                >Seguridad y sesión</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Autorización</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Decisión sobre si una identidad o tab puede
+                              ejecutar una operación concreta. Pertenece a
+                              reglas de Gateway, no a botones ocultos ni checks
+                              visuales de Surface.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#security-session"
+                                >Seguridad y sesión</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Headers de sesión</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Señales HTTP que coordinan sesión y diagnóstico:
+                              <code>X-TAB-SESSION</code>,
+                              <code>X-REMAINING</code>,
+                              <code>X-CORRELATION-ID</code> y
+                              <code>Accept</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="reference.html#http-headers"
+                                >Headers HTTP</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Flash message</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Mensaje temporal de presentación guardado por tab
+                              para el siguiente HTML SSR. No viaja por
+                              <code>serverClient</code> ni por el envelope JSON.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="recipes.html#flash-message"
+                                >Mensaje flash</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
+                  <section
+                    id="vocabulary-stage-operations"
+                    class="vocabulary-stage vocabulary-group-row vocabulary-group-row--operations"
+                    data-vocabulary-stage="operations"
+                    role="tabpanel"
+                    aria-labelledby="vocabulary-tab-operations"
+                  >
+                    <header class="vocabulary-stage__head">
+                      <span class="vocabulary-group-row__content">
+                        <span class="vocabulary-group-row__body">
+                          <strong>Assets, operación y herramientas</strong>
+                          <small>
+                            Cierra el recorrido con configuración, builds,
+                            caché, observabilidad, diagnóstico y generación
+                            mecánica de contratos o artefactos.
+                          </small>
+                        </span>
+                        <span class="vocabulary-group-row__tags">
+                          <span>assets</span>
+                          <span>logs</span>
+                          <span>tools</span>
+                        </span>
+                      </span>
+                    </header>
+                    <div class="vocabulary-term-groups">
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Assets y entorno
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Configuración y publicación de recursos que
+                            condicionan ejecución local o productiva.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Assets Vite</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Archivos emitidos por Surface para el navegador:
+                              JS, CSS, chunks y manifest. Gateway los resuelve
+                              desde la capa de views.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#assets"
+                                >Assets Vite</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Manifest Vite</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Archivo generado por Vite que permite a Gateway
+                              incluir assets hashados correctos. En producción
+                              debe existir y fallar claro si falta.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#vite"
+                                >Vite, styles y assets</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Base HTTP</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Base real declarada por Gateway en
+                              <code>window.__BASE_URL__</code>. Surface la usa
+                              para requests de <code>serverClient</code>, no
+                              <code>PUBLIC_PATH</code>.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-surface.html#vite"
+                                >Runtime inyectado</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Entorno</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Configuración que cambia por instalación o modo de
+                              ejecución: base URI, flags de producción,
+                              servicios, sesión, logs y paths publicados.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="getting-started.html#env"
+                                >Archivo .env</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Configuración</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Datos versionados o variables que cambian wiring,
+                              clients, rutas generadas, assets o comportamiento
+                              de entorno. No debe usarse para esconder reglas de
+                              aplicación.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="tools.html#configuration"
+                                >Configuración de herramientas</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Caché de producción</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Artefactos compilados o exportados para
+                              producción: contenedor, rutas y assets. Si están
+                              desactualizados, el código puede existir y no
+                              ejecutarse.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#production-cache"
+                                >Caché de producción</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Observabilidad
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Términos para seguir requests, upstreams, logs y
+                            diagnóstico operativo.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Observabilidad</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Señales para entender qué ocurrió en una request:
+                              ruta, action, response, tiempos, errores,
+                              degradación, upstreams y correlation id.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#observability"
+                                >Observabilidad</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Correlation id</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Identificador que une eventos de una misma
+                              ejecución entre navegador, Gateway, logs y
+                              llamadas upstream.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="bridge.html#session"
+                                >Headers de sesión</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Upstream</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Llamada saliente hacia un servicio externo
+                              observada por Gateway. Se registra con duración,
+                              status, timeout, origen y payload sanitizado.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#observability"
+                                >Spans upstream</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>JSON Lines</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Formato de logs donde cada evento es una línea
+                              JSON independiente. Permite filtrar por canal,
+                              correlation id, status o path.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="app-gateway.html#observability-jsonl"
+                                >JSON Lines</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Diagnóstico</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Método para encontrar la primera promesa rota:
+                              comparar entrada, salida esperada, salida real y
+                              señal observable antes de cambiar código.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="troubleshooting.html#diagnostic-method"
+                                >Método de diagnóstico</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <section class="vocabulary-term-group">
+                        <header class="vocabulary-term-group__header">
+                          <h4 class="vocabulary-term-group__title">
+                            Generación
+                          </h4>
+                          <p class="vocabulary-term-group__summary">
+                            Herramientas que crean scaffolding o contratos sin
+                            reemplazar el diseño de la feature.
+                          </p>
+                        </header>
+                        <div class="vocabulary-term-list">
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>Scaffolder</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Generador de artefactos de Extension y Surface.
+                              Reduce trabajo mecánico, pero no decide
+                              arquitectura, negocio, composición ni
+                              responsabilidad.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="tools.html#extension-scaffolder"
+                                >Generador de artefactos</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>http:contract</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Generador de contratos PHP outbound desde
+                              Swagger/OpenAPI. Crea request y response por
+                              endpoint, pero no crea client, connector ni DI.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="tools.html#http-contract-generator"
+                                >Contratos HTTP externos</a
+                              >
+                            </div>
+                          </article>
+
+                          <article class="vocabulary-term">
+                            <h3 class="vocabulary-term__name">
+                              <code>surface:contract</code>
+                            </h3>
+                            <p class="vocabulary-term__description">
+                              Generador de clases TypeScript en
+                              <code>contracts.ts</code> para el contrato Gateway
+                              visible desde Surface. No crea integración UI.
+                            </p>
+                            <div class="vocabulary-term__reference">
+                              <a
+                                class="vocabulary-term__link"
+                                href="tools.html#surface-contract-generator"
+                                >Contratos Surface</a
+                              >
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </div>
+                  </section>
                 </div>
                 <p class="guide-crosslink">
                   <em>
                     Ruta recomendada después de esta tabla:
-                    <a href="#mental-model">Modelo mental</a>,
+                    <a href="#project-model">Modelo del proyecto</a>,
                     <a href="app-gateway.html#gateway-first-read">Gateway</a>,
                     <a href="app-surface.html#surface-first-read">Surface</a> y
                     <a href="bridge.html#bridge-first-read">Bridge</a>.
@@ -293,73 +2826,124 @@
             </div>
           </section>
 
-          <section id="mental-model" class="guide-section">
+          <section id="project-model" class="guide-section">
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Modelo mental</h2>
+                <h2>Modelo del proyecto</h2>
                 <p>
-                  El proyecto tiene un Gateway framework-like controlado y un
-                  Surface (Frontend) progresivo. La regla más importante es no
-                  mezclar responsabilidades.
+                  El proyecto se divide para que cada decisión tenga un lugar
+                  reconocible. Un lado recibe peticiones, aplica decisiones de
+                  aplicación y prepara respuestas; el otro toma el HTML ya
+                  entregado y agrega interacción en el navegador. La regla más
+                  importante es no resolver dos veces la misma responsabilidad.
                 </p>
                 <p>
-                  Para un primer acercamiento, léelo como una conversación:
-                  Gateway recibe una petición, decide qué significa para la
-                  aplicación y responde con HTML, JSON o un error controlado.
-                  Surface llega después: toma ese HTML ya renderizado y le suma
-                  interacción. Si algo exige decidir permisos, consultar una API
-                  externa o interpretar reglas de aplicación, pertenece a
-                  Gateway. Si algo escucha clicks, monta un plugin visual o
-                  actualiza un fragment ya recibido, pertenece a Surface.
+                  Para un primer acercamiento, se debe leer como una
+                  conversación:
+                  <a href="app-gateway.html#overview">Gateway</a> recibe una
+                  petición, decide qué significa para la aplicación y responde
+                  con HTML, JSON o un error controlado.
+                  <a href="app-surface.html#overview">Surface</a> llega después:
+                  toma ese HTML ya renderizado y le suma interacción. Según el
+                  reparto de responsabilidades, si algo exige decidir permisos,
+                  consultar una API externa o interpretar reglas de aplicación,
+                  pertenece a Gateway. Si algo escucha clicks, monta un plugin
+                  visual o actualiza un fragment ya recibido, pertenece a
+                  Surface.
                 </p>
-                <p class="guide-crosslink">
-                  <em>
-                    Para revisar esas responsabilidades con más detalle, la
-                    lectura continúa en
-                    <a href="app-gateway.html#overview">App Gateway</a>,
-                    <a href="app-surface.html#overview">App Surface</a> y
-                    <a href="bridge.html#ownership">Ownership rápido</a>.
-                  </em>
-                </p>
-                <div class="row g-3">
-                  <div class="col-lg-4">
-                    <div class="card h-100 border-primary-subtle">
-                      <div class="card-body">
-                        <span class="badge text-bg-primary mb-2">Core</span>
-                        <h3 class="h5">Motor compartido</h3>
-                        <p class="mb-0">
-                          Bootstrap, DI, HTTP, routing, middleware, responses,
-                          view, errores, outbound y use case composition.
-                        </p>
-                      </div>
-                    </div>
+                <div
+                  class="guide-requirements-panel"
+                  role="group"
+                  aria-label="Modelo de responsabilidades del proyecto"
+                >
+                  <div class="guide-requirements-panel__header">
+                    <span class="guide-requirements-panel__eyebrow">
+                      <i class="bi bi-diagram-3" aria-hidden="true"></i>
+                      Modelo operativo
+                    </span>
+                    <p>
+                      Cada nodo conserva una frontera distinta: Core entrega
+                      mecanismos compartidos, Extension expresa la aplicación y
+                      Surface activa la experiencia sobre el HTML SSR.
+                    </p>
                   </div>
-                  <div class="col-lg-4">
-                    <div class="card h-100 border-success-subtle">
-                      <div class="card-body">
-                        <span class="badge text-bg-success mb-2"
+                  <ol class="guide-requirements-panel__nodes">
+                    <li
+                      class="guide-requirement-node guide-requirement-node--primary"
+                    >
+                      <span
+                        class="guide-requirement-node__icon"
+                        aria-hidden="true"
+                      >
+                        <i class="bi bi-cpu"></i>
+                      </span>
+                      <div class="guide-requirement-node__body">
+                        <span class="guide-requirement-node__role">Core</span>
+                        <h3>Motor compartido</h3>
+                        <p>
+                          Bootstrap, DI, HTTP, routing, middleware, responses,
+                          view, errores, outbound y composición de use cases.
+                        </p>
+                        <span class="guide-requirement-node__meta"
+                          >Mecanismos transversales</span
+                        >
+                      </div>
+                    </li>
+                    <li
+                      class="guide-requirement-node guide-requirement-node--companion"
+                    >
+                      <span
+                        class="guide-requirement-node__icon"
+                        aria-hidden="true"
+                      >
+                        <i class="bi bi-boxes"></i>
+                      </span>
+                      <div class="guide-requirement-node__body">
+                        <span class="guide-requirement-node__role"
                           >Extension</span
                         >
-                        <h3 class="h5">Aplicación concreta</h3>
-                        <p class="mb-0">
+                        <h3>Aplicación concreta</h3>
+                        <p>
                           Features reales: controllers, use cases, services,
-                          connectors, views, sesión y routing de la app.
+                          connectors, views, sesión y routing de la aplicación.
                         </p>
+                        <span class="guide-requirement-node__meta"
+                          >Intención de aplicación</span
+                        >
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="card h-100 border-info-subtle">
-                      <div class="card-body">
-                        <span class="badge text-bg-info mb-2">Surface</span>
-                        <h3 class="h5">Mejora progresiva</h3>
-                        <p class="mb-0">
+                    </li>
+                    <li
+                      class="guide-requirement-node guide-requirement-node--support"
+                    >
+                      <span
+                        class="guide-requirement-node__icon"
+                        aria-hidden="true"
+                      >
+                        <i class="bi bi-window-stack"></i>
+                      </span>
+                      <div class="guide-requirement-node__body">
+                        <span class="guide-requirement-node__role"
+                          >Surface</span
+                        >
+                        <h3>Mejora progresiva</h3>
+                        <p>
                           Activa comportamiento UI sobre HTML SSR. No es SPA, no
-                          decide negocio, no duplica permisos.
+                          decide negocio y no duplica permisos.
                         </p>
+                        <span class="guide-requirement-node__meta"
+                          >SSR + TypeScript</span
+                        >
                       </div>
-                    </div>
-                  </div>
+                    </li>
+                  </ol>
+                  <p class="guide-requirements-panel__path">
+                    <span>Lectura de responsabilidad</span>
+                    <strong>Core habilita</strong>
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                    <strong>Extension decide</strong>
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                    <strong>Surface activa</strong>
+                  </p>
                 </div>
               </div>
             </div>
@@ -369,51 +2953,171 @@
             <div class="card border-0 shadow-sm">
               <div class="card-body">
                 <h2>Contextos y límites</h2>
-                <div class="table-responsive">
-                  <table class="table table-striped table-guide align-middle">
-                    <thead>
-                      <tr>
-                        <th>Área</th>
-                        <th>Puede hacer</th>
-                        <th>No debería hacer</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>app-gateway/Core</code></td>
-                        <td>Definir mecanismos transversales reutilizables.</td>
-                        <td>Contener lógica concreta de una feature.</td>
-                      </tr>
-                      <tr>
-                        <td><code>app-gateway/Extension</code></td>
-                        <td>
-                          Declarar rutas, controllers, use cases, services,
-                          connectors y views.
-                        </td>
-                        <td>
-                          Crear otro mini-framework paralelo o usar clases
-                          `Internal` de Core.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><code>app-surface/platform</code></td>
-                        <td>
-                          Arrancar layouts, montar runtime, HTTP y errores UI.
-                        </td>
-                        <td>Resolver reglas de negocio o de permisos.</td>
-                      </tr>
-                      <tr>
-                        <td><code>app-surface/workspace</code></td>
-                        <td>Definir integraciones UI concretas.</td>
-                        <td>Convertirse en dominio Surface soberano.</td>
-                      </tr>
-                      <tr>
-                        <td><code>app-surface/toolkit</code></td>
-                        <td>Ofrecer adapters y helpers técnicos opt-in.</td>
-                        <td>Cargar vendors globales sin necesidad.</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <p>
+                  Un contexto agrupa código que responde al mismo tipo de
+                  responsabilidad. El límite indica hasta dónde puede decidir
+                  ese grupo antes de entregar el trabajo al siguiente.
+                  Reconocerlos evita colocar reglas de aplicación dentro de
+                  infraestructura o decisiones del servidor dentro del
+                  navegador.
+                </p>
+                <p>
+                  En los nombres del proyecto, Gateway se divide entre
+                  <code>Core</code>, que aporta mecanismos compartidos, y
+                  <code>Extension</code>, que los usa para expresar la
+                  aplicación. Surface separa la plataforma común, las
+                  integraciones UI concretas y los helpers opcionales.
+                </p>
+                <div class="dependency-lanes">
+                  <section
+                    class="dependency-lane"
+                    aria-labelledby="context-gateway-title"
+                  >
+                    <div class="dependency-lane__header">
+                      <span class="dependency-lane__eyebrow">app-gateway</span>
+                      <h3
+                        id="context-gateway-title"
+                        class="dependency-lane__title"
+                      >
+                        Gateway
+                      </h3>
+                      <p class="dependency-lane__summary">
+                        El backend separa los mecanismos compartidos de Core de
+                        la intención concreta que Extension expresa para la
+                        aplicación.
+                      </p>
+                    </div>
+                    <ol class="dependency-lane__items">
+                      <li class="dependency-package">
+                        <div class="dependency-package__head">
+                          <code class="dependency-package__name"
+                            >app-gateway/Core</code
+                          >
+                          <span class="dependency-package__version">Core</span>
+                        </div>
+                        <div class="dependency-package__details">
+                          <span class="dependency-package__role"
+                            >Transversal</span
+                          >
+                          <p class="dependency-package__use">
+                            Define mecanismos transversales reutilizables.
+                          </p>
+                          <p class="dependency-package__limit">
+                            No contiene lógica concreta de una feature.
+                          </p>
+                        </div>
+                      </li>
+                      <li class="dependency-package">
+                        <div class="dependency-package__head">
+                          <code class="dependency-package__name"
+                            >app-gateway/Extension</code
+                          >
+                          <span class="dependency-package__version"
+                            >Extension</span
+                          >
+                        </div>
+                        <div class="dependency-package__details">
+                          <span class="dependency-package__role"
+                            >Aplicación</span
+                          >
+                          <p class="dependency-package__use">
+                            Declara rutas, controllers, use cases, services,
+                            connectors y views.
+                          </p>
+                          <p class="dependency-package__limit">
+                            No crea otro mini-framework paralelo ni usa clases
+                            <code>Internal</code> de Core.
+                          </p>
+                        </div>
+                      </li>
+                    </ol>
+                  </section>
+
+                  <section
+                    class="dependency-lane"
+                    aria-labelledby="context-surface-title"
+                  >
+                    <div class="dependency-lane__header">
+                      <span class="dependency-lane__eyebrow">app-surface</span>
+                      <h3
+                        id="context-surface-title"
+                        class="dependency-lane__title"
+                      >
+                        Surface
+                      </h3>
+                      <p class="dependency-lane__summary">
+                        El frontend progresivo separa infraestructura de
+                        plataforma, integraciones UI concretas y herramientas
+                        técnicas opt-in.
+                      </p>
+                    </div>
+                    <ol class="dependency-lane__items">
+                      <li class="dependency-package">
+                        <div class="dependency-package__head">
+                          <code class="dependency-package__name"
+                            >app-surface/platform</code
+                          >
+                          <span class="dependency-package__version"
+                            >Platform</span
+                          >
+                        </div>
+                        <div class="dependency-package__details">
+                          <span class="dependency-package__role"
+                            >Infraestructura</span
+                          >
+                          <p class="dependency-package__use">
+                            Arranca layouts y coordina runtime, HTTP y errores
+                            UI.
+                          </p>
+                          <p class="dependency-package__limit">
+                            No resuelve reglas de negocio ni permisos.
+                          </p>
+                        </div>
+                      </li>
+                      <li class="dependency-package">
+                        <div class="dependency-package__head">
+                          <code class="dependency-package__name"
+                            >app-surface/workspace</code
+                          >
+                          <span class="dependency-package__version"
+                            >Workspace</span
+                          >
+                        </div>
+                        <div class="dependency-package__details">
+                          <span class="dependency-package__role"
+                            >Integración UI</span
+                          >
+                          <p class="dependency-package__use">
+                            Define integraciones UI concretas.
+                          </p>
+                          <p class="dependency-package__limit">
+                            No duplica reglas de negocio que pertenecen a
+                            Gateway.
+                          </p>
+                        </div>
+                      </li>
+                      <li class="dependency-package">
+                        <div class="dependency-package__head">
+                          <code class="dependency-package__name"
+                            >app-surface/toolkit</code
+                          >
+                          <span class="dependency-package__version"
+                            >Toolkit</span
+                          >
+                        </div>
+                        <div class="dependency-package__details">
+                          <span class="dependency-package__role">Opt-in</span>
+                          <p class="dependency-package__use">
+                            Ofrece adapters y helpers técnicos que se importan
+                            solo cuando se necesitan.
+                          </p>
+                          <p class="dependency-package__limit">
+                            No carga vendors globales sin necesidad.
+                          </p>
+                        </div>
+                      </li>
+                    </ol>
+                  </section>
                 </div>
                 <p class="guide-crosslink">
                   <em>
@@ -424,56 +3128,6 @@
                     <a href="app-surface.html#runtime"
                       >Runtime de pages y fragments</a
                     >.
-                  </em>
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section id="ownership" class="guide-section">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body">
-                <h2>Ownership de contratos</h2>
-                <div class="ownership-board">
-                  <section class="ownership-pane ownership-pane--gateway">
-                    <span class="ownership-pane__label">Gateway</span>
-                    <h3>Decide contrato y estado</h3>
-                    <ul>
-                      <li>Estado de aplicación y permisos.</li>
-                      <li>HTML SSR, JSON, redirect y errores.</li>
-                      <li>Layouts, fragments y `data-surface-*`.</li>
-                      <li>Headers de sesión y assets Vite.</li>
-                    </ul>
-                  </section>
-
-                  <div class="ownership-bridge">
-                    <span>Contrato compartido</span>
-                    <strong
-                      >HTML SSR + envelope JSON + headers + manifest
-                      Vite</strong
-                    >
-                  </div>
-
-                  <section class="ownership-pane ownership-pane--surface">
-                    <span class="ownership-pane__label">Surface</span>
-                    <h3>Activa interacción y feedback</h3>
-                    <ul>
-                      <li>Listeners, adapters y feedback UI.</li>
-                      <li>Pages y fragments declarados por HTML.</li>
-                      <li>HTTP hacia gateway con `serverClient`.</li>
-                      <li>
-                        Firmas TS locales en `contracts.ts` por integración.
-                      </li>
-                      <li>Montaje/desmontaje limpio del DOM.</li>
-                    </ul>
-                  </section>
-                </div>
-                <p class="guide-crosslink">
-                  <em>
-                    Cada contrato se desarrolla con ejemplos en
-                    <a href="bridge.html#html">Contratos HTML</a>,
-                    <a href="bridge.html#json">JSON envelope</a> y
-                    <a href="bridge.html#assets">Assets Vite</a>.
                   </em>
                 </p>
               </div>
@@ -498,7 +3152,7 @@
                 <p class="guide-crosslink">
                   <em>
                     Cuando este mapa deba convertirse en pasos concretos, las
-                    <a href="recipes.html">Guías prácticas</a> y los
+                    <a href="recipes.html">Prácticas</a> y los
                     <a href="diagrams.html">diagramas</a> sirven como validación
                     cruzada.
                   </em>
@@ -506,7 +3160,7 @@
                 <div class="guide-quick-grid">
                   <section class="guide-quick-item">
                     <h3>Cambio SSR</h3>
-                    <ol class="flow-rail flow-rail--green">
+                    <ol class="flow-rail">
                       <li>routing</li>
                       <li>controller</li>
                       <li>response/view</li>
@@ -516,7 +3170,7 @@
                   </section>
                   <section class="guide-quick-item">
                     <h3>Cambio JSON</h3>
-                    <ol class="flow-rail flow-rail--blue">
+                    <ol class="flow-rail">
                       <li>routing</li>
                       <li>controller</li>
                       <li>use case</li>
@@ -526,7 +3180,7 @@
                   </section>
                   <section class="guide-quick-item">
                     <h3>Cambio integración UI</h3>
-                    <ol class="flow-rail flow-rail--purple">
+                    <ol class="flow-rail">
                       <li>integration.ts</li>
                       <li>page.ts o fragments</li>
                       <li>actions.ts / api.ts</li>
@@ -535,7 +3189,7 @@
                   </section>
                   <section class="guide-quick-item">
                     <h3>Cambio assets</h3>
-                    <ol class="flow-rail flow-rail--orange">
+                    <ol class="flow-rail">
                       <li>app-surface/vite.config.ts</li>
                       <li>main.ts/styles</li>
                       <li>gateway ViteAssets/parciales</li>
@@ -555,98 +3209,149 @@
                   Gateway recibe, decide y responde; Surface solo activa lo que
                   el HTML declara.
                 </p>
-                <div
-                  class="process-map"
+                <p>
+                  Para reconocer dónde intervenir, se debe seguir el dato y
+                  preguntar quién lo transforma en cada paso. La entrada todavía
+                  es HTTP; el routing elige un destino; la aplicación decide el
+                  resultado; la respuesta lo convierte en HTML o JSON; y Surface
+                  agrega comportamiento únicamente cuando el navegador ya tiene
+                  una estructura válida.
+                </p>
+                <ol
+                  class="extension-fs-flow"
                   aria-label="Flujo completo de request a UI activa"
                 >
-                  <article class="process-stage process-stage--pink">
-                    <div class="process-stage__marker">01</div>
-                    <div class="process-stage__body">
-                      <h3>Entrada HTTP</h3>
-                      <p>
-                        El gateway recibe el request y prepara el runtime
-                        inicial.
-                      </p>
-                      <ul class="process-chips">
-                        <li>Cliente</li>
-                        <li>public/index.php</li>
-                        <li>BootstrapRunner</li>
-                        <li>ContainerFactory</li>
-                      </ul>
+                  <li class="extension-fs-step">
+                    <div class="extension-fs-step__marker">
+                      <span>HTTP</span>
                     </div>
-                  </article>
+                    <div class="extension-fs-step__body">
+                      <header class="extension-fs-step__header">
+                        <h3>Entrada HTTP</h3>
+                        <p>
+                          El <code>Core</code> de gateway recibe el request y
+                          prepara el runtime inicial.
+                        </p>
+                      </header>
+                      <dl class="extension-fs-paths">
+                        <div class="extension-fs-path">
+                          <dd>
+                            <code>Cliente</code>
+                            <code>public/index.php</code>
+                            <code>BootstrapRunner</code>
+                            <code>ContainerFactory</code>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </li>
 
-                  <article class="process-stage process-stage--cyan">
-                    <div class="process-stage__marker">02</div>
-                    <div class="process-stage__body">
-                      <h3>Kernel y routing</h3>
-                      <p>
-                        El kernel arma el ciclo HTTP y encuentra el action
-                        correcto.
-                      </p>
-                      <ul class="process-chips">
-                        <li>Kernel</li>
-                        <li>RequestLifecycle</li>
-                        <li>RequestBootstrapPipeline</li>
-                        <li>RouteDispatcher</li>
-                        <li>MiddlewarePipeline</li>
-                      </ul>
+                  <li class="extension-fs-step extension-fs-step--http">
+                    <div class="extension-fs-step__marker">
+                      <span>CORE</span>
                     </div>
-                  </article>
+                    <div class="extension-fs-step__body">
+                      <header class="extension-fs-step__header">
+                        <h3>Kernel y routing</h3>
+                        <p>
+                          El kernel arma el ciclo HTTP y encuentra el action
+                          correcto.
+                        </p>
+                      </header>
+                      <dl class="extension-fs-paths">
+                        <div class="extension-fs-path">
+                          <dd>
+                            <code>Kernel</code>
+                            <code>RequestLifecycle</code>
+                            <code>RequestBootstrapPipeline</code>
+                            <code>RouteDispatcher</code>
+                            <code>MiddlewarePipeline</code>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </li>
 
-                  <article class="process-stage process-stage--yellow">
-                    <div class="process-stage__marker">03</div>
-                    <div class="process-stage__body">
-                      <h3>Aplicación</h3>
-                      <p>
-                        La intención se resuelve en `Extension`, usando Core
-                        como contrato.
-                      </p>
-                      <ul class="process-chips">
-                        <li>Controller</li>
-                        <li>UseCase</li>
-                        <li>Service si compone</li>
-                        <li>Connector si integra</li>
-                      </ul>
+                  <li class="extension-fs-step extension-fs-step--application">
+                    <div class="extension-fs-step__marker">
+                      <span>APP</span>
                     </div>
-                  </article>
+                    <div class="extension-fs-step__body">
+                      <header class="extension-fs-step__header">
+                        <h3>Aplicación</h3>
+                        <p>
+                          La intención se resuelve en <code>Extension</code>,
+                          usando <code>Core</code> como contrato.
+                        </p>
+                      </header>
+                      <dl class="extension-fs-paths">
+                        <div class="extension-fs-path">
+                          <dd>
+                            <code>Controller</code>
+                            <code>UseCase</code>
+                            <code>Service si compone</code>
+                            <code>Connector si integra</code>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </li>
 
-                  <article class="process-stage process-stage--green">
-                    <div class="process-stage__marker">04</div>
-                    <div class="process-stage__body">
-                      <h3>Salida</h3>
-                      <p>
-                        Gateway emite un contrato consumible: HTML SSR o
-                        envelope JSON.
-                      </p>
-                      <ul class="process-chips">
-                        <li>Response HTML o JSON</li>
-                        <li>ResponseEmitter</li>
-                        <li>Browser</li>
-                      </ul>
+                  <li class="extension-fs-step extension-fs-step--model">
+                    <div class="extension-fs-step__marker">
+                      <span>OUT</span>
                     </div>
-                  </article>
+                    <div class="extension-fs-step__body">
+                      <header class="extension-fs-step__header">
+                        <h3>Salida</h3>
+                        <p>
+                          Gateway emite un contrato consumible: HTML SSR o
+                          envelope JSON.
+                        </p>
+                      </header>
+                      <dl class="extension-fs-paths">
+                        <div class="extension-fs-path">
+                          <dd>
+                            <code>Response HTML o JSON</code>
+                            <code>ResponseEmitter</code>
+                            <code>Browser</code>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </li>
 
-                  <article class="process-stage process-stage--purple">
-                    <div class="process-stage__marker">05</div>
-                    <div class="process-stage__body">
-                      <h3>Surface</h3>
-                      <p>Monta comportamiento sobre el HTML recibido.</p>
-                      <ul class="process-chips">
-                        <li>app-surface/main.ts</li>
-                        <li>startApplication</li>
-                        <li>mountPages</li>
-                        <li>FragmentRuntime</li>
-                      </ul>
+                  <li class="extension-fs-step extension-fs-step--infra">
+                    <div class="extension-fs-step__marker">
+                      <span>UI</span>
                     </div>
-                  </article>
-                </div>
+                    <div class="extension-fs-step__body">
+                      <header class="extension-fs-step__header">
+                        <h3>Surface</h3>
+                        <p>Monta comportamiento sobre el HTML recibido.</p>
+                      </header>
+                      <dl class="extension-fs-paths">
+                        <div class="extension-fs-path">
+                          <dd>
+                            <code>app-surface/main.ts</code>
+                            <code>startApplication</code>
+                            <code>mountPages</code>
+                            <code>FragmentRuntime</code>
+                          </dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </li>
+                </ol>
                 <p class="guide-crosslink">
                   <em>
-                    El mismo recorrido se desarma por contrato en
+                    El mismo flujo se desarma por contrato en
                     <a href="bridge.html#html">Contratos HTML</a>,
-                    <a href="bridge.html#json">JSON envelope</a> y
-                    <a href="app-surface.html#consume-gateway"
+                    <a href="bridge.html#bridge-flow-search-items"
+                      >JSON envelope</a
+                    >
+                    y
+                    <a href="app-surface.html#surface-flow-search-items"
                       >Consumir endpoints del gateway</a
                     >.
                   </em>
@@ -658,16 +3363,17 @@
           <section id="next" class="guide-section">
             <div class="card border-0 shadow-sm">
               <div class="card-body">
-                <h2>Recorrido de la guía</h2>
+                <h2>Ruta de lectura</h2>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <a class="guide-card-link" href="getting-started.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Volver a: Empezar</h3>
+                          <h3 class="h5">Anterior: Empezar</h3>
                           <p class="mb-0">
-                            Retoma instalación, `.env`, assets y validación
-                            inicial antes de bajar al código.
+                            Esta sección retoma instalación, <code>.env</code>,
+                            assets y validación inicial antes de descender al
+                            código.
                           </p>
                         </div>
                       </div>
@@ -677,9 +3383,9 @@
                     <a class="guide-card-link" href="app-gateway.html">
                       <div class="card h-100 concept-card">
                         <div class="card-body">
-                          <h3 class="h5">Continuar con: Gateway</h3>
+                          <h3 class="h5">Siguiente: Gateway</h3>
                           <p class="mb-0">
-                            Baja el modelo mental al Gateway: routing,
+                            Esta lectura aplica las bases al Gateway: routing,
                             controllers, use cases, connectors, responses y
                             assets.
                           </p>

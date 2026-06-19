@@ -9,6 +9,10 @@
     "search.js",
     "anchors.js",
     "content.js",
+    "start-panel-lottie/engine.js",
+    "start-panel-lottie/animations-overview.js",
+    "start-panel-lottie/animations-content.js",
+    "start-panel-lottie.js",
     "markdown.js",
     "boot.js",
   ];

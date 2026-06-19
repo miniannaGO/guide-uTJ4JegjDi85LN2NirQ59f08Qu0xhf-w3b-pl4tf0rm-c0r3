@@ -1,6 +1,6 @@
 # 03. Use cases, resultados y errores
 
-Este diagrama muestra los dos carriles de use case y cómo se normalizan resultados y errores.
+Este diagrama muestra los dos carriles de use case y cómo se normalizan resultados y fallos controlados.
 
 ```mermaid
 %%{init: {"theme": "Redux Dark", "themeVariables": {"background": "#0B1020", "primaryColor": "#172033", "primaryTextColor": "#F8FAFC", "primaryBorderColor": "#38BDF8", "lineColor": "#94A3B8", "clusterBkg": "#111827", "clusterBorder": "#475569", "fontFamily": "Inter, Segoe UI, Arial"}}}%%
@@ -23,7 +23,7 @@ flowchart TB
   ConnectorResults --> ManagedFlow["ManagedConnectorFlow<br/>interno de Core"]
   ManagedFlow --> UseCaseResultB["UseCaseResult<br/>success / partial / failure"]
 
-  UseCase -. "intención inválida" .-> AbortUseCase["abortUseCase(...)<br/>UseCaseException"]
+  UseCase -. "intención inválida" .-> AbortUseCase["abortUseCase(...)<br/>UseCaseAbort / UseCaseFailure"]
   AbortUseCase --> UseCaseResultError["UseCaseResult failure"]
 
   UseCaseResultA --> ResponseAdapter["Response<br/>JSON / HTML / redirect"]
@@ -52,6 +52,7 @@ flowchart TB
 - `takeOrAbort(...)` es para un connector obligatorio directo.
 - `runConnectorFlow(...)` es para composición, opcionales, fallback o parcialidad.
 - `Extension` no debe importar `ManagedConnectorFlow` ni factories internas de resultados.
+- Los fallos controlados de use case viven en `Application/Failure`; `UseCaseAbort` es el corte manual de `abortUseCase(...)`.
 - La parcialidad no se infiere por cantidad de errores, sino por significado del flujo.
 
 ## Navegación

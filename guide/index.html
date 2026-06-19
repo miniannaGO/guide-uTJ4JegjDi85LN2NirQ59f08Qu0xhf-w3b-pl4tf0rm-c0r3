@@ -15,13 +15,14 @@
     />
     <script src="assets/js/theme.js"></script>
     <link href="assets/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/lib/css/bootstrap-icons-min.css" rel="stylesheet" />
     <link href="assets/css/guide.css" rel="stylesheet" />
   </head>
 
   <body class="guide-page--index">
     <nav class="navbar navbar-expand-xl bg-white border-bottom sticky-top">
       <div class="container-fluid px-3 px-lg-4">
-        <a class="navbar-brand fw-bold" href="index.html">
+        <a class="navbar-brand" href="index.html">
           <img
             class="navbar-brand__logo"
             src="assets/img/web-platform-core.svg"
@@ -63,7 +64,7 @@
               <a class="nav-link" href="tools.html">Herramientas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="recipes.html">Guías</a>
+              <a class="nav-link" href="recipes.html">Prácticas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="diagrams.html">Diagramas</a>
@@ -79,7 +80,7 @@
                 class="nav-link guide-nav-link--ecosystem"
                 target="_blank"
                 rel="noopener"
-                href="pillars-capabilities.html"
+                href="bondades.html"
                 >Capacidades</a
               >
             </li>
@@ -88,10 +89,10 @@
       </div>
     </nav>
 
-    <header class="guide-hero text-white py-5">
-      <div class="container py-4">
-        <div class="row align-items-center g-4">
-          <div class="col-lg-8">
+    <header class="guide-hero text-white">
+      <div class="container guide-hero__container">
+        <div class="row align-items-stretch g-4 guide-hero__grid">
+          <div class="col-xl-6 col-lg-6 guide-hero__intro">
             <div class="d-flex flex-wrap gap-2 mb-3 guide-hero-badges">
               <span class="badge text-bg-light">Guía informativa</span>
               <span class="badge text-bg-light">Onboarding</span>
@@ -99,163 +100,293 @@
             </div>
             <h1 class="display-5 fw-bold mb-3">Web Platform Core</h1>
             <p class="lead mb-4">
-              Una guía multipágina para instalar el proyecto, entender el
-              framework interno, crear features y mantener la frontera correcta
-              entre `app-gateway` y `app-surface`.
+              Una guía multipágina para preparar el proyecto, reconocer qué
+              parte debe resolver cada trabajo y construir funcionalidades sin
+              mezclar el servidor <code>app-gateway</code> con el frontend
+              progresivo <code>app-surface</code>.
             </p>
-            <div
-              class="d-flex flex-wrap align-items-center gap-3 guide-hero-actions"
+            <a
+              class="guide-hero__scroll-cue"
+              href="#guide-content"
+              data-guide-scroll-target-stacked="#guide-start-panel"
+              aria-label="Continuar en la guía"
             >
-              <a
-                class="btn btn-lg guide-action-btn guide-action-btn--start"
-                href="getting-started.html"
-              >
-                Empezar
-              </a>
-
-              <a
-                class="btn btn-lg guide-action-btn guide-action-btn--guides"
-                href="recipes.html"
-              >
-                Ver guías paso a paso
-              </a>
-
-              <a
-                class="btn btn-lg guide-action-btn guide-action-btn--impact"
-                target="_blank"
-                rel="noopener"
-                href="pillars-capabilities.html"
-              >
-                Capacidades
-              </a>
-            </div>
+              <i class="bi bi-chevron-double-down" aria-hidden="true"></i>
+            </a>
           </div>
-          <div class="col-lg-4">
-            <div class="card bg-dark border-light-subtle text-white shadow">
-              <div class="card-body">
-                <h2 class="h5">Ruta recomendada</h2>
-                <ol class="flow-rail flow-rail--spectrum">
-                  <li>
-                    <a href="getting-started.html" rel="noopener">Empezar</a>
-                  </li>
-                  <li>
-                    <a href="fundamentals.html" rel="noopener">Bases</a>
-                  </li>
-                  <li>
-                    <a href="app-gateway.html" rel="noopener">App Gateway</a>
-                  </li>
-                  <li>
-                    <a href="app-surface.html" rel="noopener">App Surface</a>
-                  </li>
-                  <li>
-                    <a href="bridge.html" rel="noopener">Bridge</a>
-                  </li>
-                  <li>
-                    <a href="tools.html" rel="noopener">Herramientas</a>
-                  </li>
-                  <li>
-                    <a href="recipes.html" rel="noopener">Guías prácticas</a>
-                  </li>
-                  <li>
-                    <a href="diagrams.html" rel="noopener">Diagramas</a>
-                  </li>
-                  <li>
-                    <a href="reference.html" rel="noopener">Referencia</a>
-                  </li>
-                </ol>
+          <div class="col-xl-6 col-lg-6 guide-hero__panel">
+            <nav
+              id="guide-start-panel"
+              class="guide-start-panel"
+              aria-labelledby="guide-start-title"
+            >
+              <div class="guide-start-panel__header">
+                <span class="guide-start-panel__eyebrow">
+                  <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+                  Inicio sugerido
+                </span>
               </div>
-            </div>
+              <ol
+                class="guide-start-panel__route"
+                aria-label="Ruta de lectura inicial"
+              >
+                <li>
+                  <a href="getting-started.html">
+                    <span class="guide-start-panel__step">1</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-signpost-split"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Empezar</strong>
+                      <small>Entorno y primera ejecución</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="fundamentals.html">
+                    <span class="guide-start-panel__step">2</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-layers"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Bases</strong>
+                      <small>Vocabulario y fronteras</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="app-gateway.html">
+                    <span class="guide-start-panel__step">3</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-boxes"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>App Gateway</strong>
+                      <small>HTTP, casos de uso y vistas</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="app-surface.html">
+                    <span class="guide-start-panel__step">4</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-window-sidebar"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>App Surface</strong>
+                      <small>TypeScript progresivo</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="bridge.html">
+                    <span class="guide-start-panel__step">5</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-intersect"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Bridge</strong>
+                      <small>SSR, JSON y fragmentos</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="tools.html">
+                    <span class="guide-start-panel__step">6</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-tools"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Herramientas</strong>
+                      <small>Generadores y contratos</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="recipes.html">
+                    <span class="guide-start-panel__step">7</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-journal-code"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Prácticas</strong>
+                      <small>Cambios aplicados</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="diagrams.html">
+                    <span class="guide-start-panel__step">8</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-map"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Diagramas</strong>
+                      <small>Flujos visuales</small>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="reference.html">
+                    <span class="guide-start-panel__step">9</span>
+                    <span
+                      class="guide-start-panel__icon"
+                      data-guide-lottie-icon
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-book"></i>
+                    </span>
+                    <span class="guide-start-panel__copy">
+                      <strong>Referencia</strong>
+                      <small>Mapas rápidos</small>
+                    </span>
+                  </a>
+                </li>
+              </ol>
+              <a
+                class="guide-start-panel__diagnostic"
+                href="troubleshooting.html"
+              >
+                <i class="bi bi-life-preserver" aria-hidden="true"></i>
+                <span>Ayuda y diagnóstico</span>
+              </a>
+            </nav>
           </div>
         </div>
       </div>
     </header>
 
     <main class="container-fluid px-3 px-lg-4 py-4">
-      <section class="guide-section">
+      <section id="guide-content" class="guide-section">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h2 class="h4">Cómo leer esta guía</h2>
+            <h2 class="h4">Cómo usar esta guía</h2>
             <p>
-              Esta guía está escrita para leerse por niveles. Primero ubica el
-              mapa general: qué hace Gateway, qué hace Surface y qué contrato
-              comparten. Después entra a la página especializada que corresponda
-              a tu tarea. Si un término aparece por primera vez y todavía no
-              tiene sentido, no intentes memorizarlo: vuelve al vocabulario,
-              revisa el flujo general y recién entonces baja al archivo de
-              código concreto.
+              Esta página se debe usar como punto de entrada. Para una primera
+              aproximación al proyecto, se recomienda seguir la secuencia
+              propuesta. Ante una tarea concreta, se puede acudir al
+              <a href="index.html#capability-matrix">mapa de capacidades</a>.
+              Para diagnosticar un error, se debe consultar directamente
+              <a href="troubleshooting.html">Ayuda</a>. La idea no es leer todo
+              de memoria: primero se debe ubicar la responsabilidad y después
+              entrar al archivo o contrato correspondiente.
             </p>
-            <div class="table-responsive">
-              <table class="table table-striped table-guide align-middle">
-                <thead>
-                  <tr>
-                    <th>Capa</th>
-                    <th>Qué resuelve</th>
-                    <th>Lectura recomendada</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Orientación</td>
-                    <td>
+            <div class="guide-use-compass">
+              <ol
+                class="guide-use-compass__list"
+                aria-label="Secuencia recomendada para usar la guía"
+              >
+                <li class="guide-use-compass__item">
+                  <span class="guide-use-compass__marker" aria-hidden="true"
+                    >O</span
+                  >
+                  <div class="guide-use-compass__body">
+                    <h3>Orientación</h3>
+                    <p>
                       Entender vocabulario, superficies y responsabilidades sin
                       entrar todavía al código.
-                    </td>
-                    <td>
-                      <a href="fundamentals.html#vocabulary"
-                        >Vocabulario mínimo</a
+                    </p>
+                    <p class="guide-use-compass__links">
+                      <a href="fundamentals.html#vocabulary">Vocabulario</a>
+                      <a href="fundamentals.html#project-model"
+                        >Modelo del proyecto</a
                       >
-                      y
-                      <a href="fundamentals.html#mental-model">modelo mental</a
-                      >.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Construcción</td>
-                    <td>
-                      Identificar qué archivo corresponde a página, fragment,
-                      JSON, outbound, sesión, assets o UI progresiva.
-                    </td>
-                    <td>
-                      <a href="app-gateway.html#gateway-first-read">Gateway</a>,
+                    </p>
+                  </div>
+                </li>
+                <li class="guide-use-compass__item">
+                  <span class="guide-use-compass__marker" aria-hidden="true"
+                    >C</span
+                  >
+                  <div class="guide-use-compass__body">
+                    <h3>Construcción</h3>
+                    <p>
+                      Identificar qué archivo toca una tarea concreta: página,
+                      fragment, JSON, outbound, sesión, assets o UI progresiva.
+                    </p>
+                    <p class="guide-use-compass__links">
+                      <a href="app-gateway.html#gateway-first-read">Gateway</a>
                       <a href="app-surface.html#surface-first-read">Surface</a>
-                      y <a href="bridge.html#bridge-first-read">Bridge</a>.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Profundidad</td>
-                    <td>
-                      Aprender contratos, lifecycle, errores, parcialidad,
-                      observabilidad, adapters, Vite y composición completa.
-                    </td>
-                    <td>
-                      Matrices de capacidades, secciones internas y
-                      <a href="diagrams.html#diagram-list">lista de diagramas</a
-                      >.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Aplicación</td>
-                    <td>
-                      Convertir lo aprendido en cambios concretos y validar que
-                      todo siga conectado.
-                    </td>
-                    <td>
-                      <a href="recipes.html#how-to-use">Guías paso a paso</a>,
-                      <a href="reference.html#how-to-use">referencia</a> y
+                      <a href="bridge.html#bridge-first-read">Bridge</a>
+                    </p>
+                  </div>
+                </li>
+                <li class="guide-use-compass__item">
+                  <span class="guide-use-compass__marker" aria-hidden="true"
+                    >P</span
+                  >
+                  <div class="guide-use-compass__body">
+                    <h3>Profundidad</h3>
+                    <p>
+                      Entrar a contratos, lifecycle, errores, assets y
+                      composición completa.
+                    </p>
+                    <p class="guide-use-compass__links">
+                      <a href="index.html#capability-matrix"
+                        >Mapa de capacidades</a
+                      >
+                      <a href="diagrams.html#diagram-list">Diagramas</a>
+                    </p>
+                  </div>
+                </li>
+                <li class="guide-use-compass__item">
+                  <span class="guide-use-compass__marker" aria-hidden="true"
+                    >A</span
+                  >
+                  <div class="guide-use-compass__body">
+                    <h3>Aplicación</h3>
+                    <p>
+                      Ejecutar cambios concretos, validar conexiones y
+                      diagnosticar fallos esperados.
+                    </p>
+                    <p class="guide-use-compass__links">
+                      <a href="recipes.html#how-to-use">Prácticas</a>
+                      <a href="reference.html#how-to-use">Referencia</a>
                       <a href="troubleshooting.html#diagnostic-method"
-                        >diagnóstico</a
-                      >.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        >Diagnóstico</a
+                      >
+                    </p>
+                  </div>
+                </li>
+              </ol>
             </div>
             <p class="guide-crosslink">
               <em>
-                Resumen no significa recorte: cada página empieza con el mapa
-                corto y después desarrolla el detalle. La fuente de verdad
-                técnica sigue siendo el código, la configuración y el filesystem
-                real.
+                Cada página abre con un mapa corto y luego entra en detalle.
+                Para validar comportamiento, se debe revisar el código, la
+                configuración y la estructura real del proyecto.
               </em>
             </p>
           </div>
@@ -265,29 +396,42 @@
       <section class="guide-section">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h2 class="h4">Recorrido recomendado</h2>
-            <p class="guide-crosslink">
-              <em>
-                Para una lectura sin una tarea puntual, el recorrido recomendado
-                inicia en <a href="getting-started.html">Empezar</a> y continúa
-                con <a href="fundamentals.html">Bases</a>, donde se explica cómo
-                se conectan las páginas siguientes. Cuando necesites crear
-                componentes o contratos, primero ubica el flujo y luego salta a
-                <a href="tools.html">Herramientas</a> para usar los comandos
-                como apoyo.
-              </em>
+            <h2 class="h4">Ruta de lectura</h2>
+            <p>
+              La primera lectura puede seguir esta secuencia: comienza con
+              <a href="getting-started.html#install">instalación</a> y contexto
+              base, continúa con <a href="app-gateway.html">Gateway</a>,
+              <a href="app-surface.html">Surface</a> y
+              <a href="bridge.html">Bridge</a>, y finaliza con la consulta de
+              <a href="tools.html">herramientas</a>,
+              <a href="recipes.html">prácticas</a>,
+              <a href="diagrams.html">diagramas</a>,
+              <a href="reference.html">referencia</a> o
+              <a href="troubleshooting.html">ayuda</a> según la necesidad.
             </p>
             <div class="row g-3">
               <div class="col-md-6 col-xl-3">
                 <a class="guide-card-link" href="getting-started.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-primary mb-2">Start</span>
+                      <span class="badge text-bg-primary mb-2">Inicio</span>
                       <h2 class="h5">Empezar</h2>
                       <p class="mb-0">
-                        Requisitos, clonación, dependencias, `.env`, build y
-                        primera ejecución local.
+                        Preparación del entorno de trabajo y comprobación de que
+                        el proyecto puede ejecutarse correctamente.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">PHP</span>
+                            <span class="guide-mini-map__tag">Composer</span>
+                            <span class="guide-mini-map__tag">Node.js</span>
+                            <span class="guide-mini-map__tag">npm</span>
+                            <span class="guide-mini-map__tag">.env</span>
+                            <span class="guide-mini-map__tag">Vite</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -296,12 +440,26 @@
                 <a class="guide-card-link" href="fundamentals.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-primary mb-2">Basics</span>
+                      <span class="badge text-bg-primary mb-2"
+                        >Orientación</span
+                      >
                       <h2 class="h5">Bases</h2>
                       <p class="mb-0">
-                        Modelo mental, ownership, flujo request-response y
-                        límites de arquitectura.
+                        Visión general del sistema, responsabilidades de cada
+                        parte y criterios para ubicar cada cambio.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">Gateway</span>
+                            <span class="guide-mini-map__tag">Surface</span>
+                            <span class="guide-mini-map__tag">Bridge</span>
+                            <span class="guide-mini-map__tag"
+                              >request-response</span
+                            >
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -310,12 +468,24 @@
                 <a class="guide-card-link" href="app-gateway.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-primary mb-2">Gateway</span>
+                      <span class="badge text-bg-primary mb-2">Servidor</span>
                       <h2 class="h5">App Gateway</h2>
                       <p class="mb-0">
-                        Routing, middleware, controllers, use cases, services,
-                        connectors, views y errores.
+                        Recepción de solicitudes, aplicación de reglas,
+                        comunicación con servicios y entrega de respuestas.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">routing</span>
+                            <span class="guide-mini-map__tag">middleware</span>
+                            <span class="guide-mini-map__tag">controllers</span>
+                            <span class="guide-mini-map__tag">use cases</span>
+                            <span class="guide-mini-map__tag">connectors</span>
+                            <span class="guide-mini-map__tag">views</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -324,12 +494,26 @@
                 <a class="guide-card-link" href="app-surface.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-primary mb-2">Surface</span>
+                      <span class="badge text-bg-primary mb-2">Interfaz</span>
                       <h2 class="h5">App Surface</h2>
                       <p class="mb-0">
-                        Startup, runtime, pages, fragments, bindings, HTTP,
-                        sesión, toolkit y Vite.
+                        Activación de la experiencia visual, interacción en
+                        pantalla y actualización progresiva del contenido.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">startup</span>
+                            <span class="guide-mini-map__tag">runtime</span>
+                            <span class="guide-mini-map__tag">pages</span>
+                            <span class="guide-mini-map__tag">fragments</span>
+                            <span class="guide-mini-map__tag">bindings</span>
+                            <span class="guide-mini-map__tag"
+                              >serverClient</span
+                            >
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -341,12 +525,31 @@
                 <a class="guide-card-link" href="bridge.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-success mb-2">Bridge</span>
+                      <span class="badge text-bg-success mb-2"
+                        >Integración</span
+                      >
                       <h2 class="h5">Gateway / Surface</h2>
                       <p class="mb-0">
-                        HTML SSR, `data-surface-*`, envelope JSON, headers de
-                        sesión y manifest Vite.
+                        Acuerdos que permiten coordinar la información, la
+                        interacción y la continuidad de la experiencia.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">HTML SSR</span>
+                            <span class="guide-mini-map__tag"
+                              >data-surface-&lt;element&gt;</span
+                            >
+                            <span class="guide-mini-map__tag"
+                              >JSON envelope</span
+                            >
+                            <span class="guide-mini-map__tag"
+                              >X-TAB-SESSION</span
+                            >
+                            <span class="guide-mini-map__tag">manifest</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -356,29 +559,26 @@
                   <div class="card h-100 concept-card">
                     <div class="card-body">
                       <span class="badge text-bg-success mb-2"
-                        >Herramientas</span
+                        >Automatización</span
                       >
-                      <h2 class="h5">Scaffolding y contratos</h2>
+                      <h2 class="h5">Herramientas</h2>
                       <p class="mb-0">
-                        Generadores para crear bases repetibles sin decidir la
-                        arquitectura por el dev.
+                        Asistentes que reducen trabajo repetitivo y preparan
+                        estructuras iniciales consistentes.
                       </p>
                       <ul class="guide-mini-map guide-mini-map--compact">
                         <li>
-                          <strong>Scaffolding</strong>
-                          <code>make:*</code>
-                        </li>
-                        <li>
-                          <strong>Surface</strong>
-                          <code>integration-page / fragment / api</code>
-                        </li>
-                        <li>
-                          <strong>Contratos</strong>
-                          <code>http:contract / surface:contract</code>
-                        </li>
-                        <li>
-                          <strong>Configuración</strong>
-                          <code>robo-configurations.json</code>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag"
+                              >composer robo -- make:*</span
+                            >
+                            <span class="guide-mini-map__tag"
+                              >http:contract</span
+                            >
+                            <span class="guide-mini-map__tag"
+                              >surface:contract</span
+                            >
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -389,26 +589,26 @@
                 <a class="guide-card-link" href="recipes.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-success mb-2">Guides</span>
-                      <h2 class="h5">Guías prácticas</h2>
+                      <span class="badge text-bg-success mb-2"
+                        >Procedimientos</span
+                      >
+                      <h2 class="h5">Prácticas</h2>
                       <p class="mb-0">
-                        Crear páginas, fragments, endpoints JSON, integraciones
-                        UI y llamadas outbound.
+                        Prácticas para resolver necesidades frecuentes de forma
+                        ordenada.
                       </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-xl-3">
-                <a class="guide-card-link" href="reference.html">
-                  <div class="card h-100 concept-card">
-                    <div class="card-body">
-                      <span class="badge text-bg-secondary mb-2">Ref</span>
-                      <h2 class="h5">Referencia</h2>
-                      <p class="mb-0">
-                        `.env`, scripts, rutas principales, headers, contratos y
-                        carpetas.
-                      </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">pages</span>
+                            <span class="guide-mini-map__tag">fragments</span>
+                            <span class="guide-mini-map__tag">JSON</span>
+                            <span class="guide-mini-map__tag">outbound</span>
+                            <span class="guide-mini-map__tag">DI</span>
+                            <span class="guide-mini-map__tag">sesión</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -417,26 +617,49 @@
                 <a class="guide-card-link" href="diagrams.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-info mb-2">Maps</span>
+                      <span class="badge text-bg-info mb-2">Mapas</span>
                       <h2 class="h5">Diagramas</h2>
                       <p class="mb-0">
-                        Visor Markdown/Mermaid para recorrer los diagramas vivos
-                        de esta guía.
+                        Representaciones visuales para comprender flujos,
+                        relaciones y fronteras del sistema.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">Markdown</span>
+                            <span class="guide-mini-map__tag">Mermaid</span>
+                            <span class="guide-mini-map__tag"
+                              >arquitectura</span
+                            >
+                            <span class="guide-mini-map__tag">flujos</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
               </div>
               <div class="col-md-6 col-xl-3">
-                <a class="guide-card-link" href="pillars-capabilities.html">
+                <a class="guide-card-link" href="reference.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-info mb-2">Stack</span>
-                      <h2 class="h5">Capacidades</h2>
+                      <span class="badge text-bg-secondary mb-2">Consulta</span>
+                      <h2 class="h5">Referencia</h2>
                       <p class="mb-0">
-                        Presentación sobre valor operativo, onboarding, stack
-                        técnico y reducción de complejidad inicial.
+                        Datos concretos para confirmar nombres, ubicaciones,
+                        configuraciones y señales de diagnóstico.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">.env</span>
+                            <span class="guide-mini-map__tag">scripts</span>
+                            <span class="guide-mini-map__tag">rutas</span>
+                            <span class="guide-mini-map__tag">headers</span>
+                            <span class="guide-mini-map__tag">contratos</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -445,12 +668,48 @@
                 <a class="guide-card-link" href="troubleshooting.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <span class="badge text-bg-secondary mb-2">Help</span>
+                      <span class="badge text-bg-secondary mb-2">Soporte</span>
                       <h2 class="h5">Ayuda</h2>
                       <p class="mb-0">
-                        Errores frecuentes: manifest, montaje UI, sesión, JSON,
-                        DI y outbound.
+                        Orientación para identificar problemas frecuentes y
+                        ubicar el punto adecuado de revisión.
                       </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">manifest</span>
+                            <span class="guide-mini-map__tag">montaje</span>
+                            <span class="guide-mini-map__tag">sesión</span>
+                            <span class="guide-mini-map__tag">JSON</span>
+                            <span class="guide-mini-map__tag">DI</span>
+                            <span class="guide-mini-map__tag">outbound</span>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6 col-xl-3">
+                <a class="guide-card-link" href="bondades.html">
+                  <div class="card h-100 concept-card">
+                    <div class="card-body">
+                      <span class="badge text-bg-info mb-2">Visión</span>
+                      <h2 class="h5">Capacidades</h2>
+                      <p class="mb-0">
+                        Presentación del valor operativo de la plataforma y de
+                        los beneficios de adoptar una base común.
+                      </p>
+                      <ul class="guide-mini-map guide-mini-map--compact">
+                        <li>
+                          <div class="guide-mini-map__tags">
+                            <span class="guide-mini-map__tag">Gateway</span>
+                            <span class="guide-mini-map__tag">Surface</span>
+                            <span class="guide-mini-map__tag">Guide</span>
+                            <span class="guide-mini-map__tag">Tooling</span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </div>
                 </a>
@@ -460,297 +719,487 @@
         </div>
       </section>
 
-      <section class="guide-section">
+      <section id="capability-matrix" class="guide-section">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h2 class="h4">Matriz de capacidades</h2>
+            <h2 class="h4">Mapa de capacidades</h2>
             <p>
-              Esta tabla funciona como entrada por tarea. Los ejemplos usan
-              nombres neutrales y placeholders: deben reemplazarse por la
-              intención real del proyecto sin alterar los contratos entre Core,
-              Extension y Surface.
+              Este mapa sirve para comenzar por la necesidad concreta, sin
+              recorrer toda la arquitectura antes de actuar. Primero se debe
+              reconocer qué resultado se busca: entregar HTML, intercambiar
+              datos o activar comportamiento en el navegador. Después se sigue
+              la línea correspondiente hasta las páginas, contratos y prácticas
+              que explican cómo construirlo.
             </p>
-            <div class="table-responsive">
-              <table class="table table-striped table-guide">
-                <thead>
-                  <tr>
-                    <th>Quiero crear</th>
-                    <th>Gateway</th>
-                    <th>Surface</th>
-                    <th>Mapa útil</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Página SSR activable</td>
-                    <td>
-                      Route, controller, <code>renderControlView(...)</code> o
-                      <code>renderAccessView(...)</code>.
-                    </td>
-                    <td>
-                      <code>data-surface-page</code>, integración,
-                      <code>UiBinding</code> y registro.
-                    </td>
-                    <td>
-                      <a
-                        href="diagrams.html#diagram-bridge-ssr-progressive-enhancement"
-                        >Escenario página</a
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Fragment HTML remoto</td>
-                    <td>
-                      Route, controller, <code>renderFragmentView(...)</code> y
-                      partial de error controlado.
-                    </td>
-                    <td>
-                      <code>serverClient.html(...)</code>, validación
-                      <code>expect</code>, <code>contentMount</code>
-                      y fragment runtime.
-                    </td>
-                    <td>
-                      <a
-                        href="diagrams.html#diagram-bridge-fragments-dynamic-content"
-                        >Escenario fragment</a
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Endpoint JSON</td>
-                    <td>
-                      Controller + use case + <code>respondJson(...)</code> con
-                      <code>UseCaseResult</code>.
-                    </td>
-                    <td>
-                      <code>contracts.ts</code>, <code>api.ts</code>,
-                      <code>serverClient.data(...)</code>, errores UI y
-                      respuesta parcial.
-                    </td>
-                    <td>
-                      <a
-                        href="diagrams.html#diagram-bridge-json-session-assets-contracts"
-                        >Escenario JSON</a
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Integración externa</td>
-                    <td>
-                      Port, connector, service si agrega valor,
-                      <code>ConnectorResult</code> y outbound client.
-                    </td>
-                    <td>No llama servicios externos; consume Gateway.</td>
-                    <td>
-                      <a
-                        href="diagrams.html#diagram-gateway-outbound-services-connectors"
-                        >Escenario outbound</a
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Degradación o error visible</td>
-                    <td>
-                      <code>required(...)</code>, <code>optional(...)</code>,
-                      error kind/origin y envelope.
-                    </td>
-                    <td>
-                      Partial reporter, <code>SessionError</code>,
-                      <code>UserActionError</code> o <code>FatalError</code>.
-                    </td>
-                    <td>
-                      <a
-                        href="diagrams.html#diagram-gateway-usecases-results-errors"
-                        >Escenario errores</a
-                      >
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>UI enriquecida opt-in</td>
-                    <td>Entrega HTML o JSON; no conoce adapters UI.</td>
-                    <td>
-                      Toolkit, adapters, feedback, cleanup y vendors lazy.
-                    </td>
-                    <td>
-                      <a
-                        href="diagrams.html#diagram-surface-workspace-toolkit-adapters"
-                        >Escenario UI</a
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div
+              class="capability-metro"
+              aria-label="Mapa tipo metro de capacidades"
+            >
+              <div class="capability-metro__legend" aria-hidden="true">
+                <span
+                  class="capability-metro__legend-item capability-metro__legend-item--ssr"
+                  >SSR / HTML</span
+                >
+                <span
+                  class="capability-metro__legend-item capability-metro__legend-item--data"
+                  >Datos / contratos</span
+                >
+                <span
+                  class="capability-metro__legend-item capability-metro__legend-item--runtime"
+                  >Runtime / experiencia</span
+                >
+              </div>
+
+              <div class="capability-metro__lines">
+                <section
+                  class="capability-metro__line capability-metro__line--ssr"
+                  aria-labelledby="capability-line-ssr"
+                >
+                  <div class="capability-metro__line-head">
+                    <span class="capability-metro__line-code">L1</span>
+                    <div>
+                      <h3 id="capability-line-ssr">SSR / HTML</h3>
+                      <p>
+                        Páginas y fragmentos que nacen en Gateway y se activan
+                        en Surface.
+                      </p>
+                    </div>
+                  </div>
+                  <ol class="capability-metro__stations">
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Página SSR activable</h4>
+                        <p>
+                          Ruta y vista SSR en Gateway; integración registrada y
+                          binding de página en Surface.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              Route · Controller · renderControlView(...) /
+                              renderAccessView(...)
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              data-surface-page · integration.ts · page.ts ·
+                              UiBinding · registry.ts
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-bridge-ssr-progressive-enhancement"
+                          >Escenario página</a
+                        >
+                      </div>
+                    </li>
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Fragment HTML remoto</h4>
+                        <p>
+                          HTML embebible desde Gateway; solicitud, validación y
+                          activación del fragment en Surface.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              Route · Controller · renderFragmentView(...)
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              serverClient.html(...) · expect.fragmentId ·
+                              data-surface-fragment · FragmentRuntime
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-bridge-fragments-dynamic-content"
+                          >Escenario fragment</a
+                        >
+                      </div>
+                    </li>
+                  </ol>
+                </section>
+
+                <section
+                  class="capability-metro__line capability-metro__line--data"
+                  aria-labelledby="capability-line-data"
+                >
+                  <div class="capability-metro__line-head">
+                    <span class="capability-metro__line-code">L2</span>
+                    <div>
+                      <h3 id="capability-line-data">Datos / contratos</h3>
+                      <p>
+                        JSON, salidas externas y errores que deben conservar
+                        contratos visibles.
+                      </p>
+                    </div>
+                  </div>
+                  <ol class="capability-metro__stations">
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Endpoint JSON</h4>
+                        <p>
+                          Gateway adapta el use case al envelope; Surface
+                          declara contratos y consume datos tipados.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              Controller · Use case · respondJson(...) ·
+                              UseCaseResult
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              contracts.ts · api.ts · actions.ts ·
+                              serverClient.data(...) / serverClient.json(...)
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-bridge-json-session-assets-contracts"
+                          >Escenario JSON</a
+                        >
+                      </div>
+                    </li>
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Integración externa</h4>
+                        <p>
+                          Gateway modela connectors y composición; Surface
+                          consume solo el endpoint expuesto.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              *ConnectorInterface · Connector · Outbound client
+                              · ConnectorResult · Service opcional
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>Contrato HTTP Gateway visible para Surface</dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-gateway-outbound-services-connectors"
+                          >Escenario outbound</a
+                        >
+                      </div>
+                    </li>
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Degradación o error visible</h4>
+                        <p>
+                          Gateway distingue carriles y parcialidad; Surface
+                          presenta advertencias y errores clasificados.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              takeOrAbort(...) · ConnectorFlowInterface ·
+                              required(...) / optional(...) · errorKind
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              PartialReporter · SessionError · UserActionError ·
+                              FatalError
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-gateway-usecases-results-errors"
+                          >Escenario errores</a
+                        >
+                      </div>
+                    </li>
+                  </ol>
+                </section>
+
+                <section
+                  class="capability-metro__line capability-metro__line--runtime"
+                  aria-labelledby="capability-line-runtime"
+                >
+                  <div class="capability-metro__line-head">
+                    <span class="capability-metro__line-code">L3</span>
+                    <div>
+                      <h3 id="capability-line-runtime">
+                        Runtime / experiencia
+                      </h3>
+                      <p>
+                        Sesión, assets y capacidades visuales que sostienen la
+                        experiencia progresiva.
+                      </p>
+                    </div>
+                  </div>
+                  <ol class="capability-metro__stations">
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Sesión por pestaña</h4>
+                        <p>
+                          Gateway resuelve la pestaña activa; Surface hidrata y
+                          sincroniza la vigencia recibida.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              TabSessionRequestResolver · X-TAB-SESSION ·
+                              X-TAB-SESSION-NAV · X-REMAINING
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              sessionStorage · input SSR _tab · X-TAB-SESSION ·
+                              X-REMAINING
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-bridge-json-session-assets-contracts"
+                          >Escenario sesión</a
+                        >
+                      </div>
+                    </li>
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>Assets Vite y base HTTP</h4>
+                        <p>
+                          Gateway publica assets y base HTTP; Surface genera
+                          manifest y construye solicitudes.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              vite_styles() · vite_script() · manifest ·
+                              modulepreload · window.__BASE_URL__
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              vite.config.ts · baseUrl(...) ·
+                              window.__BASE_URL__
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-bridge-json-session-assets-contracts"
+                          >Escenario assets</a
+                        >
+                      </div>
+                    </li>
+                    <li class="capability-station">
+                      <span
+                        class="capability-station__node"
+                        aria-hidden="true"
+                      ></span>
+                      <div class="capability-station__body">
+                        <h4>UI enriquecida bajo demanda</h4>
+                        <p>
+                          Gateway entrega HTML o JSON; Surface activa adapters
+                          visuales y libera recursos al desmontar.
+                        </p>
+                        <dl class="capability-station__flow">
+                          <div>
+                            <dt>Gateway</dt>
+                            <dd>
+                              HTML o JSON sin conocimiento de adapters de UI
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Surface</dt>
+                            <dd>
+                              Toolkit · Adapters · UiBinding · contentMount ·
+                              Cleanup · Vendors lazy
+                            </dd>
+                          </div>
+                        </dl>
+                        <a
+                          href="diagrams.html#diagram-surface-workspace-toolkit-adapters"
+                          >Escenario UI</a
+                        >
+                      </div>
+                    </li>
+                  </ol>
+                </section>
+              </div>
             </div>
-            <div class="guide-callout guide-callout--structured">
+            <div
+              class="guide-callout guide-callout--structured guide-callout--responsibility-map"
+            >
               <div class="guide-callout__header">
                 <span class="guide-callout__eyebrow">Lectura inicial</span>
                 <strong class="guide-callout__title">
-                  Ubica primero la responsabilidad y luego entra al archivo.
+                  Primero se debe ubicar la responsabilidad y después entrar al
+                  archivo.
                 </strong>
               </div>
-              <ul class="guide-key-grid">
-                <li>
-                  <strong>Rutas</strong>
-                  <code>Extension/Presentation/Http/Routing</code>
-                </li>
-                <li>
-                  <strong>Controllers</strong>
-                  <code>Extension/Presentation/Http/Controller</code>
-                </li>
-                <li>
-                  <strong>Use cases</strong>
-                  <code>Extension/Application/UseCase</code>
-                </li>
-                <li>
-                  <strong>Services</strong>
-                  <code>Extension/Application/Service</code>
-                </li>
-                <li>
-                  <strong>Ports</strong>
-                  <code
-                    >Extension/Application/Port/*ConnectorInterface.php</code
-                  >
-                </li>
-                <li>
-                  <strong>Connectors</strong>
-                  <code>Extension/Infrastructure/Outbound/Connector</code>
-                </li>
-                <li>
-                  <strong>Clients externos</strong>
-                  <code
-                    >Extension/Infrastructure/Outbound/Client/&lt;Service&gt;</code
-                  >
-                </li>
-                <li>
-                  <strong>Vistas SSR</strong>
-                  <code>resources/views</code>
-                </li>
-                <li>
-                  <strong>Bindings Surface</strong>
-                  <code
-                    >app-surface/workspace/integrations/&lt;feature&gt;</code
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="guide-section">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h2 class="h4">Rutas rápidas por tarea</h2>
-            <div class="row g-3">
-              <div class="col-md-6 col-xl-4">
-                <a class="guide-card-link" href="app-gateway.html#bootstrap-di">
-                  <div class="card h-100 concept-card">
-                    <div class="card-body">
-                      <h3 class="h5">Registrar servicios</h3>
-                      <p class="mb-0">
-                        Bootstrap, providers, DI y convenciones de connectors.
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-xl-4">
-                <a
-                  class="guide-card-link"
-                  href="app-surface.html#content-mount"
+              <div
+                class="guide-responsibility-map"
+                role="list"
+                aria-label="Mapa inicial de responsabilidades"
+              >
+                <article
+                  class="guide-responsibility-map__layer"
+                  role="listitem"
                 >
-                  <div class="card h-100 concept-card">
-                    <div class="card-body">
-                      <h3 class="h5">HTML remoto activo</h3>
-                      <p class="mb-0">
-                        Modales, toasts, fragments y limpieza con
-                        <code>contentMount</code>.
-                      </p>
-                    </div>
+                  <span
+                    class="guide-responsibility-map__badge"
+                    aria-hidden="true"
+                    >HTTP</span
+                  >
+                  <div class="guide-responsibility-map__summary">
+                    <h3>Entrada HTTP</h3>
+                    <p>
+                      Cuando el cambio nace en una URL, método, request,
+                      middleware o adaptación de entrada.
+                    </p>
                   </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-xl-4">
-                <a class="guide-card-link" href="bridge.html#error-contracts">
-                  <div class="card h-100 concept-card">
-                    <div class="card-body">
-                      <h3 class="h5">Errores HTTP</h3>
-                      <p class="mb-0">
-                        Envelope, status, errores UI y respuestas parciales.
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-xl-4">
-                <a class="guide-card-link" href="bridge.html#security">
-                  <div class="card h-100 concept-card">
-                    <div class="card-body">
-                      <h3 class="h5">CSRF y sesión</h3>
-                      <p class="mb-0">
-                        Campos hidden, headers, tab session y expiración.
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-6 col-xl-4">
-                <a
-                  class="guide-card-link"
-                  href="app-gateway.html#observability"
+                  <ul class="guide-responsibility-map__paths">
+                    <li>
+                      <strong>Rutas</strong>
+                      <code>Extension/Presentation/Http/Routing</code>
+                    </li>
+                    <li>
+                      <strong>Controllers</strong>
+                      <code>Extension/Presentation/Http/Controller</code>
+                    </li>
+                  </ul>
+                </article>
+                <article
+                  class="guide-responsibility-map__layer"
+                  role="listitem"
                 >
-                  <div class="card h-100 concept-card">
-                    <div class="card-body">
-                      <h3 class="h5">Trazar fallos</h3>
-                      <p class="mb-0">
-                        Logs, telemetría, upstreams y
-                        <code>X-Correlation-Id</code>.
-                      </p>
-                    </div>
+                  <span
+                    class="guide-responsibility-map__badge"
+                    aria-hidden="true"
+                    >APP</span
+                  >
+                  <div class="guide-responsibility-map__summary">
+                    <h3>Aplicación</h3>
+                    <p>
+                      Cuando la tarea expresa intención de negocio, composición
+                      de caso de uso o contrato visible para Extension.
+                    </p>
                   </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="guide-section">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h2 class="h4">Qué cubre esta guía</h2>
-            <div class="row g-3">
-              <div class="col-lg-4">
-                <h3 class="h6 text-uppercase text-secondary">
-                  Tutoriales gateway
-                </h3>
-                <ul class="mb-0">
-                  <li>Overview, routing, middleware y controllers.</li>
-                  <li>Use cases, services, connectors y outbound.</li>
-                  <li>Bootstrap, DI, route cache, errores y observabilidad.</li>
-                </ul>
-              </div>
-              <div class="col-lg-4">
-                <h3 class="h6 text-uppercase text-secondary">
-                  Tutoriales surface
-                </h3>
-                <ul class="mb-0">
-                  <li>Startup, layouts y runtime de montaje.</li>
-                  <li>Pages, fragments, bindings, HTTP y sesión.</li>
-                  <li>Content mount, toolkit, adapters, Vite y styles.</li>
-                </ul>
-              </div>
-              <div class="col-lg-4">
-                <h3 class="h6 text-uppercase text-secondary">
-                  Puente operativo
-                </h3>
-                <ul class="mb-0">
-                  <li>SSR + Progressive Enhancement.</li>
-                  <li>Contratos `data-surface-*` y envelope JSON.</li>
-                  <li>
-                    CSRF, tab session, headers, errores HTTP y assets Vite.
-                  </li>
-                </ul>
+                  <ul class="guide-responsibility-map__paths">
+                    <li>
+                      <strong>Use cases</strong>
+                      <code>Extension/Application/UseCase</code>
+                    </li>
+                    <li>
+                      <strong>Services</strong>
+                      <code>Extension/Application/Service</code>
+                    </li>
+                    <li>
+                      <strong>Ports</strong>
+                      <code
+                        >Extension/Application/Port/*ConnectorInterface.php</code
+                      >
+                    </li>
+                  </ul>
+                </article>
+                <article
+                  class="guide-responsibility-map__layer"
+                  role="listitem"
+                >
+                  <span
+                    class="guide-responsibility-map__badge"
+                    aria-hidden="true"
+                    >OUT</span
+                  >
+                  <div class="guide-responsibility-map__summary">
+                    <h3>Integración externa</h3>
+                    <p>
+                      Cuando el flujo sale hacia un servicio externo, traduce
+                      resultados o protege fallos de integración.
+                    </p>
+                  </div>
+                  <ul class="guide-responsibility-map__paths">
+                    <li>
+                      <strong>Connectors</strong>
+                      <code>Extension/Infrastructure/Outbound/Connector</code>
+                    </li>
+                    <li>
+                      <strong>Clients externos</strong>
+                      <code
+                        >Extension/Infrastructure/Outbound/Client/&lt;Service&gt;</code
+                      >
+                    </li>
+                  </ul>
+                </article>
+                <article
+                  class="guide-responsibility-map__layer"
+                  role="listitem"
+                >
+                  <span
+                    class="guide-responsibility-map__badge"
+                    aria-hidden="true"
+                    >UI</span
+                  >
+                  <div class="guide-responsibility-map__summary">
+                    <h3>Presentación</h3>
+                    <p>
+                      Cuando la salida es HTML SSR, activación progresiva o
+                      comportamiento TypeScript sobre una integración Surface.
+                    </p>
+                  </div>
+                  <ul class="guide-responsibility-map__paths">
+                    <li>
+                      <strong>Vistas SSR</strong>
+                      <code>resources/views</code>
+                    </li>
+                    <li>
+                      <strong>Bindings Surface</strong>
+                      <code
+                        >app-surface/workspace/integrations/&lt;feature&gt;</code
+                      >
+                    </li>
+                  </ul>
+                </article>
               </div>
             </div>
           </div>
@@ -760,16 +1209,17 @@
       <section id="next" class="guide-section">
         <div class="card border-0 shadow-sm">
           <div class="card-body">
-            <h2>Recorrido de la guía</h2>
+            <h2>Ruta de lectura</h2>
             <div class="row g-3">
               <div class="col-md-6 ms-md-auto">
                 <a class="guide-card-link" href="getting-started.html">
                   <div class="card h-100 concept-card">
                     <div class="card-body">
-                      <h3 class="h5">Continuar con: Empezar</h3>
+                      <h3 class="h5">Siguiente: Empezar</h3>
                       <p class="mb-0">
-                        Inicio recomendado: instalación, `.env`, build de assets
-                        y validación inicial del gateway con surface.
+                        Inicio recomendado: instalación, <code>.env</code>,
+                        build de assets y validación inicial del gateway con
+                        surface.
                       </p>
                     </div>
                   </div>
@@ -791,6 +1241,7 @@
     </footer>
 
     <script src="assets/lib/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/lib/js/lottie.min.js"></script>
     <script src="assets/js/guide.js"></script>
   </body>
 </html>

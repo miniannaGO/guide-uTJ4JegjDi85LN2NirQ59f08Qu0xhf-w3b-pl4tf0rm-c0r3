@@ -12,10 +12,10 @@
     const currentThemeLabel =
       window.GuideTheme?.labels?.[currentTheme] ?? "Dark mode";
     const ecosystemItem = guideNavigationItems.find(
-      ([href]) => href === "pillars-capabilities.html",
+      ([href]) => href === "bondades.html",
     );
     const regularItems = guideNavigationItems.filter(
-      ([href]) => href !== "pillars-capabilities.html",
+      ([href]) => href !== "bondades.html",
     );
 
     nav.innerHTML =
@@ -60,6 +60,7 @@
 
     const mobileTheme = renderMobileHeaderActions(currentThemeLabel);
 
+    bootNavbarTogglerLabel();
     window.GuideTheme?.boot?.(nav);
     if (mobileTheme) window.GuideTheme?.boot?.(mobileTheme);
   }
@@ -67,7 +68,7 @@
   function renderGuideNavItem(href, label, current) {
     const active = href === current ? " active" : "";
     const aria = href === current ? ' aria-current="page"' : "";
-    const isEcosystem = href === "pillars-capabilities.html";
+    const isEcosystem = href === "bondades.html";
     const target = isEcosystem ? ' target="_blank" rel="noopener"' : "";
     const accentClass = guideNavigationAccentClasses[href]
       ? ` ${guideNavigationAccentClasses[href]}`
@@ -124,6 +125,36 @@
     return container.querySelector(".guide-theme-mobile");
   }
 
+  function bootNavbarTogglerLabel() {
+    const toggler = document.querySelector(".navbar-toggler");
+    if (!toggler) return;
+
+    const updateLabel = () => {
+      const isOpen = toggler.getAttribute("aria-expanded") === "true";
+      toggler.setAttribute(
+        "aria-label",
+        isOpen ? "Cerrar navegación" : "Abrir navegación",
+      );
+    };
+
+    updateLabel();
+
+    if (toggler.dataset.guideTogglerLabelReady === "true") return;
+
+    toggler.dataset.guideTogglerLabelReady = "true";
+    toggler.addEventListener("click", () => {
+      window.setTimeout(updateLabel, 0);
+    });
+
+    const targetSelector = toggler.getAttribute("data-bs-target");
+    const target = targetSelector
+      ? document.querySelector(targetSelector)
+      : null;
+
+    target?.addEventListener("shown.bs.collapse", updateLabel);
+    target?.addEventListener("hidden.bs.collapse", updateLabel);
+  }
+
   function currentPage() {
     const page = window.location.pathname.split("/").pop();
 
@@ -132,6 +163,7 @@
 
   window.GuideDocs.navigation = {
     renderGlobalNavigation,
+    bootNavbarTogglerLabel,
     currentPage,
   };
 })();
